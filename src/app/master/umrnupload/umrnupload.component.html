@@ -1,0 +1,333 @@
+<div class="main-content" id="maincontent">
+
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4">
+
+
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                <span class="legal">UMRN Upload</span>
+            </div>
+
+            <div class="rightmenu">
+                <form FormGroup="UMRNUploadform">
+                    <div class="toolbar pull-right">
+                        <ul class="toolbar-content">
+
+
+                            <li id="btnNew" (click)="btnNew_click($event)">
+                                <i class="fa fa-download" aria-hidden="true" title="Export"></i>
+                                <label>
+                                    New
+                                </label>
+                            </li>
+
+
+
+                            <li id="btndownload" style="display:none;">
+                                <a style="color: #393939" id="AResponse" href="../../../../ExcelFiles/UMRN.xlsx"
+                                   download>
+                                    <i class="fa fa-download" aria-hidden="true" title="Export"></i>
+                                    <label>
+                                        Download Templet
+                                    </label>
+                                </a>
+                            </li>
+                            <li id="btnupload" style="display:none;">
+                                <!--<i class="fa fa-upload" aria-hidden="true" title="Export"></i>-->
+                                <input class="" type="file" #fileInput (change)="uploadUMRN();" />
+                                <label>
+                                    <!--<button class="btn btn-primary" (click)="uploadUMRN();">Upload</button>-->
+                                </label>
+                            </li>
+                            <li (click)="btnBack_click($event)" id="btnback">
+                                <i class="fa fa-file-text" aria-hidden="true" title="New"></i>
+                                <label>
+                                    Back
+                                </label>
+                            </li>
+                            <li style="display:none;">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
+                                <label>
+                                    Reject Mandate
+                                </label>
+                            </li>
+                            <li style="display:none;">
+                                <i class="fa fa-floppy-o" aria-hidden="true" title="Save"></i>
+                                <label>
+                                    Submit
+                                </label>
+                            </li>
+                            <li style="display: none">
+                                <i class="fa fa-key" aria-hidden="true" title="Reset Password"></i>
+                                <label>
+                                    Reset Password
+                                </label>
+                            </li>
+                            <li style="display: none">
+                                <i class="fa fa-times" aria-hidden="true"
+                                   title="Delete"></i>
+                                <label>
+                                    Delete
+                                </label>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <div class="" style="display:none;" id="divsave">
+                        <input type="button" class="" id="btnsave"
+                               value="Save" (click)="btnsave_click($event)" style="margin-top: 388px;" />
+
+
+                    </div>
+                </form>
+            </div>
+
+
+
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12 boxsetting" style="display:none;">
+                <div class="col-md-12 col-sm-12 col-xs-12 boxhead">
+                    <div class="row no-padding">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                    Corporate
+                                </label>
+                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                    <select id="" class="alldropdown">
+                                        <option value="volvo">Bank 1</option>
+                                        <option value="saab">Bank 2</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12  no-padding " style="display:none;">
+                            <input type="button" class="col-md-2 col-sm-12 col-xs-12 btn btn-success" id="btnOk"
+                                   value="Search" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%;float:right;" />
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12  no-padding ">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../ClientApp/assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv1" style="margin-top:5%;">
+
+            <label class="firstbtnongrid" (click)="downloadHeaderGrid()"><i class="fa fa-file-excel-o" style="padding-right: 5px!important;"></i>Export</label>
+
+            <table id="tblfirstumrnupload">
+                <thead>
+
+                    <tr>
+                        <th style="width:150px; display:none;">Upload No</th>
+                        <th style="width:150px;">Upload No</th>
+                        <th style="width:220px;">Created On</th>
+                        <th style="width:220px;">Created By</th>
+                        <th style="width:220px;">Total Count</th>
+                        <th style="width:220px;">Success Count</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Data of umrnupload" (dblclick)="doubleClick(Data)">
+                        <td style="width:150px; display:none;">{{Data.UploadHeaderId}}</td>
+                        <td style="width:150px;">{{Data.UploadNo}}</td>
+                        <td style="width:220px;">{{Data.CreatedOn}}</td>
+                        <td style="width:220px;">{{Data.UserName}}</td>
+                        <td style="width:220px;">{{Data.TotalCount}}</td>
+                        <td style="width:220px;">{{Data.SuccessCount}}</td>
+                    </tr>
+                    <tr *ngIf="umrnupload?.length == 0">
+                        <td colspan="5">No Record Found!</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv4" style="margin-top:1%; display:none;" #tblgrddetails>
+            <label style="font-size: 12px;font-weight: bold; color: #2fa9a8;" id="lblTotalCount"></label>
+
+            <span class="btnspa" id="">
+
+
+                <label class="btnexportumrn" (click)="downloadMaingriddetails()"><i class="fa fa-file-excel-o" style="padding-right: 5px!important;"></i>Export</label>
+                <!--<input type="button" class=" btn btn-success btnexcel"
+                value="Download Excel" (click)="downloadMaingriddetails()" />-->
+            </span>
+
+            <table id="tblgrddetails">
+                <thead>
+                    <tr>
+                        <th style="width:200px;">Legacy Upload Id</th>
+                        <th style="width:200px;">UMRN</th>
+                        <th style="width:120px;">Amount</th>
+                        <th style="width:220px;">Customer Name</th>
+                        <th style="width:220px;">Reference</th>
+                        <th style="width:120px;">From Date</th>
+                        <th style="width:120px;">To Date</th>
+                        <th style="width:120px;">Account Type</th>
+                        <th style="width:150px;">Account Number</th>
+                        <th style="width:150px;"> IFSC</th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Data of maingriddetails">
+                        <td style="width:200px;">{{Data.legacyUploadedID}}</td>
+                        <td style="width:200px;">{{Data.UMRN}}</td>
+                        <td style="width:120px;">{{Data.Amount}}</td>
+                        <td style="width:220px;">{{Data.CustomerName}}</td>
+                        <td style="width:220px;">{{Data.Refrence}}</td>
+                        <td style="width:120px;">{{Data.FromDate}}</td>
+                        <td style="width:120px;">{{Data.ToDate}}</td>
+                        <td style="width:120px;">{{Data.AccountType}}</td>
+                        <td style="width:150px;">{{Data.AccountNo}}</td>
+                        <td style="width:150px;">{{Data.IFSC}}</td>
+                    </tr>
+                    <tr *ngIf="maingriddetails?.length == 0">
+                        <td colspan="10">No Record Found!</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv3" style="margin-top:1%; display:none;">
+            <label style="font-size: 12px;font-weight: bold; color: #2fa9a8;" id="lblsuccessCount"></label>
+            <span class="btnspa" id="">
+
+                <label class="btnexportumrn" (click)="downloadgrdsuccess()"><i class="fa fa-file-excel-o" style="padding-right: 5px!important;"></i>Export</label>
+
+                <!--<input type="button" class=" btn btn-success btnexcel"
+                value="Download Excel" (click)="downloadgrdsuccess()" />-->
+            </span>
+            <table id="tblsuccess">
+                <thead>
+                    <tr>
+                        <th style="width:200px;">UMRN</th>
+                        <th style="width:120px;">Amount</th>
+                        <th style="width:220px;">Customer Name</th>
+                        <th style="width:220px;">Reference</th>
+                        <th style="width:120px;">From Date</th>
+                        <th style="width:120px;">To Date</th>
+                        <th style="width:120px;">Account Type</th>
+                        <th style="width:150px;">Account Number</th>
+                        <th style="width:150px;"> IFSC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Data of grdsuccess">
+
+                        <td style="width:200px;">{{Data.UMRN}}</td>
+                        <td style="width:120px;">{{Data.Amount}}</td>
+                        <td style="width:220px;">{{Data.CustomerName}}</td>
+                        <td style="width:220px;">{{Data.Refrence}}</td>
+                        <td style="width:120px;">{{Data.FromDate}}</td>
+                        <td style="width:120px;">{{Data.ToDate}}</td>
+                        <td style="width:120px;">{{Data.AccountType}}</td>
+                        <td style="width:150px;">{{Data.AccountNo}}</td>
+                        <td style="width:150px;">{{Data.IFSC}}</td>
+                    </tr>
+                    <tr *ngIf="grdsuccess?.length == 0">
+                        <td colspan="9">No Record Found!</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv2" style="margin-top:1%; display:none;">
+            <label style="font-size: 12px;font-weight: bold; color: #2fa9a8;" id="lblUnsuccessCount"></label>
+            <span class="btnspa" id="">
+
+                <label class="btnexportumrn" (click)="downloadgrdUnsuccess()"><i class="fa fa-file-excel-o" style="padding-right: 5px!important;"></i>Export</label>
+
+                <!--<input type="button" class=" btn btn-success btnexcel"
+                value="Download Excel" (click)="downloadgrdUnsuccess()" />-->
+            </span>
+            <table id="tblunsuccess">
+                <thead>
+                    <tr>
+                        <th style="width:100px;">UMRN</th>
+                        <th style="width:120px;">Amount</th>
+                        <th style="width:220px;">Customer Name</th>
+                        <th style="width:220px;">Reference</th>
+                        <th style="width:120px;">From Date</th>
+                        <th style="width:120px;">To Date</th>
+                        <th style="width:120px;">Account Type</th>
+                        <th style="width:150px;">Account Number</th>
+                        <th style="width:150px;"> IFSC</th>
+                        <th style="width:150px;"> Remark</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Data of grdunsuccess">
+                        <td style="width:100px;">{{Data.UMRN}}</td>
+                        <td style="width:120px;">{{Data.Amount}}</td>
+                        <td style="width:220px;">{{Data.CustomerName}}</td>
+                        <td style="width:220px;">{{Data.Refrence}}</td>
+                        <td style="width:120px;">{{Data.FromDate}}</td>
+                        <td style="width:120px;">{{Data.ToDate}}</td>
+                        <td style="width:120px;">{{Data.AccountType}}</td>
+                        <td style="width:150px;">{{Data.AccountNo}}</td>
+                        <td style="width:150px;">{{Data.IFSC}}</td>
+                        <td style="width:150px;">{{Data.Remark}}</td>
+                    </tr>
+                    <tr *ngIf="grdunsuccess?.length == 0">
+                        <td colspan="10">No Record Found!</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <label id="lblUploaderID" style="display:none;"></label>
+        <label id="lbltotalrecordcount" style="display:none;"></label>
+        <label id="lblvalidatedcount" style="display:none;"></label>
+        <label id="lblfilename" style="display:none;"></label>
+
+
+    </div>
+    <div class="modal success" id="myModal" [style.display]="showModalsave ? 'block' : 'none'">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <img src="../../ClientApp/assets/images/saveSuccessImg.png" />
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p> UMRN Uploaded Successfully</p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

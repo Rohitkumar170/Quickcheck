@@ -1,0 +1,2084 @@
+ 
+
+    <div class="main-content" id="maincontent">
+        <div class="content">
+            <form [formGroup]="NachMandate" autocomplete="off">
+                <div class="col-md-12 col-sm-6 col-xs-4  no-padding-right">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-4 col-xs-5">
+                            <span class="legal">NACH Mandate</span>
+                        </div>
+                        <div class="col-md-8 col-sm-9 col-xs-12" style="float: right">
+                            <div class="toolbar pull-right">
+                                <ul class="toolbar-content">
+                                    <li id="btnNew" [attr.disabled]="isDisabled ? '' : null">
+                                        <i class="fa fa-file-text" aria-hidden="true" title="New"></i>
+                                        <label>
+                                            New
+                                        </label>
+                                    </li>
+                                    <li id="btnEdit" *ngIf="btnedit">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"
+                                           title="Edit"></i>
+                                        <label>
+                                            Edit
+                                        </label>
+                                    </li>
+                                    <li id="btnScanPrint" *ngIf="btnscanprint">
+                                        <i class="fa fa-search"
+                                           aria-hidden="true" title="Mandate Scanned"></i>
+                                        <label>
+                                            Mandate Scanned
+                                        </label>
+                                    </li>
+
+                                    <li *ngIf="btnmandateprint">
+                                        <i class="fa fa-print" aria-hidden="true"
+                                           title="Mandate Printed"></i>
+                                        <label>
+                                            Mandate Printed
+                                        </label>
+                                    </li>
+                                    <li *ngIf="btnblackmandateprint" id="btnBlankMandateprint">
+                                        <a href="" target="_blank">
+                                            <i class="fa fa-print" aria-hidden="true" title="Print on printed mandate"></i>
+                                            <label>
+                                                Over Print-Mandate
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li *ngIf="btnoldoverprintmandate" id="btnOldOverPrintMandate">
+                                        <a href="" target="_blank">
+                                            <i class="fa fa-print" aria-hidden="true" title="Old Print on printed mandate"></i>
+                                            <label>
+                                                Old Over Print-Mandate
+                                            </label>
+                                        </a>
+                                    </li>
+                                    <li *ngIf="btnprint" id="btnPrint">
+                                        <i class="fa fa-print" aria-hidden="true"
+                                           title="Print"></i>
+                                        <label>
+                                            Print
+                                        </label>
+                                    </li>
+                                    <li *ngIf="btnscanhalf" id="btnScanHalf">
+                                        <i class="fa fa-search" aria-hidden="true"
+                                           title="Scan Signed Mandate"></i>
+                                        <label>
+                                            Scan and Upload Mandate
+                                        </label>
+                                    </li>
+                                    <li *ngIf="btnscan" id="btnScan">
+                                        <i class="fa fa-upload" aria-hidden="true"
+                                           title="Scan Signed Mandate"></i>
+                                        <label>
+                                            Upload Mandate
+                                        </label>
+                                    </li>
+                                    <li *ngIf="btnvalidate" id="btnValidate">
+                                        <i class="fa fa-check-circle" aria-hidden="true"
+                                           title="Account & Name validation"></i>
+                                        <label>
+                                            Validate
+                                        </label>
+                                    </li>
+                                    <li *ngIf="AEresponse">
+                                        <a runat="server" id="AResponse" href="" download>
+                                            <i class="fa fa-download"
+                                               aria-hidden="true" title=" Download Response XML"></i>
+                                            <label>
+                                                Download E-Mandate
+                                            </label>
+                                        </a>
+                                    </li>
+
+                                    <li id="LiRegistrationFund" *ngIf="btnregisfund">
+                                        <i class='fa fa-credit-card'></i>Registration Fund
+                                    </li>
+                                    <li id="btnBack" [attr.disabled]="isDisabledback ? '' : null">
+                                        <i class="fa fa-bars" aria-hidden="true" title="Back"></i>
+                                        <label>
+                                            Previous Records
+                                        </label>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
+                    <div id="ContentPlaceHolder1_overlay" class="col-xs-12 col-md-12 col-sm-12 overlay">
+                    </div>
+                    <div id="preloader_1" style="display: none; z-index: 9999; position: absolute;">
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <label>
+                            Loading...
+                        </label>
+                    </div>
+                    <div id="grd" style="display: none;">
+                    </div>
+                </div>
+                <span id="IsRefrence2Mandatory" style="display: none"></span>
+                <span id="lblmailmsg1" style="display: none"></span>
+                <span id="lblISSendEmailCustomer" style="display: none"> {{lblTodateMandataoryforEsign}}</span>
+
+                <span id="lblTodateMandataoryforEsign" style="display: none">
+                    {{lblTodateMandataoryforEsign}}
+                </span>
+
+                <span id="lblIsRefrenceEdit" style="display: none">True</span>
+                <span id="lblIsMandateEdit" style="display: none">True</span>
+                <span id="lblUserType" style="display: none">E</span>
+                <span id="lblBranchId" style="display: none">ArzBqYu631c=|9aGrJ6gMJEQ=</span>
+                <span id="lblEntityId" style="display: none">VxgEmrq2MuQ=|oIQ5k7rpPWI=</span>
+                <span id="lblRefId" style="display: none">FPNhL1CxmAY=|vuoN7ZQ0yJk=</span>
+                <span id="lblUserid" style="display: none">AGAnD2RKqfU=|mMIjyLyoOGA=</span>
+                <span id="lblOverMandate" style="display: none">False</span>
+                <span id="lblIsValidationCountEnable" style="display: none">1</span>
+                <span id="lblFinalBankValidationAdminCount" style="display: none">5</span>
+                <span id="lblFinalBankValidationUserCount" style="display: none">5</span>
+                <span id="lblFinalAcValidationAdminCount" style="display: none">5</span>
+                <span id="lblFinalAcValidationUserCount" style="display: none">5</span>
+                <span id="lblBankValidationAdminCount" style="display: none">1</span>
+                <span id="lblBankValidationUserCount" style="display: none">1</span>
+                <span id="lblAcValidationAdminCount" style="display: none">1</span>
+                <span id="lblAcValidationUserCount" style="display: none">1</span>
+                <span id="lblIsRefrenceCheck" style="display: none">False</span>
+                <span id="lblIsEMandate" style="display: none">True</span>
+                <span id="lblIsPhysicalMandate" style="display: none">True</span>
+                <span id="lblmandatecheck" style="display: none"></span>
+                <span id="lblrealamount" style="display: none"></span>
+
+                <div id="divform" class=" col-md-12 col-sm-12 col-xs-12 no-padding" style="display: block;">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding-right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 no-padding" style="display: none">
+                            <div class="form-group" style="margin-bottom: 5px;">
+                                <div class="col-sm-3 col-md-3 col-xs-3 no-padding modetypeform modeform" style="margin-top: 2px;">
+                                    <label class="col-sm-12 col-md-12 no-padding col-xs-12 control-label">
+                                        Mandate Mode:
+                                    </label>
+                                </div>
+                                <div id="DivMandateType" class="col-sm-9 col-md-9 col-xs-9 no-padding radio modewidthform  ">
+                                    <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-2 no-padding">
+                                        <input name="MandateMode" id="rdnone" checked="checked" value="N" type="radio" formControlName="MandateMode">
+                                        <span>None</span>
+                                    </label>
+                                    <label id="lblphysical" class="lblradiobtnss col-md-3 col-sm-3 col-xs-3 no-padding-right physicalwidth">
+                                        <input name="MandateMode" id="rdphysical" value="P" type="radio" formControlName="MandateMode">
+                                        <span>Physical</span>
+                                    </label>
+                                    <label id="lblemandate" class="lblradiobtnss col-md-4 col-sm-4 col-xs-4 no-padding-right">
+                                        <input name="MandateMode" id="rdEmandate" value="E" type="radio" formControlName="MandateMode">
+                                        <span>E-Mandate</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                <span class="note sizenote">
+                                    Note:*Customer signature must be done with only black gel
+                                    pen on printed NACH
+                                </span>
+                            </div>
+                            <div class=" col-md-6 col-sm-7 col-xs-12  no-padding ">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                    <div class="form-group pull-right col-md-8 col-sm-6 col-xs-8 no-padding catogeriebox">
+                                        <div class="row">
+                                            <div class="col-sm-4 col-md-4 col-xs-5 no-padding">
+                                                <label class="col-sm-12 col-md-12  col-xs-12 control-label" style="font-size: 12px;">
+                                                    Category Code:
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8 col-md-7 col-xs-7">
+
+                                                <select class="col-md-12 col-xs-12 col-sm-12" formControlName="Catagorycode" name="Catagorycode">
+                                                    <option value="">Select</option>
+                                                    <option *ngFor="let Category of Table11" value={{Category.CategoryCode}}>
+                                                        {{Category.CategoryName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-md-5 col-sm-7 col-xs-12 pull-right no-padding" id="DivModeType" style="display: none">
+                            <div class="form-group" style="margin-bottom: 5px;">
+                                <div class="col-sm-3 col-md-3 col-xs-3 no-padding modetypeform typetextalign" style="margin-top: 2px;">
+                                    <label class="col-sm-12 col-md-12 no-padding col-xs-12 control-label">
+                                        Mandate Type:
+                                    </label>
+                                </div>
+                                <div id="Div13" class="col-sm-9 col-md-9 col-xs-9 no-padding  radio ">
+                                    <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-2 no-padding-right">
+                                        <input name="Mandatetype" id="rdoNone" checked="checked" value="None" type="radio" class="padding" formControlName="Mandatetype" />
+                                        <span>None</span>
+                                    </label>
+                                    <label class="lblradiobtnss col-md-5 col-sm-5 col-xs-5 no-padding-right ">
+                                        <input name="Mandatetype" id="rdoNACH" value="E" type="radio" formControlName="Mandatetype" />
+                                        <span>First EMI PDC + NACH</span>
+                                    </label>
+                                    <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-2 no-padding-right">
+                                        <input name="Mandatetype" id="rdoNPDC" value="N" type="radio" formControlName="Mandatetype" />
+                                        <span>NPDC</span>
+                                    </label>
+                                    <label class="lblradiobtnss col-md-3 col-sm-3 col-xs-3 no-padding-right">
+                                        <input name="Mandatetype" id="rdoPDC" value="F" type="radio" formControlName="Mandatetype" />
+                                        <span>Full PDC</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="">
+                            <div class="scroll">
+                                <div id="accordion1" class="accordion-style1 panel-group">
+                                    <div class="panel panel-default">
+                                        <!--<div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" data-target="#mandate" aria-expanded="false">
+                                        <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>&nbsp;Mandate Form Detail
+                                        <label id="lblmandateId" class="status-lbl pull-right" style="font-weight: normal;
+                                            display: none">
+                                        </label>
+                                        <label id="ContentPlaceHolder1_lblMandateShowid" class="pull-right" style="font-weight: normal;
+                                            font-size: 12px; color: #fff; margin-right: 1%!important;">
+                                        </label>
+                                        <label id="ContentPlaceHolder1_lblemandatetype" class="pull-right" style="font-weight: normal;
+                                            font-size: 12px; color: #1f497d; margin-right: 1%!important;">
+                                        </label>
+                                        <label class="pull-right" style="font-size: 12px; color: #fff; float:right;">
+                                            Mandate ID :
+                                        </label>
+                                    </a>
+                                </h4>
+                            </div>-->
+                                        <!--<div class="panel-collapse collapse" id="mandate" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body" style="padding-bottom: 2px; overflow-y: auto; max-height: 477px;">-->
+                                        <div class="scroll" style="overflow-y:scroll; max-height:460px;">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
+                                                <div class="row">
+                                                    <div class="col-md-1 col-sm-1 col-xs-2" id="divqr">
+                                                        <img id="imgLogo" style="width: 100%; height: 45px;" src="../Logo/kOrqps_logo.png">
+                                                        <!--<img id="imgLogo" style="width: 100%; height: 45px;" src="{{Table1.ImagePath ? _isimage : '../Logo/kOrqps_logo.png'}}" />-->
+                                                    </div>
+                                                    <div class="col-md-11 col-sm-11 col-xs-10 no-padding" style="border-left: 1px solid #989797;">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 " style="border-bottom: 1px solid #989797;">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4 col-md-4 col-xs-3   labeldiv">
+                                                                                <label class="col-sm-12 col-md-12 col-xs-12 control-label">
+                                                                                    UMRN
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-sm-8 col-md-8 col-xs-9  mandatetextboxborder">
+                                                                                <input type="text" formControlName="UMRN" name="UMRN" class="col-sm-12 col-md-12 col-xs-12" id="Text1" [attr.disabled]="UMRNCodedesabled ? '' : null">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4 col-md-4 col-xs-5   labeldiv">
+                                                                                <label class="col-sm-12 col-md-12  col-xs-12 control-label  ">
+                                                                                    Date on Mandate
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-sm-8 col-md-8 col-xs-7  ">
+                                                                                <input type="date" formControlName="UMRNDATE" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12 col-xs-12 ">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4 col-md-4 col-xs-6   labeldiv">
+                                                                                <label class="col-sm-12 col-md-12  col-xs-12 control-label  ">
+                                                                                    Sponsor Bank Code
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-sm-8 col-md-8 col-xs-6 mandatetextboxborder ">
+                                                                                <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Sponsorcode">
+                                                                                    <option value="" selected>Select</option>
+                                                                                    <option *ngFor="let Sponcode of Table3" value={{Sponcode.utilityCode}}>
+                                                                                        {{Sponcode.name}}
+                                                                                    </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4 col-md-4 col-xs-4   labeldiv">
+                                                                                <label class="col-sm-12 col-md-12 col-xs-12  control-label  ">
+                                                                                    Utility Code
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-sm-8 col-md-8 col-xs-8 ">
+                                                                                <input type="text" [attr.disabled]="UtilityCodedesabled ? '' : null" formControlName="Utilitycode" class="col-sm-12 col-md-12 col-xs-12 " id="txtutilityCode" maxlength="18" placeholder="Enter Utility Code">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12  border">
+                                                <div class="row">
+                                                    <div class="col-md-2  col-sm-2 col-xs-12 " style="margin-top: 5px;">
+                                                        <div class="row">
+                                                            <div class="col-md-4 col-sm-4 col-xs-4 ">
+                                                                <div class="row">
+                                                                    <input type="checkbox" checked="checked" formControlName="Create" class="col-md-3 col-sm-3 col-xs-3" [attr.disabled]="CreateCodedesabled ? '' : null" style="margin: 0px">
+                                                                    <div class="col-md-9 col-sm-9 col-xs-9 ">
+                                                                        <label class=" col-md-12 col-xs-1 col-sm-1 control-label ">
+                                                                            Create
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 col-xs-4 no-padding">
+                                                                <div class="row">
+                                                                    <input type="checkbox" formControlName="Modify" class="col-md-3 col-sm-3 col-xs-3" [attr.disabled]="ModifyCodedesabled ? '' : null" style="margin: 0px">
+                                                                    <div class="col-md-9 col-sm-9 col-xs-9 no-padding">
+                                                                        <label class=" col-md-12 col-xs-1 col-sm-1 control-label no-padding">
+                                                                            Modify
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-4 col-xs-4 no-padding">
+                                                                <div class="row">
+                                                                    <input type="checkbox" formControlName="Cancel" class="col-md-3 col-sm-3 col-xs-3" [attr.disabled]="CancelCodedesabled ? '' : null" style="margin: 0px">
+                                                                    <div class="col-md-9 col-sm-9 col-xs-9 no-padding">
+                                                                        <label class=" col-md-12 col-xs-1 col-sm-1 control-label no-padding">
+                                                                            Cancel
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-10 col-xs-12 no-padding">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                            <div class="row">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-5 col-md-5 col-xs-5  labeldiv">
+                                                                                <label class="col-sm-12 col-md-12  col-xs-12 control-label  ">
+                                                                                    I/ We hereby Authorize
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7 ">
+                                                                                <input type="text" formControlName="Authrizename" class="col-sm-12 col-md-12 col-xs-12" id="txtEntityName" placeholder="Enter Entity Name" [attr.disabled]="EntityNameCodedesabled ? '' : null">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-sm6 col-xs-12 ">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-2 col-md-2 col-xs-12 no-padding labeldiv">
+                                                                                <label class="col-sm-12 col-md-12 no-padding col-xs-12 control-label">
+                                                                                    To Debit
+                                                                                </label>
+                                                                            </div>
+                                                                            <div id="debitto" class="col-sm-10 col-md-10 col-xs-12 no-padding-right radio">
+                                                                                <ng-container *ngFor="let Todebit of Table10;index as i">
+                                                                                    <label title="savings Account" class="lblradiobtnss col-md-1 col-sm-1 col-xs-4 no-padding-right" *ngIf="Todebit.todebit == 'SB'">
+                                                                                        <input name="Todebit" id="rdsb" value="sb" type="radio" [attr.disabled]="Todebit.isenable == true ? null : 'disabled'" formControlName="Todebit">
+                                                                                        <span>SB</span>
+                                                                                    </label>
+                                                                                    <label title="Current Account" class="lblradiobtnss col-md-2 col-sm-2 col-xs-4 no-padding-right" *ngIf="Todebit.todebit == 'CA'">
+                                                                                        <input name="Todebit" id="rdca" value="ca" type="radio" [attr.disabled]="Todebit.isenable == true ? null : 'disabled'" formControlName="Todebit">
+                                                                                        <span>CA</span>
+                                                                                    </label>
+                                                                                    <label title="Cash Credit" class="lblradiobtnss col-md-2 col-sm-2 col-xs-4 no-padding-right" *ngIf="Todebit.todebit == 'CC'">
+                                                                                        <input name="Todebit" id="rdcc" value="cc" type="radio" [attr.disabled]="Todebit.isenable == true ? null : 'disabled'" formControlName="Todebit">
+                                                                                        <span>CC</span>
+                                                                                    </label>
+                                                                                    <label title="Saving-Non-Resident Rupee(NRE)" class="lblradiobtnss col-md-2 col-sm-3 col-xs-4 no-padding-right" *ngIf="Todebit.todebit == 'SB-NRE'">
+                                                                                        <input name="Todebit" id="rdnbre" value="re" type="radio" [attr.disabled]="Todebit.isenable == true ? null : 'disabled'" formControlName="Todebit">
+                                                                                        <span>SB-NRE</span>
+                                                                                    </label>
+                                                                                    <label title="Saving-Non-Resident Ordinary(NRO)" class="lblradiobtnss col-md-2 col-sm-2 col-xs-4 no-padding-right" *ngIf="Todebit.todebit == 'SB-NRO'">
+                                                                                        <input name="Todebit" id="rdsbnrd" value="rd" type="radio" [attr.disabled]="Todebit.isenable == true ? null : 'disabled'" formControlName="Todebit">
+                                                                                        <span>SB-NRO</span>
+                                                                                    </label>
+                                                                                    <label title="Other" class="lblradiobtnss col-md-2 col-sm-2 col-xs-4 no-padding-right" *ngIf="Todebit.todebit == 'Other'">
+                                                                                        <input name="Todebit" id="rdother" value="ot" type="radio" [attr.disabled]="Todebit.isenable == true ? null : 'disabled'" formControlName="Todebit">
+                                                                                        <span>Other</span>
+                                                                                    </label>
+                                                                                </ng-container>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3 col-md-3 col-xs-4 no-padding labeldiv">
+                                                            <label class="col-sm-12 col-md-12 col-xs-12 no-padding control-label  " style="padding: 33px;
+                                                            text-align: center;">
+                                                                Bank a/c Number
+                                                            </label>
+                                                        </div>
+                                                        <input name="ctl00$ContentPlaceHolder1$lblSmandateId" type="text" id="ContentPlaceHolder1_lblSmandateId" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$lblmandatecheckdata" type="text" id="ContentPlaceHolder1_lblmandatecheckdata" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtmandatetype" type="text" id="ContentPlaceHolder1_txtmandatetype" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtaccountcheck" type="text" id="ContentPlaceHolder1_txtaccountcheck" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtcheckissecval" type="text" id="ContentPlaceHolder1_txtcheckissecval" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtcheckemailval" type="text" id="ContentPlaceHolder1_txtcheckemailval" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtcheckphoneval" type="text" id="ContentPlaceHolder1_txtcheckphoneval" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtNetValidateMail" type="text" id="ContentPlaceHolder1_txtNetValidateMail" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtNetManual" type="text" id="ContentPlaceHolder1_txtNetManual" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtNetSMS" type="text" id="ContentPlaceHolder1_txtNetSMS" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtDebitValidateMail" type="text" id="ContentPlaceHolder1_txtDebitValidateMail" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtDebitManual" type="text" id="ContentPlaceHolder1_txtDebitManual" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtDebitSMS" type="text" id="ContentPlaceHolder1_txtDebitSMS" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtAadharValidateMail" type="text" id="ContentPlaceHolder1_txtAadharValidateMail" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtAadharManual" type="text" id="ContentPlaceHolder1_txtAadharManual" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtAadharSMS" type="text" id="ContentPlaceHolder1_txtAadharSMS" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtphysical" type="text" id="ContentPlaceHolder1_txtphysical" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtemandate" type="text" id="ContentPlaceHolder1_txtemandate" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtevalidaion" type="text" id="ContentPlaceHolder1_txtevalidaion" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtcheckifscvalid" type="text" id="ContentPlaceHolder1_txtcheckifscvalid" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtnetbankinglive" type="text" id="ContentPlaceHolder1_txtnetbankinglive" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtdebitlive" type="text" id="ContentPlaceHolder1_txtdebitlive" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtaadharlive" type="text" id="ContentPlaceHolder1_txtaadharlive" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtcheckflag" type="text" id="ContentPlaceHolder1_txtcheckflag" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtentitymandatephysical" type="text" id="ContentPlaceHolder1_txtentitymandatephysical" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtentitymandateemandate" type="text" id="ContentPlaceHolder1_txtentitymandateemandate" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtentityaccountvalidationflag" type="text" id="ContentPlaceHolder1_txtentityaccountvalidationflag" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtEmandatestatus" type="text" id="ContentPlaceHolder1_txtEmandatestatus" class="status-lbl" style="display: none;">
+                                                        <label id="lblActivityId" class="status-lbl" style="display: none;">
+                                                        </label>
+                                                        <label id="lbltruebankvalidationcheck" class="status-lbl" style="display: none;">
+                                                        </label>
+                                                        <div class="col-sm-9 col-md-9 col-xs-8 ">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtAcNo" formControlName="Bankaccountno" maxlength="26" placeholder="Enter Bank a/c Number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
+                                                <div class="row">
+                                                    <div class="col-md-8 col-sm-3 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 col-md-2 col-xs-3  labeldiv">
+                                                                    <label class="col-sm-12 col-md-12  col-xs-12 control-label  ">
+                                                                        With Bank
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-9 col-md-10 col-xs-9 ">
+                                                                    <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Withbank">
+                                                                        <option value="">Select</option>
+                                                                        <option *ngFor="let WithBank of Table2" value={{WithBank.name}}>{{WithBank.name}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-4 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 col-md-3 col-xs-3  labeldiv">
+                                                                    <label class="col-sm-12 col-md-12 col-xs-12   control-label  ">
+                                                                        IFSC
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-9 col-md-9 col-xs-9 ">
+                                                                    <input type="text" maxlength="11" formControlName="IFSC" class="col-sm-12 col-md-12 col-xs-12" id="txtIFSC" placeholder="Enter IFSC">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-4 col-xs-12 ">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 col-md-4   col-xs-3 labeldiv">
+                                                                    <label class="col-sm-12 col-md-12  col-xs-12 control-label  ">
+                                                                        or MICR
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-9 col-md-8 col-xs-9 ">
+                                                                    <input type="text" maxlength="9" formControlName="MICR" class="col-sm-12 col-md-12 col-xs-12" id="txtMICR" placeholder="Enter MICR">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-2 col-md-2 col-xs-12 no-padding labeldiv">
+                                                            <label class="col-sm-12 col-md-12  col-xs-12 control-label">
+                                                                an amount of Rupees
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-xs-12  ">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amount" id="txtAmount" [attr.disabled]="Amountcodedisabled ? '' : null" placeholder="Amount in words">
+                                                        </div>
+
+                                                        <div class="col-sm-2 col-md-2 col-xs-12 ">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amountrupees" id="txtAmountRupees" placeholder="Enter Amount" maxlength="9">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
+                                                <div class="row">
+                                                    <div class="col-md-8 col-sm-8 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
+                                                        <div class="form-group" style="margin-bottom: 0;">
+                                                            <div class="row">
+                                                                <div class="col-sm-2  col-md-2 col-xs-12 labeldiv">
+                                                                    <label class="col-sm-12  col-md-12 col-xs-12 control-label ">
+                                                                        Frequency
+                                                                    </label>
+                                                                </div>
+                                                                <div id="frequency" class="col-sm-10 col-md-10 col-xs-12 no-padding-right radio">
+                                                                    <ng-container *ngFor="let Frequency of Table8;trackBy: trackByFn">
+                                                                        <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-4  no-padding-right" *ngIf="Frequency.frequency === 'Monthly'">
+                                                                            <input name="Frequency" id="rdmonthly" value="m" type="radio" [attr.disabled]="Frequency.isenable == true ? null : 'disabled'" formControlName="Frequency" />
+                                                                            <span>Monthly</span>
+                                                                        </label>
+                                                                        <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-4 no-padding-right" *ngIf="Frequency.frequency === 'Quarterly'">
+                                                                            <input name="Frequency" id="rdquaterly" value="q" type="radio" [attr.disabled]="Frequency.isenable == true ? null : 'disabled'" formControlName="Frequency" />
+                                                                            <span>Quarterly</span>
+                                                                        </label>
+                                                                        <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-4 no-padding-right" *ngIf="Frequency.frequency === 'Half-Yearly'">
+                                                                            <input name="Frequency" id="rdhalfyrly" value="h" type="radio" [attr.disabled]="Frequency.isenable == true ? null : 'disabled'" formControlName="Frequency" />
+                                                                            <span>Half-Yearly</span>
+                                                                        </label>
+                                                                        <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-4 no-padding-right" *ngIf="Frequency.frequency === 'Yearly'">
+                                                                            <input name="Frequency" id="rdyearly" value="y" type="radio" [attr.disabled]="Frequency.isenable == true ? null : 'disabled'" formControlName="Frequency" />
+                                                                            <span>Yearly</span>
+                                                                        </label>
+                                                                        <label class="lblradiobtnss col-md-4 col-sm-4 col-xs-6 no-padding-right" *ngIf="Frequency.frequency === 'As and When Presented'">
+                                                                            <input name="Frequency" id="Radio1" value="a" type="radio" [attr.disabled]="Frequency.isenable == true ? null : 'disabled'" formControlName="Frequency" />
+                                                                            <span>As &amp; When Presented</span>
+                                                                        </label>
+                                                                    </ng-container>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-12 no-padding">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 no-padding col-md-3 col-xs-3 labeldiv">
+                                                                    <label id="Label16" class="col-sm-12  col-md-12 col-xs-12 control-label ">
+                                                                        Debit Type
+                                                                    </label>
+                                                                </div>
+                                                                <div id="debittype" class="col-sm-9 col-md-9 col-xs-9 no-padding-right radio" style="margin: 0;">
+                                                                    <ng-container *ngFor="let Amounttype of Table7;index as i">
+                                                                        <label class="lblradiobtnss col-md-4 no-padding-right col-sm-6 col-xs-6" *ngIf="i==0">
+                                                                            <input name="Debittype" value="f" type="radio" formControlName="Debittype" [attr.disabled]="Amounttype.isenable === true ? null : 'disabled'" />
+                                                                            <span>Fixed Amount</span>
+                                                                        </label>
+
+                                                                        <label class="lblradiobtnss col-md-6 no-padding col-sm-6 col-xs-6" style="text-align: right;" *ngIf="i==1">
+                                                                            <input name="Debittype" id="rdmaxamt" value="m" type="radio" formControlName="Debittype" [attr.disabled]="Amounttype.isenable === true ? null : 'disabled'" />
+                                                                            <span>Maximum Amount</span>
+                                                                        </label>
+                                                                    </ng-container>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
+                                                <div class="row">
+                                                    <div class="col-md-7 col-sm-7 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-2 col-md-2 s col-xs-3 labeldiv">
+                                                                    <label class="col-sm-12 col-md-12 no-padding-right col-xs-12 control-label  ">
+                                                                        Reference 1
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-10 col-md-10 col-xs-9 ">
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtRefrence1" formControlName="Reference" maxlength="20" placeholder="Enter Reference">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-sm-5 col-xs-12 ">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 col-md-3  col-xs-4 labeldiv">
+                                                                    <label class="col-sm-12 col-md-12 no-padding col-xs-12 control-label  ">
+                                                                        Phone Number
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-9 col-md-9 col-xs-8 ">
+                                                                    <input type="text" maxlength="10" formControlName="Phoneno" class="col-sm-12 col-md-12 col-xs-12" id="txtPhNumber" placeholder="Enter Phone Number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
+                                                <div class="row">
+                                                    <div class="col-md-7 col-sm-7 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-2 col-md-2  col-xs-3 labeldiv">
+                                                                    <label class="col-sm-12 col-md-12 no-padding-right col-xs-12 control-label  ">
+                                                                        Reference 2
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-10 col-md-10 col-xs-9 ">
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Refrence2" id="txtRefrence2" [attr.disabled]="Reference2codedisabled ? '' : null" onkeyup="RemoveClass();" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-5 col-sm-5 col-xs-12 ">
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-3 col-md-3  col-xs-3 labeldiv">
+                                                                    <label class="col-sm-12 col-md-12 no-padding col-xs-12 control-label  ">
+                                                                        Email ID
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-9 col-md-9 col-xs-9 " style="border-bottom: 1px solid #928888;">
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Email" onkeyup="RemoveClass();" id="txtEmailId" maxlength="35" placeholder="Enter Email ID">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                <div class="col-sm-12 col-md-12 no-padding col-xs-12 labeldiv" style="background: none;
+                                                    border: none">
+                                                    <label class="col-sm-12 col-md-12 no-padding col-xs-12 control-label " style="background: none;">
+                                                        I agree for the debit of mandate processing charges by the bank whom I am authorizing
+                                                        to debit my account as per latest schedule of charges of bank.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12  period" style="bottom: 2px;">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-4 col-xs-12 no-padding ">
+                                                        <div class="col-sm-3 col-md-3  col-xs-3 border labeldiv">
+                                                            <label class="col-sm-3 col-md-3 no-padding col-xs-3 control-label">
+                                                                Period
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12  border">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-3 col-md-3   col-xs-3 labeldiv">
+                                                                        <label class="col-sm-3 col-md-3 no-padding col-xs-3 control-label  ">
+                                                                            From
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
+                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date" tabindex="-1">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12  border">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-3 col-xs-3 col-md-3    labeldiv">
+                                                                        <label class="col-sm-3 col-xs-3 col-md-3 no-padding control-label  ">
+                                                                            To
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
+                                                                        <input type="date" formControlName="PeriodTo" [ngClass]="{'divDisable' : _isActive}" onchange="RemoveClass();" id="txtTo" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" tabindex="-1" [attr.disabled]="Periodtocodedisabled ? '' : null" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-3 col-md-3 col-xs-3 no-padding col-xs-3 labeldiv">
+                                                                        <label class="col-sm-3 col-md-3 col-xs-3 no-padding col-xs-3 control-label  ">
+                                                                            Or
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-sm-9 col-md-9 col-xs-9 chkbox" style="padding-top: 3px">
+                                                                        <input id="chkUntil" type="checkbox" formControlName="Untillcancelled" class="pull-left"  checked="checked" [attr.disabled]="Untillcancelledcodedisabled ? '' : null" />
+                                                                        <label class="col-sm-10 col-md-10 col-xs-10 control-label " style="padding-top: 4px;">
+                                                                            Until Cancelled
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8 col-sm-8 col-xs-12  signblock " style="margin-top: 4%;">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                            <div class="row">
+                                                                <div class="col-md-4 col-sm-4 col-xs-4 no-padding-right">
+                                                                    <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
+                                                                        Sign. Primary Acc. Holder
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                    <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
+                                                                        Sign. Acc. Holder
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                    <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
+                                                                        Sign. Acc. Holder
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding cust-name" style="margin-top: 2px;">
+                                                            <div class="row">
+                                                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer1" onkeyup="RemoveClass();" id="txtCust1" placeholder="Enter Name" maxlength="40" />
+                                                                            <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
+                                                                                1. Name as in Bank Records
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer2" id="txtCust2" [attr.disabled]="Customer2disabled ? '' : null" maxlength="40" />
+                                                                            <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
+                                                                                2. Name as in Bank Records
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <input type="text" class="col-sm-12 col-md-10 col-xs-12" formControlName="Customer3" id="txtCust3" [attr.disabled]="Customer3disabled ? '' : null" maxlength="40" />
+                                                                            <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
+                                                                                3. Name as in Bank Records
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding ">
+                                                <label class="col-sm-12 col-md-12 no-padding col-xs-12 control-label " style="text-align: left;
+                                                    background: none; top: 2px;">
+                                                    This is to confirm that declaration has been carefully read, understood and made
+                                                    by me/us. I'm authorizing the user Entity/Corporate to debit my account based on
+                                                    the instruction as agreed and signed by me. I've understood that I am authorized
+                                                    to cancel/amend this mandate by appropriately communicating the cancellation/amendment
+                                                    request to the User/Entity/Corporate or the bank where I've authorized the debit.
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 btnDiv">
+                                                <input type="button" class="btn btn-success pull-right" id="btnCancel" value="Cancel" *ngIf="btnCancel" [attr.disabled]="Cancelleddisabled ? '' : null" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnSecVal" value="Account Validation" *ngIf="btnSecVal" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnFirstVal" value="Bank Validation" *ngIf="btnFirstVal" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnSave" value="Save">
+                                                <input type="button" class="btn btn-success pull-right" id="btnEditDisable" value="Edit" *ngIf="btnEditDisable" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnPhysicalMandate" value="Physical Mandate" *ngIf="btnPhysicalMandate" />
+                                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnEemandate" value="E-Mandate" id="ContentPlaceHolder1_btnEemandate" class="btn btn-success pull-right TestEmandate" *ngIf="btnEemandate" />
+                                                <input type="button" class="btn btn-success pull-right" style="margin-right: 4px;" id="btnenach" *ngIf="btnenach" value="Validate ENACH">
+                                            </div>
+                                        </div>
+                                        <!--</div>
+                                </div>
+                            </div>-->
+                                        <div class="panel panel-default" id="pnl2" style="display: none">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" data-target="#MODE" aria-expanded="false">
+                                                        <i class="ace-icon fa fa-angle-down bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>&nbsp;Modes of Payment
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-collapse collapse" id="MODE" aria-expanded="false">
+                                                <div class="panel-body" style="overflow-y: auto; max-height: 477px;">
+                                                    <div class=" col-sm-12 col-xs-12 col-md-12">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12" id="ModeOfPayment">
+                                                            <div class="col-md-3 col-sm-3 col-xs-3" id="DivCash" style="display: none">
+                                                                <div class="col-md-10 col-sm-10 col-xs-10" style="text-align: -webkit-center;">
+                                                                    <img src="../images/cashondelivery.png" style="width: 15%;" alt="">
+                                                                </div>
+                                                                <div style="">
+                                                                    <label class="col-md-10 col-sm-5 col-xs-4" style="text-align: -webkit-center;">
+                                                                        <input id="Chkmode1" name="rdoGender" value="Cash" type="radio">
+                                                                        <span>Cash</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-3 col-xs-3" id="DivChequee" style="display: none">
+                                                                <div class="col-md-10 col-sm-10 col-xs-10" style="text-align: -webkit-center;">
+                                                                    <img src="../images/chequ.png" style="width: 15%;" alt="">
+                                                                </div>
+                                                                <div style="">
+                                                                    <label class="col-md-10 col-sm-5 col-xs-4" style="text-align: -webkit-center;">
+                                                                        <input id="Chkmode2" name="rdoGender" value="Cheque" type="radio">
+                                                                        <span>Cheque</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-3 col-xs-3" id="DivDDD" style="display: none">
+                                                                <div class="col-md-10 col-sm-10 col-xs-10" style="text-align: -webkit-center;">
+                                                                    <img src="../images/Ddraft.png" style="width: 15%;" alt="">
+                                                                </div>
+                                                                <div style="">
+                                                                    <label class="col-md-10 col-sm-5 col-xs-4" style="text-align: -webkit-center;">
+                                                                        <input id="Chkmode3" name="rdoGender" value="DD" type="radio">
+                                                                        <span>Demand Draft</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-3 col-xs-3" id="DivElectronic" style="display: none">
+                                                                <div class="col-md-10 col-sm-10 col-xs-10" style="text-align: -webkit-center;">
+                                                                    <img src="../images/online.png" style="width: 15%;" alt="">
+                                                                </div>
+                                                                <div style="">
+                                                                    <label class="lblradiobtnss col-md-10 col-sm-5 col-xs-4" style="text-align: -webkit-center;">
+                                                                        <input id="Chkmode4" name="rdoGender" value="E" type="radio">
+                                                                        <span>Electronic</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="line-head1 col-md-4 col-sm-4 col-xs-4 no-padding" style="border-right: 1px solid #cdcdcd;
+                                                    min-height: 300px">
+                                                            <div class="col-md-12 no-padding">
+                                                                <div class=" col-md-12 col-sm-12 no-padding" style="display: none;" id="divCheque">
+                                                                    <div class="col-md-6 col-sm-3 col-xs-3 no-padding">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Cheque Number
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input class="col-md-12 col-sm-12 col-xs-12 no-padding " id="txtChequeNo">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Cheque Date
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input class="col-md-12 col-sm-12 col-xs-12 no-padding date-picker" data-date-format="dd-M-yyyy" id="txtChequeDate" name="date-picker">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-sm-3 col-xs-3 no-padding">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Branch Name
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input class="col-md-12 col-sm-12 col-xs-12 no-padding" id="txtBranName">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Bank Name
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input class="col-md-12 col-sm-12 col-xs-12 no-padding" id="txtBaName">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class=" col-md-12 col-sm-12 col-xs-12 no-padding" id="DivDD" style="display: none">
+                                                                    <div class="col-md-6 col-sm-3 col-xs-3 no-padding">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Demand Draft Number
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input class="col-md-12 col-sm-12 col-xs-12 no-padding " id="txtDDNo">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Demand Draft Date
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input class="col-md-12 col-sm-12 col-xs-12 no-padding date-picker" data-date-format="dd-M-yyyy" name="date-picker" id="txtDDDate">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-sm-3 col-xs-3 no-padding">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Branch Name
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input class="col-md-12 col-sm-12 col-xs-12 no-padding" id="txtBranchName">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Bank Name
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input class="col-md-12 col-sm-12 col-xs-12 no-padding" id="txtBankNamee">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class=" col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                                    <div class="col-md-6 col-sm-3 col-xs-3 no-padding">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                Amount
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                <input id="txtAmmount" onkeyup="RemoveClass();" class="col-md-12 col-sm-12 col-xs-12 no-padding ">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="margin-top: 2%; margin-bottom: 2%;">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;" id="ElectronicPaymentMode">
+                                                                        <label class="col-md-4 col-sm-5 col-xs-4 no-padding-left">
+                                                                            <input name="rdoGender" value="Dr" type="radio">
+                                                                            <span>Debit</span>
+                                                                        </label>
+                                                                        <label class="col-md-4 col-sm-5 col-xs-4 no-padding-left">
+                                                                            <input name="rdoGender" value="Cr" type="radio">
+                                                                            <span>Credit</span>
+                                                                        </label>
+                                                                        <label class="col-md-4 col-sm-5 col-xs-4 no-padding-left">
+                                                                            <input name="rdoGender" value="NB" type="radio">
+                                                                            <span>Net Banking</span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class=" col-md-12 col-sm-12 col-xs-12 no-padding" style="display: none;" id="divrefrenceNo">
+                                                                        <div class="col-md-6 col-sm-6 col-xs-3 no-padding">
+                                                                            <div class="form-group">
+                                                                                <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
+                                                                                    Reference Number
+                                                                                </label>
+                                                                                <div class="col-sm-7 col-xs-7 col-md-10 no-padding">
+                                                                                    <input class="col-md-12 col-sm-12 col-xs-12 no-padding " type="text" id="txtRef">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-7 col-md-12 col-xs-7">
+                                                                    <input type="button" style="display: none" class="btn btn-success pull-right" value="Add" id="BtnAdd">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8 col-sm-8 col-xs-8">
+                                                            <div class="col-md-12 col-sm-8 col-xs-8">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-8 col-xs-8 pull-right order-total">
+                                                                    <div class="col-md-7 col-sm-7 col-xs-7 no-padding">
+                                                                        <div class="address col-md-12 col-sm-6 col-xs-6 no-padding">
+                                                                            <label class="add ">
+                                                                                Payment modes used
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="form-group" id="divca" style="display: none">
+                                                                            <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                Cash Amount
+                                                                            </label>
+                                                                            <div class="col-sm-5 col-md-5 col-xs-5 ">
+                                                                                <label id="lblCashAmount" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                    0
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="divcad" style="display: none">
+                                                                            <div class="address col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                                                <label class="add" style="color: #337ac7;">
+                                                                                    Card Amount
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                                <table class="table table-bordered">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>
+                                                                                                Type
+                                                                                            </th>
+                                                                                            <th>
+                                                                                                Amount
+                                                                                            </th>
+                                                                                            <th>
+                                                                                                Reference No.
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <label id="Label18" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                    Debit
+                                                                                                </label>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label id="lblDrAmount" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                    0
+                                                                                                </label>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label id="lblDrRef" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                </label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <label id="Label21" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                    Credit
+                                                                                                </label>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label id="lblCrAmount" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                    0
+                                                                                                </label>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label id="lblCrRef" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                </label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <label id="Label25" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                    Net Banking
+                                                                                                </label>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label id="lblNBrAmount" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                    0
+                                                                                                </label>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <label id="lblNBrRef" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                </label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="address col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                                            <label class="add" style="color: #337ac7;">
+                                                                                Cheque Amount
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                                                                            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="divcq" style="display: none">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            Cheque Amount
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="lblChequeAmount" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            Cheque Number
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            Branch Name
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="Div3">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            Cheque Date
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="Label1" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            Bank Name
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="Div4">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            Amount
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="Label2" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="address col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                                            <label class="add" style="color: #337ac7;">
+                                                                                DD Amount
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                                                                            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="div5">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            DD Number
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="Label3" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="Div7">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            Branch Name
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="Label5" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="Div8">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            DD Date
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="Label6" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6 no-padding">
+                                                                                    <div class="form-group" id="Div9">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            Bank Name
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="Label7" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class=" col-md-12 col-sm-12 col-xs-12  ">
+                                                                                <div class=" col-md-6 col-sm-6 col-xs-6  no-padding">
+                                                                                    <div class="form-group" id="div10">
+                                                                                        <label class="col-sm-6 col-xs-6 col-md-6 control-label no-padding" for="form-field-2">
+                                                                                            DD Amount
+                                                                                        </label>
+                                                                                        <div class="col-sm-5 col-md-5 col-xs-5">
+                                                                                            <label id="lblDDAmount" class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2">
+                                                                                                0
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <input type="button" class="btn btn-success pull-right" id="btnSavePayment" value="Save Payment" style="left: 300px">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class=" col-md-5 col-sm-5 col-xs-5 no-padding">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding-right">
+                                                                            <div class="address col-md-8 col-sm-6 col-xs-6 col-md-offset-4 no-padding" style="margin-left: 5.333%;">
+                                                                                <label class="add ">
+                                                                                    Amount Details
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-7 col-xs-7 col-md-7 control-label no-padding" for="form-field-2">
+                                                                                        Total Amount
+                                                                                    </label>
+                                                                                    <div class="col-sm-5 col-md-5 col-xs-5 no-padding">
+                                                                                        <input type="text" value="0" id="lblTotal" onkeyup="inibalance();">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-7 col-xs-7 col-md-7 control-label no-padding" for="form-field-2">
+                                                                                        Tender Amount
+                                                                                    </label>
+                                                                                    <div class="col-sm-5 col-md-5 col-xs-5 no-padding">
+                                                                                        <label class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2" id="lblTenderAmount">
+                                                                                            0
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label class="col-sm-7 col-xs-7 col-md-7 control-label no-padding" for="form-field-2">
+                                                                                        Balance
+                                                                                    </label>
+                                                                                    <div class="col-sm-5 col-md-5 col-xs-5 no-padding">
+                                                                                        <label class="col-sm-12 col-xs-12 col-md-12 control-label no-padding" for="form-field-2" id="lblBalance">
+                                                                                            0
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+
+
+
+
+
+
+
+
+
+        <div id="MsgDiv" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img id="img7" src="../images/caution2.png" class="SavedTick" style="width: 15%;" alt="">
+                    <label class="  lblPopup col-md-12 col-sm-12 col-xs-12 no-padding-left  " id="Label8" style="color: #0c862c;">
+                        ENACH is not possible for this mandate
+                    </label>
+                </div>
+                <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text" style="">
+                <div class="form-group bankbg">
+                    <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                        Sponsor Bank Code :
+                    </label>
+                    <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                        <img id="tickImgSponsor" src="../images/tick-icon.png">
+                        <img id="crossImgSponsor" src="../images/Cross-icon.png">
+                    </div>
+                </div>
+                <div class="form-group bankbg">
+                    <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                        Utility Code :
+                    </label>
+                    <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                        <img id="tickImgUtility" src="../images/tick-icon.png">
+                        <img id="CrossImgUtility" src="../images/Cross-icon.png">
+                    </div>
+                </div>
+                <div class="form-group bankbg">
+                    <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                        Bank live on NACH :
+                    </label>
+                    <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                        <img id="Img4" src="../images/tick-icon.png">
+                        <img id="Img5" style="display: none" src="../images/Cross-icon.png">
+                    </div>
+                </div>
+                <div class="form-group bankbg">
+                    <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                        Bank live on ENACH :
+                    </label>
+                    <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                        <img id="Img9" src="../images/tick-icon.png">
+                        <img id="Img10" style="display: none" src="../images/Cross-icon.png">
+                    </div>
+                </div>
+                <div class="form-group bankbg">
+                    <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                        Amount &lt; = ENACH max. trx value :
+                    </label>
+                    <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                        <img id="imgAounttick" src="../images/tick-icon.png">
+                        <img id="imgAmountCross" src="../images/Cross-icon.png">
+                    </div>
+                </div>
+                <div class="form-group bankbg">
+                    <label class="col-sm-9 col-xs-8 col-md-9  amarlabel">
+                        "To Date" mandatory for ENACH:
+                    </label>
+                    <label class="col-sm-2 col-xs-3 col-md-2 no-padding-left  control-label" for="form-field-2" id="blbtoDate" style="margin-top: 2px!important; margin-bottom: 0;
+                        display: none">
+                        <span class="pull-right">Edit</span><i class="fa fa-edit pull-right" style="margin-right: 5px;
+                            margin-top: 2px;"></i>
+                    </label>
+                    <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
+                        <img id="imgTodatetick" src="../images/tick-icon.png">
+                        <img id="ingtodatecross" src="../images/Cross-icon.png">
+                    </div>
+                </div>
+                <div class="form-group bankbg">
+                    <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                        Single Signatory :
+                    </label>
+                    <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                        <img id="imgtickjoint" src="../images/tick-icon.png">
+                        <img id="imgcrossjoint" src="../images/Cross-icon.png">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" name="ctl00$ContentPlaceHolder1$btnPhysicall" value="Physical Mandate" id="ContentPlaceHolder1_btnPhysicall" class="col-md-12 col-sm-12 col-xs-12 btn btn-success " style="margin-top: 2%; margin-left: 2%; width: 96%; display: none">
+            <input type="submit" name="ctl00$ContentPlaceHolder1$Button5" value="OK" id="ContentPlaceHolder1_Button5" class="col-md-12 col-sm-12 col-xs-12 btn btn-success closeder" style="margin-top: 2%; margin-left: 2%; width: 96%; margin-bottom: 1%;">
+            <label class="col-md-12 col-sm-12 col-xs-12  no-padding-right" style="color: #f52020;
+                text-align: left; font-size: 13px!important; margin: 2% 0 2% 0!important; display: none" id="Label15">
+                Note:Mandate process mode can't be changed, once selected.
+            </label>
+            <div class="popclose close" id="Div17" style="right: 2px;">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="UnSuccess" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                    <img id="img2" src="../images/saveTickUpdated.png" class="SavedTick" style="width: 12%; display:none" alt="">
+                    <label class="  lblPopup col-md-12 col-sm-12 col-xs-12 no-padding-left  " id="lblValidation" style="color: #0c862c; font-size: 12px !important">
+                        Bank Validation
+                    </label>
+                </div>
+
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 validatePopup" style="margin-top: 0">
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="margin-top: 2%;">
+                    <div class="form-group bankbg">
+                        <label class="col-sm-3 col-xs-4 col-md-2 no-padding amarlabel" style="padding-left: 5px">
+                            Bank Name:
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2" id="lblbankFullName">
+                        </label>
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                            <img id="BankImgTick" src="../images/tick-icon.png">
+                            <img id="BankImgCross" style="display: none" src="../images/Cross-icon.png">
+                        </div>
+                    </div>
+                    <div class="form-group ifscbg">
+                        <label class="col-sm-3 col-xs-4 col-md-2 no-padding amarlabel" style="padding-left: 5px">
+                            IFSC/MICR :
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2" id="lblIFSC">
+                        </label>
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                            <img id="IFSCImgTick" src="../images/tick-icon.png">
+                            <img id="IFSCImgCross" src="../images/Cross-icon.png">
+                        </div>
+                    </div>
+                    <div class="form-group ifscbg">
+                        <label class="col-sm-3 col-xs-4 col-md-2 no-padding amarlabel" style="padding-left: 5px">
+                            Live on NACH:
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2">
+                        </label>
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                            <img id="NACHTick" src="../images/tick-icon.png" style="display: none;">
+                            <img id="NACHCross" src="../images/Cross-icon.png">
+                        </div>
+                    </div>
+                    <div class="form-group ifscbg" id="mandatedebit" style="display: none;">
+                        <label class="col-sm-3 col-xs-4 col-md-2 no-padding amarlabel" style="padding-left: 5px">
+                            Debit Card:
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2">
+                        </label>
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                            <img id="DEBITTick" src="../images/tick-icon.png">
+                            <img id="DEBITCross" src="../images/Cross-icon.png" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="form-group ifscbg" id="mandatenetbank" style="display: none;">
+                        <label class="col-sm-3 col-xs-4 col-md-2 no-padding amarlabel" style="padding-left: 5px">
+                            Net Banking:
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2">
+                        </label>
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                            <img id="NetBTick" src="../images/tick-icon.png">
+                            <img id="NetBCross" src="../images/Cross-icon.png" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="form-group ifscbg" id="mandateaadhar" style="display: none;">
+                        <label class="col-sm-3 col-xs-4 col-md-2 no-padding amarlabel" style="padding-left: 5px">
+                            Aadhar Card:
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2">
+                        </label>
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                            <img id="AdharTick" src="../images/tick-icon.png" style="display: none;">
+                            <img id="AdharCross" src="../images/Cross-icon.png">
+                        </div>
+                    </div>
+                    <div class="form-group bankbg" id="Div23" style="display:none;">
+                        <label class="col-sm-4 col-xs-4 col-md-2 no-padding amarlabel">
+                            Mobile No.:
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2" style="font-weight:normal" id="lblmobile">
+                        </label>
+                        <input type="text" id="txtmobileemandate" maxlength="10" class="col-sm-5 col-xs-5 col-md-5" style="display:none">
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
+
+                            <img id="imgtkmobile" src="../images/tick-icon.png" style="display:none">
+                            <img id="imgcrossmobile" src="../images/Cross-icon.png" style="width: 40%;">
+                            <i class="fa fa-pencil-square-o" id="imobileedit" aria-hidden="true" style=" vertical-align: bottom; font-size: 17px; margin:0px 0 6px 2px; color: #1f497d;"></i>
+
+                        </div>
+                    </div>
+                    <div class="form-group bankbg" id="Div24" style="display:none">
+                        <label class="col-sm-4 col-xs-4 col-md-2 no-padding amarlabel">
+                            Email ID:
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2" style="font-weight:normal" id="lblemail">
+                        </label>
+                        <input type="text" id="txtemailemandate" class="col-sm-5 col-xs-5 col-md-5" style="display:none">
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
+
+                            <img id="imgtickemail" style="display:none" src="../images/tick-icon.png">
+                            <img id="imgcrossemail" src="../images/Cross-icon.png" style="width: 40%;">
+                            <i class="fa fa-pencil-square-o" id="iemailedit" aria-hidden="true" style="vertical-align: bottom; font-size: 17px; margin:0px 0 6px 2px; color: #1f497d; "></i>
+
+                        </div>
+                    </div>
+                    <div class="form-group bankbg" id="Div25" style="display:none">
+                        <label class="col-sm-4 col-xs-4 col-md-2 no-padding amarlabel">
+                            Amount:
+                        </label>
+                        <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2" id="lblamount">
+                        </label>
+                        <input type="text" id="txtamountemandate" class="col-sm-5 col-xs-5 col-md-5" style="display:none">
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
+
+                            <img id="imgtickamount" style="display:none" src="../images/tick-icon.png">
+                            <img id="imgcrossamount" src="../images/Cross-icon.png" style="width: 40%;">
+                            <i class="fa fa-pencil-square-o" id="iamountedit" aria-hidden="true" style="vertical-align: bottom; font-size: 17px; margin:0px 0 6px 2px; color: #1f497d; "></i>
+
+                        </div>
+                    </div>
+
+                    <label class="col-md-12 col-sm-12 col-xs-12 errortxt no-padding" id="Label14" style="display:none">
+                        Amount should not be greater than 100000
+                    </label>
+
+                    <label class="col-md-12 message-text no-padding" style="display: none;" id="lblemailwarn"></label>
+
+                    <div id="Divmandatemode" style="display: none" class="form-group">
+                        <label class="col-sm-5 col-xs-5 col-md-4 no-padding-right amarlabel">
+                            Mandate Mode:
+                        </label>
+                        <div id="Divemandate" class="col-sm-7 col-xs-7 col-md-5 no-padding radio ">
+                            <label id="physicalcheck" style="display: none" class="lblradiobtnss col-md-6 col-sm-2 col-xs-2 no-padding">
+                                <input id="notacvalrdphysical" style="display: none" name="notacvalrbnetbanking" value="P" type="radio">
+                                <span>Physical</span>
+                            </label>
+                            <label id="emandatecheck" style="display: none" class="lblradiobtnss col-md-6 col-sm-5 col-xs-4 no-padding">
+                                <input id="notacvalrdemandate" style="display: none" name="notacvalrbnetbanking" value="E" type="radio">
+                                <span>E-Mandate</span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div id="debitnetbank" class="form-group" style="display: none;">
+                        <label class="col-sm-12 col-xs-12 col-md-4 no-padding-right amarlabel">
+                            Select E-Mandate Type:
+                        </label>
+                        <div id="netbanking" class="col-sm-12 col-xs-7 col-md-7  radio ">
+                            <label class="lblradiobtnss col-md-6 col-sm-6 col-xs-12 no-padding" id="netbankingshow" style="display: none;">
+                                <input id="rbnetbanking" name="rbnetbanking" value="N" type="radio">
+                                <span>Net Banking</span>
+                            </label>
+                            <label class="lblradiobtnss col-md-4 col-sm-5 col-xs-12 no-padding" id="debitbankingshow" style="display: none;">
+                                <input id="rbdebitcard" name="rbnetbanking" value="D" type="radio">
+                                <span>Debit Card</span>
+                            </label>
+                            <label class="lblradiobtnss col-md-4 col-sm-5 col-xs-4 no-padding" id="aadharbankingshow" style="display: none;">
+                                <input id="rbadharcard" name="rbnetbanking" value="A" type="radio">
+                                <span>Aadhar Card</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class=" col-sm-12 col-xs-12 col-md-12 boxhead" id="divemailmobile" style="display: none">
+
+
+
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <span id="ContentPlaceHolder1_lblmandatemsg" style="color: #b70e06;"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
+                <input type="button" class="btn btn-success pull-right" value="OK" style="margin: 1% 0 1% 0;">
+            </div>
+            <div class="popclose close" id="unsuccessClose" style="right: 2px;">
+                <label class="" style="margin-bottom: 0px !important;">
+                    x
+                </label>
+            </div>
+        </div>
+        <div id="Success" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img id="imgtick" src="../images/saveTickUpdated.png" class="SavedTick" style="width: 20%;" alt="">
+                </div>
+                <label id="lblsuccess" style="display: none" class="  lblPopup col-md-12 col-sm-12 col-xs-12">
+                    Successfull
+                </label>
+                <label class="col-md-12 col-sm-12 col-xs-12  no-padding" style="color: #1f3c61;" id="lblSuccess">
+                    Bank validated proceed for account validation
+                </label>
+            </div>
+        </div>
+        <div id="DivEmailPopup" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img id="img14" src="../images/saveTickUpdated.png" class="SavedTick" style="width: 20%;" alt="">
+                </div>
+                <label id="Label13" style="display: none" class="  lblPopup col-md-12 col-sm-12 col-xs-12">
+                    Successfull
+                </label>
+
+
+
+            </div>
+        </div>
+        <div id="admin" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img id="img1" src="../images/caution2.png" class="SavedTick" style="width: 15%;" alt="">
+                </div>
+                <i class="fa fa-caret-down"></i>
+            </div>
+            <label class="col-md-12 col-sm-12 col-xs-12  no-padding" style="color: #1f3c61; margin: 10% 0 5% 0!important;" id="lblData">Date Updated Successfully.</label>
+            <div class="close popclose" id="">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="DateMandatoryESign" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img id="img3" src="../images/caution2.png" class="SavedTick" style="width: 15%;" alt="">
+                </div>
+                <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 7% 0 5% 0!important;">
+                <div class="form-group">
+                    <label class="col-sm-1 col-xs-1 col-md-1 no-padding control-label" style="text-align: left">
+                        To
+                    </label>
+                    <div class="col-sm-5 col-md-5 col-xs-5 no-padding">
+                        <input type="text" id="txtTo2" onchange="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" style="border: 1px solid #cdcdcd">
+                    </div>
+                    <label class="col-md-6 col-sm-6 col-xs-6  no-padding" style="color: #1f3c61;" id="lblData1">
+                        'To Date' is mandatory for e-sign
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="button" class="col-md-12 col-sm-12 col-xs-12  btn btn-success pull-right" id="btndatesave" value="Save" style="margin: 2% 0 2% 0">
+            </div>
+            <div class="close popclose" id="Div15">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="DivTrans" style="display: none">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <img src="../images/caution2.png" class="" style="width: 25%;" alt="">
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        Are you sure you want to do other Transaction?
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="Button1" value="Cancel" style="margin-right: 10%; margin-top: 2%">
+                    <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="Button4" value="Continue" style="margin-top: 2%">
+                </div>
+            </div>
+        </div>
+        <div id="ScanForm" style="display: none" class="popupmandate">
+            <iframe id="ContentPlaceHolder1_Iframe" src="" width="100%"></iframe>
+            <div class="close popclose" id="Div1">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="printForm" class="popupmandate">
+            <div id="preloader_3">
+                <span></span><span></span><span></span><span></span><span></span>
+                <label>
+                    Contacting Destination Bank...
+                </label>
+            </div>
+            <iframe id="ContentPlaceHolder1_Iframe1" src="" width="100%" height="280px"></iframe>
+        </div>
+        <div id="enachvalidate" style="display: none;" class="popupmandate">
+            <iframe id="ContentPlaceHolder1_Iframe2" src="" width="100%"></iframe>
+            <div class="close popclose" id="Div6">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="scanImage" style="display: none" class="popupmandate">
+            <div class="" style="width: 100%; height: 360px">
+                <img id="imgscanImage" src="" width="100%">
+            </div>
+            <div class="close popclose" id="Div2">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="divreference" style="display: none" class="popupmandate1">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding" id="reference">
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding-left" style="text-align: center;">
+                    <img src="../images/caution2.png" class="SavedTick" alt="">
+                </div>
+                <label class="  lblPopup col-md-12 col-sm-12 col-xs-12 no-padding-left " style="text-align: center;
+                    color: #25797d; font-size: 14px!important;">
+                    Reference number already exist
+                </label>
+                <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" id="DivRefrenceDetail">
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="button" class="col-md-12 col-sm-12 col-xs-12 btn btn-success" id="btnNewMandate" value="Create New" style="margin-left: 0;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnUpdateMandate" value="Update For" style="display: none">
+            </div>
+            <div class="close popclose" id="Div11">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="reject" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                    <img src="../images/caution2.png" class="SavedTick" style="width: 15%;">
+                </div>
+                <i class="fa fa-caret-down"></i>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center lblbody">
+                <label id="lblUnSuccess" class="col-md-12 col-sm-12 col-xs-12  no-padding" style="/* clear: both;
+                    */
+    color: #1f3c61;">
+                </label>
+                <label class="  lblPopup col-md-12 col-sm-12 col-xs-12 no-padding" style="text-align: center;
+                    margin-top: 13px;">
+                    Maximum no. of validation unsuccessfull. Reject Mandate.
+                </label>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnYesreject" value="Yes" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%; margin-left: 2%;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success rejectclose" id="Button3" value="No" style="margin-top: 2%; margin-bottom: 2%">
+            </div>
+            <div class="popclose close" id="Div12" style="right: 2px;">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="DivCancel" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
+                        <img src="../images/caution2.png" class="" style="width: 15%;" alt="">
+                    </div>
+                    <i class="fa fa-caret-down"></i>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center text">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <label id="Label4" class="col-md-12 col-sm-12 col-xs-12  no-padding" style="color: #1f3c61;">
+                        Are you sure you want to cancel?
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="Button2" value="Yes" style="margin-right: 12%; margin-top: 2%;
+                    margin-bottom: 2%; margin-left: 2%;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success " id="btncancenNo" value="No" style="margin-top: 2%; margin-bottom: 2%">
+            </div>
+            <div class="popclose close" id="Div14" style="right: 2px;">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="DIVPhysical" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
+                        <img src="../images/caution2.png" class="" style="width: 15%;" alt="">
+                    </div>
+                    <i class="fa fa-caret-down"></i>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center" style="margin-top: 6%; margin-bottom: 3%;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <label id="Label9" class="col-md-12 col-sm-12 col-xs-12  no-padding" style="color: #1f3c61;">
+                        Are you sure you want to proceed with physical?
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="Button6" value="Yes" style="margin-right: 12%; margin-top: 2%;
+                    margin-bottom: 2%; margin-left: 2%;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success closeallll" id="Button7" value="No" style="margin-top: 2%; margin-bottom: 2%">
+            </div>
+            <div class="popclose close" id="Div18" style="right: 2px;">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="editpopmandate" style="display: none" class="popupmandate no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
+                        <img src="../images/caution2.png" class="" style="width: 15%;" alt="">
+                    </div>
+                    <i class="fa fa-caret-down"></i>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center" style="margin-top: 6%; margin-bottom: 3%;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <label id="Label99" class="col-md-12 col-sm-12 col-xs-12  no-padding" style="color: #1f3c61;">
+                        Image will be discarded, are you sure you want to edit the Mandate?
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnedityesyNO" value="Yes" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%; margin-left: 2%;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success closeallll" id="btneditNO" value="No" style="margin-top: 2%; margin-bottom: 2%">
+            </div>
+            <div class="popclose close" id="Div202" style="right: 2px;">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="DIVEMandate" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
+                        <img src="../images/caution2.png" class="" style="width: 15%;" alt="">
+                    </div>
+                    <i class="fa fa-caret-down"></i>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 text-center" style="margin-top: 6%; margin-bottom: 3%;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <label id="Label11" class="col-md-12 col-sm-12 col-xs-12  no-padding" style="color: #1f3c61;">
+                        Are you sure you want to proceed with E-Mandate?
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <a id="ContentPlaceHolder1_Button8" type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Button8','')" style="margin-right: 12%;
+                    margin-top: 2%; margin-bottom: 2%; margin-left: 2%;">Yes</a>
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success closeallll" id="Button9" value="No" style="margin-top: 2%; margin-bottom: 2%">
+            </div>
+            <div class="popclose close" id="Div19" style="right: 2px;">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="refund" style="display: none" class="popupmandate">
+            <div id="ContentPlaceHolder1_overlay1" class="col-xs-12 col-md-12 col-sm-12">
+            </div>
+            <div id="preloader_4" style="display: none; z-index: 9999; position: absolute;">
+                <span></span><span></span><span></span><span></span><span></span>
+                <label style="margin-bottom: 9%!important; margin-left: -25%!important;">
+                    Contacting Destination Bank...
+                </label>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                        <img id="img6" src="../images/saveTickUpdated.png" class="SavedTick" style="width: 15%;" alt="">
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 lblmsg">
+                    <label class="  lblPopup col-md-12 col-sm-12 col-xs-12 no-padding-left  " id="Label10">
+                        Refund Transfer Successfully
+                    </label>
+                </div>
+                <div class="popclose close1" id="Div20" style="right: 2px;">
+                    <label class="">
+                        X
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="display: none">
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                        <img id="img12" src="../images/caution2.png" class="SavedTick" style="width: 15%;" alt="">
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 lblmsg">
+                    <label class="  lblPopup col-md-12 col-sm-12 col-xs-12 no-padding-left  " id="Label17">
+                        Technical Issue
+                    </label>
+                </div>
+                <div class="popclose close1" id="Div16" style="right: 2px;">
+                    <label class="">
+                        X
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="Fund" style="display: none; min-height: 300px!important" class="popupmandate">
+            <div id="ContentPlaceHolder1_overlay21" class="col-xs-12 col-md-12 col-sm-12 overlayfund">
+            </div>
+            <div id="Loaderrr" style="position: absolute;">
+                <span></span><span></span><span></span><span></span><span></span>
+                <label style="margin-bottom: 25%!important;">
+                    Loading...
+                </label>
+            </div>
+            <iframe id="ContentPlaceHolder1_IframeCallFinalTransfer" src="" width="100%" height="300px" style="overflow: hidden"></iframe>
+        </div>
+        <div id="DivSecondTimeESP" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <img id="img8" src="../images/caution2.png" class="SavedTick" style="width: 15%;" alt="">
+                </div>
+                <i class="fa fa-caret-down"></i>
+            </div>
+            <label class="col-md-12 col-sm-12 col-xs-12 no-padding text-center lblESP" id="lblErrormsg">
+            </label>
+            <div id="DivSecond">
+                <label class="col-md-12 col-sm-12 col-xs-12 no-padding text-center lblESP2">
+                    Continue with another ESP
+                </label>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <a id="ContentPlaceHolder1_lnkYes" class="btnESP btn btn-success" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$lnkYes','')">Yes</a>
+                    <input type="button" class="btnESP btn btn-success" id="ESPNo" value="No">
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="button" class="col-md-12 btn btn-success" id="btnDivSecondOk" value="OK" style="margin-bottom: 2%;">
+            </div>
+            <div class="close popclose" id="Div22">
+                <label class="">
+                    X
+                </label>
+            </div>
+        </div>
+        <div id="netbankingdebit" style="display: none" class="popupmandate">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                    <img id="img11" src="../images/caution2.png" class="SavedTick" style="width: 12%;" alt="">
+                    <i class="fa fa-caret-down"></i>
+                </div>
+            </div>
+            <label class="col-md-12 col-sm-12 col-xs-12  no-padding" style="color: #1f3c61; margin: 7% 0 5% 0!important;" id="">
+                Bank is not live on E-Mandate. Do you want to edit?
+            </label>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="netbankingdebitYes" value="Yes" style="margin-right: 10%; margin-top: 2%; margin-bottom: 2%; margin-left: 3%;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="netbankingdebitNo" value="No" style="margin-top: 2%; margin-bottom: 2%">
+            </div>
+        </div>
+        <div id="confirmbankformpopup" style="display: none;" class="popupmandate no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="text-align: center">
+                <div id="overlay_consent" class="col-xs-12 col-md-12 col-sm-12 overlay_consent">
+                </div>
+                <div id="preloader_consent" style="display: none; z-index: 9999; position: absolute;">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <label>
+                        Loading...
+                    </label>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <h4 style="text-align: center; padding: 12px 0px; margin: 0;">
+                            Consent for Authentication
+                        </h4>
+                        <p style="text-align: center; font-weight: bold;">
+                            Yoeki Soft Private Limited
+                        </p>
+                    </div>
+                    <i class="fa fa-caret-down"></i>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 2%">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding" id="consentDiv" style="text-align: justify;">
+                        <div class="consentdata no-padding">
+                            <div style="padding: 10px">
+                                <p class="top-padding">
+                                    Please check the box to provide your consent to the below option
+                                </p>
+                                <p>
+                                    <input type="radio" id="rdoAgree" name="radio1" checked="checked" value="YE">
+                                    By continuing, I agree to do E-mandate using Yoeki Soft services
+                                </p>
+                                <p style="margin-left: 48%; font-weight: bold;">
+                                    OR
+                                </p>
+                                <p style="margin: 0;">
+                                    <input type="radio" id="rdoNo" name="radio1" value="YN">
+                                    I do not wish to E-mandate using Yoeki Soft services
+                                </p>
+                            </div>
+                            <p class="text-center">
+                                <a id="ContentPlaceHolder1_BtnYes" class="btn btn-success TestMandate" type="button" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$BtnYes','')" style="margin-top: 10px">Submit</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Emandatereg" style="display: none" class="popupmandate no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div id="mail-overlay" class="col-xs-12 col-md-12 col-sm-12 overlay">
+                </div>
+                <div id="mail-loader" style="display: none">
+                    <span></span><span></span><span></span><span></span><span></span>
+                    <label>
+                        Loading...
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                    <img id="img13" src="../images/caution2.png" class="SavedTick" style="width: 12%;" alt="">
+                    <i class="fa fa-caret-down"></i>
+                </div>
+            </div>
+            <label class="col-md-12 col-sm-12 col-xs-12  no-padding" style="color: #1f3c61; margin: 7% 0 5% 0!important;" id="Label12">
+                Do you want to send a link to customer for E-Mandate registration?
+            </label>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <a id="ContentPlaceHolder1_LinkButton1" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$LinkButton1','')" style="margin-right: 10%;
+                    margin-top: 2%; margin-bottom: 2%; margin-left: 3%;">Yes</a>
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" value="No" id="EnetbankingNo" style="margin-top: 2%; margin-bottom: 2%">
+            </div>
+        </div>
+    </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

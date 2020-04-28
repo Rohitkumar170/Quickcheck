@@ -1,0 +1,42 @@
+.card-header {
+    padding: 0px;
+}
+
+.boxhead {
+    margin-top: 10px;
+    border: 2px solid #e6edf3;
+    border-radius: 4px;
+    left: -12px !important;
+    background-color: #f1f2f3;
+}
+
+#tblUmrnhistory tbody {
+    overflow: auto;
+    display: block;
+    max-height: 26vh;
+    border: 1px solid #d5d5d5;
+}
+
+    #tblUmrnhistory tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+
+#tblUmrnhistory thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+.boxsetting {
+    margin-top: 3%;
+    margin-left: 1%;
+}
+#maincontent {
+    position: absolute;
+    top: 8%;
+    left: 14%;
+    width: 86%;
+}

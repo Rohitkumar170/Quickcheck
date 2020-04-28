@@ -1,0 +1,30 @@
+.card-header {
+    padding: 0px;
+}
+
+.boxheadlinksetup {
+    margin-top: 10px;
+    border: 2px solid #e6edf3;
+    border-radius: 4px;
+    left: 0px !important;
+    background-color: #f1f2f3;
+    padding: 10px;
+}
+
+form {
+    display: block;
+    overflow: visible !important;
+    padding: 0 !important;
+    height: 0% !important;
+}
+
+#maincontent {
+    position: absolute;
+    top: 8%;
+    left: 14%;
+    width: 86%;
+}
+
+#tbldiv table {
+    border: 1px solid #ddd;
+}

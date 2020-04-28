@@ -1,0 +1,40 @@
+
+#tblnachmandate tbody {
+    overflow: auto;
+    display: block;
+    max-height: 26vh;
+}
+
+    #tblnachmandate tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+.htmldateheight {
+    height: 24px;
+}
+
+#tblnachmandate thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+#tblnachmandate {
+    overflow-x: scroll;
+    display: inline-block;
+}
+
+    #tblnachmandate tbody {
+        width: 1741px;
+    }
+
+
+
+#maincontent {
+    position: absolute;
+    top: 8%;
+    left: 14%;
+    width: 86%;
+}

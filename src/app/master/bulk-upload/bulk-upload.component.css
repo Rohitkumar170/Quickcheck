@@ -1,0 +1,54 @@
+.card-header {
+    padding: 0px;
+}
+
+form {
+    display: block;
+    overflow: visible !important;
+    padding: 0 !important;
+    height: 0% !important;
+}
+
+#maincontent {
+    position: absolute;
+    top: 8%;
+    left: 14%;
+    width: 86%;
+}
+
+#tbldiv table {
+    border: 1px solid #ddd;
+}
+
+#tblsecondgrd tbody {
+    overflow: auto;
+    overflow-x: hidden;
+    display: block;
+    max-height: 26vh;
+    border: 1px solid #d5d5d5;
+}
+
+    #tblsecondgrd tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+
+#tblsecondgrd thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+
+
+#tblsecondgrd {
+    overflow-x: scroll;
+    display: inline-block;
+}
+
+    #tblsecondgrd tbody {
+        width: 3001px;
+    }

@@ -1,0 +1,101 @@
+<div id="navbar" class="navbar navbar-default ace-save-state" style="display: block">
+    <div class="quickLeftDiv">
+        <div class="navbar-container ace-save-state" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="#" class="navbar-brand">
+                   <img src="../../assets/images/quickcheck1.png" style="width: 100%;">
+                   
+                   
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="quickrightDiv">
+        <div>
+            <img src="../../assets/images/kotak-bank-logo.png" />
+        </div>
+        <div class="navbar-buttons navbar-header pull-right adminddl" role="navigation">
+        </div>
+
+    </div>
+</div>
+<form  [formGroup]="LoginForm" autocomplete="off"   class="form" >
+    <div class="quickCheckLogin" id="divquickcheck">
+        <div class="quicklogin" style="text-align: center;">
+            <img src="../../assets/images/quickcheck.png" />
+
+        </div>
+        <div class="clearfix">
+        </div>
+        <div id="login-box" *ngIf="submitted">
+        
+            <h1>
+                Login
+            </h1>
+            <div class="inset">
+                <p [ngClass]="displayFieldCss('UserName')">
+                
+                    <label for="email">
+                        UserName
+                    </label>
+                    <input name="UserName" type="text" class="form-control" formControlName="UserName" (keypress)="Removelabel()" placeholder="UserName" />
+                    
+                </p>
+                <p [ngClass]="displayFieldCss('Password')">
+                
+                    <label for="password">
+                        Password
+                    </label>
+                    <input name="Password" type="password" class="form-control " formControlName="Password" (keypress)="Removelabel()" placeholder="Password" />
+                    
+                </p>
+
+                <input type="submit" value="Secure Login" [disabled]="btnloginDisabled" (click)="onSubmit()" class="loginbtn">
+                
+
+                <label id="lblName">{{errormsg}}</label>
+
+            </div>
+
+
+            
+
+
+            <p class="p-container">
+                <span id="forgotbtn" (click)="Show()" style="cursor: pointer">Forgot password ?</span>
+                
+            </p>
+        </div>
+        <div id="forgot-box" *ngIf="Isverified">
+        
+            <h1>
+                Retrieve Password
+            </h1>
+            <div class="inset">
+                <p style="margin-top: 8%" [ngClass]="displayFieldCss('Email')">
+                
+                    <label for="password">
+                        Email
+                    </label>
+                    <input name="Email" type="text" formControlName="Email" (keypress)="Removelabel()" class="form-control "
+                placeholder="Email" />
+                
+                </p>
+                <input type="submit" value="Agree" (click)="onAgree()" [disabled]="btnAgreeDisabled" class="loginbtn">
+                
+            </div>
+
+        </div>
+    </div>
+</form>
+<div class="footer" style="display: block">
+    <div class="footer-inner">
+        <div class="footer-content">
+            <span class="text-center" style="color: #000;">
+                <span class="blue bolder" id="quickCheckFooter"
+                      style="display: inline-block;">QuickCheck</span><span>Application &copy; 2018</span>
+            </span>
+        </div>
+    </div>
+</div>

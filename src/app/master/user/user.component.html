@@ -1,0 +1,749 @@
+<div class="main-content" id="maincontent">
+    <div class="content">
+        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                <span class="legal">User</span>
+            </div>
+            <div class="rightmenu">
+                <div class="toolbar pull-right">
+                    <ul class="toolbar-content">
+
+
+                        <li (click)="download()" id="btnExport">
+                            <i class="fa fa-download" aria-hidden="true" title="Export"></i>
+                            <label>
+                                Export
+                            </label>
+                        </li>
+                        <li (click)="newUser()" id="btnNew">
+                            <i class="fa fa-file-text" aria-hidden="true" title="New"></i>
+                            <label>
+                                New
+                            </label>
+                        </li>
+                        <li (click)="editData()" id="btnEdit">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
+                            <label>
+                                Edit
+                            </label>
+                        </li>
+                        <li (click)="onSubmit()" id="btnSave">
+                            <i class="fa fa-floppy-o" aria-hidden="true" title="Save"></i>
+                            <label>
+                                Save
+                            </label>
+                        </li>
+                        <li style="display: none">
+                            <i class="fa fa-key" aria-hidden="true" title="Reset Password"></i>
+                            <label>
+                                Reset Password
+                            </label>
+                        </li>
+                        <li style="display: none">
+                            <i class="fa fa-times" aria-hidden="true"
+                               title="Delete"></i>
+                            <label>
+                                Delete
+                            </label>
+                        </li>
+                        <li (click)="backClick()" id="btnBack">
+                            <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
+                            <label>
+                                Back
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4"></div>
+            <div class="col-md-5 col-sm-4 col-xs-4"></div>
+            <div class="col-md-3 col-sm-4 col-xs-4">
+                <div class="form-group" id="divSearch">
+                    <label class="col-sm-5 col-md-4 col-xs-4 control-label" for="form-field-1">
+                        Search
+                    </label>
+                    <div class="col-sm-7 col-md-8 col-xs-7 displayinlineblock">
+                        <input type="text" id="txtSearch" class="col-sm-12 col-md-12 col-xs-12" (keyup)="bindUser()" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" *ngIf="tableid">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="display: none;"></th>
+                        <th>Sr No.</th>
+                        <th>User Name</th>
+                        <th>Email Address</th>
+                        <th>Contact No.</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let User of userdata ; index as i" (dblclick)="onRowClicked(User)" (click)="setClickedRow(User)" [class.active]="i == selectedRow">
+                        <td style="display: none;">{{User.UserId}}</td>
+                        <td>{{User.Srno}}</td>
+                        <td>{{User.UserName}}</td>
+                        <td>{{User.EmailId}}</td>
+                        <td>{{User.PhoneNo}}</td>
+                        <td>{{User.Type}}</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" *ngIf="formid">
+            <form [formGroup]="UserForm" autocomplete="off">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    User Details
+                                </button>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="overflow-y:scroll; max-height:446px;">
+                            <div class="card-body">
+                                <div class="row no-padding">
+                                    <div class="col-md-4 col-sm-5 col-xs-12 no-padding">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                User Type
+                                            </label>
+                                            <div id="User" class="col-sm-7 col-md-7 col-xs-7 no-padding-left radio displayinlineblock" [ngClass]="displayFieldCss('Type')">
+                                                <label class="lblradiobtnss col-md-5 col-sm-4 col-xs-6">
+                                                    <input name="Type" value="u" type="radio" formControlName="Type" (click)="userClick()" />
+                                                    <span>User</span>
+                                                </label>
+                                                <label class="lblradiobtnss col-md-6 col-sm-6 col-xs-6">
+                                                    <input name="Type" value="a" type="radio" formControlName="Type" (click)="adminClick()" />
+                                                    <span>Administrator</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-padding">
+                                    <div class="col-md-4 col-sm-4 col-xs-12  no-padding">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                User ID
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                <input type="text" name="UserName" class="col-sm-12 col-md-12 col-xs-12" formControlName="UserName" [ngClass]="displayFieldCss('UserName')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12  no-padding " style="display: none">
+                                        <div class="form-group">
+                                            <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Password
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                <input type="password" value="1" class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12  no-padding" style="display: none">
+                                        <div class="form-group">
+                                            <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Confirm Password
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                <input type="password" value="1"
+                                                       class="col-sm-12 col-md-12 col-xs-12" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-padding">
+                                    <div class="col-md-4 col-sm-4 col-xs-12  no-padding">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Contact No.
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                <input type="text" name="PhoneNo" id="txtphnumber" maxlength="10" class="col-sm-12 col-md-12 col-xs-12" formControlName="PhoneNo" (change)="isChklength()" (keypress)="isNumber($event)" (keyup)="removeClass()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12  no-padding">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Email Address
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                <input type="text" name="EmailId" class="col-sm-12 col-md-12 col-xs-12" formControlName="EmailId" id="txtEmailId" (change)="chkEmail()" (keyup)="removeClass()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12  no-padding">
+                                        <div class="form-group">
+                                            <label class="col-sm-6 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Email to be sent on
+                                            </label>
+                                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                <input type="email" name="emailsent" class="col-sm-12 col-md-12 col-xs-12 " formControlName="emailsent" id="txtemailsent" (change)="chkEmailSent()" (keyup)="removeClass()" style="height:22px" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-padding">
+                                    <div class="col-md-4 col-sm-4 col-xs-12  no-padding" id="dvtxtBankValidationcount" *ngIf="dvtxtBankValidationcount">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Bank Validation
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                <input type="text" name="bankval" class="col-sm-12 col-md-12 col-xs-12" formControlName="bankval" (change)="bankValidationChange()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-12  no-padding" id="dvtxtAccountValidationcount" *ngIf="dvtxtAccountValidationcount">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 col-md-5 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Account Validation
+                                            </label>
+                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                                <input type="text" name="accountval" class="col-sm-12 col-md-12 col-xs-12" formControlName="accountval" (change)="accountValidationChange()" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row no-padding">
+                                    <div class=" col-sm-10 col-xs-12 col-md-12 no-padding">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 col-md-2 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Sponsor Bank Code
+                                            </label>
+                                            <div class="col-sm-10 col-md-10 col-xs-7 no-padding-left displayinlineblock">
+                                                <!--<input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding  spneser bankcodeposition" />-->
+                                                <!--<ng-multiselect-dropdown formControlName="sponsorbankcode"  [ngClass]="displayFieldCss('sponsorbankcode')" name="sponsorcode"
+                                                    [placeholder]="'Select'"
+
+                                                    [data]="sponsorbankcode"  
+                                                    [settings]="dropdownSettings">
+
+                                                </ng-multiselect-dropdown>-->
+                                                <select class="col-sm-12 col-md-12 col-xs-12 no-padding  spneser bankcodeposition" formControlName="sponsorbankcode" [ngClass]="displayFieldCss('sponsorbankcode')" name="sponsorbankcode">
+                                                    <option value="0">--Select--</option>
+
+                                                    <option *ngFor="let SponsorBankCode of sponsorbankcode" value="{{SponsorBankCode.SponsorBankCodeId}}"> {{SponsorBankCode.name}} </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-padding">
+                                    <div class=" col-sm-10 col-xs-12 col-md-12 no-padding">
+                                        <div class="form-group" style="margin-top:0px;">
+                                            <label class="col-sm-2 col-md-2 col-xs-4 control-label no-padding" for="form-field-1">
+                                                Category Code:
+                                            </label>
+                                            <div class="col-sm-10 col-md-10 col-xs-7 no-padding-left displayinlineblock">
+                                                <select class="col-sm-12 col-md-12 col-xs-12 no-padding  spneser bankcodeposition" formControlName="categorycode" [ngClass]="displayFieldCss('categorycode')" name="categorycode">
+                                                    <option value="0">--Select--</option>
+
+                                                    <option *ngFor="let CategoryCode of categorycode" value="{{CategoryCode.code}}"> {{CategoryCode.name}} </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-sm-12 col-xs-12 col-md-12 no-padding" style="display:none">
+                                    <div class=" col-sm-10 col-xs-12 col-md-12 no-padding">
+                                        <div class="form-group">
+                                            <div class="col-md-3 col-sm-3 col-xs-12 no-padding">
+                                                <input type="checkbox" class="pull-left" />
+                                                <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                    IsDashBoard
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class=" col-sm-12 col-xs-12 col-md-12 no-padding boxhead">
+                                    <div class=" col-sm-12 col-xs-12 col-md-12 no-padding">
+                                        <div class=" col-sm-12 col-xs-12 col-md-12 no-padding-right">
+                                            <span class=" col-sm-6 col-md-2 col-xs-5 no-padding  useright">Access Right</span>
+                                        </div>
+                                        <div class=" col-sm-12 col-xs-12 col-md-12 no-padding-right" *ngIf="divaccessright">
+                                            <div class=" col-sm-12 col-xs-12 col-md-12 no-padding" style="display: none">
+                                                <div class="col-md-8 col-sm-8 col-xs-12 no-padding">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-6 col-md-5 col-xs-12 control-label no-padding " for="form-field-1">
+                                                            Transaction Presentment Access
+                                                        </label>
+                                                        <div class="col-sm-5 col-md-7 col-xs-7 no-padding">
+                                                            <input type="checkbox" name="rdoAccess"
+                                                                   class="pull-left" value="1" />
+                                                            <div class="col-md-10 col-sm-10 col-xs-11 no-padding">
+                                                                <label class=" col-md-12 col-xs-12 col-sm-12 no-padding-right control-label">
+                                                                    Presentment Maker
+                                                                </label>
+                                                            </div>
+                                                            <input type="checkbox" name="rdoAccess"
+                                                                   class="pull-left" style="clear: both" value="2" />
+                                                            <div class="col-md-11 col-sm-10 col-xs-11 no-padding">
+                                                                <label class=" col-md-12 col-xs-12 col-sm-12 no-padding-right control-label">
+                                                                    Presentment Checker
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-sm-11 col-md-12 col-xs-12 no-padding" style="display: none">
+                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />
+                                                                <label style="color: red; display: none">
+                                                                    Invalid Selection
+                                                                </label>
+                                                                <label style="color: red; display: none">
+                                                                    Please select atleast one maker
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-12 col-xs-12 col-md-12 no-padding" style="display: none;">
+                                                <div class="col-md-8 col-sm-11 col-xs-12 no-padding">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 col-md-2 col-xs-4 control-label no-padding  pull-left" for="form-field-1">
+                                                            Mandate Access
+                                                        </label>
+                                                        <div id="divMandate" class="col-sm-10 col-md-10 col-xs-8 no-padding">
+                                                            <div class="col-md-3 col-sm-3 col-xs-12 no-padding">
+                                                                <input type="checkbox" class="pull-left"
+                                                                       checked />
+                                                                <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                    Single Mandate
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12 no-padding" style="display: none">
+                                                                <input type="checkbox" style="clear: both"
+                                                                       class="pull-left">
+                                                                <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                    Bulk Validation
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-sm-11 col-xs-12 no-padding" id="DivchkAllowFundTransfer"
+                                                 style="display: none;">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 col-md-2 col-xs-4  control-label no-padding" for="form-field-1">
+                                                        Access Code
+                                                    </label>
+                                                    <div class="col-sm-10 col-md-10 col-xs-8 no-padding">
+                                                        <div class="col-md-3 col-sm-3 col-xs-12 no-padding-left no-padding-right">
+                                                            <input type="checkbox" class="pull-left" />
+                                                            <div class="col-md-10 col-sm-10 col-xs-10 no-padding">
+                                                                <label class=" col-md-12 col-xs-12 col-sm-12 no-padding-right control-label" style="font-weight: 100;">
+                                                                    Allow Fund Transfer
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3 col-xs-12 no-padding-left" id="DivIsZipSure">
+                                                            <input type="checkbox" class="pull-left" id="chkIsZipSure" />
+                                                            <div class="col-md-10 col-sm-10 col-xs-10 no-padding">
+                                                                <label class=" col-md-12 col-xs-12 col-sm-12 control-label" style="font-weight: 100;">
+                                                                    Is Ziplink
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="divNachMandate" class=" col-sm-12 col-xs-12 col-md-12 no-padding">
+                                                <div class="col-md-11 col-sm-12 col-xs-12 no-padding">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-sm-2 col-md-2 col-xs-4 control-label " for="form-field-1">
+                                                                Nach-Mandate
+                                                            </label>
+                                                            <div class="col-sm-10 col-md-10 col-xs-7 no-padding">
+                                                                <div class="row">
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                        <input type="checkbox" value="1" name="chkCreate" id="IsChkcreate"
+                                                                               class="pull-left" formControlName="chkCreate" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            Create
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                        <input type="checkbox" value="2" style="clear: both" class="pull-left" formControlName="chkEdit" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            Edit
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                        <input type="checkbox" value="3" name="chkView" id="IsChkView"
+                                                                               class="pull-left" style="clear: both" formControlName="chkView" (click)="viewClick()" />
+                                                                        <label class=" col-md-10 col-xs-1chkView0 col-sm-10 no-padding-right control-label">
+                                                                            View
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-3 col-xs-12 no-padding">
+                                                                        <input type="checkbox" value="false" name="chkRefEdit" style="clear: both" class="pull-left" formControlName="chkRefEdit" id="IsChkRefEdit" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            Reference Edit
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                        <input type="checkbox" name="chkDownload"
+                                                                               class="pull-left" value="false" style="clear: both" formControlName="chkDownload" id="IsChkdownload" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            Download
+                                                                        </label>
+                                                                    </div>
+
+
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding" id="dvEnableCancel" *ngIf="dvEnableCancel">
+                                                                        <input type="checkbox" value="false" name="chkEnableCancel"
+                                                                               class="pull-left" style="clear: both" formControlName="chkEnableCancel" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            Enable Cancel
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-10 col-xs-12 no-padding">
+                                                    <div class="form-group">
+
+                                                        <div *ngIf="divNachUser">
+                                                            <div class="col-sm-10 col-md-10 col-xs-7 no-padding">
+                                                                <select class="col-sm-12 col-md-12 col-xs-12  viewrowmargin  no-padding" formControlName="nachuser" name="nachuser">
+                                                                    <option value="0">--Select--</option>
+
+                                                                    <option *ngFor="let NachUser of nachuser" value="{{NachUser.UserId}}"> {{NachUser.UserName}} </option>
+                                                                </select>
+                                                                <label style="color: red; display: none">
+                                                                    Please select atleast one user
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <label class="col-md-10 col-sm-10 col-xs-12 " style=" color: #e72d2d; font-size: 12px" *ngIf="lblalluser">All users selected</label>
+                                                    </div>
+
+                                                    <div id="divplusicon" *ngIf="divplusicon">
+                                                        <i class="fa fa-user-plus plusicon" aria-hidden="true" (click)="onClick($event)" style="position: absolute;top: 9px;right: 145px;"></i>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div id="dvPresentment" class=" col-sm-12 col-xs-12 col-md-12 no-padding">
+                                                <div class="col-md-11 col-sm-12 col-xs-12 no-padding">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-sm-2 col-md-2 col-xs-4 control-label ss " for="form-field-1">
+                                                                Presentment
+                                                            </label>
+                                                            <div class="col-sm-10 col-md-10 col-xs-8 no-padding">
+                                                                <div class="row">
+                                                                    <div class="col-md-2 col-sm-3 col-xs-12 no-padding">
+                                                                        <input type="checkbox" name="chkUmrnHistory" id="IschkUmrnHistory"
+                                                                               class="pull-left" style="clear: both" value="17" formControlName="chkUmrnHistory" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            UMRN History
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                        <input type="checkbox" name="chkUmrnUpload" id="IschkUmrnUpload"
+                                                                               class="pull-left" style="clear: both" value="18" formControlName="chkUmrnUpload" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            UMRN Upload
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                        <input type="checkbox" name="chkAllUMRN" class="pull-left" id="IschkAllUMRN"
+                                                                               style="clear: both" value="22" formControlName="chkAllUMRN" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            ALL UMRN
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-4 col-xs-12 no-padding">
+                                                                        <input type="checkbox" name="chknachpresentment" formControlName="chknachpresentment" id="chkIsNachPresent"
+                                                                               class="pull-left" style="clear: both" value="19" (click)="presentmentClick()" />
+                                                                        <label class=" col-md-10 col-xs-11 col-sm-10 no-padding-right control-label">
+                                                                            NACH Transaction Presentation
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="divPresentmentAccess" class="col-sm-12 col-md-12 col-xs-12 no-padding"
+                                                                     style="margin-top: 1%;" *ngIf="divPresentmentAccess">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3 col-sm-4 col-xs-12 no-padding">
+                                                                            <input type="checkbox" name="chkPresentMaker" id="IschkPresentMaker"
+                                                                                   class="pull-left" value="1" formControlName="chkPresentMaker" />
+                                                                            <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                                Presentment Maker
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-md-3 col-sm-4 col-xs-12 no-padding">
+                                                                            <input type="checkbox" name="chkPresentChecker" id="chkIsChecker"
+                                                                                   class="pull-left" style="clear: both" value="2" formControlName="chkPresentChecker" (click)="checkerClick()" />
+                                                                            <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                                Presentment Checker
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-sm-10 col-xs-12 no-padding">
+                                                    <div class="form-group" *ngIf="divMaker">
+
+                                                        <div class="col-sm-10 col-md-10 col-xs-7 no-padding">
+                                                            <select class="col-sm-12 col-md-12 col-xs-12  viewrowmargin  no-padding" formControlName="maker" name="maker">
+                                                                <option value="0">--Select--</option>
+
+                                                                <option *ngFor="let Maker of maker" value="{{Maker.UserId}}"> {{Maker.UserName}} </option>
+                                                            </select>
+
+                                                            <label style="color: red; display: none">
+                                                                Invalid Selection
+                                                            </label>
+                                                            <label style="color: red; display: none">
+                                                                Please select atleast one maker
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div id="dvBulkUpload" *ngIf="dvBulkUpload" class=" col-sm-12 col-xs-12 col-md-12 no-padding">
+                                                <div class="col-md-11 col-sm-12 col-xs-12 no-padding">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-sm-2 col-md-2 col-xs-4 control-label " for="form-field-1">
+                                                                Bulk Upload
+                                                            </label>
+                                                            <div class="col-sm-10 col-md-10 col-xs-7 no-padding" id="divbulkupload">
+                                                                <div class="row">
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding" *ngFor="let data of bulkupload">
+                                                                        <input type="checkbox" name="chkbulkuploadlink" formControlName="chkbulkuploadlink" id={{data.LinkID}}
+                                                                               class="pull-left" value={{data.LinkID}} (click)="checkLinks(data)" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            {{data.LinkName}}
+                                                                        </label>
+
+                                                                        <!--<div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                            <input type="checkbox" id="bulkemandate" style="clear: both" class="pull-left" value="28" />
+                                                                            <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                                Emandate
+                                                                            </label>
+                                                                        </div>-->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!--<div class="col-md-10 col-sm-10 col-xs-12 no-padding" style="display: none;" id="div2">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 col-md-2 col-xs-4 control-label no-padding " for="form-field-1">
+                                                        </label>
+                                                        <div class="col-sm-10 col-md-10 col-xs-7 no-padding" id="div3" style="display: none;">
+                                                            <input type="text" id="Text1" onchange="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12 viewrowmargin no-padding" />
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+
+                                            <div id="dvVideos" *ngIf="dvVideos" class=" col-sm-12 col-xs-12 col-md-12 no-padding">
+                                                <div class="col-md-11 col-sm-12 col-xs-12 no-padding">
+
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="col-sm-2 col-md-2 col-xs-4 control-label  " for="form-field-1">
+                                                                Videos
+                                                            </label>
+                                                            <div class="col-sm-10 col-md-10 col-xs-7 no-padding" id="divvideo">
+                                                                <div class="row">
+                                                                    <div class="col-md-2 col-sm-2 col-xs-12 no-padding" *ngFor="let data of bulkvideo">
+                                                                        <input type="checkbox" name="chkvideolink" formControlName="chkvideolink" id={{data.LinkID}}
+                                                                               class="pull-left" value={{data.LinkID}} (click)="checkVideoLinks(data)" />
+                                                                        <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                            {{data.LinkName}}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <!--<div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                    <input type="checkbox" id="emandatedemo" style="clear: both" class="pull-left" value="26" />
+                                                                    <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                        Emandate
+                                                                    </label>
+                                                                </div>-->
+                                                                <!--<div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                    <input onclick="RemoveClass();" type="checkbox" name="rdoAccess" id="bulkphysicaldemo"
+                                                                           class="pull-left" value="1" />
+                                                                    <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                        Bulk Physical
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-2 col-sm-2 col-xs-12 no-padding">
+                                                                    <input type="checkbox" id="bulkemandatedemo" style="clear: both" class="pull-left" />
+                                                                    <label class=" col-md-10 col-xs-10 col-sm-10 no-padding-right control-label">
+                                                                        Bulk Emandate
+                                                                    </label>
+                                                                </div>-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--<div class="col-md-10 col-sm-10 col-xs-12 no-padding" style="display: none;" id="div4">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 col-md-2 col-xs-4 control-label no-padding " for="form-field-1">
+                                                        </label>
+                                                        <div class="col-sm-10 col-md-10 col-xs-7 no-padding" id="div5" style="display: none;">
+                                                            <input type="text" id="Text2" onchange="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12 viewrowmargin no-padding" />
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal userlistpop" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" style="color: #162d46;font-weight: bold;font-size: 12px;">
+                        User List
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+
+                    <div id="tbldiv">
+                        <div>
+                            <table id="tbluserlist">
+                                <thead>
+                                    <tr>
+                                        <th style="width:150px;"><input type="checkbox" name="all" id="chkalluserlist" (click)="chkAllUser($event)" (change)="isSelected = !isSelected">All</th>
+                                        <th style="width:300px;">Email Id</th>
+                                        <th style="width:300px;">User Name</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of nachuser; index as i" (click)="setSelectedRow(i)" [class.active]="i == selectedRow">
+                                        <td style="width:150px;"><input type="checkbox" class="chk" name="singlechk" [checked]="isSelected" (change)="checkSingleUser(data)" id={{data.UserId}}></td>
+                                        <td style="display:none">{{data.UserId}}</td>
+                                        <td style="width:300px;">{{data.EmailId}}</td>
+                                        <td style="width:300px;">{{data.UserName}}</td>
+
+                                    </tr>
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <button type="button" class="btn btn-success pull-right" style="margin-top:8px;" data-dismiss="modal" (click)="getUserlist()">Submit</button>
+
+
+                    </div>
+
+
+
+
+                </div>
+
+                <!-- Modal footer -->
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Sumbit</button>
+                </div>-->
+
+            </div>
+        </div>
+    </div>
+    <div class="modal success" id="myModal" [style.display]="showModalsave ? 'block' : 'none'">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <img src="../../ClientApp/assets/images/saveSuccessImg.png" />
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p> User Saved Successfully</p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal alertpop" id="myModal" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <img src="../../ClientApp/assets/images/caution2.png" style="height:62px"/>
+                    
+
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p> User already exists</p>
+                    <button type="button" class="btn btn-success pull-right" data-dismiss="modal" (click)="hide()">Close</button>
+                </div>
+
+                <!-- Modal footer -->
+               
+                    
+              
+
+            </div>
+        </div>
+    </div>
+</div>

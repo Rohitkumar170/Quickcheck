@@ -1,0 +1,8 @@
+#dvLinks ul li {
+    width: 99%;
+}
+
+#dvLinks {
+    width: 14%;
+    border-right: 1px solid #cdcdcd;
+}
