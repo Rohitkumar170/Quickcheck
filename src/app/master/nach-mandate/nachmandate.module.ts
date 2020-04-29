@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule,DatePipe } from '@angular/common';
 import { NachmandateRoutingModule } from './nachmandate-routing.module';
 import { NachMandateComponent } from './nach-mandate.component';
 import { BankFormService } from '../../Services/BankForm/bank-form.service';
@@ -15,7 +15,7 @@ import {AuthGuardService } from '../../Services/auth-guard.service';
     NachmandateRoutingModule
     ],
     providers: [
-        AuthGuardService,BankFormService,
+        AuthGuardService,BankFormService,DatePipe,
           { provide: 'BASE_URL', useFactory: getBaseUrl }
     ]
 })
