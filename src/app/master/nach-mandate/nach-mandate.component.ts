@@ -12,7 +12,7 @@ import { BindLogincheck } from '../../../Models/BankForm/BindLogincheck';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { endWith } from 'rxjs/operators';
 import { DISABLED } from '@angular/forms/src/model';
-//mport { DatePipe, KeyValuePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-nach-mandate',
@@ -39,7 +39,7 @@ export class NachMandateComponent implements OnInit {
     //end header button work
 
     btnCancelDisabled: boolean = true; IsCancel = false;    
-    constructor(private router: Router, private formBuilder: FormBuilder, private _bankformService: BankFormService) { }
+    constructor(private router: Router, private formBuilder: FormBuilder, private _bankformService: BankFormService,public datepipe: DatePipe) { }
     ngOnInit() {
         this.NachMandate = this.formBuilder.group({
             MandateMode: [''], Catagorycode: [''], Mandatetype: [''], UMRN: [''], UMRNDATE: [''], Sponsorcode: [''],  Utilitycode: [''], Create: [''], Modify: [''],
@@ -79,8 +79,14 @@ export class NachMandateComponent implements OnInit {
                 } else {
                     this.IsShow = false;
                 }
+               
                 this.NachMandate.controls['PeriodFrom'].setValue(this.Table[0].FromDate);
-               // this.NachMandate.controls['UMRNDATE'].setValue(public datepipe: DatePipe);
+                let dateString = data.Table[0].Date;
+                
+
+                this.NachMandate.controls['UMRNDATE'].setValue(data.Table[0].Date);
+
+
                 this.NachMandate.controls['Authrizename'].setValue(this.Table[0].Name);
                 this.EntityNameCodedesabled = true;
                 this.NachMandate.controls['Debittype'].setValue(this.Table[0].DebitType);
