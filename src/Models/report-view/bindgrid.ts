@@ -6,11 +6,11 @@ export class Bindgrid {
     UpdatedOn: string;
     createdBy: string;
     UpdatedBy: string;
-    FileUpdatedCount: string;
+    FileUploadedCount: string;
     BankValidation: string;
     AcValidation: string;
     SavedCount: string;
     EditCount: string;
     entityName: string;
-    length:any;
+    length: any;
 }
