@@ -54,8 +54,11 @@
                             <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> User </label>
                             <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                 <select class="alldropdown">
-                                    <option value="volvo">User 1</option>
-                                    <option value="saab">User 2</option>
+                                    <option value="0" selected id="ddluser" formControlName="ddluser">Select</option>
+                                    <option *ngFor="let lang of binduser"
+                                            value="{{lang.UserId}}" text="{{lang.UserName}}"></option>
+                                    <!--<option value="volvo">User 1</option>
+                                    <option value="saab">User 2</option>-->
                                 </select>
                             </div>
                         </div>
@@ -82,6 +85,7 @@
                     </div>
 
                 </div>
+
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12">
 
@@ -94,14 +98,51 @@
                     </div>
 
                 </div>
-                <div class="row" id="reportdiv">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
 
-
-                    </div>
-
-                </div>
             </form>
+
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv">
+            <table id="tbldowneoldemandate">
+                <thead>
+                    <tr>
+                        <th style="width:150px;">Mandate Ref Id</th>
+                        <th style="width:220px;">Created On</th>
+                        <th style="width:220px;">Updated On</th>
+                        <th style="width:400px;">CteatedByth>
+                        <th style="width:150px;">UpdatedBy</th>
+                        <th style="width:150px;">Saved</th>
+                        <th style="width:150px;">Edited</th>
+                        <th style="width:150px;">Bank Validation</th>
+                        <th style="width:150px;">Acc Validation</th>
+                        <th style="width:150px;">File Uplodede</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let lang of bindgrid ">
+
+                        <td style="width:150px;"><input type="checkbox" name="all" value="lang.selected" [checked]="lang.selected" (click)="Removelabel()" (change)="onChange($event,lang); lang.selected = !(lang.selected)"></td>
+
+                        <td style="width:150px;">{{lang.SrNo}} </td>
+                        <td style="width:220px;">{{lang.Refrence1}}</td>
+                        <td style="width:220px;">{{lang.CreatedOn}}</td>
+                        <td style="width:400px;">{{lang.UpdatedOn}}</td>
+                        <td style="width:150px;">{{lang.createdBy}}</td>
+                        <td style="width:150px;">{{lang.UpdatedBy}}</td>
+                        <td style="width:150px;">{{lang.FileUpdatedCount}}</td>
+                        <td style="width:150px;">{{lang.BankValidation}}</td>
+                        <td style="width:150px;">{{lang.AcValidation}}</td>
+                        <td style="width:150px;">{{lang.SavedCount}}</td>
+                        <td style="width:150px;">{{lang.EditCount}}</td>
+                        <td style="width:150px;">{{lang.entityName}}</td>
+                    </tr>
+                    <tr *ngIf="bindgrid?.length == 0">
+                        <td colspan="3">No data!</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
 
         </div>
     </div>

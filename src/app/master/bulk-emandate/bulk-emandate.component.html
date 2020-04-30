@@ -15,7 +15,7 @@
                     </span>
                     <span id="btnspa">
                         <i class="fa fa-download" aria-hidden="true"></i>
-                        <input type="button" class=" btn btn-success" id="btnexcel"
+                        <input type="button" class=" btn btn-success" id="btnexcel" (click)="downloadExcel()"
                                value="Download Excel" />
                     </span>
                 </div>
@@ -35,13 +35,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let td of tabledata">
 
-                        <td style="width:150px;">1</td>
-                        <td style="width:220px;">Demo A-001</td>
-                        <td style="width:220px;">Demo</td>
-                        <td style="width:220px;">25-04-2020</td>
-                        <td style="width:220px;">Tarun</td>
+                        <td style="width:150px;">{{td.Srno}}</td>
+                        <td style="width:220px;">{{td.ActivityId}}</td>
+                        <td style="width:220px;">{{td.ActivityName}}</td>
+                        <td style="width:220px;">{{td.UploadedOn}}</td>
+                        <td style="width:220px;">{{td.UserName}}</td>
 
 
                     </tr>
@@ -50,6 +50,27 @@
 
             </table>
 
+
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6" style="float: right">
+            <div class="toolbar pull-right">
+                <ul class="toolbar-content">
+
+                    <li>
+                        <div style="color: #1f497d; margin-top: 8%;font-weight: bold;">
+                            Showing
+                            <label>{{topVal}}</label>
+                            of
+                            <label>{{count}}</label>
+                        </div>
+                    </li>
+                    <li id="">
+                        <i class="" aria-hidden="true" title="Save"></i>
+                        <input type="button" id="btnLoadMore" class="btn btn-primary" (click)="pagenext()" style="border: 1px solid #fff;padding: 3px 5px 3px 5px;font-size: 12px;" value="Load More" />
+                    </li>
+
+                </ul>
+            </div>
         </div>
 
 

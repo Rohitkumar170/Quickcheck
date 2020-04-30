@@ -64,20 +64,20 @@ export class UserComponent implements OnInit {
     public dvVideos: boolean = false;
     public dvtxtBankValidationcount: boolean = false;
     public dvtxtAccountValidationcount: boolean = false;
-    
     message: string;
     linkid: number = 0;
     public AcvalUsercount: string = "";
     public bankvalUsercount: string = "";
     public dvEnableCancel: boolean = false;
     TotalCount;
-    isSelected:boolean= false;
+    isSelected: boolean = false;
     isSingleChk: boolean = false;
     Userid: number = 0;
     selected_checkbox = {};
     constructor(private formBuilder: FormBuilder, private userservice: UserServiceService) { }
     showModal: boolean;
     showModalsave: boolean;
+    showModalalert: boolean;
     IsViewAll: number = 0;
     lblalluser: boolean = false;
 
@@ -89,11 +89,13 @@ export class UserComponent implements OnInit {
 
     hide() {
         this.showModalsave = false;
-        
+        this.showModal = false;
+        this.showModalalert = false;
     }
+
     ngOnInit() {
         this.UserForm = this.formBuilder.group({
-            UserName: ['', Validators.required],
+            UserName: [, Validators.required],
             sponsorbankcode: ['', Validators.required],
             categorycode: ['', Validators.required],
             Type: ['', Validators.required],
@@ -118,14 +120,14 @@ export class UserComponent implements OnInit {
             chkEnableCancel: new FormControl(),
             chkbulkuploadlink: new FormControl(),
             chkvideolink: new FormControl()
-            
+
 
 
         });
         this.setSelectedRow = function (index) {
             this.selectedRow = index;
         }
-        
+
         this.tableid = true;
         this.formid = false;
         this.divaccessright = false;
@@ -140,7 +142,7 @@ export class UserComponent implements OnInit {
         this.dvEnableCancel = false;
         this.isSelected = false;
         this.lblalluser = false;
-           
+
 
         document.getElementById("btnEdit").setAttribute("disabled", "disabled");
         document.getElementById("btnBack").setAttribute("disabled", "disabled");
@@ -148,6 +150,10 @@ export class UserComponent implements OnInit {
         this.bindUser();
         this.bindPresentmentMaker();
         this.BindPresentmentChecker();
+        this.UserForm.controls['sponsorbankcode'].setValue(0);
+        this.UserForm.controls['categorycode'].setValue(0);
+        this.UserForm.controls['maker'].setValue(0);
+        this.UserForm.controls['nachuser'].setValue(0);
     }
 
     isFieldValid(field: string) {
@@ -188,14 +194,14 @@ export class UserComponent implements OnInit {
         this.userservice.getUser(item.ReferenceId, this.Page_Count, this.Search_Text).subscribe((data) => {
 
             this.userdata = data.Table;
-            
+
 
             this.sponsorbankcode = data.Table2;
-            
+
 
             this.categorycode = data.Table7;
 
-           
+
 
 
 
@@ -254,7 +260,7 @@ export class UserComponent implements OnInit {
                 //for (var i = 0; i < data.Table1.length; i++) {
                 //    html += "<div class='col-md-2 col-sm-3 col-xs-12 no-padding' ><input type='checkbox' name='chkbulkupload' id='chkbx_" + this.bulkupload[i].LinkID + "' class='bulkvideo pull-left' value='" + this.bulkupload[i].LinkID + "'/><label class='col-md-10 col-xs-10 col-sm-10 no-padding-right control-label'>" + this.bulkupload[i].LinkName + "</label></div>"
 
-                   
+
                 //}
                 //html += "</div></div></div>"
 
@@ -269,7 +275,7 @@ export class UserComponent implements OnInit {
                 //for (var i = 0; i < data.Table2.length; i++) {
                 //    html1 += "<div class='col-md-2 col-sm-3 col-xs-12 no-padding' ><input type='checkbox' name='chkbulkupload' id='chkbx_" + this.bulkvideo[i].LinkID + "' class='bulkvideo pull-left' value='" + this.bulkvideo[i].LinkID + "'/><label class='col-md-10 col-xs-10 col-sm-10 no-padding-right control-label'>" + this.bulkvideo[i].LinkName + "</label></div>"
 
-                    
+
                 //}
                 //html += "</div></div></div>"
 
@@ -279,7 +285,7 @@ export class UserComponent implements OnInit {
 
 
         });
-           
+
     }
 
 
@@ -333,7 +339,7 @@ export class UserComponent implements OnInit {
         document.getElementById("btnNew").removeAttribute("disabled");
         document.getElementById("btnBack").setAttribute("disabled", "disabled");
         this.UserForm.reset();
-        
+
     }
 
     isNumber(evt): boolean {
@@ -391,14 +397,12 @@ export class UserComponent implements OnInit {
         let item = JSON.parse(sessionStorage.getItem('User'));
 
 
-        this.userservice.SaveUser(JSON.stringify(this.UserForm.value), item.ReferenceId, item.UserId,
-            this.checkbulkuploadlink, this.chkvideolink).subscribe(
+        this.userservice.SaveUser(JSON.stringify(this.UserForm.value), item.ReferenceId, item.UserId, this.IsViewAll, this.checkbulkuploadlink, this.chkvideolink).subscribe(
             (data) => {
                 this.user = data;
                 if (this.user[0].Result == -1) {
 
-                    this.message = 'User already exists';
-                    alert(this.message);
+                    this.showModalalert = true;
                 }
                 else {
                     this.showModalsave = true;
@@ -427,7 +431,7 @@ export class UserComponent implements OnInit {
         let item = JSON.parse(sessionStorage.getItem('User'));
 
 
-        this.userservice.UpdateUser(JSON.stringify(this.UserForm.value), item.ReferenceId, item.UserId, this.Userid).subscribe(
+        this.userservice.UpdateUser(JSON.stringify(this.UserForm.value), item.ReferenceId, item.UserId, this.Userid, this.IsViewAll, this.checkbulkuploadlink, this.chkvideolink).subscribe(
             (data) => {
                 this.user = data;
                 if (this.user[0].Result == 1) {
@@ -526,7 +530,7 @@ export class UserComponent implements OnInit {
             this.getmaker = data.Table4;
             this.getAccessRight1 = data.Table5;
             this.getAccessRight2 = data.Table6;
-            
+
             this.UserForm.controls['UserName'].setValue(this.userdata[0].UserName);
             this.UserForm.controls['EmailId'].setValue(this.userdata[0].EmailId);
             this.UserForm.controls['emailsent'].setValue(this.userdata[0].EmailSendTo);
@@ -593,7 +597,7 @@ export class UserComponent implements OnInit {
             else {
                 this.divaccessright = false;
             }
-
+            debugger;
             for (var i = 0; i < data.Table6.length; i++) {
                 if (this.getAccessRight2[i].LinkID == 17) {
                     this.UserForm.controls['chkUmrnHistory'].setValue(true);
@@ -607,23 +611,27 @@ export class UserComponent implements OnInit {
                 if (this.getAccessRight2[i].LinkID == 22) {
                     this.UserForm.controls['chkAllUMRN'].setValue(true);
                 }
-                //if (this.getAccessRight2[i].LinkID == 25) {
-                //    var ids = "25";
-                //    (<HTMLInputElement>document.getElementById(ids)).checked=true;
-                //}
-                //if (this.getAccessRight2[i].LinkID == 26) {
-                //    var ids = "26";
-                //    (<HTMLInputElement>document.getElementById(ids)).checked = true;
-                //}
-                //if (this.getAccessRight2[i].LinkID == 27) {
-                //    var ids = "27";
-                //    (<HTMLInputElement>document.getElementById(ids)).checked = true;
-                //}
-                //if (this.getAccessRight2[i].LinkID == 28) {
-                //    var ids = "28";
-                //    (<HTMLInputElement>document.getElementById(ids)).checked = true;
-                //}
-                
+                if (this.getAccessRight2[i].LinkID == 25) {
+                    //var ids = "25";
+                    var ids = this.getAccessRight2[i].LinkID;
+                    (<HTMLInputElement>document.getElementById("" + ids + "")).checked = true;
+                }
+                if (this.getAccessRight2[i].LinkID == 26) {
+                    //  var ids = "26";
+                    var ids = this.getAccessRight2[i].LinkID;
+                    (<HTMLInputElement>document.getElementById("" + ids + "")).checked = true;
+                }
+                if (this.getAccessRight2[i].LinkID == 27) {
+                    // var ids = "27";
+                    var ids = this.getAccessRight2[i].LinkID;
+                    (<HTMLInputElement>document.getElementById("" + ids + "")).checked = true;
+                }
+                if (this.getAccessRight2[i].LinkID == 28) {
+                    // var ids = "28";
+                    var ids = this.getAccessRight2[i].LinkID;
+                    (<HTMLInputElement>document.getElementById("" + ids + "")).checked = true;
+                }
+
             }
 
         });
@@ -685,15 +693,15 @@ export class UserComponent implements OnInit {
     setClickedRow(User: any) {
         const Currentrowid = this.UserForm.value;
         this.Userid = User.UserId;
-         this.Temp = 2;
-    
-    document.getElementById("btnEdit").removeAttribute("disabled");
+        this.Temp = 2;
+
+        document.getElementById("btnEdit").removeAttribute("disabled");
 
 
     }
 
-    checkLinks(data:any) {
-        
+    checkLinks(data: any) {
+
         var ids = data.LinkID;
 
         if ((<HTMLInputElement>document.getElementById(ids)).checked == true) {
@@ -706,7 +714,7 @@ export class UserComponent implements OnInit {
         //    //this.UserForm.controls['chkbulkuploadlink'].setValue(this.checkbulkuploadlink[i]);
         //   this.UserForm.setControl('chkbulkuploadlink', this.formBuilder.array(this.checkbulkuploadlink || []));
         //}
-        
+
     }
 
     checkVideoLinks(data: any) {
@@ -714,14 +722,14 @@ export class UserComponent implements OnInit {
         if ((<HTMLInputElement>document.getElementById(ids1)).checked == true) {
             this.chkvideolink.push(ids1);
         }
+        else {
+            this.chkvideolink.pop();
+        }
         //for (var i = 0; i < this.chkvideolink.length; i++) {
         //   // this.UserForm.controls['chkvideolink'].setValue(this.chkvideolink[i]);
         //   this.UserForm.setControl('chkvideolink', this.formBuilder.array(this.chkvideolink || []));
         //}
-        else {
-            this.chkvideolink.pop();
-        }
-        
+
     }
 
     download() {
@@ -744,7 +752,7 @@ export class UserComponent implements OnInit {
     ConvertToCSV(objArray) {
         this.HeaderArray = {
             Srno: "Sr No.", UserName: "User Name", EmailId: "Email ID", PhoneNo: "Phone Number",
-            Type: "Type",Status:"Status"
+            Type: "Type", Status: "Status"
         }
         var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
         var str = '';
@@ -782,16 +790,20 @@ export class UserComponent implements OnInit {
     }
 
     checkSingleUser(data) {
+      
         var id = data.UserId;
 
         if ((<HTMLInputElement>document.getElementById(id)).checked == true) {
             this.chkuserlist.push(id);
+             
         }
         else {
+
             this.chkuserlist.splice(id);
+            (<HTMLInputElement>document.getElementById('chkalluserlist')).checked = false;
         }
-        
-       
+
+
     }
 
     getUserlist() {
@@ -801,6 +813,8 @@ export class UserComponent implements OnInit {
         }
         this.UserForm.controls['nachuser'].setValue(userdata);
         this.showModal = false;
+        this.chkuserlist = [];
+
     }
 
     chkAllUser(event) {
@@ -816,17 +830,17 @@ export class UserComponent implements OnInit {
 
 
 
-   
+
     //@HostListener('paste', ['$event']) blockPaste(e: KeyboardEvent) {
     //    e.preventDefault();
     //}
 
-   // @HostListener('copy', ['$event']) blockCopy(e: KeyboardEvent) {
-   //     e.preventDefault();
-   // }
+    // @HostListener('copy', ['$event']) blockCopy(e: KeyboardEvent) {
+    //     e.preventDefault();
+    // }
 
-   // @HostListener('cut', ['$event']) blockCut(e: KeyboardEvent) {
-   //     e.preventDefault();
-   //}
- }
+    // @HostListener('cut', ['$event']) blockCut(e: KeyboardEvent) {
+    //     e.preventDefault();
+    //}
+}
 
