@@ -107,8 +107,9 @@ export class ReportViewComponent implements OnInit {
 
                 this.Preloader = false;
                 this.bindgrid = data.Table;
+ // alert(this.dataArray.length);
                 this.dataArray.push(this.bindgrid);
-                // alert(this.dataArray.length);
+               
                 //console.log(this.Databind);
 
             });

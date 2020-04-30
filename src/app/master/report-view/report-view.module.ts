@@ -15,5 +15,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       ReportViewRoutingModule, FormsModule, ReactiveFormsModule
     ]
    // providers:[ReportViewService]
+   
 })
 export class ReportViewModule { }
