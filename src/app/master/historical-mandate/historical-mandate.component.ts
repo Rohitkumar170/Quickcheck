@@ -13,13 +13,13 @@ import { count } from 'rxjs/operators';
 })
 export class HistoricalMandateComponent implements OnInit {
     HistoricalMandateForm: FormGroup; HeaderArray;
-    BindAllData: HistoricalMandateClass; TotalCount; dataArray: Array<HistoricalMandateClass> = [];
+    BindAllData: HistoricalMandateClass; TotalCount = 0; dataArray: Array<HistoricalMandateClass> = [];
     Preloader: boolean = true;
-   // length: any;
+
     constructor(private HMService: HistoricalMandateServiceService, private formBuilder: FormBuilder) {
 
     }
-    // CurrentDate = new Date();
+     CurrentDate = new Date();
     ngOnInit() {
         this.HistoricalMandateForm = this.formBuilder.group({
             FromDate: [''],
@@ -98,16 +98,19 @@ export class HistoricalMandateComponent implements OnInit {
         return str;
     }
     download() {
-        var csvData = this.ConvertToCSV(JSON.stringify(this.BindAllData));
-        var a = document.createElement("a");
-        a.setAttribute('style', 'display:none;');
-        document.body.appendChild(a);
-        var blob = new Blob([csvData], { type: 'text/csv' });
-        var url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
-        a.click();
-        return 'success';
+        if (this.TotalCount > 0) {
+            var csvData = this.ConvertToCSV(JSON.stringify(this.BindAllData));
+            var a = document.createElement("a");
+            a.setAttribute('style', 'display:none;');
+            document.body.appendChild(a);
+            var blob = new Blob([csvData], { type: 'text/csv' });
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'User_Results.csv';/* your file name*/
+            a.click();
+            return 'success';
+        }
+        else { }
     }
-
+    
 }

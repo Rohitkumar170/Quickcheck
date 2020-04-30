@@ -111,15 +111,16 @@ export class UmrnuploadComponent implements OnInit {
     
 
     ConvertToCSV(objArray) {
+        debugger;
         var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
         var str = '';
         var row = "";
 
-        for (var index in objArray[0]) {
-            //Now convert each value to string and comma-separated
-            row += index + ',';
-        }
-        row = row.slice(0, -1);
+        //for (var index in objArray[0]) {
+        //    //Now convert each value to string and comma-separated
+        //    row += index + ',';
+        //}
+       // row = row.slice(0, -1);
         //append Label row with line break
         str += row + '\r\n';
 

@@ -79,7 +79,7 @@
                             From Date
                         </label>
                         <div class="col-sm-7 col-md-8 col-xs-7 displayinlineblock">
-                            <input name="FromDate" type="date" id="" class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate formControlName="FromDate" />     <!--[ngModel]="FromDate | date:'yyyy-MM-dd'"-->
+                            <input name="FromDate" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #FromDate formControlName="FromDate" />    
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                             To Date
                         </label>
                         <div class="col-sm-7 col-md-8 col-xs-7 displayinlineblock">
-                            <input name="ToDate" type="date" id="" class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #ToDate formControlName="ToDate" />    <!--[ngModel]="ToDate | date:'yyyy-MM-dd'"-->
+                            <input name="ToDate" type="date" id=""    value="{{CurrentDate | date:'yyyy-MM-dd'}}"    class="col-sm-12 col-md-12 col-xs-12 htmldateheight" #ToDate formControlName="ToDate" />  
                         </div>
                     </div>
                 </div>
@@ -206,7 +206,7 @@
                             <td style="width:150px;">{{Data.NPCIErrorDesc}}</td>
 
                         </tr>
-                        <tr *ngIf="BindAllData?.length == 0">
+                        <tr *ngIf="TotalCount == 0">
                             <td colspan="3">No Record Found!</td>
                         </tr>
                     </tbody>

@@ -35,5 +35,5 @@ export class HistoricalMandateClass {
     PhoneNumber: string;
     NPCIErrorDesc: string;
     ToDate: string;
-    length: any;
+
 }

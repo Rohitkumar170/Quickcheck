@@ -8,19 +8,19 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
 
-                        <li>
+                        <li style="display:none">
                             <i class="fa fa-file-text" aria-hidden="true" title="New"></i>
                             <label>
                                 New
                             </label>
                         </li>
-                        <li>
+                        <li style="display:none">
                             <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
                             <label>
                                 Edit
                             </label>
                         </li>
-                        <li>
+                        <li (click)="onSubmit()">
                             <i class="fa fa-floppy-o" aria-hidden="true" title="Save"></i>
                             <label>
                                 Save
@@ -34,7 +34,7 @@
                                 Delete
                             </label>
                         </li>
-                        <li>
+                        <li style="display:none">
                             <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
                             <label>
                                 Back
@@ -46,16 +46,18 @@
         </div>
 
 
-        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block;margin-top: 3%;">
-            <form>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="margin-top: 3%;">
+            <form [formGroup]="Entitysetup" autocomplete="off">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group">
                             <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> Entity </label>
                             <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                <select class="alldropdown">
-                                    <option value="volvo">Entity 1</option>
-                                    <option value="saab">Entity 2</option>
+                                <select class="alldropdown" formControlName="ddlentity" [ngClass]="displayFieldCss('ddlentity')" name="ddlentity" (change)="BindBank()">
+                                    <option value="0">--Select--</option>
+
+                                    <option *ngFor="let Entity of entity" value="{{Entity.EntityId}}"> {{Entity.Name}} </option>
+
                                 </select>
                             </div>
                         </div>
@@ -64,9 +66,11 @@
                         <div class="form-group">
                             <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> Bank </label>
                             <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                <select class="alldropdown">
-                                    <option value="volvo">Bank 1</option>
-                                    <option value="saab">Bank 2</option>
+                                <select class="alldropdown" formControlName="ddlbank" [ngClass]="displayFieldCss('ddlbank')" name="ddlbank">
+                                    <option value="0">--Select--</option>
+
+                                    <option *ngFor="let Bank of bank" value="{{Bank.SponsorBankCodeId}}"> {{Bank.SponsorBankName}} </option>
+
                                 </select>
                             </div>
                         </div>
@@ -92,7 +96,7 @@
                                 </label>
                                 <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
                                     <input type="text" maxlength="11" class="col-sm-12 col-md-12 col-xs-12 no-padding"
-                                           placeholder=" ">
+                                           placeholder=" " id="txttotalcount" name="txttotalcount" formControlName="txttotalcount" [attr.disabled]="isDisabledtext ? '' : null" (keypress)="totLength($event)" (change)="onTotLengthchange()">
                                 </div>
                             </div>
                         </div>
@@ -105,8 +109,7 @@
                             <label>
                                 Remaining Count:
                             </label>
-                            <label id="RemainingCount" class="displayinlineblock">
-                            </label>
+                            <label id="RemainingCount" class="displayinlineblock" [innerHtml]="RemainingCount"></label>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
@@ -117,39 +120,72 @@
                                         Name
                                     </label>
                                     <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
-                                        <input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding">
+                                        <select class="alldropdown col-sm-9 col-md-12 col-xs-12" id="ddlsequence" name="ddlsequence" formControlName="ddlsequence" (change)="onChangesequence($event)">
+                                            <option value="0">--Select--</option>
+                                            <option value="1">Constant</option>
+                                            <option value="2">Separator</option>
+                                            <option value="3">Date</option>
+                                            <option value="4">Fixed Number</option>
+                                            <option value="5">Auto Increment Number</option>
+                                            
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-4 col-xs-12 no-padding-left">
-                                <div class="form-group">
+                                <div class="form-group" *ngIf="divlength">
                                     <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
                                         Length
                                     </label>
                                     <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
-                                        <input type="text" class="col-sm-12 col-md-12 col-xs-12">
+                                        <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtlength" name="txtlength" formControlName="txtlength" [attr.disabled]="isDisabledtextlength ? '' : null" (keypress)="lengthPress($event)" (change)="onLengthchange()">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-3 col-xs-12 no-padding-left">
-                                <div class="form-group">
+                                <div class="form-group" *ngIf="divvalue">
                                     <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
                                         Value
                                     </label>
                                     <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
                                         <input type="text" class="col-sm-12 col-md-12 col-xs-12"
-                                               placeholder="Select Value">
+                                               placeholder="Select Value" id="txtvalue" name="txtvalue" formControlName="txtvalue" [attr.disabled]="isDisabledtextvalue ? '' : null" (keypress)="valuePress($event)">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12 no-padding-left" id="divdateformat" style="display: none">
+                            <div class="col-md-4 col-sm-4 col-xs-12 no-padding-left" *ngIf="divdateformat">
                                 <div class="form-group">
                                     <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
                                         Date Format
                                     </label>
                                     <div class="col-sm-8 col-md-8 col-xs-8 no-padding">
-                                        <input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding"
-                                               placeholder="Select Date Format" />
+                                        <select class="alldropdown col-sm-9 col-md-12 col-xs-12" name="ddldate" formControlName="ddldate" (change)="onDateChange($event)">
+                                            <option value="0">--Select--</option>
+                                            <option value="1">DDMMYY</option>
+                                            <option value="2">YYMMDD</option>
+                                            <option value="3">DDMMMYY</option>
+                                            <option value="4">MMDDYY</option>
+                                            <option value="5">YYYYMMDD</option>
+                                            <option value="6">DDMMYYYY</option>
+                                            <option value="7">DDMMMYYYY</option>
+                                            <option value="8">DD/MM/YY</option>
+                                            <option value="9">YY/MM/DD</option>
+                                            <option value="10">DD/MMM/YY</option>
+                                            <option value="11">MM/DD/YY</option>
+                                            <option value="12">YYYY/MM/DD</option>
+                                            <option value="13">DD/MM/YYYY</option>
+                                            <option value="14">DD/MMM/YYYY</option>
+                                            <option value="15">DD-MM-YY</option>
+                                            <option value="16">YY-MM-DD</option>
+                                            <option value="17">DD-MMM-YY</option>
+                                            <option value="18">MM-DD-YY</option>
+                                            <option value="19">YYYY-MM-DD</option>
+                                            <option value="20">DD-MM-YYYY</option>
+                                            <option value="21">DD-MMM-YYYY</option>
+                                            <option value="22">MMDDYYYY</option>
+                                            <option value="23">MM/DD/YYYY</option>
+                                            <option value="24">MM-DD-YYYY</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -157,16 +193,23 @@
                                 <div class="form-group col-md-12 no-padding pull-right">
                                     <div class="AddbtnDimensionDetail col-md-10 pull-right">
                                         <input type="button" class=" pull-right AddbtnCSS col-md-10 btn btn-success marginbtnadd"
-                                               value="Add">
+                                               value="Add" (click)=" tblDataBind()">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding marginrowadd" style="margin: 5px 0">
-                            <table class="DimensionTable table table-striped table-hover">
+                            <table class="DimensionTable table table-striped table-hover" id="TableFileSequence">
                                 <tbody>
                                     <tr>
-                                        <td class="CCtexTextareaHighlight"></td>
+                                        <td class="CCtexTextareaHighlight">
+                                            <div class='flexiblewidth' *ngFor="let Data of arrvalue"> 
+                                                <label id='lblFileSequence' class='control-label no-padding'>{{Data}}</label> 
+                                            <span class='crossimgDiv'><img src='../images/cross.png' id='lnkremoveEmail' class='crosswidth no-padding' />
+                                                </span>
+                                            </div>
+
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -183,22 +226,21 @@
                                 <div class="col-sm-4 col-md-7 col-xs-8 no-padding displayinlineblock">
                                     <div class="col-md-3 col-sm-4 col-xs-4 no-padding displayinlineblock">
                                         <label class="no-padding">
-                                            <input class="entityCheck" name="overprint"
-                                                   value="checkbox" type="checkbox">
+                                            <input class="entityCheck"  name="chkxml"
+                                                value="checkbox" type="checkbox" formControlName="chkxml" [ngClass]="displayFieldCss('chkxml')">
                                             <span style="vertical-align: top">XML</span>
                                         </label>
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-4 No-padding displayinlineblock">
                                         <label class="no-padding">
-                                            <input class="entityCheck" name="overprint"
-                                                   value="checkbox" type="checkbox">
+                                            <input class="entityCheck" name="chkexcel"
+                                                   value="checkbox" type="checkbox" formControlName="chkexcel" [ngClass]="displayFieldCss('chkexcel')">
                                             <span style="vertical-align: top">Excel</span>
                                         </label>
                                     </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-4 displayinlineblock">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 No-padding displayinlineblock">
                                         <label class="no-padding">
-                                            <input class="entityCheck" name="overprint"
-                                                   value="checkbox" type="checkbox">
+                                            <input class="entityCheck" name="chkcsv" value="checkbox" type="checkbox" formControlName="chkcsv" [ngClass]="displayFieldCss('chkcsv')">
                                             <span style="vertical-align: top">CSV</span>
                                         </label>
                                     </div>
@@ -208,7 +250,7 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                         <div class="form-group">
-                            <label id="Label2" class="col-sm-3 col-md-3 col-xs-12 control-label no-padding">
+                            <label id="Label2" class="col-sm-3 col-md-3 col-xs-12 control-label no-padding" style="position:relative; top:-109px">
                                 Presentment Submission Date & Time
                             </label>
 
@@ -216,58 +258,70 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding displayinlineblock">
                                     <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-3 dailybottom displayinlineblock">
-                                        <input name="rdoDate" value="D" type="radio" />
+                                        <input name="rdoDate" id="rdodaily" value="D" type="radio" formControlName="rdoDate" [ngClass]="displayFieldCss('rdoDate')" (click)="dailyClick()"/>
                                         <span>Daily</span>
                                     </label>
-                                    <input type="text" name="" class="col-sm-9 col-md-9 col-xs-8  dailywidth  rowalign displayinlineblock" />
+                                    <input type="time" name="txtdatepicker" formControlName="txtdatepicker" class="col-sm-9 col-md-9 col-xs-8  dailywidth  rowalign displayinlineblock" [attr.disabled]="isDisableddate ? '' : null"/>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding weekly displayinlineblock">
                                     <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-3 dailybottom displayinlineblock">
-                                        <input name="rdoDate" value="W" type="radio" />
+                                        <input name="rdoDate" id="rdoweekly" value="W" type="radio" formControlName="rdoDate" [ngClass]="displayFieldCss('rdoDate')" (click)="weeklyClick()"/>
                                         <span>Weekly</span>
                                     </label>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklyinputbox displayinlineblock">
-                                        <select class="alldropdown col-sm-9 col-md-12 col-xs-12">
-                                            <option value="volvo">Bank 1</option>
-                                            <option value="saab">Bank 2</option>
+                                        <select class="alldropdown col-sm-9 col-md-12 col-xs-12" name="ddlday" formControlName="ddlday" [attr.disabled]="isDisabledday ? '' : null">
+                                            <option value="0">--Select--</option>
+                                            <option value="1">Monday</option>
+                                            <option value="2">Tuesday</option>
+                                            <option value="3">Wednesday</option>
+                                            <option value="4">Thursday</option>
+                                            <option value="5">Friday</option>
+                                            <option value="6">Saturday</option>
+                                            <option value="7">Sunday</option>
                                         </select>
 
                                     </div>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklydrop weeklyinputbox displayinlineblock">
-                                        <input type="text" name="" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" />
+                                        <input type="time" name="txtdatepicker1" formControlName="txtdatepicker1" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" [attr.disabled]="isDisableddate1 ? '' : null"/>
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding monthlyDiv displayinlineblock">
                                     <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-3 dailybottom displayinlineblock">
-                                        <input name="rdoDate" value="M" type="radio" />
+                                        <input name="rdoDate" id="rdospecific" value="M" type="radio" formControlName="rdoDate" [ngClass]="displayFieldCss('rdoDate')" (click)="monthlyClick()"/>
                                         <span>Monthly</span>
                                     </label>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklyinputbox displayinlineblock">
-                                        <input type="text" name="" class="col-sm-12 col-md-12 col-xs-12 weeklyrowwidth tabletmargin" />
+                                        <input type="date" name="txtdatepicker2" formControlName="txtdatepicker2" class="col-sm-12 col-md-12 col-xs-12 weeklyrowwidth tabletmargin" [attr.disabled]="isDisableddate2 ? '' : null"/>
                                     </div>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklydrop weeklyinputbox displayinlineblock">
-                                        <input type="text" name="" class="col-sm-12 col-md-10 col-xs-12 tabletmargin no-padding" />
+                                        <input type="time" name="txtdatepicker4" formControlName="txtdatepicker4" class="col-sm-12 col-md-10 col-xs-12 tabletmargin no-padding" [attr.disabled]="isDisableddate3 ? '' : null"/>
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding AdhocDiv displayinlineblock">
                                     <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-3 dailybottom displayinlineblock">
-                                        <input name="rdoDate" value="A" type="radio" />
+                                        <input name="rdoDate"  id="rdoadhoc" value="A" type="radio" formControlName="rdoDate" [ngClass]="displayFieldCss('rdoDate')" (click)="adhocClick()"/>
                                         <span>Adhoc</span>
                                     </label>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklyinputbox displayinlineblock">
-                                        <input type="text" name="" class="col-sm-12 col-md-12 col-xs-12 weeklyrowwidth tabletmargin" />
+                                        <input type="date" name="txtdatepicker3" formControlName="txtdatepicker3" class="col-sm-12 col-md-12 col-xs-12 weeklyrowwidth tabletmargin" [attr.disabled]="isDisableddate4 ? '' : null"/>
                                     </div>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left weeklydrop displayinlineblock">
-                                        <input type="text" name="" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" />
+                                        <input type="time" name="txtdatepicker5" formControlName="txtdatepicker5" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" [attr.disabled]="isDisableddate5 ? '' : null"/>
 
-                                        <!--<input type="button" class=" marginbtnadd pull-right AddbtnCSS
-                                             btn btn-success" value="Add">-->
+                                        <input type="button" class=" marginbtnadd pull-right AddbtnCSS
+                                             btn btn-success" value="Add" (click)="tbladhoc()">
                                     </div>
-                                    <div id="Div1" class="col-md-12 col-sm-12 col-xs-12 no-padding marginrowadd" style="margin: 5px 0;display:none;">
+                                    <div id="Div1" class="col-md-12 col-sm-12 col-xs-12 no-padding marginrowadd" style="margin: 5px 0;display:block;">
                                         <table id="tbladhoc" class="DimensionTable table table-striped table-hover rowmarginbtn">
                                             <tbody>
                                                 <tr>
-                                                    <td class="CCtexTextareaHighlight"></td>
+                                                    <td class="CCtexTextareaHighlight">
+                                                        <div class='flexiblewidth' *ngFor="let Data of adhocarr"> 
+                                                        <label id='lbladhoc' class='control-label no-padding'>{{Data}}</label> 
+                                                        <span class='crossimgDiv'><img src='../images/cross.png' id='lnkremoveadhoc' class='crosswidth no-padding' /></span>
+                                                        </div>
+
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -281,13 +335,13 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group" style="margin-top: 0px; margin-bottom: 0px;">
-                                <label id="Label3" class="col-sm-3 col-md-3 col-xs-12 control-label no-padding">
+                                <label id="Label3" class="col-sm-3 col-md-3 col-xs-12 control-label no-padding" >
                                     Time duration before presentment
                                 </label>
                                 <div id="Div2" class="col-sm-7 col-md-7 col-xs-9 no-padding displayinlineblock">
                                     <div class=" col-md-12 col-sm-12 col-xs-12 no-padding-left" style="margin-bottom: 5px">
-                                        <input type="text" class="col-sm-6 col-md-6 col-xs-10"
-                                               placeholder="00:00" maxlength="5" style="margin-right: 4px" />
+                                        <input type="time" class="col-sm-6 col-md-6 col-xs-10"
+                                               placeholder="00:00" maxlength="5" style="margin-right: 4px" formControlName="presentmenttime" [ngClass]="displayFieldCss('presentmenttime')" (keypress)="timePress($event)"/>
                                         <span>Hrs</span>
                                     </div>
                                 </div>
