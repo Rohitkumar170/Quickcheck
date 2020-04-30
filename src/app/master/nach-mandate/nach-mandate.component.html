@@ -130,26 +130,27 @@
                     {{lblTodateMandataoryforEsign}}
                 </span>
 
-                <span id="lblIsRefrenceEdit" style="display: none">True</span>
-                <span id="lblIsMandateEdit" style="display: none">True</span>
-                <span id="lblUserType" style="display: none">E</span>
-                <span id="lblBranchId" style="display: none">ArzBqYu631c=|9aGrJ6gMJEQ=</span>
-                <span id="lblEntityId" style="display: none">VxgEmrq2MuQ=|oIQ5k7rpPWI=</span>
-                <span id="lblRefId" style="display: none">FPNhL1CxmAY=|vuoN7ZQ0yJk=</span>
-                <span id="lblUserid" style="display: none">AGAnD2RKqfU=|mMIjyLyoOGA=</span>
-                <span id="lblOverMandate" style="display: none">False</span>
-                <span id="lblIsValidationCountEnable" style="display: none">1</span>
-                <span id="lblFinalBankValidationAdminCount" style="display: none">5</span>
-                <span id="lblFinalBankValidationUserCount" style="display: none">5</span>
-                <span id="lblFinalAcValidationAdminCount" style="display: none">5</span>
-                <span id="lblFinalAcValidationUserCount" style="display: none">5</span>
+                <span id="lblIsRefrenceEdit" style="display: none">{{lblIsRefrenceEdit}}</span>
+                <span id="lblIsMandateEdit" style="display: none">{{lblIsMandateEdit}}</span>
+                <span id="lblUserType" style="display: none">{{lblUserType}}</span>
+                <span id="lblBranchId" style="display: none">{{lblBranchId}}</span>
+                <span id="lblEntityId" style="display: none">{{lblEntityId}}</span>
+                <span id="lblRefId" style="display: none">{{lblRefId}}</span>
+                <span id="lblUserid" style="display: none">{{lblUserid}}</span>
+                <span id="lblOverMandate" style="display: none">{{lblOverMandate}}</span>                
+                <span id="lblIsValidationCountEnable" style="display: none">{{lblIsValidationCountEnable}}</span>
+                <span id="lblFinalBankValidationAdminCount" style="display: none">{{lblFinalBankValidationAdminCount}}</span>
+                <span id="lblFinalBankValidationUserCount" style="display: none">{{lblFinalBankValidationUserCount}}</span>
+                <span id="lblFinalAcValidationAdminCount" style="display: none">{{lblFinalAcValidationAdminCount}}</span>
+                <span id="lblFinalAcValidationUserCount" style="display: none">{{lblFinalAcValidationUserCount}}</span>
                 <span id="lblBankValidationAdminCount" style="display: none">1</span>
                 <span id="lblBankValidationUserCount" style="display: none">1</span>
                 <span id="lblAcValidationAdminCount" style="display: none">1</span>
                 <span id="lblAcValidationUserCount" style="display: none">1</span>
-                <span id="lblIsRefrenceCheck" style="display: none">False</span>
-                <span id="lblIsEMandate" style="display: none">True</span>
-                <span id="lblIsPhysicalMandate" style="display: none">True</span>
+
+                <span id="lblIsRefrenceCheck" style="display: none">{{lblIsRefrenceCheck}}</span>
+                <span id="lblIsEMandate" style="display: none">{{lblIsEMandate}}</span>
+                <span id="lblIsPhysicalMandate" style="display: none">{{lblIsPhysicalMandate}}</span>
                 <span id="lblmandatecheck" style="display: none"></span>
                 <span id="lblrealamount" style="display: none"></span>
 
@@ -296,7 +297,8 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="col-sm-8 col-md-8 col-xs-7  ">
-                                                                                <input type="date" formControlName="UMRNDATE" #UMRNDATE class="col-sm-12 col-md-12 col-xs-12 form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date">
+                                                                                <input type="date" required formControlName="UMRNDATE" #UMRNDATE [ngClass]="displayFieldCss('UMRNDATE')" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date">
+                                                                                
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -482,7 +484,7 @@
                                                         <label id="lbltruebankvalidationcheck" class="status-lbl" style="display: none;">
                                                         </label>
                                                         <div class="col-sm-9 col-md-9 col-xs-8 ">
-                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtAcNo" formControlName="Bankaccountno" maxlength="26" placeholder="Enter Bank a/c Number">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtAcNo" formControlName="Bankaccountno" (keypress)="numberOnly($event)" [ngClass]="displayFieldCss('Bankaccountno')" maxlength="26" placeholder="Enter Bank a/c Number">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -515,7 +517,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-9 col-xs-9 ">
-                                                                    <input type="text" maxlength="11" formControlName="IFSC" class="col-sm-12 col-md-12 col-xs-12" id="txtIFSC" placeholder="Enter IFSC">
+                                                                    <input type="text" maxlength="11" style="text-transform: uppercase" formControlName="IFSC" class="col-sm-12 col-md-12 col-xs-12" id="txtIFSC" placeholder="Enter IFSC" [ngClass]="displayFieldCss('IFSC')">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -529,7 +531,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-8 col-xs-9 ">
-                                                                    <input type="text" maxlength="9" formControlName="MICR" class="col-sm-12 col-md-12 col-xs-12" id="txtMICR" placeholder="Enter MICR">
+                                                                    <input type="text" maxlength="9" formControlName="MICR" class="col-sm-12 col-md-12 col-xs-12" id="txtMICR" placeholder="Enter MICR" [ngClass]="displayFieldCss('IFSC')">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -549,7 +551,7 @@
                                                         </div>
 
                                                         <div class="col-sm-2 col-md-2 col-xs-12 ">
-                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amountrupees" id="txtAmountRupees" placeholder="Enter Amount" maxlength="9">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amountrupees" id="txtAmountRupees" [ngClass]="displayFieldCss('Amountrupees')" (keypress)="Decimal($event);numtoword($event)" placeholder="Enter Amount" maxlength="9">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -628,7 +630,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-10 col-md-10 col-xs-9 ">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtRefrence1" formControlName="Reference" maxlength="20" placeholder="Enter Reference">
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtRefrence1" formControlName="Refrence1" [ngClass]="displayFieldCss('Refrence1')" maxlength="20" placeholder="Enter Reference">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -642,7 +644,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-9 col-xs-8 ">
-                                                                    <input type="text" maxlength="10" formControlName="Phoneno" class="col-sm-12 col-md-12 col-xs-12" id="txtPhNumber" placeholder="Enter Phone Number">
+                                                                    <input type="text" maxlength="10" formControlName="Phoneno" class="col-sm-12 col-md-12 col-xs-12" id="txtPhNumber" placeholder="Enter Phone Number" (keypress)="numberOnly($event)">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -707,7 +709,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
-                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date" tabindex="-1">
+                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" #PeriodFrom [ngClass]="displayFieldCss('PeriodFrom')" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date" tabindex="-1">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -769,7 +771,7 @@
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
                                                                         <div class="row">
-                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer1" onkeyup="RemoveClass();" id="txtCust1" placeholder="Enter Name" maxlength="40" />
+                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer1" [ngClass]="displayFieldCss('Customer1')" onkeyup="RemoveClass();" id="txtCust1" placeholder="Enter Name" maxlength="40" />
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 1. Name as in Bank Records
                                                                             </label>
@@ -815,7 +817,7 @@
                                                 <input type="button" class="btn btn-success pull-right" id="btnCancel" value="Cancel" *ngIf="btnCancel" [attr.disabled]="Cancelleddisabled ? '' : null" />
                                                 <input type="button" class="btn btn-success pull-right" id="btnSecVal" value="Account Validation" *ngIf="btnSecVal" />
                                                 <input type="button" class="btn btn-success pull-right" id="btnFirstVal" value="Bank Validation" *ngIf="btnFirstVal" />
-                                                <input type="button" class="btn btn-success pull-right" id="btnSave" value="Save">
+                                                <input type="button" class="btn btn-success pull-right" id="btnSave" value="Save" (click)="btnsave_click()">
                                                 <input type="button" class="btn btn-success pull-right" id="btnEditDisable" value="Edit" *ngIf="btnEditDisable" />
                                                 <input type="button" class="btn btn-success pull-right" id="btnPhysicalMandate" value="Physical Mandate" *ngIf="btnPhysicalMandate" />
                                                 <input type="submit" name="ctl00$ContentPlaceHolder1$btnEemandate" value="E-Mandate" id="ContentPlaceHolder1_btnEemandate" class="btn btn-success pull-right TestEmandate" *ngIf="btnEemandate" />
