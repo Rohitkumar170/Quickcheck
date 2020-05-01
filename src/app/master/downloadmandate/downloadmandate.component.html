@@ -72,6 +72,7 @@
             <div class="col-md-6 col-sm-6 col-xs-6"></div>
             <div class="col-md-6 col-sm-6 col-xs-12" id="btngroup">
                 <span id="btnp">
+                        <i class="fa fa-close" aria-hidden="true"></i>
                     <input type="button" class="btn btn-success" id="btnreject"
                            (click)="show()" data-toggle="modal" data-target="#myModal" value="Reject Mandate" />
 
@@ -171,7 +172,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
                 <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding" id="tbldiv">
                 <table id="tbldownmandate">
                     <thead>
                         <tr>
