@@ -32,6 +32,24 @@ export class EntitySetupComponent implements OnInit {
     isSelected: boolean = false;
     IsValidationCountEnableTab: boolean = false;
     RecheckTab: boolean = false;
+    SponsorBankCodeArray = [];
+    i = 0;
+    liBack: boolean = true;
+    SB_Radio:boolean = true;
+    CA_Radio:boolean = true;
+    CC_Radio:boolean = true;
+    SB_NRE_Radio:boolean = true;
+    SB_NRO_Radio:boolean = true;
+    Other_Radio:boolean = true;
+    Monthly_Radio:boolean = true;
+    Quarterly_Radio:boolean = true;
+    Half_Yearly_Radio:boolean = true;
+    Yearly_Radio:boolean = true;
+    Presented_Radio:boolean = true;
+    FixedAmount_Radio:boolean = true;
+    MaximumAmount_Radio:boolean = true;
+    To_Radio:boolean = true; 
+    UntillCancelled_Radio:boolean = true; 
 
     constructor(private ESService: EntitySetupServiceService, private formBuilder: FormBuilder) { }
 
@@ -78,7 +96,26 @@ export class EntitySetupComponent implements OnInit {
             Cash_Ch: [''],
             Cheque_Ch: [''],
             DemandDraft_Ch: [''],
-            Electronic_Ch: ['']
+            Electronic_Ch: [''],
+            BankValidationAdminCount: [''],
+            BankValidationUserCount: [''],
+            AcValidationAdminCount: [''],
+            AcValidationUserCount: [''],
+            EnableUserWise_Ch: [''],
+            SponsoredBankName: [''],
+            SponsoredBankCode: [''],
+            UtilityCode: [''],
+            IFSC: [''],
+            AccountNumber: [''],
+            FixedAmount_Ch: [''],
+            MaximumAmount_Ch: [''],
+            Monthly_Ch:[''],
+            Quarterly_Ch: [''],
+            Half_Yearly_Ch: [''],
+            Yearly_Ch: [''],
+            Presented_Ch: [''],
+            To_Ch: [''],
+            UntillCancelled_Ch: ['']
         });
         this.Preloader = false;
         this.BindCountryAndBank();
@@ -107,10 +144,12 @@ export class EntitySetupComponent implements OnInit {
     NewFun() {
         this.MainGideDiv = false;
         this.EntityFormDiv = true;
+        this.liBack = true;
     }
     BackFun() {
         this.MainGideDiv = true;
         this.EntityFormDiv = false;
+        this.liBack = false;
     }
     get AllFields() { return this.EntitySetupForm.controls; }
 
@@ -147,10 +186,14 @@ export class EntitySetupComponent implements OnInit {
         }
     }
     ActivePaymentModeFun() {
+        alert(this.AllFields.ActivePaymentModeCh.value);
         if (this.AllFields.ActivePaymentModeCh.value == true) {
+            alert("true");
             this.ActivePaymentModeTab = true;
+           
         }
         else {
+            alert("false");
             this.ActivePaymentModeTab = false;
         }
     }
@@ -187,7 +230,7 @@ export class EntitySetupComponent implements OnInit {
         }
     }
     RecheckthepresentmentfileFun() {
-        if (this.AllFields.IsValidationCountEnableCh.value == true) {
+        if (this.AllFields.recheckthepresentmentfileCh.value == true) {
             this.RecheckTab = true;
         }
         else {
@@ -196,9 +239,142 @@ export class EntitySetupComponent implements OnInit {
     }
     SaveFun() {
         const data = this.EntitySetupForm.value;
+        console.log(data);
         this.ESService.SaveData(data).subscribe(
             (data) => {
                 console.log(data);
             });
+    }
+    SB_ChFun(){
+        if (this.AllFields.SB_Ch.value == true) {
+            this.SB_Radio = true;
+        }
+        else {
+            this.SB_Radio = false;
+        }
+    }
+    CA_ChFun(){
+        if (this.AllFields.CA_Ch.value == true) {
+            this.CA_Radio = true;
+        }
+        else {
+            this.CA_Radio = false;
+        }
+    }
+    CC_ChFun(){
+        if (this.AllFields.CC_Ch.value == true) {
+            this.CC_Radio = true;
+        }
+        else {
+            this.CC_Radio = false;
+        }
+    }
+    SB_NRE_ChFun(){
+        if (this.AllFields.SB_NRE_Ch.value == true) {
+            this.SB_NRE_Radio = true;
+        }
+        else {
+            this.SB_NRE_Radio = false;
+        }
+    }
+    SB_NRO_ChFun(){
+        if (this.AllFields.SB_NRO_Ch.value == true) {
+            this.SB_NRO_Radio = true;
+        }
+        else {
+            this.SB_NRO_Radio = false;
+        } 
+    }
+    Other_ChFun(){
+        if (this.AllFields.Other_Ch.value == true) {
+            this.Other_Radio = true;
+        }
+        else {
+            this.Other_Radio = false;
+        } 
+    }
+    Monthly_ChFun(){
+        if (this.AllFields.Monthly_Ch.value == true) {
+            this.Monthly_Radio = true;
+        }
+        else {
+            this.Monthly_Radio = false;
+        } 
+    }
+    Quarterly_ChFun(){
+        if (this.AllFields.Quarterly_Ch.value == true) {
+            this.Quarterly_Radio = true;
+        }
+        else {
+            this.Quarterly_Radio = false;
+        }
+    }
+    Half_Yearly_ChFun(){
+        if (this.AllFields.Half_Yearly_Ch.value == true) {
+            this.Half_Yearly_Radio = true;
+        }
+        else {
+            this.Half_Yearly_Radio = false;
+        }
+    }
+    Yearly_ChFun(){
+        if (this.AllFields.Yearly_Ch.value == true) {
+            this.Yearly_Radio = true;
+        }
+        else {
+            this.Yearly_Radio = false;
+        }
+    }
+    Presented_ChFun(){
+        if (this.AllFields.Presented_Ch.value == true) {
+            this.Presented_Radio = true;
+        }
+        else {
+            this.Presented_Radio = false;
+        }
+    }
+    FixedAmount_ChFun(){
+        if (this.AllFields.FixedAmount_Ch.value == true) {
+            this.FixedAmount_Radio = true;
+        }
+        else {
+            this.FixedAmount_Radio = false;
+        }
+    }
+    MaximumAmount_ChFun(){
+        if (this.AllFields.MaximumAmount_Ch.value == true) {
+            this.MaximumAmount_Radio = true;
+        }
+        else {
+            this.MaximumAmount_Radio = false;
+        } 
+    }
+    To_ChFun(){
+        if (this.AllFields.To_Ch.value == true) {
+            this.To_Radio = true;
+        }
+        else {
+            this.To_Radio = false;
+        }   
+    }
+    UntillCancelled_ChFun(){
+        if (this.AllFields.UntillCancelled_Ch.value == true) {
+            this.UntillCancelled_Radio = true;
+        }
+        else {
+            this.UntillCancelled_Radio = false;
+        } 
+    }
+
+    SponCodBankAddFun() {
+        alert("Add");
+        this.i += 1;
+        this.SponsorBankCodeArray.push(this.i);
+        this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankName); 
+        this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankCode);  
+        this.SponsorBankCodeArray.push(this.AllFields.UtilityCode); 
+        this.SponsorBankCodeArray.push(this.AllFields.IFSC);
+        this.SponsorBankCodeArray.push(this.AllFields.AccountNumber);
+        console.log(this.SponsorBankCodeArray);
     }
 }
