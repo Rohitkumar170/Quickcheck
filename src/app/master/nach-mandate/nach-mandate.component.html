@@ -96,7 +96,7 @@
                                     <li id="LiRegistrationFund" *ngIf="btnregisfund">
                                         <i class='fa fa-credit-card'></i>Registration Fund
                                     </li>
-                                    <li id="btnBack" [attr.disabled]="isDisabledback ? '' : null">
+                                    <li id="btnBack" [attr.disabled]="isDisabledback ? '' : null" (click)="btnBack_Click()">
                                         <i class="fa fa-bars" aria-hidden="true" title="Back"></i>
                                         <label>
                                             Previous Records
@@ -198,8 +198,8 @@
                                             </div>
                                             <div class="col-sm-8 col-md-7 col-xs-7">
 
-                                                <select class="col-md-12 col-xs-12 col-sm-12" formControlName="Catagorycode" name="Catagorycode">
-                                                    <option value="">Select</option>
+                                                <select class="col-md-12 col-xs-12 col-sm-12" formControlName="Catagorycode" name="Catagorycode" [ngClass]="displayFieldCss('Catagorycode')">
+                                                    <option value="" selected>Select</option>
                                                     <option *ngFor="let Category of Table11" value={{Category.CategoryCode}}>
                                                         {{Category.CategoryName}}
                                                     </option>
@@ -297,7 +297,7 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="col-sm-8 col-md-8 col-xs-7  ">
-                                                                                <input type="date" required formControlName="UMRNDATE" #UMRNDATE [ngClass]="displayFieldCss('UMRNDATE')" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date">
+                                                                                <input type="date"  formControlName="UMRNDATE" #UMRNDATE [ngClass]="displayFieldCss('UMRNDATE')" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date">
                                                                                 
                                                                             </div>
                                                                         </div>
@@ -316,7 +316,7 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="col-sm-8 col-md-8 col-xs-6 mandatetextboxborder ">
-                                                                                <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Sponsorcode">
+                                                                                <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Sponsorcode" [ngClass]="displayFieldCss('Sponsorcode')">
                                                                                     <option value="" selected>Select</option>
                                                                                     <option *ngFor="let Sponcode of Table3" value={{Sponcode.utilityCode}}>
                                                                                         {{Sponcode.name}}
@@ -500,8 +500,8 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-10 col-xs-9 ">
-                                                                    <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Withbank">
-                                                                        <option value="">Select</option>
+                                                                    <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Withbank" [ngClass]="displayFieldCss('Withbank')">
+                                                                        <option value="" selected>Select</option>
                                                                         <option *ngFor="let WithBank of Table2" value={{WithBank.name}}>{{WithBank.name}}</option>
                                                                     </select>
                                                                 </div>
@@ -646,7 +646,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-9 col-xs-8 ">
-                                                                    <input type="text" maxlength="10" formControlName="Phoneno" class="col-sm-12 col-md-12 col-xs-12" id="txtPhNumber" placeholder="Enter Phone Number" (keypress)="numberOnly($event)">
+                                                                    <input type="text" maxlength="10" formControlName="Phoneno" (keyup)="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12" id="txtPhNumber" placeholder="Enter Phone Number" (keypress)="numberOnly($event)" (focusout)="isChklength()">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -678,7 +678,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-9 col-xs-9 " style="border-bottom: 1px solid #928888;">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Email" onkeyup="RemoveClass();" id="txtEmailId" maxlength="35" placeholder="Enter Email ID">
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Email" (keyup)="RemoveClass();" (focusout)="chkEmail()" id="txtEmailId" maxlength="35" placeholder="Enter Email ID">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1321,18 +1321,7 @@
                     </div>
 
                 </div>
-
-
             </form>
-
-
-
-
-
-
-
-
-
 
         <div id="MsgDiv" style="display: none" class="popupmandate">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">

@@ -8,19 +8,19 @@
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
 
-                        <li>
+                        <li (click)="btnNew_Click()" id="btnNew">
                             <i class="fa fa-file-text" aria-hidden="true" title="New"></i>
                             <label>
                                 New
                             </label>
                         </li>
-                        <li>
+                        <li (click)="editData()" id="btnEdit">
                             <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
                             <label>
                                 Edit
                             </label>
                         </li>
-                        <li>
+                        <li (click)="onSubmit()" id="btnSave">
                             <i class="fa fa-floppy-o" aria-hidden="true" title="Save"></i>
                             <label>
                                 Save
@@ -34,7 +34,7 @@
                                 Delete
                             </label>
                         </li>
-                        <li>
+                        <li (click)="btnBack_Click()" id="btnBack">
                             <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
                             <label>
                                 Back
@@ -44,39 +44,46 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" style="display:block;">
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../ClientApp/assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" *ngIf="tbldiv" style="margin-top: 50px">
             <table>
                 <thead>
                     <tr>
-                        <th>Sr No.</th>
-                        <th>Link Name</th>
-                        <th>Url</th>
-                        <th>Purpose</th>
-                        <th>Order No</th>
-                        <th>Is Active</th>
-                        <th>Created On</th>
+                        <th style="display: none;"></th>
+                        <th style="width:120px;">Sr No.</th>
+                        <th style="width:220px;">Link Name</th>
+                        <th style="width:220px;">Url</th>
+                        <th style="width:220px;">Purpose</th>
+                        <th style="width:120px;">Order No</th>
+                        <th style="width:120px;">Is Active</th>
+                        <th style="width:150px;">Created On</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Demo</td>
-                        <td>Demo</td>
-                        <td>Demo</td>
-                        <td>Demo</td>
-                        <td>Demo</td>
-                        <td>Demo</td>
+                    <tr *ngFor="let Data of linksetup; index as i" (dblclick)="doubleClick(Data)" (click)="setClickedRow(Data)" [class.active]="i == selectedRow">
+                        <td style="display: none;">{{Data.LinkID}}</td>
+                        <td style="width:120px;">{{Data.Srno}}</td>
+                        <td style="width:220px;">{{Data.LinkName}}</td>
+                        <td style="width:220px;">{{Data.url}}</td>
+                        <td style="width:220px;">{{Data.Purpose}}</td>
+                        <td style="width:220px;">{{Data.OrderNo}}</td>
+                        <td style="width:120px;">{{Data.IsActive}}</td>
+                        <td style="width:150px;">{{Data.CreatedOn}}</td>
                     </tr>
-
+                    <tr *ngIf="linksetup?.length == 0">
+                        <td colspan="7">No Record Found!</td>
+                    </tr>
                 </tbody>
 
             </table>
 
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:none;margin-top: 3%;">
-            <form>
-                <div class=" col-sm-12 col-xs-12 col-md-12 boxheadlinksetup">
+
+        <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="margin-top:3%;" *ngIf="formid">
+            <form [formGroup]="Linksetup" autocomplete="off">
+                <div class="col-sm-12 col-xs-12 col-md-12 boxheadlinksetup">
                     <div class="row">
                         <div class="col-md-4 col-sm-3 col-xs-12">
                             <div class="form-group">
@@ -84,8 +91,8 @@
                                     Link Name
                                 </label>
                                 <div class="col-sm-7 col-md-8 col-xs-7 no-padding displayinlineblock">
-                                    <input type="text" id="" class="col-sm-12 col-md-12 col-xs-12"
-                                           placeholder="Required" />
+                                    <input type="text" id="LinkName" class="col-sm-12 col-md-12 col-xs-12"
+                                           placeholder="Required" [ngClass]="displayFieldCss('LinkName')" formControlName="LinkName"  (change)="CheckLink()"/>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +102,12 @@
                                     Icon Name
                                 </label>
                                 <div class="col-sm-6 col-md-8 col-xs-6 no-padding displayinlineblock">
-                                    <input type="text" class="col-sm-12 col-ms-12 col-xs-12 no-padding" />
+                                    <!--<input type="text" class="col-sm-12 col-ms-12 col-xs-12 no-padding" [ngClass]="displayFieldCss('IconName')" formControlName="IconName"  />-->
+                                    <select class="col-sm-12 col-ms-12 col-xs-12 no-padding" formControlName="IconName"  name="IconName" id="IconName">
+                                        <option value="0" selected>Select</option>
+
+                                        <option *ngFor="let Data of iconname" value="{{Data.ClassName}}" text="{{Data.ClassName}}"></option>
+                                    </select>
                                 </div>
                                 <label id="lblIconDisplay" class="col-md-1 col-sm-1 col-xs-1">
                                 </label>
@@ -107,8 +119,8 @@
                                     Url
                                 </label>
                                 <div class="col-sm-7 col-md-8 col-xs-7 no-padding displayinlineblock">
-                                    <input type="text" class="col-sm-12 col-ms-12 col-xs-12"
-                                           placeholder="Required" />
+                                    <input type="text" class="col-sm-12 col-ms-12 col-xs-12" id="URL"
+                                           placeholder="Required" [ngClass]="displayFieldCss('Url')" formControlName="Url"  (change)="CheckURL()"/>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +130,7 @@
                                     Purpose
                                 </label>
                                 <div class="col-sm-7 col-md-8 col-xs-7 no-padding displayinlineblock">
-                                    <input type="text" class="col-sm-12 col-ms-12 col-xs-12 no-padding" />
+                                    <input type="text" class="col-sm-12 col-ms-12 col-xs-12 no-padding" formControlName="Purpose" />
                                 </div>
                             </div>
                         </div>
@@ -128,8 +140,8 @@
                                     Order No
                                 </label>
                                 <div class="col-sm-7 col-md-8 col-xs-7 no-padding displayinlineblock">
-                                    <input type="text" maxlength="2"
-                                           placeholder="Required" class="col-sm-12 col-ms-12 col-xs-12 no-padding" />
+                                    <input type="text" maxlength="2" id="OrderNo"
+                                           placeholder="Required" class="col-sm-12 col-ms-12 col-xs-12 no-padding" [ngClass]="displayFieldCss('OrderNo')" formControlName="OrderNo"  (change)="CheckOrderNo()"/>
                                 </div>
                             </div>
                         </div>
@@ -139,17 +151,39 @@
                                     Is Active
                                 </label>
                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
-                                    <input type="checkbox" class="entityCheck" />
+                                    <input type="checkbox" class="entityCheck" formControlName="IsActive" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
             </form>
+        </div>
 
+    </div>
+    <div class="modal success" id="myModal" [style.display]="showModalsave ? 'block' : 'none'">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <img src="../../ClientApp/assets/images/saveSuccessImg.png" />
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p id="modelmsg">Link Saved Successfully</p>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Close</button>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

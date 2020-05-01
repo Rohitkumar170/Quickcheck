@@ -1,64 +1,4 @@
-.btnexcel {
-    background: none !important;
-    color: #212529 !important;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-
-
-#btnspaone {
-    position: absolute;
-    top: -148px;
-   width: 100%;
-    left: 1056px;
-}
-
-
-
-.btnexportumrn {
-    margin-bottom: 0px;
-    margin-top: 6px;
-    margin-left: 42px;
-    position: absolute;
-    right: 18px;
-}
-
-
-.firstbtnongrid {
-
-    position: absolute;
-    right: 20px;
-    top: -16px;
-}
-
-
-
-#btnspathree {
-    position: absolute;
-    top: -148px;
-    width: 100%;
-    left: 1056px;
-}
-
-
-
-
-#btnspatwo {
-    position: absolute;
-    top: -148px;
-    width: 100%;
-    left: 1056px;
-}
-
-
-
-    #tblgrddetails tbody {
-        max-height: 75px;
-        display: inline-block;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
+.btnexcel {    background: none !important;    color: #212529 !important;    font-size: 12px;    font-weight: bold;}#btnspaone {    position: absolute;    top: -148px;   width: 100%;    left: 1056px;}.btnexportumrn {    margin-bottom: 0px;    margin-top: 6px;    margin-left: 42px;    position: absolute;    right: 18px;}.firstbtnongrid {    position: absolute;    right: 20px;    top: -16px;}#btnspathree {    position: absolute;    top: -148px;    width: 100%;    left: 1056px;}#btnspatwo {    position: absolute;    top: -148px;    width: 100%;    left: 1056px;}    #tblgrddetails tbody {        max-height: 75px;        display: inline-block;        overflow-y: scroll;        overflow-x: hidden;    }
 
 
     #tblgrddetails tbody tr {

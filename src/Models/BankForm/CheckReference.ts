@@ -3,7 +3,7 @@
     dataList: any;
     Flag: string;
     FlagValue: string;
-    available: string;
+    available: number;
     FreshManteId: string;
     rownumber: string;
     UserName: string;

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { error } from 'util';
 import { CheckReference } from '../../../Models/BankForm/checkreference';
+import { SaveData } from '../../../Models/BankForm/savedata';
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +28,16 @@ export class BankFormService {
         const body = em;     
         const headers = new HttpHeaders().set('content-type', 'application/json');
         return this._http.post<CheckReference>(this.baseUrl + 'api/BankForm/CheckReference/'+mandateId + '/' + EntityId , body, {
+            headers
+        });
+    }
+
+    SaveData(em: any, UserId, EntityId): Observable<SaveData> {
+        debugger;
+        const body = em;
+        
+        const headers = new HttpHeaders().set('content-type', 'application/json');
+        return this._http.post<SaveData>(this.baseUrl + 'api/BankForm/SaveData/'+UserId + '/' + EntityId, body, {
             headers
         });
     }

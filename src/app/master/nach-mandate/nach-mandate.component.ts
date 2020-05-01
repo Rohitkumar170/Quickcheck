@@ -17,7 +17,7 @@ import { DatePipe, KeyValuePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Directive, HostListener } from '@angular/core';
 import { UrlSegment } from '@angular/router';
-
+import  {SaveData,SaveData0,SaveData1,SaveData2,SaveData3,SaveData4,SaveData5,SaveData6,SaveData7,SaveData8} from '../../../Models/BankForm/SaveData'; 
 
 @Component({
   selector: 'app-nach-mandate',
@@ -32,12 +32,15 @@ export class NachMandateComponent implements OnInit {
     lblIsValidationCountEnable;lblFinalBankValidationAdminCount;lblFinalBankValidationUserCount;lblFinalAcValidationAdminCount;
     lblFinalAcValidationUserCount;
     checkreference: CheckReference;
-    submitted = false;
-    mandateId;
+    savedata:SaveData;savedata0:SaveData0;savedata1:SaveData1;savedata2:SaveData2;savedata3:SaveData3;savedata4:SaveData4;
+    savedata5:SaveData5;savedata6:SaveData6;savedata7:SaveData7;savedata8:SaveData8;
+    message: string;
+    submitted = false; 
+    mandateId;today: Date;
     btnCancel = false; btnSecVal = false; btnFirstVal = false; btnEditDisable = false; btnPhysicalMandate = false; btnEemandate = false; btnenach = false; 
     // Work on Header button work
     btnedit = false; btnscanprint = false; btnmandateprint = false; btnblackmandateprint = false; btnoldoverprintmandate = false; btnprint = false; btnscanhalf = false; btnscan = false; btnvalidate = false; AEresponse = false; btnregisfund = false; 
-    isDisabled: boolean = false; isDisabledback: boolean = false; UtilityCodedesabled: boolean = true; CreateCodedesabled: boolean = true; ModifyCodedesabled: boolean = true;
+    isDisabled: boolean = true; isDisabledback: boolean = false; UtilityCodedesabled: boolean = true; CreateCodedesabled: boolean = true; ModifyCodedesabled: boolean = true;
     CancelCodedesabled: boolean = true; EntityNameCodedesabled: boolean = true; rdsbCodedesabled: boolean = true; rdcaCodedesabled: boolean = true; rdccCodedesabled: boolean = true;
     rdnbreCodedesabled: boolean = true; rdsbnrdCodedesabled: boolean = true; rdotherCodedesabled: boolean = true; UMRNCodedesabled: boolean = true; Amountcodedisabled: boolean = true;
     rdmonthlycodedisabled: boolean = true; rdquaterlycodedisabled: boolean = true; rdhalfyrlycodedisabled: boolean = true; rdyearlycodedisabled: boolean = true; Radio1codedisabled: boolean = true;
@@ -51,8 +54,8 @@ export class NachMandateComponent implements OnInit {
     constructor(private router: Router, private formBuilder: FormBuilder, private _bankformService: BankFormService,public datepipe: DatePipe) { }
     ngOnInit() {
         this.NachMandate = this.formBuilder.group({
-            MandateMode: [''], Catagorycode: [''], Mandatetype: [''], UMRN: [''], UMRNDATE: ['', Validators.required], Sponsorcode: [''],  Utilitycode: [''], Create: [''], Modify: [''],
-            Cancel: [''], Authrizename: [''], Todebit: [''], Bankaccountno: ['', Validators.required], Withbank: [''], IFSC: ['', Validators.required], MICR: [''], Amount: [''], Amountrupees: ['', Validators.required],
+            MandateMode: [''], Catagorycode: ['', Validators.required], Mandatetype: [''], UMRN: [''], UMRNDATE: ['', Validators.required], Sponsorcode: ['Select', Validators.required],  Utilitycode: [''], Create: [''], Modify: [''],
+            Cancel: [''], Authrizename: [''], Todebit: [''], Bankaccountno: ['', Validators.required], Withbank: ['', Validators.required], IFSC: ['', Validators.required], MICR: [''], Amount: [''], Amountrupees: ['', Validators.required],
             Frequency: [''],
             Debittype: [''],
             Refrence1: ['', Validators.required], Phoneno: [''], Refrence2: [''], Email: ['', [ Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]], PeriodFrom: ['', Validators.required], PeriodTo: [''], Untillcancelled: [''],
@@ -75,7 +78,7 @@ export class NachMandateComponent implements OnInit {
         this.lblUserType = item.UserType;
         this.lblBranchId = item.BranchId;
         this.lblRefId = item.ReferenceId;
-       
+     
         
     }
     get AllFields() { return this.NachMandate.controls; }
@@ -102,7 +105,7 @@ export class NachMandateComponent implements OnInit {
                 } else {
                     this.IsShow = false;
                 }
-               
+                
                 this.NachMandate.controls['PeriodFrom'].setValue(this.Table[0].FromDate);
                 let dateString = data.Table[0].Date;
                 
@@ -189,6 +192,13 @@ export class NachMandateComponent implements OnInit {
             this.validateAllFormFields(this.NachMandate);
         }        
     }
+
+
+    btnBack_Click()
+    {
+
+        alert('k')
+    }
     isFieldValid(field: string) {
         return !this.NachMandate.get(field).valid && this.NachMandate.get(field).touched;
     }
@@ -223,6 +233,36 @@ export class NachMandateComponent implements OnInit {
         }
         return true;
     }
+
+    isChklength() {
+        let phnumber = ((document.getElementById("txtPhNumber") as HTMLInputElement).value);
+        if (phnumber.length > 0 && phnumber.length < 10) {
+           // ((document.getElementById("txtPhNumber") as HTMLInputElement).value) == "";
+           this.NachMandate.controls['Phoneno'].setValue("");
+            document.getElementById("txtPhNumber").classList.add('validate');
+            document.getElementById("txtPhNumber").setAttribute("placeholder", "Please enter 10 - digit");
+        }
+        else {
+            document.getElementById("txtPhNumber").classList.remove('validate');
+        }
+    }
+    chkEmail() {
+        let email = ((document.getElementById("txtEmailId") as HTMLInputElement).value);
+        let regex = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
+        if (regex.test(email) != true) {
+            this.NachMandate.controls['Email'].setValue("");
+            document.getElementById("txtEmailId").classList.add('validate');
+            document.getElementById("txtEmailId").setAttribute("placeholder", "Invalid-Email");
+        }
+        else {
+            document.getElementById("txtEmailId").classList.remove('validate');
+        }
+    }
+    RemoveClass() {
+        document.getElementById("txtPhNumber").classList.remove('validate');
+        document.getElementById("txtEmailId").classList.remove('validate');
+       
+    }
     numtoword(event): any {       
       
        var values="" ;
@@ -254,9 +294,10 @@ export class NachMandateComponent implements OnInit {
        
         this._bankformService.CheckReference(JSON.stringify(this.NachMandate.value), this.mandateId, this.lblEntityId).subscribe(
             (data) => {
+                console.log(data)
                 this.checkreference = data;
-                console.log(data);
-                if (this.checkreference[0].available == "0") {
+              
+                if (data.available == 0) {
                     // if (data.FileName.toUpperCase() == "TRUE") {
                     //     alert('Reference Already Exist');
                     //     this.NachMandate.controls['Refrence1'].value.trim() == "";
@@ -270,12 +311,37 @@ export class NachMandateComponent implements OnInit {
                     //     else {
 
                     //     }
-                    // }                  
+                    // }    
+                    this.SaveData();              
                 }
                 else {
                    // this.SaveData();
-                   alert(this.checkreference[0].available);
+                   alert(data.available);
+                   this.SaveData();
                 }
+            }
+        )
+    }
+
+    SaveData() {
+
+        let item = JSON.parse(sessionStorage.getItem('User'));
+       
+        this.lblUserid = item.UserId;        
+        this.lblEntityId = item.ReferenceId;
+        this._bankformService.SaveData(JSON.stringify(this.NachMandate.value),this.lblUserid, this.lblEntityId).subscribe(
+            (data) => {
+               console.log(data);
+                if (this.savedata8[0].result = 1) {
+                   
+                    this.message = 'Record saved Successfully';
+                    alert(this.message);
+                }
+                if(this.savedata2[0].result = -1) {
+                    this.message = 'Error';
+                    alert(this.message);
+                }
+              
             }
         )
     }
