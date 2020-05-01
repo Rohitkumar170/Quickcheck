@@ -32,5 +32,18 @@ export class EntityBankService {
             headers
         });
     }
+    UpdateData(em: any, UserId, arrvalue, adhocarr,Id): Observable<EntityData> {
+        const body = em;
+        const headers = new HttpHeaders().set('content-type', 'application/json');
+        return this._http.post<EntityData>(this.baseUrl + 'api/EntityBank/UpdateData/' + UserId + '/' + arrvalue + '/' + adhocarr + '/' + Id, body, {
+            headers
+        });
+    }
+
+    EditData(EntityId,BankId): Observable<any> {
+
+        return this._http.get<any>(this.baseUrl + 'api/EntityBank/EditData/' + EntityId + '/' + BankId);
+
+    }
 
 }
