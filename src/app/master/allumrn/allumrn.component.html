@@ -96,7 +96,7 @@
                                 </label>
                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
 
-                                    <input type="text" required name="UMRN" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #UMRN />
+                                    <input type="text" required name="UMRN" id="umrn1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #UMRN />
 
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
 
-                                    <input type="text" required name="CustomerName" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #CustomerName />
+                                    <input type="text" required name="CustomerName" id="custo1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #CustomerName />
 
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
 
-                                    <input type="text" required name="Refere" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #Refere />
+                                    <input type="text" required name="Refere" id="refre1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #Refere />
 
                                 </div>
                             </div>
@@ -145,9 +145,8 @@
         </form>
 
 
-        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
-            <img src="../../ClientApp/assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
-        </div>
+        
+
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding-left">
             <div class="col-sm-6 col-md-6 col-xs-6 no-padding" style="margin-top: 11px;">
 
@@ -241,6 +240,9 @@
                     </li>
                 </ul>
             </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../ClientApp/assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
         </div>
 
         <div class="modal" id="myModal1" [style.display]="showModalumrnstatement2 ? 'block' : 'none'">
