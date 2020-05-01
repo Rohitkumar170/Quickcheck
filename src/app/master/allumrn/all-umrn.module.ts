@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AllumrnComponent } from './allumrn.component';
 import { CommonModule } from '@angular/common';
 import { AllUmrnRoutingModule } from './all-umrn-routing.module';
@@ -8,7 +9,7 @@ import {AuthGuardService } from '../../Services/auth-guard.service';
     declarations: [AllumrnComponent],
   imports: [
       CommonModule,
-    AllUmrnRoutingModule
+    AllUmrnRoutingModule,  FormsModule, ReactiveFormsModule
   ], providers: [
     AuthGuardService,
       { provide: 'BASE_URL', useFactory: getBaseUrl }
