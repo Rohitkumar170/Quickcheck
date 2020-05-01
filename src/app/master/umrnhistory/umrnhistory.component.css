@@ -4,10 +4,10 @@
 
 .boxhead {
     margin-top: 10px;
-    border: 2px solid #e6edf3;
+    border: 1px solid #e6edf3;
     border-radius: 4px;
-    left: -12px !important;
     background-color: #f1f2f3;
+    padding: 10px 5px 2px;
 }
 
 #tblUmrnhistory tbody {
@@ -31,7 +31,6 @@
 }
 
 .boxsetting {
-    margin-top: 3%;
     margin-left: 1%;
 }
 #maincontent {
