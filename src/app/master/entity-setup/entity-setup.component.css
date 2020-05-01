@@ -19,6 +19,9 @@ form {
     height: 0% !important;
 }
 
+#tblsecondgrd {
+    border:1px solid #cdcdcd;
+}
 #maincontent {
     position: absolute;
     top: 8%;
@@ -28,4 +31,10 @@ form {
 
 .panel-default {
     border: 1px solid #CDD8E3 !important;
+}
+.loaderposition {
+    position: absolute;
+    left: 0% !important;
+    z-index: 9999 !important;
+    top: 0% !important;
 }
