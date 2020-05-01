@@ -245,3 +245,7 @@ form {
     left: 14%;
     width: 86%;
 }
+
+#tblfirstumrnupload, #tblgrddetails, #tblsuccess{
+    border:1px solid #cdcdcd;
+}

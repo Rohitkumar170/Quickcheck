@@ -4,6 +4,14 @@
     padding: 0px;
 }
 
+.classbtn{
+    background-color: #fff !important;
+    border: none !important;
+    color: #000 !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+}
+
 .boxhead {
     margin-top: 10px;
     border: 2px solid #e6edf3;
@@ -22,28 +30,28 @@
     position: relative;
     width: 100%;
     top: -21px;
-    right: -322px;
+    right: -469px;
 }
 
-#tbldownmandate {
+#tblecreatmandate {
     border: 1px solid #cdcdcd;
 }
 
-    #tbldownmandate tbody {
+    #tblecreatmandate tbody {
         overflow-y: scroll;
         overflow-x: hidden;
         display: inline-block;
         max-height: 50vh;
     }
 
-        #tbldownmandate tbody tr {
+        #tblecreatmandate tbody tr {
             width: 100%;
             display: table;
             table-layout: fixed;
         }
 
 
-    #tbldownmandate thead tr {
+    #tblecreatmandate thead tr {
         width: 100%;
         display: table;
         table-layout: fixed;
@@ -72,7 +80,7 @@
 }
 
 
-#tbldownmandate {
+#tblecreatmandate {
     overflow-x: scroll;
     display: inline-block;
 }

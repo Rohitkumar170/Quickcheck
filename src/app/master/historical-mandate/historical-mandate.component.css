@@ -43,7 +43,9 @@
             overflow: hidden;
         }
 
-
+        #histmandtbl{
+            border:1px solid #cdcdcd;
+        }
 
 #maincontent {
     position: absolute;

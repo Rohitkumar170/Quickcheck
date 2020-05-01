@@ -13,9 +13,14 @@
 #tblUmrnhistory tbody {
     overflow: auto;
     display: block;
-    max-height: 26vh;
+    max-height: 60vh;
     border: 1px solid #d5d5d5;
 }
+
+#tblUmrnhistory{
+    border:1px solid #cdcdcd;
+}
+
 
     #tblUmrnhistory tbody tr {
         width: 100%;
