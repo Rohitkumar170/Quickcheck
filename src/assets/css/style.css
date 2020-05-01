@@ -51,10 +51,8 @@ table thead{
 
 
 span.legal {
-    font-size: 16px;
-    font-family: "times new roman", times, serif;
+    font-size: 18px;    
     color: #003974 !important;
-    font-style: italic;
     text-align: justify;
     font-weight: bold;
 }
@@ -949,7 +947,7 @@ h6 {
     display: block;
     overflow: hidden;
     min-height: 87%;
-    border: 1px solid #CECECA;
+    box-shadow: 2px 1px 5px 1px #73797f;
 }
 
 .main-content:after,
@@ -23303,7 +23301,6 @@ input.typeahead.scrollable ~ .tt-menu {
 
 form {
     display: block;
-    overflow: hidden;
     padding: 0 !important;
     height: 100%;
 }
