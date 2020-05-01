@@ -58,12 +58,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Demo</td>
-                        <td>Demo</td>
-                        <td>Demo</td>
-                        <td>Demo</td>
+                    <tr *ngFor="let td of tabledata">
+                        <td>{{td.Srno}}</td>
+                        <td>{{td.ActivityId}}</td>
+                        <td>{{td.ActivityName}}</td>
+                        <td>{{td.UploadedOn}}</td>
+                        <td>{{td.UserName}}</td>
                     </tr>
 
                 </tbody>
@@ -71,7 +71,26 @@
             </table>
 
         </div>
+        <div class="col-md-6 col-sm-6 col-xs-6" style="float: right">
+            <div class="toolbar pull-right">
+                <ul class="toolbar-content">
 
+                    <li>
+                        <div style="color: #1f497d; margin-top: 8%;font-weight: bold;">
+                            Showing
+                            <label>{{topVal}}</label>
+                            of
+                            <label>{{count}}</label>
+                        </div>
+                    </li>
+                    <li id="">
+                        <i class="" aria-hidden="true" title="Save"></i>
+                        <input type="button" id="btnLoadMore" class="btn btn-primary" (click)="pagenext()" style="border: 1px solid #fff;padding: 3px 5px 3px 5px;font-size: 12px;" value="Load More" />
+                    </li>
+
+                </ul>
+            </div>
+        </div>
         <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" style="display:none">
             <div>
                 <table id="tblsecondgrd">
