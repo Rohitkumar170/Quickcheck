@@ -1,4 +1,65 @@
-.btnexcel {    background: none !important;    color: #212529 !important;    font-size: 12px;    font-weight: bold;}#btnspaone {    position: absolute;    top: -148px;   width: 100%;    left: 1056px;}.btnexportumrn {    margin-bottom: 0px;    margin-top: 6px;    margin-left: 42px;    position: absolute;    right: 18px;}.firstbtnongrid {    position: absolute;    right: 20px;    top: -16px;}#btnspathree {    position: absolute;    top: -148px;    width: 100%;    left: 1056px;}#btnspatwo {    position: absolute;    top: -148px;    width: 100%;    left: 1056px;}    #tblgrddetails tbody {        max-height: 75px;        display: inline-block;        overflow-y: scroll;        overflow-x: hidden;    }
+
+.btnexcel {
+    background: none !important;
+    color: #212529 !important;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+#btnspaone {
+    position: absolute;
+    top: -148px;
+   width: 100%;
+    left: 1056px;
+}
+
+
+
+.btnexportumrn {
+    margin-bottom: 0px;
+    margin-top: 6px;
+    margin-left: 42px;
+    position: absolute;
+    right: 18px;
+}
+
+
+.firstbtnongrid {
+
+    position: absolute;
+    right: 20px;
+    top: -16px;
+}
+
+
+
+#btnspathree {
+    position: absolute;
+    top: -148px;
+    width: 100%;
+    left: 1056px;
+}
+
+
+
+
+#btnspatwo {
+    position: absolute;
+    top: -148px;
+    width: 100%;
+    left: 1056px;
+}
+
+
+
+    #tblgrddetails tbody {
+        max-height: 75px;
+        display: inline-block;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
 
 
     #tblgrddetails tbody tr {
@@ -30398,3 +30459,256 @@ i#sideicon {
         box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
     }
 }
+=======
+.btnexcel {
+    background: none !important;
+    color: #212529 !important;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+#btnspaone {
+    position: absolute;
+    top: -148px;
+   width: 100%;
+    left: 1056px;
+}
+
+
+
+.btnexportumrn {
+    margin-bottom: 0px;
+    margin-top: 6px;
+    margin-left: 42px;
+    position: absolute;
+    right: 18px;
+}
+
+
+.firstbtnongrid {
+
+    position: absolute;
+    right: 20px;
+    top: -16px;
+}
+
+
+
+#btnspathree {
+    position: absolute;
+    top: -148px;
+    width: 100%;
+    left: 1056px;
+}
+
+
+
+
+#btnspatwo {
+    position: absolute;
+    top: -148px;
+    width: 100%;
+    left: 1056px;
+}
+
+
+
+    #tblgrddetails tbody {
+        max-height: 75px;
+        display: inline-block;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+
+    #tblgrddetails tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+
+#tblgrddetails thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+#tblsuccess tbody {
+    max-height: 75px;
+    display: inline-block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+    #tblsuccess tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+
+#tblsuccess thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+#tblunsuccess tbody {
+    max-height: 75px;
+    display: inline-block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#tblunsuccess tbody tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+#tblunsuccess thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+
+
+.card-header {
+    padding: 0px;
+}
+
+.boxhead {
+    margin-top: 10px;
+    border: 2px solid #e6edf3;
+    border-radius: 4px;
+    left: -12px !important;
+    background-color: #f1f2f3;
+}
+
+.alldropdown {
+    width: 100%;
+    height: 22px;
+    padding: 0px 0px 0px 0px;
+    margin-top: 6px;
+}
+
+
+#tblfirstumrnupload tbody {
+    max-height: 26vh;
+    display: inline-block;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+    #tblfirstumrnupload tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+
+#tblfirstumrnupload thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+
+
+
+#tblsecondumrnupload tbody {
+    overflow: auto;
+    display: block;
+    max-height: 26vh;
+}
+
+    #tblsecondumrnupload tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+
+#tblsecondumrnupload thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+
+#tblsecondumrnupload {
+    overflow-x: scroll;
+    display: inline-block;
+}
+
+    #tblsecondumrnupload tbody {
+        width: 1321px;
+    }
+
+
+
+#tblthirdumrnupload tbody {
+    overflow: auto;
+    display: block;
+    max-height: 26vh;
+}
+
+    #tblthirdumrnupload tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+
+#tblthirdumrnupload thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+
+
+#tblthirdumrnupload {
+    overflow-x: scroll;
+    display: inline-block;
+}
+
+    #tblthirdumrnupload tbody {
+        width: 1321px;
+    }
+
+.boxsetting {
+    margin-top: 3%;
+    margin-left: 1%;
+}
+
+form {
+    display: block;
+    overflow: visible !important;
+    padding: 0 !important;
+    height: 0% !important;
+}
+
+
+
+#maincontent {
+    position: absolute;
+    top: 8%;
+    left: 14%;
+    width: 86%;
+}
+
+#tblfirstumrnupload, #tblgrddetails, #tblsuccess{
+    border:1px solid #cdcdcd;
+}
+

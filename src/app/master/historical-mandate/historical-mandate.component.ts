@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HistoricalMandateClass } from '../../../models/historical-mandate/historical-mandate-class';
 import { HistoricalMandateServiceService } from '../../services/historical-mandate/historical-mandate-service.service';
 import { count } from 'rxjs/operators';
+import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
 
 @Component({
@@ -13,13 +14,13 @@ import { count } from 'rxjs/operators';
 })
 export class HistoricalMandateComponent implements OnInit {
     HistoricalMandateForm: FormGroup; HeaderArray;
-    BindAllData: HistoricalMandateClass; TotalCount; dataArray: Array<HistoricalMandateClass> = [];
+    BindAllData: HistoricalMandateClass; TotalCount = 0; dataArray: Array<HistoricalMandateClass> = [];
     Preloader: boolean = true;
-   // length: any;
+
     constructor(private HMService: HistoricalMandateServiceService, private formBuilder: FormBuilder) {
 
     }
-    // CurrentDate = new Date();
+     CurrentDate = new Date();
     ngOnInit() {
         this.HistoricalMandateForm = this.formBuilder.group({
             FromDate: [''],
@@ -47,7 +48,7 @@ export class HistoricalMandateComponent implements OnInit {
         this.dataArray.push(data);
         let json = JSON.stringify(data);
         alert(json);
-        console.log(data.MandateFreshId);
+        
 
     }
 
@@ -63,20 +64,21 @@ export class HistoricalMandateComponent implements OnInit {
             SponsorBankCode: "SponsorBankCode", PhoneNumber: "PhoneNumber", EmailId: "EmailId", EmandateType: "EmandateType", ActivityId: "ActivityId",
             Refrence2: "Refrence2"
         }
+     
         var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
         var str = '';
         var row = "";
 
-        for (var index in objArray[0]) {
+     //   for (var index in objArray[0]) {
             //Now convert each value to string and comma-separated
-            row += index + ',';
-        }
-        row = row.slice(0, -1);
+       //     row += index + ',';
+       // }
+       // row = row.slice(0, -1);
         //append Label row with line break
-        str += row + '\r\n';
+       // str += row + '\r\n';
 
         for (var i = 0; i < array.length; i++) {
-            var line = '';
+            var line = "";
 
             if (i == 0) {
                 for (var index in this.HeaderArray) {
@@ -90,24 +92,27 @@ export class HistoricalMandateComponent implements OnInit {
             var line = '';
             for (var index in array[i]) {
                 if (line != '') line += ','
-
-                line += array[i][index];
+ 
+                line += (<string>array[i][index]);
             }
             str += line + '\r\n';
         }
         return str;
     }
     download() {
-        var csvData = this.ConvertToCSV(JSON.stringify(this.BindAllData));
-        var a = document.createElement("a");
-        a.setAttribute('style', 'display:none;');
-        document.body.appendChild(a);
-        var blob = new Blob([csvData], { type: 'text/csv' });
-        var url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
-        a.click();
-        return 'success';
+        if (this.TotalCount > 0) {
+            var csvData = this.ConvertToCSV(JSON.stringify(this.BindAllData));
+            var a = document.createElement("a");
+            a.setAttribute('style', 'display:none;');
+            document.body.appendChild(a);
+            var blob = new Blob([csvData], { type: 'text/csv' });
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'Mandate.csv';/* your file name*/
+            a.click();
+            return 'success';
+        }
+        else { }
     }
-
+    
 }

@@ -84,9 +84,10 @@ export class DownloadoldmandateComponent implements OnInit {
         //var modal = <HTMLElement>document.getElementById('myModal');
         //modal.style.display = 'block';
      //   var dta = <HTMLElement>document.getElementById('myform');
-        this.showModal = false;
+     
         var dta = <HTMLInputElement>document.getElementById('myform');
         dta.value = "";
+        this.showModal = false;
         let item = JSON.parse(sessionStorage.getItem('User'));
        // alert(item.UserId);
         if (RejectedReason != null) {
@@ -100,7 +101,7 @@ export class DownloadoldmandateComponent implements OnInit {
                 }
         else {
           //  alert("please checked the mandate and fill the Reason");
-
+            this.MandateMessage = true;
         }
      
     }

@@ -1,0 +1,158 @@
+
+
+.card-header {
+    padding: 0px;
+}
+
+.classbtn{
+    background-color: #fff !important;
+    border: none !important;
+    color: #000 !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+}
+
+.boxhead {
+    margin-top: 10px;
+    border: 2px solid #e6edf3;
+    border-radius: 4px;
+    left: -12px !important;
+    background-color: #f1f2f3;
+}
+
+.alldropdown {
+    width: 100%;
+    height: 22px;
+    padding: 0px 0px 0px 0px;
+}
+
+#btngroup {
+    position: relative;
+    width: 100%;
+    top: -21px;
+    right: -469px;
+}
+
+#tblecreatmandate {
+    border: 1px solid #cdcdcd;
+}
+
+    #tblecreatmandate tbody {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        display: inline-block;
+        max-height: 50vh;
+    }
+
+        #tblecreatmandate tbody tr {
+            width: 100%;
+            display: table;
+            table-layout: fixed;
+        }
+
+
+    #tblecreatmandate thead tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+#btnreject {
+    background: none !important;
+    color: #212529 !important;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#btnexcel {
+    background: none !important;
+    color: #212529 !important;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#btnp {
+    width: 100%;
+}
+
+#btnspa {
+    width: 100%;
+}
+
+
+#tblecreatmandate {
+    overflow-x: scroll;
+    display: inline-block;
+}
+
+
+
+#maincontent {
+    position: absolute;
+    top: 8%;
+    left: 14%;
+    width: 86%;
+}
+
+.rightmenu {
+    float: right;
+    position: absolute;
+    top: 0px;
+    right: 21px;
+}
+
+.card-header {
+    background-color: #888888 !important;
+}
+
+.displayinlineblock {
+    display: inline-block;
+}
+
+body {
+    font-size: 12px !important;
+}
+
+
+/*ace*/
+
+
+#dvLinks {
+    background: #fff !important;
+    max-height: 580px;
+    overflow: auto;
+}
+
+.exportBtn {
+    cursor: pointer;
+    border: 1px solid #cac4c4;
+    background: #908c8c;
+    padding: 3px 10px !important;
+    width: 108px;
+    margin-left: 15px;
+    position: absolute;
+    border-radius: 4px;
+    /* left: 0; */
+    margin-bottom: 1px !important;
+    /* bottom: 0; */
+    color: #fff;
+    font-size: 11px;
+}
+
+    .exportBtn:hover {
+        background: #9c9999
+    }
+
+    .exportBtn i {
+        font-size: 14px
+    }
+
+    .exportBtn label {
+        margin-bottom: 0px;
+        cursor: pointer
+    }
+
+.datepicker .table-condensed {
+    width: 100%
+}
+
