@@ -32,12 +32,11 @@ export class AccessRightsComponent implements OnInit {
 
   ngOnInit() {
       this.getEntityDetails();
-      this.showdvCheckbox=false;
-      
-      
+      this.showdvCheckbox=false;   
   }
 
   hideSuccess() {
+
      // alert('hide');
       this.showModalSuccess = false;
       this.getEntityDetails();
@@ -47,6 +46,8 @@ export class AccessRightsComponent implements OnInit {
   showSuccess() {
       this.showModalSuccess = true;
   }
+
+
 
   getEntityDetails() {
     
@@ -108,7 +109,7 @@ export class AccessRightsComponent implements OnInit {
          
       }
 
-      else {
+      else {       
           var ids = data.LinkID;
           var index = 0;
 
