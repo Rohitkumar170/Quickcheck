@@ -11,8 +11,15 @@
         table-layout: fixed;
     }
 
+
 .htmldateheight {
     height: 24px;
+}
+form {
+    display: block;
+    overflow: visible !important;
+    padding: 0 !important;
+    height: 0%!important;
 }
 
 #tblnachmandate thead tr {

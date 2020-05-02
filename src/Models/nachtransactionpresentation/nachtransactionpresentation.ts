@@ -34,8 +34,8 @@ export interface BindMainGrid {
     date: string;
     FileNo: string;
     UserName: string;
-    CreatedOn: string;
-    UpdatedOn: string;
+    CreatedOn: Date;
+    UpdatedOn: Date;
     ApprovedBy: number;
     ApprovedOn: number;
     LastStatus: number;
@@ -67,8 +67,8 @@ export interface BindOnRowdblClick {
     IFSC: string;
     UtilityCode: string;
     UserID: number;
-    presentmentchecker: string;
-    presentmentmaker: string;
+    presentmentchecker: number;
+    presentmentmaker: number;
 
 
 }
