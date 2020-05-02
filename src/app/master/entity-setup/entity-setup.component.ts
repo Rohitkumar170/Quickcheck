@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { EntitySetupServiceService } from '../../services/enity_setup/entity-setup-service.service';
 import { BindCountry } from '../../../models/entity_setup/bind-country';
+import { BindState } from '../../../models/entity_setup/bind-state';
+import { BindCity } from '../../../models/entity_setup/bind-city';
 import { BindBank } from '../../../models/entity_setup/bind-bank';
 import { EntityBusinessCode } from '../../../models/entity_setup/entity-business-code';
 import { MainGrid } from '../../../models/entity_setup/main-grid';
@@ -14,6 +16,8 @@ import { count } from 'rxjs/operators';
     styleUrls: ['./entity-setup.component.css']
 })
 export class EntitySetupComponent implements OnInit {
+    StateData: BindState;
+    CityData: BindCity
     CountryData: BindCountry;
     BankData: BindBank;
     EntityBusinessCodeData: EntityBusinessCode;
@@ -30,6 +34,7 @@ export class EntitySetupComponent implements OnInit {
     PhysicalTab: boolean = false;
     IsThirdTransactionTab: boolean = false;
     isSelected: boolean = false;
+    liSave: boolean = true;
     IsValidationCountEnableTab: boolean = false;
     RecheckTab: boolean = false;
     SponsorBankCodeArray = [];
@@ -50,6 +55,9 @@ export class EntitySetupComponent implements OnInit {
     MaximumAmount_Radio:boolean = true;
     To_Radio:boolean = true; 
     UntillCancelled_Radio:boolean = true; 
+    DivSponsorCode : boolean = false;
+    SponsoredBankcode;
+    HeaderArray ;
 
     constructor(private ESService: EntitySetupServiceService, private formBuilder: FormBuilder) { }
 
@@ -115,7 +123,14 @@ export class EntitySetupComponent implements OnInit {
             Yearly_Ch: [''],
             Presented_Ch: [''],
             To_Ch: [''],
-            UntillCancelled_Ch: ['']
+            UntillCancelled_Ch: [''],
+            FileName1: [''],
+            FileName2: [''],
+            FileName3: [''],
+            FileName4: [''],
+            FileName5: [''],
+            FileName6: [''],
+            InstructingMenmerId : ['']
         });
         this.Preloader = false;
         this.BindCountryAndBank();
@@ -131,7 +146,17 @@ export class EntitySetupComponent implements OnInit {
             });
     }
     CountryFunction(CountryId) {
-
+        this.ESService.BindState(CountryId).subscribe(
+            (data) => {
+                this.StateData = data.Table;
+            
+            });
+    }
+    StateFun(StateId){
+        this.ESService.BindCity(StateId).subscribe(
+            (data) => {
+                this.CityData = data.Table;
+            });
     }
     BingGrid() {
         this.Preloader = true;
@@ -144,12 +169,14 @@ export class EntitySetupComponent implements OnInit {
     NewFun() {
         this.MainGideDiv = false;
         this.EntityFormDiv = true;
-        this.liBack = true;
+        this.liBack = false;
+        this.liSave = false;
     }
     BackFun() {
         this.MainGideDiv = true;
         this.EntityFormDiv = false;
-        this.liBack = false;
+        this.liBack = true;
+        this.liSave = true;
     }
     get AllFields() { return this.EntitySetupForm.controls; }
 
@@ -368,13 +395,64 @@ export class EntitySetupComponent implements OnInit {
 
     SponCodBankAddFun() {
         alert("Add");
+        this.DivSponsorCode=true;
         this.i += 1;
-        this.SponsorBankCodeArray.push(this.i);
-        this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankName); 
-        this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankCode);  
-        this.SponsorBankCodeArray.push(this.AllFields.UtilityCode); 
-        this.SponsorBankCodeArray.push(this.AllFields.IFSC);
-        this.SponsorBankCodeArray.push(this.AllFields.AccountNumber);
+        //this.SponsorBankCodeArray.push(this.i);
+        this.SponsoredBankcode = this.AllFields.SponsoredBankCode.value;
+        this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankName.value); 
+        this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankCode.value);  
+        this.SponsorBankCodeArray.push(this.AllFields.UtilityCode.value); 
+        this.SponsorBankCodeArray.push(this.AllFields.IFSC.value);
+        this.SponsorBankCodeArray.push(this.AllFields.AccountNumber.value);
         console.log(this.SponsorBankCodeArray);
+    }
+    ConvertToCSV(objArray) {
+        this.HeaderArray = {
+            SrNo: "Sr No.", Code: "Code", Name: "Name", SponsorBankName: "Sponsor Bank Name"    
+        }
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+        var row = "";
+
+        for (var index in objArray[0]) {
+            //Now convert each value to string and comma-separated
+            row += index + ',';
+        }
+        row = row.slice(0, -1);
+        //append Label row with line break
+        str += row + '\r\n';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+
+            if (i == 0) {
+                for (var index in this.HeaderArray) {
+                    if (line != '') line += ','
+
+                    line += this.HeaderArray[index];
+                }
+                str += line + '\r\n';
+                var line = '';
+            }           
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+    download() {
+            var csvData = this.ConvertToCSV(JSON.stringify(this.MainGridData));
+            var a = document.createElement("a");
+            a.setAttribute('style', 'display:none;');
+            document.body.appendChild(a);
+            var blob = new Blob([csvData], { type: 'text/csv' });
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'User_Results.csv';/* your file name*/
+            a.click();
+            return 'success';
     }
 }

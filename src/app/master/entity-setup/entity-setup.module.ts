@@ -5,6 +5,8 @@ import { EntitySetupComponent } from './entity-setup.component';
 import { EntitySetupRoutingModule } from './entity-setup-routing.module';
 import { EntitySetupServiceService } from '../../services/enity_setup/entity-setup-service.service';
 import { BindCountry } from '../../../models/entity_setup/bind-country';
+import {AppSettings} from '../../app-settings';
+import {AuthGuardService } from '../../Services/auth-guard.service';
 
 @NgModule({
     declarations: [EntitySetupComponent],
@@ -13,10 +15,11 @@ import { BindCountry } from '../../../models/entity_setup/bind-country';
       EntitySetupRoutingModule, FormsModule, ReactiveFormsModule
     ],
     providers: [
-        EntitySetupServiceService, { provide: 'BASE_URL', useFactory: getBaseUrl }
+      AuthGuardService,EntitySetupServiceService, { provide: 'BASE_URL', useFactory: getBaseUrl }
     ]
 })
 export class EntitySetupModule { }
 export function getBaseUrl() {
-    return document.getElementsByTagName('base')[0].href;
+  var BASE_URL=AppSettings.API_ENDPOINT;
+    return BASE_URL;
 }

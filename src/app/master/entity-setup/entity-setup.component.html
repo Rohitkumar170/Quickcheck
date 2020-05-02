@@ -23,14 +23,14 @@
                                     Edit
                                 </label>
                             </li>
-                            <li (click)="SaveFun()">
+                            <li (click)="SaveFun()" [attr.disabled]="liSave ? '' : null">
                                 <i class="fa fa-floppy-o" aria-hidden="true" title="Save"></i>
                                 <label>
                                     Save
                                 </label>
                             </li>
 
-                            <li (click)="BackFun()" ng-disabled="liBack">
+                            <li (click)="BackFun()" [attr.disabled]="liBack ? '' : null" >
                                 <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
                                 <label>
                                     Back
@@ -46,7 +46,7 @@
                     <div class="row no-padding" style="height: 23px;">
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <ul class="toolbar-content">
-                                <li>
+                                <li (click)="download()">
                                     <i class="fa fa-file-text" aria-hidden="true" title="Export TO Excel"></i>
                                     <label>
                                         Export TO Excel
@@ -259,9 +259,12 @@
                                                                         </label>
                                                                         <div class="col-sm-8 col-md-8 col-xs-7 no-padding displayinlineblock">
                                                                             <!--<input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />-->
-                                                                            <select id="" class="alldropdown" formControlName="State">
-                                                                                <option value="volvo">Bank 1</option>
-                                                                                <option value="saab">Bank 2</option>
+                                                                            <select id="" class="alldropdown" #StateId formControlName="State" (change)="StateFun(StateId.value)">
+                                                                                <option value="0" selected>Select State</option>
+                                                                                <option *ngFor="let data of StateData"
+                                                                                        value={{data.StateId}}>
+                                                                                    {{data.StateName}}
+                                                                                </option>
 
                                                                             </select>
                                                                         </div>
@@ -273,8 +276,11 @@
                                                                         <div class="col-sm-8 col-md-8 col-xs-7 no-padding displayinlineblock">
                                                                             <!--<input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />-->
                                                                             <select id="" class="alldropdown" formControlName="City">
-                                                                                <option value="volvo">Bank 1</option>
-                                                                                <option value="saab">Bank 2</option>
+                                                                                <option value="0">Select City</option>
+                                                                                <option *ngFor="let data of CityData"
+                                                                                        value={{data.CityId}}>
+                                                                                    {{data.CityName}}
+                                                                                </option>
 
                                                                             </select>
                                                                         </div>
@@ -424,34 +430,30 @@
         <td class="CCtexTextareaHighlight"></td>
 
     </tr>-->
-                                                                <tr>
-                                                                    <td style="display:none">Data.i</td>
-                                                                    <td style="width:1px;">SponsoredBankName</td>
-                                                                    <td style="width:1px;">Data.SponsoredBankCode</td>
-                                                                    <td style="width:1px;">Data.UtilityCode</td>
-                                                                    <td style="width:1px;">Data.IFSC</td>
-                                                                    <td style="width:1px;">Data.AccountNumber</td>
+                                                                <tr *ngFor="let Data of SponsorBankCodeArray">
+                                                                    
+                                                                    <td style="width:1px;">{{Data}}</td>
                                                                 </tr>
                                                                
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding" *ngIf="DivSponsorCode">
                                                     <div id="DivSponsorBankCodeFiles">
-                                                        <!--<div class="form-group">
+                                                        <div class="form-group">
                                                         <label class="col-sm-1 col-md-1 col-xs-4 control-label no-padding" for="form-field-1">
-                                                            Sponsor Code
+                                                            <span [innerHTML]="SponsoredBankcode"> </span>
                                                         </label>
                                                         <div class="col-sm-11 col-md-11 col-xs-8 no-padding spDiv">
-                                                            <input type="text" id="Text1" class="" placeholder="File Name 1" />
-                                                            <input type="text" id="Text2" class="" placeholder="File Name 2" />
-                                                            <input type="text" id="Text3" class="" placeholder="File Name 3" />
-                                                            <input type="text" id="Text4" class="" placeholder="File Name 4" />
-                                                            <input type="text" id="Text5" class="" placeholder="File Name 5" />
-                                                            <input type="text" id="Text6" class="" placeholder="File Name 6" />
+                                                            <input type="text" id="Text1" class="" placeholder="File Name 1" formControlName="FileName1"/>
+                                                            <input type="text" id="Text2" class="" placeholder="File Name 2" formControlName="FileName2"/>
+                                                            <input type="text" id="Text3" class="" placeholder="File Name 3" formControlName="FileName3"/>
+                                                            <input type="text" id="Text4" class="" placeholder="File Name 4" formControlName="FileName4"/>
+                                                            <input type="text" id="Text5" class="" placeholder="File Name 5" formControlName="FileName5"/>
+                                                            <input type="text" id="Text6" class="" placeholder="File Name 6" formControlName="FileName6"/>
                                                         </div>
-                                                    </div>-->
+                                                    </div>
                                                     </div>
                                                 </div>
 
@@ -631,7 +633,7 @@
                                                                 Instructing Member ID
                                                             </label>
                                                             <div class="col-sm-5 col-md-5 col-xs-6 no-padding">
-                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="InstructingMenmerId"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1294,9 +1296,9 @@
 
         </form>
 
-       
-
-
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="/src/assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+        </div>
 
     </div>
 
