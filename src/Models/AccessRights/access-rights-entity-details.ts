@@ -4,4 +4,5 @@ export class AccessRightsEntityDetails {
     username: string;
     usertype: string;
     entityid: number;
+    
 }
