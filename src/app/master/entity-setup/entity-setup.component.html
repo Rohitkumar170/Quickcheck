@@ -468,7 +468,7 @@
                                                                     <div class="col-sm-7 col-md-12 col-xs-8">
                                                                         <div class="row">
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-7 no-padding">
-                                                                                <input name="rdoNomGender" [disabled]="SB_Radio" id="" value="sb" type="radio" />
+                                                                                <input name="rdoNomGender" [disabled]="SB_Radio" id="" value="sb" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint"
                                                                                            value="checkbox" type="checkbox" formControlName="SB_Ch" (click)="SB_ChFun()" />
@@ -476,7 +476,7 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-5 no-padding">
-                                                                                <input name="rdoNomGender" [disabled]="CA_Radio" id="" value="ca" type="radio" />
+                                                                                <input name="rdoNomGender" [disabled]="CA_Radio" id="" value="ca" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox1"
                                                                                            value="checkbox" type="checkbox" formControlName="CA_Ch" (click)="CA_ChFun()"/>
@@ -484,7 +484,7 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-7 no-padding">
-                                                                                <input name="rdoNomGender" [disabled]="CC_Radio" id="" value="cc" type="radio" />
+                                                                                <input name="rdoNomGender" [disabled]="CC_Radio" id="" value="cc" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox2"
                                                                                            value="checkbox" type="checkbox" formControlName="CC_Ch"  (click)="CC_ChFun()"/>
@@ -492,7 +492,7 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-5 no-padding">
-                                                                                <input name="rdoNomGender" [disabled]="SB_NRE_Radio" id="" value="re" type="radio" />
+                                                                                <input name="rdoNomGender" [disabled]="SB_NRE_Radio" id="" value="re" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox3"
                                                                                            value="checkbox" type="checkbox" formControlName="SB_NRE_Ch" (click)="SB_NRE_ChFun()"/>
@@ -500,7 +500,7 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-7 no-padding">
-                                                                                <input name="rdoNomGender" [disabled]="SB_NRO_Radio" id="" value="rd" type="radio" />
+                                                                                <input name="rdoNomGender" [disabled]="SB_NRO_Radio" id="" value="rd" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox5"
                                                                                            value="checkbox" type="checkbox" formControlName="SB_NRO_Ch" (click)="SB_NRO_ChFun()"/>
@@ -508,7 +508,7 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-5 no-padding">
-                                                                                <input name="rdoNomGender" [disabled]="Other_Radio" id="rdother" value="ot" type="radio" />
+                                                                                <input name="rdoNomGender" [disabled]="Other_Radio" id="rdother" value="ot" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox6"
                                                                                            value="checkbox" type="checkbox" formControlName="Other_Ch" (click)="Other_ChFun()"/>
@@ -528,7 +528,7 @@
                                                                 <div id="frequency" class="col-sm-8 col-md-7 col-xs-8  radio displayinlineblock">
                                                                     <div class="row">
                                                                         <div class="lblradiobtnss col-md-7 col-sm-6 col-xs-7 no-padding ">
-                                                                            <input name="rdoNomFrequency" [disabled]="Monthly_Radio" id="" value="m" type="radio" />
+                                                                            <input name="rdoNomFrequency" [disabled]="Monthly_Radio" id="" value="m" type="radio" formControlName="FrequencyType"/>
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox7"
                                                                                        value="checkbox" type="checkbox" formControlName="Monthly_Ch" (click)="Monthly_ChFun()"/>
@@ -536,7 +536,7 @@
                                                                             </label>
                                                                         </div>
                                                                         <div class="lblradiobtnss col-md-5 col-sm-6 col-xs-5 no-padding">
-                                                                            <input name="rdoNomFrequency" [disabled]="Quarterly_Radio" id="" value="q" type="radio" />
+                                                                            <input name="rdoNomFrequency" [disabled]="Quarterly_Radio" id="" value="q" type="radio" formControlName="FrequencyType"/>
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox8"
                                                                                        value="checkbox" type="checkbox" formControlName="Quarterly_Ch" (click)="Quarterly_ChFun()"/>
@@ -544,7 +544,7 @@
                                                                             </label>
                                                                         </div>
                                                                         <div class="lblradiobtnss col-md-7 col-sm-6 col-xs-7 no-padding" style="padding-right: 0;">
-                                                                            <input name="rdoNomFrequency" [disabled]="Half_Yearly_Radio" id="" value="h" type="radio" />
+                                                                            <input name="rdoNomFrequency" [disabled]="Half_Yearly_Radio" id="" value="h" type="radio" formControlName="FrequencyType" />
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox9"
                                                                                        value="checkbox" type="checkbox" formControlName="Half_Yearly_Ch" (click)="Half_Yearly_ChFun()"/>
@@ -552,7 +552,7 @@
                                                                             </label>
                                                                         </div>
                                                                         <div class="lblradiobtnss col-md-5 col-sm-6 col-xs-5 no-padding">
-                                                                            <input name="rdoNomFrequency" [disabled]="Yearly_Radio" id="rdyearly" value="y" type="radio" />
+                                                                            <input name="rdoNomFrequency" [disabled]="Yearly_Radio" id="rdyearly" value="y" type="radio" formControlName="FrequencyType"/>
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox10"
                                                                                        value="checkbox" type="checkbox" formControlName="Yearly_Ch" (click)="Yearly_ChFun()"/>
@@ -560,7 +560,7 @@
                                                                             </label>
                                                                         </div>
                                                                         <div class="lblradiobtnss col-md-12 col-sm-12 col-xs-12 no-padding">
-                                                                            <input name="rdoNomFrequency" [disabled]="Presented_Radio" id="" value="a" type="radio" />
+                                                                            <input name="rdoNomFrequency" [disabled]="Presented_Radio" id="" value="a" type="radio" formControlName="FrequencyType"/>
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox11"
                                                                                        value="checkbox" type="checkbox" formControlName="Presented_Ch" (click)="Presented_ChFun()"/>
@@ -578,7 +578,7 @@
                                                                 </label>
                                                                 <div id="debittype" class="col-sm-8 col-md-7 col-xs-8  radio no-padding-right displayinlineblock" style="margin: 0;">
                                                                     <div class="lblradiobtnss col-md-12 col-sm-12 col-xs-12">
-                                                                        <input name="rdoNomDebit" [disabled]="FixedAmount_Radio" id="rdfxdamt" value="f" type="radio" />
+                                                                        <input name="rdoNomDebit" [disabled]="FixedAmount_Radio" id="rdfxdamt" value="f" type="radio" formControlName="DebitType"/>
                                                                         <label class="no-padding">
                                                                             <input class="entityCheck" name="overprint" id="Checkbox12"
                                                                                    value="checkbox" type="checkbox" formControlName="FixedAmount_Ch" (click)="FixedAmount_ChFun()" />
@@ -587,7 +587,7 @@
                                                                     </div>
                                                                     <div class="lblradiobtnss col-md-12 col-sm-12 col-xs-12" style="/* text-align: right;
                                                                     */">
-                                                                        <input name="rdoNomDebit" [disabled]="MaximumAmount_Radio" id="" value="m" type="radio" />
+                                                                        <input name="rdoNomDebit" [disabled]="MaximumAmount_Radio" id="" value="m" type="radio" formControlName="DebitType"/>
                                                                         <label class="no-padding">
                                                                             <input class="entityCheck" name="overprint" id="Checkbox13"
                                                                                    value="checkbox" type="checkbox" formControlName="MaximumAmount_Ch" (click)="MaximumAmount_ChFun()"/>
@@ -879,7 +879,7 @@
                                                             </div>
                                                             <div id="div5" class="col-md-3 col-sm-12 col-xs-12 no-padding pull-left">
                                                                 <label class="col-md-8 col-sm-12 col-xs-12 no-padding">
-                                                                    <input name="Validate" value="Validate" type="checkbox" />
+                                                                    <input name="Validate" value="Validate" type="checkbox" formControlName="ISEnableCancelUser" />
                                                                     <span>Enable Cancel User Wisespan</span>
                                                                 </label>
                                                             </div>
@@ -982,11 +982,11 @@
                                                                         </label>
                                                                         <div id="divAmont" class="col-sm-8 col-md-7 col-xs-8 no-padding radio">
                                                                             <label class="lblradiobtnss col-md-6 col-sm-6 col-xs-12">
-                                                                                <input name="rdoAmount" value="PM" type="radio" />
+                                                                                <input name="rdoAmount" value="PM" type="radio" formControlName="Amount"/>
                                                                                 <span>Amount as per Mandate</span>
                                                                             </label>
                                                                             <label class="lblradiobtnss col-md-6 col-sm-3 col-xs-12">
-                                                                                <input name="rdoAmount" value="M" type="radio" />
+                                                                                <input name="rdoAmount" value="M" type="radio" formControlName="Amount"/>
                                                                                 <span>Manually</span>
                                                                             </label>
                                                                         </div>
@@ -1237,11 +1237,11 @@
                                                     </label>
                                                     <div class="col-sm-6 col-md-4 col-xs-4 no-padding-right radio displayinlineblock">
                                                         <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-5 no-padding">
-                                                            <input name="rdoCheck" value="1" type="radio" />
+                                                            <input name="rdoCheck" value="1" type="radio" formControlName="CheckerRequire"/>
                                                             <span>Yes</span>
                                                         </label>
                                                         <label class="lblradiobtnss col-md-3 col-sm-5 col-xs-4 no-padding">
-                                                            <input name="rdoCheck" value="2" type="radio" />
+                                                            <input name="rdoCheck" value="2" type="radio" formControlName="CheckerRequire"/>
                                                             <span>No</span>
                                                         </label>
                                                     </div>
@@ -1296,9 +1296,6 @@
 
         </form>
 
-        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
-            <img src="/src/assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
-        </div>
 
     </div>
 
