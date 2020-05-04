@@ -4,6 +4,34 @@
     font-size: 12px;
     font-weight: bold;
 }
+#tblUmrnhistory tbody {
+    overflow: auto;
+    display: block;
+    max-height: 69vh;
+}
+.legals{
+    font-size: 16px;
+    font-family: "times new roman", times, serif;
+    color: #003974 !important;
+    /* font-style: italic; */
+    text-align: justify;
+    font-weight: bold;
+
+}
+#tblUmrnhistory tbody tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+        
+        
+   #tblUmrnhistory thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}     
+  
+
 
 #btnp {
     position: absolute;
@@ -14,6 +42,7 @@
 
 #tbldiv table {
     border: 1px solid #ddd;
+
 }
 
 #maincontent {
