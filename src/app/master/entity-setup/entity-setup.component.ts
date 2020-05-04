@@ -6,6 +6,7 @@ import { BindCountry } from '../../../models/entity_setup/bind-country';
 import { BindState } from '../../../models/entity_setup/bind-state';
 import { BindCity } from '../../../models/entity_setup/bind-city';
 import { BindBank } from '../../../models/entity_setup/bind-bank';
+import { SaveResult } from '../../../models/entity_setup/save-result';
 import { EntityBusinessCode } from '../../../models/entity_setup/entity-business-code';
 import { MainGrid } from '../../../models/entity_setup/main-grid';
 import { count } from 'rxjs/operators';
@@ -16,6 +17,8 @@ import { count } from 'rxjs/operators';
     styleUrls: ['./entity-setup.component.css']
 })
 export class EntitySetupComponent implements OnInit {
+    showModalsave: boolean;
+    SaveResultData : SaveResult;
     StateData: BindState;
     CityData: BindCity
     CountryData: BindCountry;
@@ -60,7 +63,10 @@ export class EntitySetupComponent implements OnInit {
     HeaderArray ;
 
     constructor(private ESService: EntitySetupServiceService, private formBuilder: FormBuilder) { }
-
+    hide() {
+       
+        this.showModalsave = false;
+    }
     ngOnInit() {
         this.EntitySetupForm = this.formBuilder.group({
             Code: [''],
@@ -136,12 +142,14 @@ export class EntitySetupComponent implements OnInit {
             ToDebit: [''],
             FrequencyType: [''],
             Amount : [''],
-            ISEnableCancelUser : ['']
+            ISEnableCancelUser : [''],
+            CheckerRequire:['']
         });
         this.Preloader = false;
         this.BindCountryAndBank();
         this.BingGrid();
     }
+
     BindCountryAndBank() {
         this.ESService.BindCountryAndBank().subscribe(
             (data) => {
@@ -274,7 +282,23 @@ export class EntitySetupComponent implements OnInit {
         console.log(data);
         this.ESService.SaveData(data).subscribe(
             (data) => {
-                console.log(data);
+                this.SaveResultData = data.Table1;
+                if(this.SaveResultData[0].Result==-1){
+alert("User already Exist");
+                }
+                else if(this.SaveResultData[0].Result == '' || this.SaveResultData[0].Result==null){
+                
+                    alert("error");
+
+                
+            }
+                else {
+                    this.showModalsave = true;
+                }
+
+              
+               // console.log(data);
+                //console.log(this.SaveResultData );
             });
     }
     SB_ChFun(){
@@ -409,7 +433,7 @@ export class EntitySetupComponent implements OnInit {
         this.SponsorBankCodeArray.push(this.AllFields.UtilityCode.value); 
         this.SponsorBankCodeArray.push(this.AllFields.IFSC.value);
         this.SponsorBankCodeArray.push(this.AllFields.AccountNumber.value);
-        console.log(this.SponsorBankCodeArray);
+        //console.log(this.SponsorBankCodeArray);
     }
     ConvertToCSV(objArray) {
         this.HeaderArray = {
