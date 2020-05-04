@@ -53,7 +53,7 @@ export interface SaveData2{
 }
 export interface SaveData3{
 
-    Bank:string;      
+    Bank:string;     
 }
 export interface SaveData4{
 
@@ -82,4 +82,75 @@ export interface SaveData8{
 
     result:number;
   
+}
+export interface EditData0{
+
+        MandateFreshId:string;
+        xmlpath:string;
+        isphysical:Boolean;
+        iscancel:Boolean;
+        status:string;
+        MandateMode:string;
+        autorejectreason:string;
+        IsFinalReject:Boolean;
+        BankValidationAdminCount:string;
+        AcValidationAdminCount:string;
+        BankValidationUserCount:string;
+        AcValidationUserCount:string;
+        MandateId:string;
+        IsNachLive:Boolean;
+        IsFirstValidation:Boolean;
+        IsSecondValidation:Boolean;
+        enach:Boolean;
+        SponsorbankCode:string;
+        UtilityCode:string;
+        IsScan:string;
+        IsPrint:string;
+        jpgpath:string;
+        DateOnMandate:string;
+        Customer1:string;
+        Customer2:string;
+        Customer3:string;
+        DebitType:string;
+        FrequencyType:string;
+        EntityId:string;
+        ToDebit:string;
+        AcNo:string;
+        BankName:string;
+        IFSC:string;
+        MICR:string;
+        AmountRupees:string;
+        Amount:string;
+        Refrence1:string;
+        Refrence2:string;
+        IsSendToBank:Boolean;
+        PhoneNumber:string;
+        MandateStatus:string;
+        AcceptRefNo:string;
+        EmailId:string;
+        FromDate:string;
+        Todate:string;
+        Enach:Boolean;
+        isAccountValidation:Boolean;
+        CategoryCode:string;
+        EmandateBankLive:string;
+
+}
+export interface EditData1{
+    MandateId :string;
+   Description:string;
+   Status:string;
+   Date:string;
+    Time :string;
+}
+
+export interface EditData2{
+     amount:number;
+   type :string;
+}
+export interface EditData3{
+    amount:string;
+}
+export interface EditData4{
+     show :string;
 }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { error } from 'util';
 import { CheckReference } from '../../../Models/BankForm/checkreference';
-import { SaveData } from '../../../Models/BankForm/savedata';
+import { SaveData, EditData0 } from '../../../Models/BankForm/savedata';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,13 +32,33 @@ export class BankFormService {
         });
     }
 
-    SaveData(em: any, UserId, EntityId): Observable<SaveData> {
+    SaveData(em: any, UserId, EntityId,mandateid): Observable<any> {
         debugger;
         const body = em;
         
         const headers = new HttpHeaders().set('content-type', 'application/json');
-        return this._http.post<SaveData>(this.baseUrl + 'api/BankForm/SaveData/'+UserId + '/' + EntityId, body, {
+        return this._http.post<any>(this.baseUrl + 'api/BankForm/SaveData/'+UserId + '/' + EntityId + '/' + mandateid , body, {
             headers
         });
     }
+    BindGrid(): Observable<any> {
+        let item = JSON.parse(sessionStorage.getItem('User'));
+        this.UserId = item.UserId;
+        this.EntityId = item.ReferenceId;
+
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/BindGrid/' + this.UserId);
+
+    } 
+
+    Edit(mandateid): Observable<any> {
+        let item = JSON.parse(sessionStorage.getItem('User'));
+        this.UserId = item.UserId;
+        this.EntityId = item.ReferenceId;
+      
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/Edit/' + mandateid + '/' + this.UserId + '/' + this.EntityId);
+           
+       
+    }
+
+    
 }
