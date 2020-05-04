@@ -1,4 +1,6 @@
-/// <reference path="../../../models/link-setup/bindgrid.ts" />
+
+
+
 import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
@@ -26,6 +28,7 @@ export class LinkSetupService {
 
         return this._http.get<any>(this.baseUrl + 'api/Link_setup/BindGrid');
 
+
     } 
 
 
@@ -35,6 +38,7 @@ export class LinkSetupService {
     } 
 
     EditData(LinkId): Observable<any> {
+
 
         return this._http.get<any>(this.baseUrl + 'api/Link_setup/EditData/' + LinkId);
     }
