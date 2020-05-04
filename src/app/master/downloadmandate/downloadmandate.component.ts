@@ -334,6 +334,7 @@ export class DownloadmandateComponent implements OnInit {
             //console.log(refNo);
             this.Preloader = true;
             this.showBindgrid=false;
+            debugger
             this._downloadMandateService.getBindGridRef(item.UserId, refNo)
                 .subscribe((data) => {
                     this.Preloader = false;

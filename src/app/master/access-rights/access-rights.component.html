@@ -1,6 +1,7 @@
 <div class="main-content" id="maincontent">
     <div class="content">
 
+
         <div class="col-md-12 col-sm-6 col-xs-4">
 
 
@@ -80,8 +81,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding " [style.display]="showdvCheckbox ? 'block' : 'none'">
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group no-padding " id="dvTable">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding " >
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group no-padding " id="dvTable" *ngIf="showdvCheckbox">
                                                 <div class="col-md-12 col-sm-12  boxaccordian">
                                                     <div class="col-md-12 col-sm-12 AccessList">
                                                         <div class="row" style="margin-top:1%;" >

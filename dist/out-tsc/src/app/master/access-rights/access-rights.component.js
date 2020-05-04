@@ -18,11 +18,13 @@ var AccessRightsComponent = /** @class */ (function () {
     }
     AccessRightsComponent.prototype.ngOnInit = function () {
         this.getEntityDetails();
+        this.showdvCheckbox = false;
     };
     AccessRightsComponent.prototype.hideSuccess = function () {
-        alert('hide');
+        // alert('hide');
         this.showModalSuccess = false;
-        // this.getEntityDetails();
+        this.getEntityDetails();
+        this.showdvCheckbox = false;
     };
     AccessRightsComponent.prototype.showSuccess = function () {
         this.showModalSuccess = true;
@@ -33,6 +35,7 @@ var AccessRightsComponent = /** @class */ (function () {
         this._accessRightsService.getEntityDetails(item.UserType, item.ReferenceId).subscribe(function (data) {
             //(res => this.entitydDetails = res, error => console.log(error))
             _this.entitydDetails = data;
+            _this.showdvCheckbox = true;
         });
     };
     AccessRightsComponent.prototype.getLinksForUser = function (data) {
@@ -100,11 +103,11 @@ var AccessRightsComponent = /** @class */ (function () {
         //  alert('hi');
         var item = JSON.parse(sessionStorage.getItem('User'));
         this._accessRightsService.getInsertdata(userid, this.storeIsActive, this.storeIsRead, this.storeLinkID, item.UserId).subscribe(function (res) {
-            _this.AccessRightDetails = res;
+            _this.AccessRightDetails = res.Table;
             debugger;
             // this.user = data;
             console.log(_this.AccessRightDetails[0]);
-            if (_this.AccessRightDetails[0].result == 0) {
+            if (_this.AccessRightDetails[0].result == 1) {
                 // this.message = 'User already exists';
                 _this.showSuccess();
             }

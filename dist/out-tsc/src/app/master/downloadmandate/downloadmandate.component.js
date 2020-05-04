@@ -61,17 +61,25 @@ var DownloadmandateComponent = /** @class */ (function () {
             // will use the property in html page
         });
     }
-    DownloadmandateComponent.prototype.show = function () {
-        if (this.Ischecked == 1) {
-            this.showModal = true;
-        }
-        else {
-            alert('Please select checkbox');
-        }
+    DownloadmandateComponent.prototype.onClick = function (event) {
+        this.showModalrejectmandate = true;
     };
     DownloadmandateComponent.prototype.hide = function () {
-        this.showModal = false;
+        this.showModalrejectmandate = false;
     };
+    DownloadmandateComponent.prototype.show = function () {
+        if (this.Ischecked == 1) {
+            //this.showModal = true;
+            this.showModalrejectmandate = true;
+            // alert('in');
+        }
+        //else {
+        //    alert('Please select checkbox');
+        //}
+    };
+    //hide() {
+    //    this.showModal = false;
+    //}
     DownloadmandateComponent.prototype.hideSuccess = function () {
         this.showModalSuccess = false;
     };
@@ -85,6 +93,7 @@ var DownloadmandateComponent = /** @class */ (function () {
         // console.log(this.dmandateForm1.value);
         //  this.dmandate.sponsorbankcode
         this.Preloader = false;
+        this.showBindgrid = true;
         var d = new Date(), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear();
         if (month.length < 2)
             month = '0' + month;
@@ -129,7 +138,8 @@ var DownloadmandateComponent = /** @class */ (function () {
         this.Removelabel();
         this.checkFlag = 0;
         // this.IsMandateID = item.mandateid;
-        //  if (this.Isallcheck == 0) {
+        console.log(item);
+        //if (this.Isallcheck == 0) {
         if (event.target.checked) {
             this.SelectionStatusOfMutants.push(item);
             this.selectMandateId.push(item.mandateid);
@@ -143,39 +153,32 @@ var DownloadmandateComponent = /** @class */ (function () {
             //this.SelectionStatusOfMutants.push(this.bindgrid);
             //console.log(this.SelectionStatusOfMutants);
             //}
-            this.SelectionStatusOfMutants.pop();
+            // this.SelectionStatusOfMutants.pop();
+            this.SelectionStatusOfMutants.splice(event.target);
             console.log(this.SelectionStatusOfMutants);
             this.UncheckedCount++;
             if (this.UncheckedCount == this.CheckedCount) {
                 this.Ischecked = 0;
                 // alert('in')
             }
+            //     }
         }
         // }
         //else {
         //    this.SelectionStatusOfMutants.push(this.bindgrid);
         //    console.log(this.SelectionStatusOfMutants);
-        //    this.onChange(event, item);
         //    this.Isallcheck = 0;
+        //    this.onChange(event, item);
         //}
-        //}
-        //else
-        //{
-        //    this.bindgrid.forEach(function (item) {
-        //        // console.log(item);
-        //        //item.selected = event.target.checked;
-        //        // this.onChange(event, item);
-        //        if (event.target.checked) {
-        //            this.SelectionStatusOfMutants.push(item);
-        //            alert('c')
-        //        }
-        //        else {
-        //            this.SelectionStatusOfMutants.pop();
-        //            alert('nc')
-        //        }
-        //    });
         //}
     };
+    //onCheckdownload() {
+    //    this.bindgrid.forEach(function (item) {
+    //        // console.log(item);
+    //        item.target.checked;
+    //        // this.onChange(event, item);
+    //    });
+    //}
     DownloadmandateComponent.prototype.SubmitToDate = function () {
         var fromvalue = this.dmandateForm.value;
         console.log(fromvalue);
@@ -215,39 +218,52 @@ var DownloadmandateComponent = /** @class */ (function () {
         var item = JSON.parse(sessionStorage.getItem('User'));
         if (refNo == '') {
             this.Preloader = true;
+            this.showBindgrid = false;
             this._downloadMandateService.getBindGrid(item.UserId, ToDate, FromDate, Bank)
                 .subscribe(function (data) {
                 _this.Preloader = false;
+                _this.showBindgrid = true;
                 _this.bindgrid = data;
+                // this.dataArray = Object.entries(this.bindgrid)[0][1];
+                // this.dataArray.push(this.bindgrid);
             });
             //  this.loading = false;
+            //if (this.dataArray.length > 0) {
+            //    this.showlabel = true;
+            //}
         }
         else {
             //console.log(refNo);
             this.Preloader = true;
+            this.showBindgrid = false;
+            debugger;
             this._downloadMandateService.getBindGridRef(item.UserId, refNo)
                 .subscribe(function (data) {
                 _this.Preloader = false;
+                _this.showBindgrid = true;
                 _this.bindgrid = data;
+                // this.dataArray.push(this.bindgrid);
                 refNo = '';
             });
             this.loading = false;
         }
     };
     DownloadmandateComponent.prototype.RejectMandate = function (fromdate, todate, bank, rejectcomnt) {
-        var _this = this;
         //  this.Ischecked = 1
         // if (this.Ischecked == 1) {
+        var _this = this;
         var item = JSON.parse(sessionStorage.getItem('User'));
         // console.log(item.UserId);
         this.showModal = false;
         var dta = document.getElementById('myform');
         dta.value = "";
         //var rejectcomnt = 'test131';
+        // alert(fromdate + '' + todate + '' + bank + '' + rejectcomnt + '' + item.UserId + '' + this.selectMandateId );
         this._downloadMandateService.getRejectMandate(item.UserId, fromdate, todate, this.selectMandateId, rejectcomnt).subscribe(function (res) {
             console.log(res),
                 function (error) { return console.log(error); };
             _this.BindGrid(fromdate, todate, bank, '');
+            _this.showModalrejectmandate = false;
             //alert('Mandate Rejected');
             _this.showSuccess();
         });
