@@ -3,7 +3,7 @@
     dataList: any;
     Flag: string;
     FlagValue: string;
-    available: string;
+    available: number;
     FreshManteId: string;
     rownumber: string;
     UserName: string;
@@ -14,4 +14,5 @@
     Customer1: string;
     Code: string;
     AcNo: string;
+    
 }

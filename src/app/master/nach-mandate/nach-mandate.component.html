@@ -14,7 +14,7 @@
                         <div class="col-md-8 col-sm-9 col-xs-12" style="float: right">
                             <div class="toolbar pull-right">
                                 <ul class="toolbar-content">
-                                    <li id="btnNew" [attr.disabled]="isDisabled ? '' : null">
+                                    <li id="btnNew" [attr.disabled]="isDisabled ? '' : null" (click)="btnNew_Click()">
                                         <i class="fa fa-file-text" aria-hidden="true" title="New"></i>
                                         <label>
                                             New
@@ -99,7 +99,7 @@
                                     <li id="LiRegistrationFund" *ngIf="btnregisfund">
                                         <i class='fa fa-credit-card'></i>Registration Fund
                                     </li>
-                                    <li id="btnBack" [attr.disabled]="isDisabledback ? '' : null">
+                                    <li id="btnBack" [attr.disabled]="isDisabledback ? '' : null" (click)="btnBack_Click()" *ngIf="btnBack">
                                         <i class="fa fa-bars" aria-hidden="true" title="Back"></i>
                                         <label>
                                             Previous Records
@@ -113,7 +113,7 @@
                 </div>
 
 
-                <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <div id="ContentPlaceHolder1_overlay" class="col-xs-12 col-md-12 col-sm-12 overlay">
                     </div>
                     <div id="preloader_1" style="display: none; z-index: 9999; position: absolute;">
@@ -122,7 +122,100 @@
                             Loading...
                         </label>
                     </div>
-                    <div id="grd" style="display: none;">
+                    <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+                        <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+                    </div>
+                    <div id="grd"  *ngIf="grd">
+                        <label class="firstbtnongrid"><i class="fa fa-file-excel-o" style="padding-right: 5px!important;"></i>Export</label>
+                        <table id="tblgrd">
+                            <thead>
+            
+                                <tr>
+                                    <th style="width:150px; display:none;">mandateid</th>
+                                    <th style="width:150px;">Mandate Status</th>
+                                    <th style="width:150px;">Mandate ID</th>
+                                    <th style="width:220px;">Reference 1</th>
+                                    <th style="width:220px;">Accept Reference Number</th>
+                                    <th style="width:220px;">NPCI Msg Id</th>
+                                    <th style="width:220px;">MSG Id</th>
+                                    <th style="width:220px;">UMRN</th>
+                                    <th style="width:220px;">Aggregator</th>
+                                    <th style="width:220px;">Mandate Mode</th>
+                                    <th style="width:220px;">Auto Rejected Reason</th>
+                                    <th style="width:220px;">HO Acceptance</th>
+                                    <th style="width:220px;">Rejection Reason</th>
+                                    <th style="width:220px;">Uploaded From</th>
+                                    <th style="width:220px;">Mandate Type</th>
+                                    <th style="width:220px;">Acc. Holder Name</th>
+                                    <th style="width:220px;">Date on Mandate</th>
+                                    <th style="width:220px;">EMI Start Date</th>
+                                    <th style="width:220px;">Mandate Printed</th>
+                                    <th style="width:220px;">Mandate Scan</th>
+                                    <th style="width:220px;">Amount</th>
+                                    <th style="width:220px;">Amount(In Words)</th>
+                                    <th style="width:220px;">Account No.</th>
+                                    <th style="width:220px;">IFSC/MICR</th>
+                                    <th style="width:220px;">Bank Name</th>
+                                    <th style="width:220px;">Frequency</th>
+                                    <th style="width:220px;">Debit Type</th>
+                                    <th style="width:220px;">Debit To</th>
+                                    <th style="width:220px;">Sponsor Bank Code</th>
+                                    <th style="width:220px;">Created By</th>
+                                    <th style="width:220px;">Created On</th>
+                                    <th style="width:220px;">Last Activity By</th>
+                                    <th style="width:220px;">Last Activity On</th>
+                                    <th style="width:220px;">Initiated To Bank</th>
+                                    <th style="width:220px;">Error Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let Data of bindgrid; index as i" (dblclick)="doubleClick(Data)">
+                                    <td style="width:150px; display:none;">{{Data.mandateid}}</td>
+                                    <td style="width:150px;">{{Data.status}}</td>
+                                    <td style="width:150px;">{{Data.MandateFreshId}}</td>
+                                    <td style="width:220px;">{{Data.Refrence1}}</td>
+                                    <td style="width:220px;">{{Data.AcceptRefNo}}</td>
+                                    <td style="width:220px;">{{Data.NPCIMsgId}}</td>
+                                    <td style="width:220px;">{{Data.MSGId}}</td>
+                                    <td style="width:150px;">{{Data.UMRN}}</td>
+                                    <td style="width:220px;">{{Data.AggregatorValue}}</td>
+                                    <td style="width:220px;">{{Data.mandateMode}}</td>
+                                    <td style="width:220px;">{{Data.AutoRejectReason}}</td>
+                                    <td style="width:220px;">{{Data.REJECTED}}</td>
+                                    <td style="width:150px;">{{Data.RejectedReason}}</td>
+                                    <td style="width:220px;">{{Data.IsMobileData}}</td>
+                                    <td style="width:220px;">{{Data.Enach}}</td>
+                                    <td style="width:220px;">{{Data.Customer1}}</td>
+                                    <td style="width:220px;">{{Data.DateOnMandate}}</td>
+                                    <td style="width:150px;">{{Data.FromDate}}</td>
+                                    <td style="width:220px;">{{Data.IsPrint}}</td>
+                                    <td style="width:220px;">{{Data.IsScan}}</td>
+                                    <td style="width:220px;">{{Data.Amount_Numeric}}</td>
+                                    <td style="width:220px;">{{Data.Amount}}</td>
+                                    <td style="width:150px;">{{Data.AcNo}}</td>
+                                    <td style="width:220px;">{{Data.Code}}</td>
+                                    <td style="width:220px;">{{Data.BankName}}</td>
+                                    <td style="width:220px;">{{Data.Frequency}}</td>
+                                    <td style="width:220px;">{{Data.debittype}}</td>
+                                    <td style="width:150px;">{{Data.ToDebit}}</td>
+                                    <td style="width:220px;">{{Data.SponsorBankCode}}</td>
+                                    <td style="width:220px;">{{Data.username}}</td>
+                                    <td style="width:220px;">{{Data.CreatedOn}}</td>
+                                    <td style="width:220px;">{{Data.UpdateBy}}</td>
+                                    <td style="width:150px;">{{Data.updatedon}}</td>
+                                    <td style="width:220px;">{{Data.SendToBankDate}}</td>
+                                    <td style="width:220px;">{{Data.NPCIErrorDesc}}</td>
+                                   
+                                   
+                                    
+                                </tr>
+                                
+                                <!-- <tr *ngIf="umrnupload?.length == 0">
+                                    <td colspan="5">No Record Found!</td>
+                                </tr> -->
+                            </tbody>
+            
+                        </table>
                     </div>
                 </div>
                 <span id="IsRefrence2Mandatory" style="display: none"></span>
@@ -133,30 +226,31 @@
                     {{lblTodateMandataoryforEsign}}
                 </span>
 
-                <span id="lblIsRefrenceEdit" style="display: none">True</span>
-                <span id="lblIsMandateEdit" style="display: none">True</span>
-                <span id="lblUserType" style="display: none">E</span>
-                <span id="lblBranchId" style="display: none">ArzBqYu631c=|9aGrJ6gMJEQ=</span>
-                <span id="lblEntityId" style="display: none">VxgEmrq2MuQ=|oIQ5k7rpPWI=</span>
-                <span id="lblRefId" style="display: none">FPNhL1CxmAY=|vuoN7ZQ0yJk=</span>
-                <span id="lblUserid" style="display: none">AGAnD2RKqfU=|mMIjyLyoOGA=</span>
-                <span id="lblOverMandate" style="display: none">False</span>
-                <span id="lblIsValidationCountEnable" style="display: none">1</span>
-                <span id="lblFinalBankValidationAdminCount" style="display: none">5</span>
-                <span id="lblFinalBankValidationUserCount" style="display: none">5</span>
-                <span id="lblFinalAcValidationAdminCount" style="display: none">5</span>
-                <span id="lblFinalAcValidationUserCount" style="display: none">5</span>
+                <span id="lblIsRefrenceEdit" style="display: none">{{lblIsRefrenceEdit}}</span>
+                <span id="lblIsMandateEdit" style="display: none">{{lblIsMandateEdit}}</span>
+                <span id="lblUserType" style="display: none">{{lblUserType}}</span>
+                <span id="lblBranchId" style="display: none">{{lblBranchId}}</span>
+                <span id="lblEntityId" style="display: none">{{lblEntityId}}</span>
+                <span id="lblRefId" style="display: none">{{lblRefId}}</span>
+                <span id="lblUserid" style="display: none">{{lblUserid}}</span>
+                <span id="lblOverMandate" style="display: none">{{lblOverMandate}}</span>                
+                <span id="lblIsValidationCountEnable" style="display: none">{{lblIsValidationCountEnable}}</span>
+                <span id="lblFinalBankValidationAdminCount" style="display: none">{{lblFinalBankValidationAdminCount}}</span>
+                <span id="lblFinalBankValidationUserCount" style="display: none">{{lblFinalBankValidationUserCount}}</span>
+                <span id="lblFinalAcValidationAdminCount" style="display: none">{{lblFinalAcValidationAdminCount}}</span>
+                <span id="lblFinalAcValidationUserCount" style="display: none">{{lblFinalAcValidationUserCount}}</span>
                 <span id="lblBankValidationAdminCount" style="display: none">1</span>
                 <span id="lblBankValidationUserCount" style="display: none">1</span>
                 <span id="lblAcValidationAdminCount" style="display: none">1</span>
                 <span id="lblAcValidationUserCount" style="display: none">1</span>
-                <span id="lblIsRefrenceCheck" style="display: none">False</span>
-                <span id="lblIsEMandate" style="display: none">True</span>
-                <span id="lblIsPhysicalMandate" style="display: none">True</span>
+
+                <span id="lblIsRefrenceCheck" style="display: none">{{lblIsRefrenceCheck}}</span>
+                <span id="lblIsEMandate" style="display: none">{{lblIsEMandate}}</span>
+                <span id="lblIsPhysicalMandate" style="display: none">{{lblIsPhysicalMandate}}</span>
                 <span id="lblmandatecheck" style="display: none"></span>
                 <span id="lblrealamount" style="display: none"></span>
 
-                <div id="divform" class=" col-md-12 col-sm-12 col-xs-12 no-padding" style="display: block;">
+                <div id="divform" class=" col-md-12 col-sm-12 col-xs-12 no-padding" style="display: block;" *ngIf="divform" >
 
                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding-right">
                         <div class="col-md-5 col-sm-5 col-xs-12 no-padding" style="display: none">
@@ -200,8 +294,8 @@
                                             </div>
                                             <div class="col-sm-8 col-md-7 col-xs-7">
 
-                                                <select class="col-md-12 col-xs-12 col-sm-12" formControlName="Catagorycode" name="Catagorycode" style="height: 22px;">
-                                                    <option value="">Select</option>
+                                                <select class="col-md-12 col-xs-12 col-sm-12" formControlName="Catagorycode" name="Catagorycode" [ngClass]="displayFieldCss('Catagorycode')" [attr.disabled]="Catagorycodedisabled ? '' : null">
+                                                    <option value="" selected>Select</option>
                                                     <option *ngFor="let Category of Table11" value={{Category.CategoryCode}}>
                                                         {{Category.CategoryName}}
                                                     </option>
@@ -298,8 +392,12 @@
                                                                                     Date on Mandate
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-8 col-md-8 col-xs-7  no-padding">
-                                                                                <input type="date" formControlName="UMRNDATE" style="width: 96%;" class="form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date">
+                                                                            <div class="col-sm-8 col-md-8 col-xs-7  ">
+
+                                                                                <input type="date"  formControlName="UMRNDATE" #UMRNDATE [ngClass]="displayFieldCss('UMRNDATE')" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker"  placeholder="Select Date" [attr.disabled]="UMRNDATEdisabled ? '' : null">
+                                                                                
+
+                                                                
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -316,8 +414,8 @@
                                                                                     Sponsor Bank Code
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-8 col-md-8 col-xs-6 mandatetextboxborder no-padding">
-                                                                                <select class="" formControlName="Sponsorcode" style="width:96%">
+                                                                            <div class="col-sm-8 col-md-8 col-xs-6 mandatetextboxborder ">
+                                                                                <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Sponsorcode" [ngClass]="displayFieldCss('Sponsorcode')" [attr.disabled]="Sponsorcodedisabled ? '' : null">
                                                                                     <option value="" selected>Select</option>
                                                                                     <option *ngFor="let Sponcode of Table3" value={{Sponcode.utilityCode}}>
                                                                                         {{Sponcode.name}}
@@ -454,7 +552,7 @@
                                                             </label>
                                                         </div>
                                                         <input name="ctl00$ContentPlaceHolder1$lblSmandateId" type="text" id="ContentPlaceHolder1_lblSmandateId" class="status-lbl" style="display: none;">
-                                                        <input name="ctl00$ContentPlaceHolder1$lblmandatecheckdata" type="text" id="ContentPlaceHolder1_lblmandatecheckdata" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$lblmandatecheckdata" type="text" id="ContentPlaceHolder1_lblmandatecheckdata" formControlName="ContentPlaceHolder1_lblmandatecheckdata" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtmandatetype" type="text" id="ContentPlaceHolder1_txtmandatetype" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtaccountcheck" type="text" id="ContentPlaceHolder1_txtaccountcheck" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtcheckissecval" type="text" id="ContentPlaceHolder1_txtcheckissecval" class="status-lbl" style="display: none;">
@@ -469,8 +567,8 @@
                                                         <input name="ctl00$ContentPlaceHolder1$txtAadharValidateMail" type="text" id="ContentPlaceHolder1_txtAadharValidateMail" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtAadharManual" type="text" id="ContentPlaceHolder1_txtAadharManual" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtAadharSMS" type="text" id="ContentPlaceHolder1_txtAadharSMS" class="status-lbl" style="display: none;">
-                                                        <input name="ctl00$ContentPlaceHolder1$txtphysical" type="text" id="ContentPlaceHolder1_txtphysical" class="status-lbl" style="display: none;">
-                                                        <input name="ctl00$ContentPlaceHolder1$txtemandate" type="text" id="ContentPlaceHolder1_txtemandate" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtphysical" type="text" id="ContentPlaceHolder1_txtphysical" formControlName="ContentPlaceHolder1_txtphysical" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtemandate" type="text" id="ContentPlaceHolder1_txtemandate" formControlName="ContentPlaceHolder1_txtemandate" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtevalidaion" type="text" id="ContentPlaceHolder1_txtevalidaion" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtcheckifscvalid" type="text" id="ContentPlaceHolder1_txtcheckifscvalid" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtnetbankinglive" type="text" id="ContentPlaceHolder1_txtnetbankinglive" class="status-lbl" style="display: none;">
@@ -485,8 +583,8 @@
                                                         </label>
                                                         <label id="lbltruebankvalidationcheck" class="status-lbl" style="display: none;">
                                                         </label>
-                                                        <div class="col-sm-9 col-md-9 col-xs-8 no-padding-left">
-                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtAcNo" formControlName="Bankaccountno" maxlength="26" placeholder="Enter Bank a/c Number">
+                                                        <div class="col-sm-9 col-md-9 col-xs-8 ">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtAcNo" formControlName="Bankaccountno" (keypress)="numberOnly($event)" [ngClass]="displayFieldCss('Bankaccountno')" maxlength="26" placeholder="Enter Bank a/c Number" [attr.disabled]="Bankaccountnodisabled ? '' : null">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -501,9 +599,9 @@
                                                                         With Bank
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-10 col-xs-9 no-padding-left">
-                                                                    <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Withbank">
-                                                                        <option value="">Select</option>
+                                                                <div class="col-sm-9 col-md-10 col-xs-9 ">
+                                                                    <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Withbank" [ngClass]="displayFieldCss('Withbank')" [attr.disabled]="Withbankdisabled ? '' : null">
+                                                                        <option value="" selected>Select</option>
                                                                         <option *ngFor="let WithBank of Table2" value={{WithBank.name}}>{{WithBank.name}}</option>
                                                                     </select>
                                                                 </div>
@@ -518,8 +616,8 @@
                                                                         IFSC
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-9 col-xs-9 no-padding-left">
-                                                                    <input type="text" maxlength="11" formControlName="IFSC" class="col-sm-12 col-md-12 col-xs-12" id="txtIFSC" placeholder="Enter IFSC">
+                                                                <div class="col-sm-9 col-md-9 col-xs-9 ">
+                                                                    <input type="text" maxlength="11" style="text-transform: uppercase" formControlName="IFSC" class="col-sm-12 col-md-12 col-xs-12" id="txtIFSC" placeholder="Enter IFSC" [ngClass]="displayFieldCss('IFSC')" [attr.disabled]="IFSCdisabled ? '' : null">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -532,8 +630,8 @@
                                                                         or MICR
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left">
-                                                                    <input type="text" maxlength="9" formControlName="MICR" class="col-sm-12 col-md-12 col-xs-12" id="txtMICR" placeholder="Enter MICR">
+                                                                <div class="col-sm-9 col-md-8 col-xs-9 ">
+                                                                    <input type="text" maxlength="9" formControlName="MICR" class="col-sm-12 col-md-12 col-xs-12" id="txtMICR" placeholder="Enter MICR" [ngClass]="displayFieldCss('IFSC')" [attr.disabled]="MICRdisabled ? '' : null">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -552,8 +650,8 @@
                                                             <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amount" id="txtAmount" [attr.disabled]="Amountcodedisabled ? '' : null" placeholder="Amount in words">
                                                         </div>
 
-                                                        <div class="col-sm-2 col-md-2 col-xs-12 no-padding-left">
-                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amountrupees" id="txtAmountRupees" placeholder="Enter Amount" maxlength="9">
+                                                        <div class="col-sm-2 col-md-2 col-xs-12 ">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amountrupees" id="txtAmountRupees" [ngClass]="displayFieldCss('Amountrupees')" (keypress)="Decimal($event);numtoword($event)" placeholder="Enter Amount" maxlength="9" [attr.disabled]="Amountrupeesdisabled ? '' : null">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -631,13 +729,15 @@
                                                                         Reference 1
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-10 col-md-10 col-xs-9 no-padding-left">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtRefrence1" formControlName="Reference" maxlength="20" placeholder="Enter Reference">
+                                                                <div class="col-sm-10 col-md-10 col-xs-9 ">
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtRefrence1" formControlName="Refrence1" [ngClass]="displayFieldCss('Refrence1')" maxlength="20" placeholder="Enter Reference" [attr.disabled]="Refrence1disabled ? '' : null">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-5 col-sm-5 col-xs-12 no-padding-left">
+
+                                                    
+                                                    <div class="col-md-5 col-sm-5 col-xs-12 ">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-sm-3 col-md-3  col-xs-4 labeldiv">
@@ -645,8 +745,8 @@
                                                                         Phone Number
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-9 col-xs-8 no-padding-left">
-                                                                    <input type="text" maxlength="10" formControlName="Phoneno" class="col-sm-12 col-md-12 col-xs-12" id="txtPhNumber" placeholder="Enter Phone Number">
+                                                                <div class="col-sm-9 col-md-9 col-xs-8 ">
+                                                                    <input type="text" maxlength="10" formControlName="Phoneno" (keyup)="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12" id="txtPhNumber" placeholder="Enter Phone Number" (keypress)="numberOnly($event)" (focusout)="isChklength()" [attr.disabled]="Phonenodisabled ? '' : null">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -677,8 +777,8 @@
                                                                         Email ID
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-9 col-xs-9 no-padding-left" style="border-bottom: 1px solid #928888;">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Email" onkeyup="RemoveClass();" id="txtEmailId" maxlength="35" placeholder="Enter Email ID">
+                                                                <div class="col-sm-9 col-md-9 col-xs-9 " style="border-bottom: 1px solid #928888;">
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Email" (keyup)="RemoveClass();" (focusout)="chkEmail()" id="txtEmailId" maxlength="35" placeholder="Enter Email ID" [attr.disabled]="Emaildisabled ? '' : null">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -711,7 +811,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
-                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" style="width: 96%;" class="form-control date-picker hasDatepicker" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date" tabindex="-1">
+                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" #PeriodFrom [ngClass]="displayFieldCss('PeriodFrom')" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date" tabindex="-1" [attr.disabled]="PeriodFromdisabled ? '' : null">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -772,8 +872,8 @@
                                                             <div class="row">
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
-                                                                        <div class="">
-                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer1" onkeyup="RemoveClass();" id="txtCust1" placeholder="Enter Name" maxlength="40" />
+                                                                        <div class="row">
+                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer1" [ngClass]="displayFieldCss('Customer1')" onkeyup="RemoveClass();" id="txtCust1" placeholder="Enter Name" maxlength="40" [attr.disabled]="Customer1disabled ? '' : null"/>
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 1. Name as in Bank Records
                                                                             </label>
@@ -817,12 +917,12 @@
                                             </div>
                                             <div class="col-md-12 col-sm-12 col-xs-12 btnDiv">
                                                 <input type="button" class="btn btn-success pull-right" id="btnCancel" value="Cancel" *ngIf="btnCancel" [attr.disabled]="Cancelleddisabled ? '' : null" />
-                                                <input type="button" class="btn btn-success pull-right" id="btnSecVal" value="Account Validation" *ngIf="btnSecVal" />
-                                                <input type="button" class="btn btn-success pull-right" id="btnFirstVal" value="Bank Validation" *ngIf="btnFirstVal" />
-                                                <input type="button" class="btn btn-success pull-right mr-1" id="btnSave" value="Save">
-                                                <input type="button" class="btn btn-success pull-right" id="btnEditDisable" value="Edit" *ngIf="btnEditDisable" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnSecVal" value="Account Validation" *ngIf="btnSecVal" [attr.disabled]="btnSecValdisabled ? '' : null" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnFirstVal" value="Bank Validation" *ngIf="btnFirstVal" [attr.disabled]="btnFirstValdisabled ? '' : null" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnSave" *ngIf="btnSave" value="Save" (click)="btnsave_click()" [attr.disabled]="btnSavedisabled ? '' : null">
+                                                <input type="button" class="btn btn-success pull-right" id="btnEditDisable" (click)="btnEditDisable_click()" value="Edit" *ngIf="btnEditDisable" [attr.disabled]="btnEditDisabledisabled ? '' : null" />
                                                 <input type="button" class="btn btn-success pull-right" id="btnPhysicalMandate" value="Physical Mandate" *ngIf="btnPhysicalMandate" />
-                                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnEemandate" value="E-Mandate" id="ContentPlaceHolder1_btnEemandate" class="btn btn-success pull-right TestEmandate" *ngIf="btnEemandate" />
+                                                <input type="submit" name="ctl00$ContentPlaceHolder1$btnEemandate" value="E-Mandate" id="ContentPlaceHolder1_btnEemandate" class="btn btn-success pull-right TestEmandate" *ngIf="btnEemandate" [attr.disabled]="btnEemandatedisabled ? '' : null" />
                                                 <input type="button" class="btn btn-success pull-right" style="margin-right: 4px;" id="btnenach" *ngIf="btnenach" value="Validate ENACH">
                                             </div>
                                         </div>
@@ -1321,19 +1421,36 @@
                     </div>
 
                 </div>
-
-
+               
             </form>
-
-
-
-
-
-
-
-
-
-
+            <div class="modal success" id="myModal" [style.display]="showModalsave ? 'block' : 'none'">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+        
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">
+        
+        
+                                <img src="../../assets/images/saveSuccessImg.png" />
+        
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                        </div>
+        
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <p id="modelmsg"> Saved Successfully</p>
+                        </div>
+        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Close</button>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
         <div id="MsgDiv" style="display: none" class="popupmandate">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12">
