@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class ReportViewComponent implements OnInit {
 
     HeaderArray;
+    
     UMRNUploadform: FormGroup;
     showlabel: boolean;
     dataArray: Array<Bindgrid> = [];
