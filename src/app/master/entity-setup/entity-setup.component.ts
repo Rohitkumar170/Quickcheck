@@ -130,13 +130,18 @@ export class EntitySetupComponent implements OnInit {
             FileName4: [''],
             FileName5: [''],
             FileName6: [''],
-            InstructingMenmerId : ['']
+            InstructingMenmerId : [''],
+            Type : [''],
+            DebitType: [''],
+            ToDebit: [''],
+            FrequencyType: [''],
+            Amount : [''],
+            ISEnableCancelUser : ['']
         });
         this.Preloader = false;
         this.BindCountryAndBank();
         this.BingGrid();
     }
-
     BindCountryAndBank() {
         this.ESService.BindCountryAndBank().subscribe(
             (data) => {
