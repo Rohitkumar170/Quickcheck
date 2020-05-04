@@ -55,6 +55,29 @@ export class NachMandateComponent implements OnInit {
    
         this.BinddataonPageLoad();
     }
+
+
+    showModal: boolean;
+onClick(event) {
+this.showModal = true;
+
+
+}
+
+hide() {
+this.showModal = false;
+}
+
+showModalunsucess: boolean;
+onClicksucess(event) {
+    this.showModalunsucess = true;
+    
+    
+    }
+    
+    hidesucess() {
+    this.showModalunsucess = false;
+    }
     get AllFields() { return this.NachMandate.controls; }
     BinddataonPageLoad() {
         this._bankformService.GetCategory().subscribe(
