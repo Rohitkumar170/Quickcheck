@@ -35,8 +35,9 @@ const routes: Routes = [
             { path: 'EntitySetup', loadChildren: './entity-setup/entity-setup.module#EntitySetupModule', canActivate: [AuthGuardService] },
             { path: 'BulkUpload', loadChildren: './bulk-upload/bulk-upload.module#BulkUploadModule', canActivate: [AuthGuardService] },
             { path: 'ReportView', loadChildren: './report-view/report-view.module#ReportViewModule', canActivate: [AuthGuardService] },
-            { path: 'eCreateMandate', loadChildren: './ecreatemandate/ecreate-mandate.module#EcreateMandateModule', canActivate: [AuthGuardService] }
-       
+            { path: 'eCreateMandate', loadChildren: './ecreatemandate/ecreate-mandate.module#EcreateMandateModule', canActivate: [AuthGuardService] },
+            { path: 'eBulkUploadedData', loadChildren: './ebulkuploadeddata/ebulkuploadeddata.module#EbulkuploadeddataModule', canActivate: [AuthGuardService] }
+           
         ]
     }
 ];

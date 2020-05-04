@@ -2,8 +2,11 @@
 
     <div class="main-content" id="maincontent">
         <div class="content">
+
             <form [formGroup]="NachMandate" autocomplete="off">
-                <div class="col-md-12 col-sm-6 col-xs-4  no-padding-right">
+                    <button type="button" (click)="onClick($event)" style="display: none">Show Popup</button>
+                    <button type="button" (click)="onClicksucess($event)" style="display: none"> Show Popup</button>
+                <div class="col-md-12 col-sm-6 col-xs-4">
                     <div class="row">
                         <div class="col-sm-3 col-md-4 col-xs-5">
                             <span class="legal">NACH Mandate</span>
@@ -331,7 +334,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
                         <div class="">
                             <div class="scroll">
                                 <div id="accordion1" class="accordion-style1 panel-group">
@@ -357,7 +360,7 @@
                             </div>-->
                                         <!--<div class="panel-collapse collapse" id="mandate" aria-expanded="false" style="height: 0px;">
                             <div class="panel-body" style="padding-bottom: 2px; overflow-y: auto; max-height: 477px;">-->
-                                        <div class="scroll" style="overflow-y:scroll; max-height:460px;">
+                                        <div class="scroll">
                                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
                                                 <div class="row">
                                                     <div class="col-md-1 col-sm-1 col-xs-2" id="divqr">
@@ -365,7 +368,7 @@
                                                         <!--<img id="imgLogo" style="width: 100%; height: 45px;" src="{{Table1.ImagePath ? _isimage : '../Logo/kOrqps_logo.png'}}" />-->
                                                     </div>
                                                     <div class="col-md-11 col-sm-11 col-xs-10 no-padding" style="border-left: 1px solid #989797;">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12 " style="border-bottom: 1px solid #989797;">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 ">
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
                                                                     <div class="form-group">
@@ -375,13 +378,13 @@
                                                                                     UMRN
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-8 col-md-8 col-xs-9  mandatetextboxborder">
+                                                                            <div class="col-sm-8 col-md-8 col-xs-9  mandatetextboxborder no-padding">
                                                                                 <input type="text" formControlName="UMRN" name="UMRN" class="col-sm-12 col-md-12 col-xs-12" id="Text1" [attr.disabled]="UMRNCodedesabled ? '' : null">
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left">
                                                                     <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-sm-4 col-md-4 col-xs-5   labeldiv">
@@ -422,7 +425,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left">
                                                                     <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-sm-4 col-md-4 col-xs-4   labeldiv">
@@ -430,7 +433,7 @@
                                                                                     Utility Code
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-8 col-md-8 col-xs-8 ">
+                                                                            <div class="col-sm-8 col-md-8 col-xs-8 no-padding">
                                                                                 <input type="text" [attr.disabled]="UtilityCodedesabled ? '' : null" formControlName="Utilitycode" class="col-sm-12 col-md-12 col-xs-12 " id="txtutilityCode" maxlength="18" placeholder="Enter Utility Code">
                                                                             </div>
                                                                         </div>
@@ -449,7 +452,8 @@
                                                                 <div class="row">
                                                                     <input type="checkbox" checked="checked" formControlName="Create" class="col-md-3 col-sm-3 col-xs-3" [attr.disabled]="CreateCodedesabled ? '' : null" style="margin: 0px">
                                                                     <div class="col-md-9 col-sm-9 col-xs-9 ">
-                                                                        <label class=" col-md-12 col-xs-1 col-sm-1 control-label ">
+                                                                        <label class=" col-md-12 col-xs-1 col-sm-1 control-label " style="position: absolute;
+                                                                        left: -15px;">
                                                                             Create
                                                                         </label>
                                                                     </div>
@@ -488,13 +492,13 @@
                                                                                     I/ We hereby Authorize
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-7 col-md-7 col-xs-7 ">
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left">
                                                                                 <input type="text" formControlName="Authrizename" class="col-sm-12 col-md-12 col-xs-12" id="txtEntityName" placeholder="Enter Entity Name" [attr.disabled]="EntityNameCodedesabled ? '' : null">
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-sm6 col-xs-12 ">
+                                                                <div class="col-md-6 col-sm6 col-xs-12 no-padding-left">
                                                                     <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-sm-2 col-md-2 col-xs-12 no-padding labeldiv">
@@ -618,11 +622,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2 col-sm-4 col-xs-12 ">
+                                                    <div class="col-md-2 col-sm-4 col-xs-12 no-padding-left">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-sm-3 col-md-4   col-xs-3 labeldiv">
-                                                                    <label class="col-sm-12 col-md-12  col-xs-12 control-label  ">
+                                                                    <label class="col-sm-12 col-md-12  col-xs-12 control-label  no-padding">
                                                                         or MICR
                                                                     </label>
                                                                 </div>
@@ -642,7 +646,7 @@
                                                                 an amount of Rupees
                                                             </label>
                                                         </div>
-                                                        <div class="col-sm-8 col-md-8 col-xs-12  ">
+                                                        <div class="col-sm-8 col-md-8 col-xs-12  no-padding">
                                                             <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amount" id="txtAmount" [attr.disabled]="Amountcodedisabled ? '' : null" placeholder="Amount in words">
                                                         </div>
 
@@ -759,13 +763,13 @@
                                                                         Reference 2
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-10 col-md-10 col-xs-9 ">
+                                                                <div class="col-sm-10 col-md-10 col-xs-9 no-padding-left">
                                                                     <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Refrence2" id="txtRefrence2" [attr.disabled]="Reference2codedisabled ? '' : null" onkeyup="RemoveClass();" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-5 col-sm-5 col-xs-12 ">
+                                                    <div class="col-md-5 col-sm-5 col-xs-12 no-padding-left">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-sm-3 col-md-3  col-xs-3 labeldiv">
@@ -793,12 +797,12 @@
                                             <div class="col-md-12 col-sm-12 col-xs-12  period" style="bottom: 2px;">
                                                 <div class="row">
                                                     <div class="col-md-4 col-sm-4 col-xs-12 no-padding ">
-                                                        <div class="col-sm-3 col-md-3  col-xs-3 border labeldiv">
+                                                        <div class="col-sm-3 col-md-3  col-xs-3 border labeldiv no-padding-left" style="width: 88px;">
                                                             <label class="col-sm-3 col-md-3 no-padding col-xs-3 control-label">
                                                                 Period
                                                             </label>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-12 col-xs-12  border">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12  border no-padding">
                                                             <div class="form-group">
                                                                 <div class="row">
                                                                     <div class="col-sm-3 col-md-3   col-xs-3 labeldiv">
@@ -812,7 +816,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-12 col-xs-12  border">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12  border no-padding">
                                                             <div class="form-group">
                                                                 <div class="row">
                                                                     <div class="col-sm-3 col-xs-3 col-md-3    labeldiv">
@@ -821,7 +825,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
-                                                                        <input type="date" formControlName="PeriodTo" [ngClass]="{'divDisable' : _isActive}" onchange="RemoveClass();" id="txtTo" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" tabindex="-1" [attr.disabled]="Periodtocodedisabled ? '' : null" />
+                                                                        <input type="date" formControlName="PeriodTo" [ngClass]="{'divDisable' : _isActive}" onchange="RemoveClass();" id="txtTo" style="width: 96%;" class="form-control date-picker hasDatepicker" name="date-picker" data-date-format="dd-mm-yyyy" tabindex="-1" [attr.disabled]="Periodtocodedisabled ? '' : null" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -836,7 +840,7 @@
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 chkbox" style="padding-top: 3px">
                                                                         <input id="chkUntil" type="checkbox" formControlName="Untillcancelled" class="pull-left"  checked="checked" [attr.disabled]="Untillcancelledcodedisabled ? '' : null" />
-                                                                        <label class="col-sm-10 col-md-10 col-xs-10 control-label " style="padding-top: 4px;">
+                                                                        <label class="col-sm-10 col-md-10 col-xs-10 control-label ">
                                                                             Until Cancelled
                                                                         </label>
                                                                     </div>
@@ -878,7 +882,7 @@
                                                                 </div>
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
-                                                                        <div class="row">
+                                                                        <div class="">
                                                                             <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer2" id="txtCust2" [attr.disabled]="Customer2disabled ? '' : null" maxlength="40" />
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 2. Name as in Bank Records
@@ -888,7 +892,7 @@
                                                                 </div>
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
-                                                                        <div class="row">
+                                                                        <div class="">
                                                                             <input type="text" class="col-sm-12 col-md-10 col-xs-12" formControlName="Customer3" id="txtCust3" [attr.disabled]="Customer3disabled ? '' : null" maxlength="40" />
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 3. Name as in Bank Records
@@ -2181,6 +2185,341 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal" id="myModal" [style.display]="showModal ? 'block' : 'none'">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+        <h4 class="modal-title">
+        <!-- <img src="../../ClientApp/assets/images/saveSuccessImg.png" /> -->
+        <label class="  lblPopup col-md-12 col-sm-12 col-xs-12 no-padding-left  " id="Label8"
+        style="color: #0c862c;">
+        ENACH is not possible for this mandate</label>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+                <div class="col-md-12 col-sm-12 col-xs-12 text" > 
+                        <div class="form-group bankbg">
+                            <div class="row">
+                            <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                                Sponsor Bank Code :</label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="tickImgSponsor" src="../../assets/images/tick-icon.png" />
+                                <img id="crossImgSponsor" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group bankbg">
+                            <div class="row">
+                            <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                                Utility Code :</label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="tickImgUtility" src="../../assets/images/tick-icon.png" />
+                                <img id="CrossImgUtility" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group bankbg">
+                            <div class="row">
+                            <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                                Bank live on NACH :</label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="Img4" src="../../assets/images/tick-icon.png" />
+                                <img id="Img5"  src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group bankbg">
+                                <div class="row">
+                            <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                                Bank live on ENACH :</label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="Img9" src="../../assets/images/tick-icon.png" />
+                                <img id="Img10"  src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group bankbg">
+                                <div class="row">
+                            <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                                Amount  ENACH max. trx value :</label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="imgAounttick" src="../../assets/images/tick-icon.png" />
+                                <img id="imgAmountCross" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group bankbg">
+                                <div class="row">
+                            <label class="col-sm-9 col-xs-8 col-md-9  amarlabel">
+                                "To Date" mandatory for ENACH:</label>
+                            <label  class="col-sm-2 col-xs-3 col-md-2 no-padding-left  control-label"
+                                for="form-field-2" id="blbtoDate" style="margin-top: 2px!important; margin-bottom: 0;
+                                display: block">
+                                <span class="pull-right">Edit</span><i class="fa fa-edit pull-right" style="margin-right: 5px;
+                                    margin-top: 2px;"></i>
+                            </label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
+                                <img id="imgTodatetick" src="../../assets/../images/tick-icon.png" />
+                                <img id="ingtodatecross" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group bankbg">
+                                <div class="row">
+                            <label class="col-sm-11 col-xs-11 col-md-11 amarlabel">
+                                Single Signatory :</label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="imgtickjoint" src="../../assets/images/tick-icon.png" />
+                                <img id="imgcrossjoint" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div> 
+                    </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Close</button>
+        </div>
+        
+        </div>
+        </div>
+        </div>
+
+
+
+        <div class="modal" id="myModal" [style.display]="showModalunsucess ? 'block' : 'none'">
+                <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title">
+                 <!-- <img src="../../assets/images/saveSuccessImg.png" />  -->
+                     <label class="  lblPopup col-md-12 col-sm-12 col-xs-12 no-padding-left  " id="lblValidation"
+                        style="color: #0c862c;">
+                        Bank Validation</label>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hidesucess()">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="margin-top: 2%;">
+                        <div class="form-group bankbg">
+                            <div class="row">
+                            <label class="col-sm-3 col-xs-4 col-md-3 amarlabel" style="padding-left: 17px">
+                                Bank Name:</label>
+                            <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2"
+                                id="lblbankFullName">
+                            </label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="BankImgTick" src="../../assets/images/tick-icon.png" />
+                                <img id="BankImgCross" style="display: none" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group ifscbg">
+                            <div class="row">
+                            <label class="col-sm-3 col-xs-4 col-md-3  amarlabel" style="padding-left: 17px">
+                                IFSC/MICR :</label>
+                            <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2"
+                                id="lblIFSC">
+                            </label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="IFSCImgTick" src="../../assets/images/tick-icon.png" />
+                                <img id="IFSCImgCross" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group ifscbg">
+                                <div class="row">
+                            <label class="col-sm-3 col-xs-4 col-md-3  amarlabel" style="padding-left: 17px">
+                                Live on NACH:
+                            </label>
+                            <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2">
+                            </label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="NACHTick" src="../../assets/images/tick-icon.png" />
+                                <img id="NACHCross" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group ifscbg" id="mandatedebit" style="display: block;">
+                                <div class="row">
+                            <label class="col-sm-3 col-xs-4 col-md-3  amarlabel" style="padding-left:17px">
+                                Debit Card:
+                            </label>
+                            <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2">
+                            </label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="DEBITTick" src="../../assets/images/tick-icon.png" />
+                                <img id="DEBITCross" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group ifscbg" id="mandatenetbank" style="display: block;">
+                                <div class="row">
+                            <label class="col-sm-3 col-xs-4 col-md-3  amarlabel" style="padding-left:17px">
+                                Net Banking:
+                            </label>
+                            <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2">
+                            </label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="NetBTick" src="../../assets/images/tick-icon.png" />
+                                <img id="NetBCross" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group ifscbg" id="mandateaadhar" style="display: block;">
+                                <div class="row">
+                            <label class="col-sm-3 col-xs-4 col-md-3  amarlabel" style="padding-left: 17px">
+                                Aadhar Card:</label>
+                            <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2">
+                            </label>
+                            <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
+                                <img id="AdharTick" src="../../assets/images/tick-icon.png"  />
+                                <img id="AdharCross" src="../../assets/images/Cross-icon.png" />
+                            </div>
+                        </div>
+                    </div>
+                          <div class="form-group bankbg" id="Div23" style="display:block;">
+                                <div class="row">
+                        <label class="col-sm-4 col-xs-4 col-md-3  amarlabel"  style="padding-left: 17px" >
+                            Mobile No.:</label>
+                        <!-- <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2" style="font-weight:normal"  id="lblmobile">
+                        </label> -->
+                        <input type="text" id="txtmobileemandate" maxlength="10" class="col-sm-5 col-xs-5 col-md-8" style="display:block" />
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
+                            <i class="fa fa-check-square"></i>
+                                    <i class="fa fa-check-square"></i>
+                            <!-- <img id="imgtkmobile" src="../../assets/images/tick-icon.png" style="display:block"/>
+                            <img id="imgcrossmobile" src="../../assets/images/Cross-icon.png" style="width: 40%;" />
+                            <i class="fa fa-pencil-square-o" id="imobileedit" aria-hidden="true" style=" vertical-align: bottom; font-size: 17px; margin:0px 0 6px 2px; color: #1f497d;" onclick="editmobile()"></i>
+                            <i class="fa fa-refresh" aria-hidden="true"></i> -->
+                        </div>
+                                </div>
+                    </div>
+                      <div class="form-group bankbg" id="Div24" style="display:block">
+                            <div class="row">
+                        <label class="col-sm-4 col-xs-4 col-md-3  amarlabel" style="padding-left: 17px">
+                            Email ID:</label>
+                        <!-- <label  class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2" style="font-weight:normal" id="lblemail">
+                        </label> -->
+                        <input type="text" id="txtemailemandate" class="col-sm-5 col-xs-5 col-md-8" style="display:block" />
+                        <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
+                            <i class="fa fa-check-square"></i>
+                                    <i class="fa fa-check-square"></i>
+                            <!-- <img id="imgtickemail" style="display:block" src="../../assets/images/tick-icon.png" />
+                            <img id="imgcrossemail" src="../../assets/images/Cross-icon.png" style="width: 40%;" />
+                            <i class="fa fa-pencil-square-o" id="iemailedit"  aria-hidden="true" style="vertical-align: bottom; font-size: 17px; margin:0px 0 6px 2px; color: #1f497d; " onclick="editemail()"></i>
+                           <i class="fa fa-refresh" aria-hidden="true"></i> -->
+                        </div>
+                    </div>
+                </div>
+        
+                       <label class="col-md-12 message-text no-padding" style="display: block;" id="lblemailwarn" style="margin-top:5px;">Please provide either Mobile No. or Email ID</label>
+                        
+                        <div id="Divmandatemode" style="display: block" class="form-group">
+                            <div class="row">
+                            <label class="col-sm-5 col-xs-5 col-md-3 amarlabel" style="padding-left:17px;">
+                                Mandate Mode:</label>
+                            <div id="Divemandate" class="col-sm-7 col-xs-7 col-md-8  radio ">
+                                <div class="row">
+                                <label id="physicalcheck" style="display: block" class="lblradiobtnss col-md-4 col-sm-2 col-xs-2 no-padding">
+                                    <input id="notacvalrdphysical" style="display: block" name="notacvalrbnetbanking"
+                                        value="P" type="radio" />
+                                    <span>Physical</span>
+                                </label>
+                                <label id="emandatecheck" style="display: block" class="lblradiobtnss col-md-4 col-sm-5 col-xs-4 no-padding">
+                                    <input id="notacvalrdemandate" style="display: block" name="notacvalrbnetbanking"
+                                        value="E" type="radio"  />
+                                    <span>E-Mandate</span>
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+        
+        
+                         <div id="debitnetbank" class="form-group" style="display: block;">
+                            <div class="row">
+                            <label class="col-sm-12 col-xs-12 col-md-3  amarlabel" style="padding-left:17px">
+                                Select E-Mandate Type:</label>
+                            <div id="netbanking" class="col-sm-12 col-xs-7 col-md-8  radio ">
+                                <div class="row">
+                                <label class="lblradiobtnss col-md-4 col-sm-6 col-xs-12 no-padding" id="netbankingshow"
+                                    style="display: block;">
+                                    <input id="rbnetbanking" name="rbnetbanking" value="N" type="radio" />
+                                    <span>Net Banking</span>
+                                </label>
+                                <label class="lblradiobtnss col-md-4 col-sm-5 col-xs-12 no-padding" id="debitbankingshow"
+                                    style="display: block;">
+                                    <input id="rbdebitcard" name="rbnetbanking" value="D" type="radio" />
+                                    <span>Debit Card</span>
+                                </label>
+                                <label class="lblradiobtnss col-md-4 col-sm-5 col-xs-4 no-padding" id="aadharbankingshow"
+                                    style="display: block;">
+                                    <input id="rbadharcard" name="rbnetbanking" value="A" type="radio" />
+                                    <span>Aadhar Card</span>
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                         </div>
+        
+
+                        <div class=" col-sm-12 col-xs-12 col-md-12 boxhead" id="divemailmobile" style="display: block">
+                        <!-- <label class="col-sm-12 col-md-12 col-xs-12 control-label no-padding" style="display: block;color:Red" id="lblemailwarn">Please provide either Mobile No. or Email ID</label> -->
+                          <div class="row">
+                               <div class="col-md-6 col-sm-6 col-xs-6   ">
+                                <div class="form-group">
+                                    <div class="row">
+                                    <label class="col-sm-3 col-md-3 col-xs-3 control-label ">
+                                        Mobile No.</label>
+                                    <div class="col-sm-9 col-md-9 col-xs-9 ">
+                                        <input type="text" style="border: 1px solid;" id="txtmobileemandate"  maxlength="10" class="col-sm-12 col-md-12 col-xs-12" />
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 no-padding-right">
+                                <div class="form-group">
+                                    <div class="row">
+                                    <label class="col-sm-3 col-md-3 col-xs-3 control-label " for="form-field-2">
+                                        E-mail Id</label>
+                                    <div class="col-sm-9 col-md-9 col-xs-9 
+                                    ">
+                                        <input type="text" style="border: 1px solid;"  id="txtemailemandate"
+                                            class="col-sm-12 col-md-12 col-xs-12" />
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                           
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" >OK</button>
+                </div>
+                
+                </div>
+                </div>
+                </div>
+
         </div>
 
 
