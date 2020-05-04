@@ -4,9 +4,9 @@
         <div class="content">
 
             <form [formGroup]="NachMandate" autocomplete="off">
-                    <button type="button" (click)="onClick($event)">Show Popup</button>
-                    <button type="button" (click)="onClicksucess($event)">Show Popup</button>
-                <div class="col-md-12 col-sm-6 col-xs-4  no-padding-right">
+                    <button type="button" (click)="onClick($event)" style="display: none">Show Popup</button>
+                    <button type="button" (click)="onClicksucess($event)" style="display: none"> Show Popup</button>
+                <div class="col-md-12 col-sm-6 col-xs-4">
                     <div class="row">
                         <div class="col-sm-3 col-md-4 col-xs-5">
                             <span class="legal">NACH Mandate</span>
@@ -200,7 +200,7 @@
                                             </div>
                                             <div class="col-sm-8 col-md-7 col-xs-7">
 
-                                                <select class="col-md-12 col-xs-12 col-sm-12" formControlName="Catagorycode" name="Catagorycode">
+                                                <select class="col-md-12 col-xs-12 col-sm-12" formControlName="Catagorycode" name="Catagorycode" style="height: 22px;">
                                                     <option value="">Select</option>
                                                     <option *ngFor="let Category of Table11" value={{Category.CategoryCode}}>
                                                         {{Category.CategoryName}}
@@ -240,7 +240,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12 mt-3">
                         <div class="">
                             <div class="scroll">
                                 <div id="accordion1" class="accordion-style1 panel-group">
@@ -266,7 +266,7 @@
                             </div>-->
                                         <!--<div class="panel-collapse collapse" id="mandate" aria-expanded="false" style="height: 0px;">
                             <div class="panel-body" style="padding-bottom: 2px; overflow-y: auto; max-height: 477px;">-->
-                                        <div class="scroll" style="overflow-y:scroll; max-height:460px;">
+                                        <div class="scroll">
                                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding border">
                                                 <div class="row">
                                                     <div class="col-md-1 col-sm-1 col-xs-2" id="divqr">
@@ -274,7 +274,7 @@
                                                         <!--<img id="imgLogo" style="width: 100%; height: 45px;" src="{{Table1.ImagePath ? _isimage : '../Logo/kOrqps_logo.png'}}" />-->
                                                     </div>
                                                     <div class="col-md-11 col-sm-11 col-xs-10 no-padding" style="border-left: 1px solid #989797;">
-                                                        <div class="col-md-12 col-sm-12 col-xs-12 " style="border-bottom: 1px solid #989797;">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 ">
                                                             <div class="row">
                                                                 <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left no-padding-right mandatetextboxborder">
                                                                     <div class="form-group">
@@ -284,13 +284,13 @@
                                                                                     UMRN
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-8 col-md-8 col-xs-9  mandatetextboxborder">
+                                                                            <div class="col-sm-8 col-md-8 col-xs-9  mandatetextboxborder no-padding">
                                                                                 <input type="text" formControlName="UMRN" name="UMRN" class="col-sm-12 col-md-12 col-xs-12" id="Text1" [attr.disabled]="UMRNCodedesabled ? '' : null">
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left">
                                                                     <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-sm-4 col-md-4 col-xs-5   labeldiv">
@@ -298,8 +298,8 @@
                                                                                     Date on Mandate
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-8 col-md-8 col-xs-7  ">
-                                                                                <input type="date" formControlName="UMRNDATE" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date">
+                                                                            <div class="col-sm-8 col-md-8 col-xs-7  no-padding">
+                                                                                <input type="date" formControlName="UMRNDATE" style="width: 96%;" class="form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -316,8 +316,8 @@
                                                                                     Sponsor Bank Code
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-8 col-md-8 col-xs-6 mandatetextboxborder ">
-                                                                                <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Sponsorcode">
+                                                                            <div class="col-sm-8 col-md-8 col-xs-6 mandatetextboxborder no-padding">
+                                                                                <select class="" formControlName="Sponsorcode" style="width:96%">
                                                                                     <option value="" selected>Select</option>
                                                                                     <option *ngFor="let Sponcode of Table3" value={{Sponcode.utilityCode}}>
                                                                                         {{Sponcode.name}}
@@ -327,7 +327,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                                                <div class="col-md-6 col-sm-6 col-xs-12 no-padding-left">
                                                                     <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-sm-4 col-md-4 col-xs-4   labeldiv">
@@ -335,7 +335,7 @@
                                                                                     Utility Code
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-8 col-md-8 col-xs-8 ">
+                                                                            <div class="col-sm-8 col-md-8 col-xs-8 no-padding">
                                                                                 <input type="text" [attr.disabled]="UtilityCodedesabled ? '' : null" formControlName="Utilitycode" class="col-sm-12 col-md-12 col-xs-12 " id="txtutilityCode" maxlength="18" placeholder="Enter Utility Code">
                                                                             </div>
                                                                         </div>
@@ -354,7 +354,8 @@
                                                                 <div class="row">
                                                                     <input type="checkbox" checked="checked" formControlName="Create" class="col-md-3 col-sm-3 col-xs-3" [attr.disabled]="CreateCodedesabled ? '' : null" style="margin: 0px">
                                                                     <div class="col-md-9 col-sm-9 col-xs-9 ">
-                                                                        <label class=" col-md-12 col-xs-1 col-sm-1 control-label ">
+                                                                        <label class=" col-md-12 col-xs-1 col-sm-1 control-label " style="position: absolute;
+                                                                        left: -15px;">
                                                                             Create
                                                                         </label>
                                                                     </div>
@@ -393,13 +394,13 @@
                                                                                     I/ We hereby Authorize
                                                                                 </label>
                                                                             </div>
-                                                                            <div class="col-sm-7 col-md-7 col-xs-7 ">
+                                                                            <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left">
                                                                                 <input type="text" formControlName="Authrizename" class="col-sm-12 col-md-12 col-xs-12" id="txtEntityName" placeholder="Enter Entity Name" [attr.disabled]="EntityNameCodedesabled ? '' : null">
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-sm6 col-xs-12 ">
+                                                                <div class="col-md-6 col-sm6 col-xs-12 no-padding-left">
                                                                     <div class="form-group">
                                                                         <div class="row">
                                                                             <div class="col-sm-2 col-md-2 col-xs-12 no-padding labeldiv">
@@ -484,7 +485,7 @@
                                                         </label>
                                                         <label id="lbltruebankvalidationcheck" class="status-lbl" style="display: none;">
                                                         </label>
-                                                        <div class="col-sm-9 col-md-9 col-xs-8 ">
+                                                        <div class="col-sm-9 col-md-9 col-xs-8 no-padding-left">
                                                             <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtAcNo" formControlName="Bankaccountno" maxlength="26" placeholder="Enter Bank a/c Number">
                                                         </div>
                                                     </div>
@@ -500,7 +501,7 @@
                                                                         With Bank
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-10 col-xs-9 ">
+                                                                <div class="col-sm-9 col-md-10 col-xs-9 no-padding-left">
                                                                     <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Withbank">
                                                                         <option value="">Select</option>
                                                                         <option *ngFor="let WithBank of Table2" value={{WithBank.name}}>{{WithBank.name}}</option>
@@ -517,21 +518,21 @@
                                                                         IFSC
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-9 col-xs-9 ">
+                                                                <div class="col-sm-9 col-md-9 col-xs-9 no-padding-left">
                                                                     <input type="text" maxlength="11" formControlName="IFSC" class="col-sm-12 col-md-12 col-xs-12" id="txtIFSC" placeholder="Enter IFSC">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2 col-sm-4 col-xs-12 ">
+                                                    <div class="col-md-2 col-sm-4 col-xs-12 no-padding-left">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-sm-3 col-md-4   col-xs-3 labeldiv">
-                                                                    <label class="col-sm-12 col-md-12  col-xs-12 control-label  ">
+                                                                    <label class="col-sm-12 col-md-12  col-xs-12 control-label  no-padding">
                                                                         or MICR
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-8 col-xs-9 ">
+                                                                <div class="col-sm-9 col-md-8 col-xs-9 no-padding-left">
                                                                     <input type="text" maxlength="9" formControlName="MICR" class="col-sm-12 col-md-12 col-xs-12" id="txtMICR" placeholder="Enter MICR">
                                                                 </div>
                                                             </div>
@@ -547,11 +548,11 @@
                                                                 an amount of Rupees
                                                             </label>
                                                         </div>
-                                                        <div class="col-sm-8 col-md-8 col-xs-12  ">
+                                                        <div class="col-sm-8 col-md-8 col-xs-12  no-padding">
                                                             <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amount" id="txtAmount" [attr.disabled]="Amountcodedisabled ? '' : null" placeholder="Amount in words">
                                                         </div>
 
-                                                        <div class="col-sm-2 col-md-2 col-xs-12 ">
+                                                        <div class="col-sm-2 col-md-2 col-xs-12 no-padding-left">
                                                             <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amountrupees" id="txtAmountRupees" placeholder="Enter Amount" maxlength="9">
                                                         </div>
                                                     </div>
@@ -630,13 +631,13 @@
                                                                         Reference 1
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-10 col-md-10 col-xs-9 ">
+                                                                <div class="col-sm-10 col-md-10 col-xs-9 no-padding-left">
                                                                     <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtRefrence1" formControlName="Reference" maxlength="20" placeholder="Enter Reference">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-5 col-sm-5 col-xs-12 ">
+                                                    <div class="col-md-5 col-sm-5 col-xs-12 no-padding-left">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-sm-3 col-md-3  col-xs-4 labeldiv">
@@ -644,7 +645,7 @@
                                                                         Phone Number
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-9 col-xs-8 ">
+                                                                <div class="col-sm-9 col-md-9 col-xs-8 no-padding-left">
                                                                     <input type="text" maxlength="10" formControlName="Phoneno" class="col-sm-12 col-md-12 col-xs-12" id="txtPhNumber" placeholder="Enter Phone Number">
                                                                 </div>
                                                             </div>
@@ -662,13 +663,13 @@
                                                                         Reference 2
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-10 col-md-10 col-xs-9 ">
+                                                                <div class="col-sm-10 col-md-10 col-xs-9 no-padding-left">
                                                                     <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Refrence2" id="txtRefrence2" [attr.disabled]="Reference2codedisabled ? '' : null" onkeyup="RemoveClass();" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-5 col-sm-5 col-xs-12 ">
+                                                    <div class="col-md-5 col-sm-5 col-xs-12 no-padding-left">
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-sm-3 col-md-3  col-xs-3 labeldiv">
@@ -676,7 +677,7 @@
                                                                         Email ID
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-sm-9 col-md-9 col-xs-9 " style="border-bottom: 1px solid #928888;">
+                                                                <div class="col-sm-9 col-md-9 col-xs-9 no-padding-left" style="border-bottom: 1px solid #928888;">
                                                                     <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Email" onkeyup="RemoveClass();" id="txtEmailId" maxlength="35" placeholder="Enter Email ID">
                                                                 </div>
                                                             </div>
@@ -696,12 +697,12 @@
                                             <div class="col-md-12 col-sm-12 col-xs-12  period" style="bottom: 2px;">
                                                 <div class="row">
                                                     <div class="col-md-4 col-sm-4 col-xs-12 no-padding ">
-                                                        <div class="col-sm-3 col-md-3  col-xs-3 border labeldiv">
+                                                        <div class="col-sm-3 col-md-3  col-xs-3 border labeldiv no-padding-left" style="width: 88px;">
                                                             <label class="col-sm-3 col-md-3 no-padding col-xs-3 control-label">
                                                                 Period
                                                             </label>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-12 col-xs-12  border">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12  border no-padding">
                                                             <div class="form-group">
                                                                 <div class="row">
                                                                     <div class="col-sm-3 col-md-3   col-xs-3 labeldiv">
@@ -710,12 +711,12 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
-                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date" tabindex="-1">
+                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" style="width: 96%;" class="form-control date-picker hasDatepicker" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date" tabindex="-1">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-12 col-xs-12  border">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12  border no-padding">
                                                             <div class="form-group">
                                                                 <div class="row">
                                                                     <div class="col-sm-3 col-xs-3 col-md-3    labeldiv">
@@ -724,7 +725,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
-                                                                        <input type="date" formControlName="PeriodTo" [ngClass]="{'divDisable' : _isActive}" onchange="RemoveClass();" id="txtTo" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" tabindex="-1" [attr.disabled]="Periodtocodedisabled ? '' : null" />
+                                                                        <input type="date" formControlName="PeriodTo" [ngClass]="{'divDisable' : _isActive}" onchange="RemoveClass();" id="txtTo" style="width: 96%;" class="form-control date-picker hasDatepicker" name="date-picker" data-date-format="dd-mm-yyyy" tabindex="-1" [attr.disabled]="Periodtocodedisabled ? '' : null" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -739,7 +740,7 @@
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 chkbox" style="padding-top: 3px">
                                                                         <input id="chkUntil" type="checkbox" formControlName="Untillcancelled" class="pull-left"  checked="checked" [attr.disabled]="Untillcancelledcodedisabled ? '' : null" />
-                                                                        <label class="col-sm-10 col-md-10 col-xs-10 control-label " style="padding-top: 4px;">
+                                                                        <label class="col-sm-10 col-md-10 col-xs-10 control-label ">
                                                                             Until Cancelled
                                                                         </label>
                                                                     </div>
@@ -771,7 +772,7 @@
                                                             <div class="row">
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
-                                                                        <div class="row">
+                                                                        <div class="">
                                                                             <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer1" onkeyup="RemoveClass();" id="txtCust1" placeholder="Enter Name" maxlength="40" />
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 1. Name as in Bank Records
@@ -781,7 +782,7 @@
                                                                 </div>
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
-                                                                        <div class="row">
+                                                                        <div class="">
                                                                             <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer2" id="txtCust2" [attr.disabled]="Customer2disabled ? '' : null" maxlength="40" />
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 2. Name as in Bank Records
@@ -791,7 +792,7 @@
                                                                 </div>
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
-                                                                        <div class="row">
+                                                                        <div class="">
                                                                             <input type="text" class="col-sm-12 col-md-10 col-xs-12" formControlName="Customer3" id="txtCust3" [attr.disabled]="Customer3disabled ? '' : null" maxlength="40" />
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 3. Name as in Bank Records
@@ -818,7 +819,7 @@
                                                 <input type="button" class="btn btn-success pull-right" id="btnCancel" value="Cancel" *ngIf="btnCancel" [attr.disabled]="Cancelleddisabled ? '' : null" />
                                                 <input type="button" class="btn btn-success pull-right" id="btnSecVal" value="Account Validation" *ngIf="btnSecVal" />
                                                 <input type="button" class="btn btn-success pull-right" id="btnFirstVal" value="Bank Validation" *ngIf="btnFirstVal" />
-                                                <input type="button" class="btn btn-success pull-right" id="btnSave" value="Save">
+                                                <input type="button" class="btn btn-success pull-right mr-1" id="btnSave" value="Save">
                                                 <input type="button" class="btn btn-success pull-right" id="btnEditDisable" value="Edit" *ngIf="btnEditDisable" />
                                                 <input type="button" class="btn btn-success pull-right" id="btnPhysicalMandate" value="Physical Mandate" *ngIf="btnPhysicalMandate" />
                                                 <input type="submit" name="ctl00$ContentPlaceHolder1$btnEemandate" value="E-Mandate" id="ContentPlaceHolder1_btnEemandate" class="btn btn-success pull-right TestEmandate" *ngIf="btnEemandate" />
