@@ -7,6 +7,7 @@ import { ReportViewService } from '../../services/report-vew/report-view.service
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BindUser } from '../../../models/report-view/binduser';
 import { Bindgrid } from '../../../models/report-view/bindgrid';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-report-view',
@@ -15,7 +16,8 @@ import { Bindgrid } from '../../../models/report-view/bindgrid';
 })
 export class ReportViewComponent implements OnInit {
 
-    HeaderArray; UMRNUploadform: FormGroup;
+    HeaderArray;
+    UMRNUploadform: FormGroup;
     showlabel: boolean;
     dataArray: Array<Bindgrid> = [];
     Preloader: boolean = true;
@@ -27,6 +29,12 @@ export class ReportViewComponent implements OnInit {
     constructor(private reportviewService: ReportViewService, private formBuilder: FormBuilder) { }
         
     ngOnInit() {
+      //  let item = JSON.parse(sessionStorage.getItem('User'));
+      //  this.UMRNUploadform = this.formBuilder.group({
+      //  ddluser: new FormControl(),
+      //      FromDate: [''],
+      //      ToDate: ['']
+      //  });
         this.showlabel = false;
         this.Preloader = false;
 
@@ -34,6 +42,7 @@ export class ReportViewComponent implements OnInit {
         this.userId = item.UserId
         this.reportviewService.BindUser(this.userId).
             subscribe((data) => {
+                console.log(data);
                 this.binduser = data.Table;
 
                 var y = Object.entries(this.binduser)[0][1];
@@ -59,6 +68,19 @@ export class ReportViewComponent implements OnInit {
       
     }
 
+    //GetAllData(ddluser, FromDate, ToDate) {
+        //alert(ddluser + "   " + FromDate + "   " + Todate);
+      //  let item = JSON.parse(sessionStorage.getItem('User'));
+        ////this.username = this.UMRNUploadform.controls['ddluser'].value();
+        //this.FromDate = this.UMRNUploadform.controls['FromDate'].value();
+        //this.ToDate = this.UMRNUploadform.controls['ToDate'].value();
+
+        //this.username = (<HTMLSelectElement>document.getElementById('ddluser')).value;
+        //this.FromDate = (<HTMLSelectElement>document.getElementById('FromDate')).value;
+        //this.ToDate = (<HTMLSelectElement>document.getElementById('ToDate')).value;
+
+       // this.reportviewService.SearchData(ddluser, FromDate, ToDate, item.UserId).subscribe(
+       //     (data) => {
 
     currentDate = new Date();
     PostData(alldropdown, FromDate, Todate) {
@@ -77,13 +99,13 @@ export class ReportViewComponent implements OnInit {
         }
         this.reportviewService.SearchData(jasondata).subscribe(
             (data) => {
+
                 this.Preloader = false;
                 console.log(data);
                 this.bindgrid = data.Table;
                // this.dataArray.push(this.bindgrid);
                 // alert(this.dataArray.length);
                 //console.log(this.Databind);
-
 
             });
         if (this.dataArray.length > 0) {

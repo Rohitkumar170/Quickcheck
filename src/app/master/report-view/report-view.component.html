@@ -53,10 +53,13 @@
                         <div class="form-group">
                             <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> User </label>
                             <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+
                                 <select class="alldropdown"  #alldropdown>
                                     <!--<option value="0" selected id="ddluser" formControlName="ddluser">Select</option>-->
                                     <option *ngFor="let lang of binduser"
                                             value="{{lang.UserId}}" text="{{lang.UserName}}"></option>
+
+
                                     <!--<option value="volvo">User 1</option>
                                     <option value="saab">User 2</option>-->
                                 </select>
@@ -69,7 +72,10 @@
                                 From Date
                             </label>
                             <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
+
                                 <input type="date" name="Fromdate" value="{{currentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12 no-padding" #Fromdate>
+
+
                             </div>
                         </div>
                     </div>
@@ -79,7 +85,9 @@
                                 To Date
                             </label>
                             <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
+
                                 <input type="date" name="Todate" value="{{currentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12 no-padding" #Todate>
+
                             </div>
                         </div>
                     </div>
@@ -109,18 +117,19 @@
             <table id="tblreport">
                 <thead>
                     <tr>
-                        <th style="width:150px;">SrNo. </th>
-                        <th style="width:220px;">Mandate Ref Id</th>
-                        <th style="width:220px;">Created On</th>
-                        <th style="width:220px;">Updated On</th>
-                        <th style="width:220px;">Created By</th>
-                        <th style="width:220px;">Updated By</th>
-                        <th style="width:220px;">FileUpdatedCount</th>
-                        <th style="width:220px;">Bank Validation</th>
-                        <th style="width:220px;">Acc Validation</th>
-                        <th style="width:220px;">SavedCount</th>
-                        <th style="width:220px;">EditCount</th>
-                        <th style="width:220px;">EntityName</th>
+                        <th></th>
+                        <th style="width:150px;">SrNo</th>
+                        <th style="width:220px;">Refrence</th>
+                        <th style="width:220px;">Created_On</th>
+                        <th style="width:400px;">Updated_On</th>
+                        <th style="width:150px;">created_By</th>
+                        <th style="width:150px;">Updated_By</th>
+                        <th style="width:150px;">File_Updated_Count</th>
+                        <th style="width:150px;">Bank_Validationn</th>
+                        <th style="width:150px;">Acc_Validation</th>
+                        <th style="width:150px;">SavedCount</th>
+                        <th style="width:150px;">EditCount</th>
+                        <th style="width:150px;">entityName</th>
                     </tr>
                 </thead>
                 <tbody>

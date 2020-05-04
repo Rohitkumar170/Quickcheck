@@ -1,5 +1,135 @@
 
+
 <div id="navbar" class="navbar navbar-default ace-save-state" style="display: block">
+    
+        <div class="quickLeftDiv">
+            <div class="navbar-container ace-save-state" id="navbar-container">
+                <div class="navbar-header pull-left">
+                    <a href="#" class="navbar-brand">
+                        <img src="../../assets/images/quickcheck1.png" style="width: 100%;">
+    
+    
+                    </a>
+    
+                </div>
+            </div>
+        </div>
+        <div class="welcomeuser" style="display:none;">
+           
+                <h5 class="" (click)="toggelwelcome()"><i class="fa fa-user" aria-hidden="true" title="new"></i> welcome</h5>
+            
+        </div>
+        <div class="quickrightdiv">
+    
+              <div class="pull-right kotakdiv">
+                  <img src="../../assets/images/kotak-bank-logo.png" style="width: 75%;">
+              </div>
+              <div class="guidediv guidetext">
+                  <h5 class="guidlicolor" (click)="toggleDisplay()"><i class="fa fa-file-text" aria-hidden="true" title="new"></i> guidelines</h5>
+              </div>
+              <div>
+                  <h5 class="logout" (click)="logout()"><i class="fa fa-power-off" aria-hidden="true"></i> logout</h5>
+                  <!--<img src="../../clientapp/assets/images/kotak-bank-logo.png" />-->
+    </div>
+    <div class="navbar-buttons navbar-header pull-right adminddl" role="navigation">
+    </div>
+    
+        </div>
+    
+    <div  *ngIf="isShow" id="guidelines" >
+        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+            <h5 style="text-align: center; display: none; /* padding: 3%; */">
+                Guidelines
+            </h5>
+            <ul style="margin-left: 15px;">
+                <li>
+                    For Physical Mandate Registration, upload file format should be JPEG, should not
+                    be more than 3MB and resolution must be equal to or greater than 300dpi.
+                </li>
+                <li>Mandate form has to be filled by black gel pen only.</li>
+            </ul>
+        </div>
+    
+    </div>
+    
+    
+    
+    
+    <div class="modal" id="myModal" *ngIf="isShowModel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <img src="../../assets/images/saveSuccessImg.png" />
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                </div>
+    
+                <!-- Modal body -->
+                <div class="modal-body">
+    
+                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="margin-top: 4%;">
+                        <div class="form-group">
+                            <label id="Label3" class="col-md-12 col-sm-12 col-xs-12 control-label no-padding-right">
+                                Old Password<span class="red">*</span>
+                            </label>
+                            <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                <input type="password" id="txtOldPassword" class="col-md-12 col-sm-12 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="Label4" class="col-md-12 col-sm-12 col-xs-12 control-label no-padding-right">
+                                New Password<span class="red">*</span>
+                            </label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="password" id="txtNewPassword" class="col-md-12 col-sm-12 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label id="Label5" class="col-md-12 col-sm-12 col-xs-12 control-label no-padding-right">
+                                Confirm Password<span class="red">*</span>
+                            </label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="password" id="txtCnfmPassword" class="col-md-12 col-sm-12 col-xs-12">
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label id="lblChangePWmsg" style="color: Red">
+                            </label>
+                        </div>
+                    </div>
+    
+    
+                </div>
+    
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Close</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="navbar" class="navbar navbar-default ace-save-state" style="display: none">
     <div class="quickLeftDiv">
         <div class="navbar-container ace-save-state" id="navbar-container">
             <div class="navbar-header pull-left">
