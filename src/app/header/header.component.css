@@ -9,6 +9,19 @@ body {
     float: left;
 }
 
+.welcomeuser{
+    position: absolute;
+    right: 0%;
+    top: 17px;
+    color: #fff;
+}
+
+.kotakdiv{
+    position: absolute;
+    right: 10%;
+    top: 0px;
+}
+
 #guidelines {
     color: black;
     position: absolute;

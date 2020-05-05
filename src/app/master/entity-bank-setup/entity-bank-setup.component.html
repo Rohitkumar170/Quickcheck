@@ -1,6 +1,6 @@
 <div class="main-content" id="maincontent">
     <div class="content">
-        <div class="col-md-12 col-sm-6 col-xs-4 contnt-wrapper">
+        <div class="col-md-12 col-sm-6 col-xs-4">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                 <span class="legal">Entity Bank Setup</span>
             </div>
@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> Bank </label>
                             <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                <select class="alldropdown" formControlName="ddlbank" [ngClass]="displayFieldCss('ddlbank')" name="ddlbank">
+                                <select class="alldropdown" formControlName="ddlbank" [ngClass]="displayFieldCss('ddlbank')" name="ddlbank" (change)="BindData()">
                                     <option value="0">--Select--</option>
 
                                     <option *ngFor="let Bank of bank" value="{{Bank.SponsorBankCodeId}}"> {{Bank.SponsorBankName}} </option>
@@ -127,7 +127,7 @@
                                             <option value="3">Date</option>
                                             <option value="4">Fixed Number</option>
                                             <option value="5">Auto Increment Number</option>
-                                            
+
                                         </select>
                                     </div>
                                 </div>
@@ -203,9 +203,10 @@
                                 <tbody>
                                     <tr>
                                         <td class="CCtexTextareaHighlight">
-                                            <div class='flexiblewidth' *ngFor="let Data of arrvalue"> 
-                                                <label id='lblFileSequence' class='control-label no-padding'>{{Data}}</label> 
-                                            <span class='crossimgDiv'><img src='../images/cross.png' id='lnkremoveEmail' class='crosswidth no-padding' />
+                                            <div class='flexiblewidth' *ngFor="let Data of arrvalue">
+                                                <label id='lblFileSequence' class='control-label no-padding'>{{Data}}</label>
+                                                <span class='crossimgDiv'>
+                                                    <img src='../../assets/images/cross.png' id='lnkremoveEmail' class='crosswidth no-padding' (click)="removeSequencediv($event)"/>
                                                 </span>
                                             </div>
 
@@ -223,24 +224,24 @@
                                 <label id="Label1" class="col-sm-3 col-md-4 col-xs-3 control-label no-padding-left">
                                     File Format
                                 </label>
-                                <div class="col-sm-4 col-md-7 col-xs-8 no-padding displayinlineblock">
+                                <div class="col-sm-4 col-md-7 col-xs-8 no-padding displayinlineblock" id="divformat">
                                     <div class="col-md-3 col-sm-4 col-xs-4 no-padding displayinlineblock">
                                         <label class="no-padding">
-                                            <input class="entityCheck"  name="chkxml"
-                                                value="checkbox" type="checkbox" formControlName="chkxml" [ngClass]="displayFieldCss('chkxml')">
+                                            <input class="entityCheck" name="chkxml"
+                                                   value="checkbox" type="checkbox" formControlName="chkxml" (click)="Removeclass()">
                                             <span style="vertical-align: top">XML</span>
                                         </label>
                                     </div>
-                                    <div class="col-md-4 col-sm-4 col-xs-4 No-padding displayinlineblock">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 No-padding displayinlineblock" >
                                         <label class="no-padding">
                                             <input class="entityCheck" name="chkexcel"
-                                                   value="checkbox" type="checkbox" formControlName="chkexcel" [ngClass]="displayFieldCss('chkexcel')">
+                                                   value="checkbox" type="checkbox" formControlName="chkexcel" (click)="Removeclass()">
                                             <span style="vertical-align: top">Excel</span>
                                         </label>
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-4 No-padding displayinlineblock">
                                         <label class="no-padding">
-                                            <input class="entityCheck" name="chkcsv" value="checkbox" type="checkbox" formControlName="chkcsv" [ngClass]="displayFieldCss('chkcsv')">
+                                            <input class="entityCheck" name="chkcsv" value="checkbox" type="checkbox" formControlName="chkcsv" (click)="Removeclass">
                                             <span style="vertical-align: top">CSV</span>
                                         </label>
                                     </div>
@@ -254,22 +255,22 @@
                                 Presentment Submission Date & Time
                             </label>
 
-                            <div id="dateTime" class="col-sm-9 col-md-9 col-xs-12 no-padding-left radio displayinlineblock">
+                            <div id="dateTime" class="col-sm-9 col-md-9 col-xs-12 no-padding-left radio displayinlineblock" [ngClass]="displayFieldCss('rdoDate')">
 
                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding displayinlineblock">
                                     <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-3 dailybottom displayinlineblock">
-                                        <input name="rdoDate" id="rdodaily" value="D" type="radio" formControlName="rdoDate" [ngClass]="displayFieldCss('rdoDate')" (click)="dailyClick()"/>
+                                        <input name="rdoDate" id="rdodaily" value="D" type="radio" formControlName="rdoDate" (click)="dailyClick()" />
                                         <span>Daily</span>
                                     </label>
-                                    <input type="time" name="txtdatepicker" formControlName="txtdatepicker" class="col-sm-9 col-md-9 col-xs-8  dailywidth  rowalign displayinlineblock" [attr.disabled]="isDisableddate ? '' : null"/>
+                                    <input type="time" id="txtdatepicker" name="txtdatepicker" formControlName="txtdatepicker" class="col-sm-9 col-md-9 col-xs-8  dailywidth  rowalign displayinlineblock" [attr.disabled]="isDisableddate ? '' : null" (click)="Removeclass()"/>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding weekly displayinlineblock">
                                     <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-3 dailybottom displayinlineblock">
-                                        <input name="rdoDate" id="rdoweekly" value="W" type="radio" formControlName="rdoDate" [ngClass]="displayFieldCss('rdoDate')" (click)="weeklyClick()"/>
+                                        <input name="rdoDate" id="rdoweekly" value="W" type="radio" formControlName="rdoDate" (click)="weeklyClick()" />
                                         <span>Weekly</span>
                                     </label>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklyinputbox displayinlineblock">
-                                        <select class="alldropdown col-sm-9 col-md-12 col-xs-12" name="ddlday" formControlName="ddlday" [attr.disabled]="isDisabledday ? '' : null">
+                                        <select class="alldropdown col-sm-9 col-md-12 col-xs-12" id="ddlday" name="ddlday" formControlName="ddlday" [attr.disabled]="isDisabledday ? '' : null" (change)="Removeclass()">
                                             <option value="0">--Select--</option>
                                             <option value="1">Monday</option>
                                             <option value="2">Tuesday</option>
@@ -282,31 +283,31 @@
 
                                     </div>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklydrop weeklyinputbox displayinlineblock">
-                                        <input type="time" name="txtdatepicker1" formControlName="txtdatepicker1" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" [attr.disabled]="isDisableddate1 ? '' : null"/>
+                                        <input type="time" id="txtdatepicker1" name="txtdatepicker1" formControlName="txtdatepicker1" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" [attr.disabled]="isDisableddate1 ? '' : null" (click)="Removeclass()"/>
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding monthlyDiv displayinlineblock">
                                     <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-3 dailybottom displayinlineblock">
-                                        <input name="rdoDate" id="rdospecific" value="M" type="radio" formControlName="rdoDate" [ngClass]="displayFieldCss('rdoDate')" (click)="monthlyClick()"/>
+                                        <input name="rdoDate" id="rdospecific" value="M" type="radio" formControlName="rdoDate"  (click)="monthlyClick()" />
                                         <span>Monthly</span>
                                     </label>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklyinputbox displayinlineblock">
-                                        <input type="date" name="txtdatepicker2" formControlName="txtdatepicker2" class="col-sm-12 col-md-12 col-xs-12 weeklyrowwidth tabletmargin" [attr.disabled]="isDisableddate2 ? '' : null"/>
+                                        <input type="date" id="txtdatepicker2" name="txtdatepicker2" formControlName="txtdatepicker2" class="col-sm-12 col-md-12 col-xs-12 weeklyrowwidth tabletmargin" [attr.disabled]="isDisableddate2 ? '' : null" (click)="Removeclass()" />
                                     </div>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklydrop weeklyinputbox displayinlineblock">
-                                        <input type="time" name="txtdatepicker4" formControlName="txtdatepicker4" class="col-sm-12 col-md-10 col-xs-12 tabletmargin no-padding" [attr.disabled]="isDisableddate3 ? '' : null"/>
+                                        <input type="time" id="txtdatepicker4" name="txtdatepicker4" formControlName="txtdatepicker4" class="col-sm-12 col-md-10 col-xs-12 tabletmargin no-padding" [attr.disabled]="isDisableddate4 ? '' : null" (click)="Removeclass()" />
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding AdhocDiv displayinlineblock">
                                     <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-3 dailybottom displayinlineblock">
-                                        <input name="rdoDate"  id="rdoadhoc" value="A" type="radio" formControlName="rdoDate" [ngClass]="displayFieldCss('rdoDate')" (click)="adhocClick()"/>
+                                        <input name="rdoDate" id="rdoadhoc" value="A" type="radio" formControlName="rdoDate" (click)="adhocClick()" />
                                         <span>Adhoc</span>
                                     </label>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklyinputbox displayinlineblock">
-                                        <input type="date" name="txtdatepicker3" formControlName="txtdatepicker3" class="col-sm-12 col-md-12 col-xs-12 weeklyrowwidth tabletmargin" [attr.disabled]="isDisableddate4 ? '' : null"/>
+                                        <input type="date" id="txtdatepicker3" name="txtdatepicker3" formControlName="txtdatepicker3" class="col-sm-12 col-md-12 col-xs-12 weeklyrowwidth tabletmargin" [attr.disabled]="isDisableddate3 ? '' : null" (click)="Removeclass()"/>
                                     </div>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left weeklydrop displayinlineblock">
-                                        <input type="time" name="txtdatepicker5" formControlName="txtdatepicker5" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" [attr.disabled]="isDisableddate5 ? '' : null"/>
+                                        <input type="time" id="txtdatepicker5" name="txtdatepicker5" formControlName="txtdatepicker5" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" [attr.disabled]="isDisableddate5 ? '' : null" />
 
                                         <input type="button" class=" marginbtnadd pull-right AddbtnCSS
                                              btn btn-success" value="Add" (click)="tbladhoc()">
@@ -316,9 +317,9 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="CCtexTextareaHighlight">
-                                                        <div class='flexiblewidth' *ngFor="let Data of adhocarr"> 
-                                                        <label id='lbladhoc' class='control-label no-padding'>{{Data}}</label> 
-                                                        <span class='crossimgDiv'><img src='../images/cross.png' id='lnkremoveadhoc' class='crosswidth no-padding' /></span>
+                                                        <div class='flexiblewidth' *ngFor="let Data of adhocarr">
+                                                            <label id='lbladhoc' class='control-label no-padding'>{{Data}}</label>
+                                                            <span class='crossimgDiv'><img src='../../assets/images/cross.png' id='lnkremoveadhoc' class='crosswidth no-padding' /></span>
                                                         </div>
 
                                                     </td>
@@ -335,22 +336,50 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group" style="margin-top: 0px; margin-bottom: 0px;">
-                                <label id="Label3" class="col-sm-3 col-md-3 col-xs-12 control-label no-padding" >
+                                <label id="Label3" class="col-sm-3 col-md-3 col-xs-12 control-label no-padding">
                                     Time duration before presentment
                                 </label>
                                 <div id="Div2" class="col-sm-7 col-md-7 col-xs-9 no-padding displayinlineblock">
                                     <div class=" col-md-12 col-sm-12 col-xs-12 no-padding-left" style="margin-bottom: 5px">
                                         <input type="time" class="col-sm-6 col-md-6 col-xs-10"
-                                               placeholder="00:00" maxlength="5" style="margin-right: 4px" formControlName="presentmenttime" [ngClass]="displayFieldCss('presentmenttime')" (keypress)="timePress($event)"/>
+                                               placeholder="00:00" maxlength="5" style="margin-right: 4px" formControlName="presentmenttime" [ngClass]="displayFieldCss('presentmenttime')" (keypress)="timePress($event)" />
                                         <span>Hrs</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <label style="display: none;">{{Id}}
+                    </label>
                 </div>
             </form>
 
+        </div>
+
+        <div class="modal success" id="myModal" [style.display]="showModalsave ? 'block' : 'none'">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <img src="../../assets/images/saveSuccessImg.png" />
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p> Record Saved Successfully</p>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Close</button>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

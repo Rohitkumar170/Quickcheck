@@ -23,4 +23,5 @@
     //FromDate: string;
     //ToDate: string;
     type: string;
+    updated: number;
 }

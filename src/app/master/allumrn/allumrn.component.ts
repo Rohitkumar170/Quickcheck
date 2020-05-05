@@ -4,7 +4,8 @@ import { GridData } from '../../../Models/Allumrn/GridData';
 import { AllumrnService } from '../../Services/Allumrn/allumrn.service';
 import { Umrn_Class } from '../../../Models/Allumrn/Umrn_Class';
 import { GridDataDetails } from '../../../Models/Allumrn/GridDataDetails';
-//import { Umrn_Class } from '../../../Models/Allumrn/Umrn_Class';
+import { Singlerow } from '../../../Models/Allumrn/Singlerow';
+import { CountGrid } from '../../../Models/Allumrn/Countgrid';
 
 @Component({
   selector: 'app-allumrn',
@@ -14,58 +15,173 @@ import { GridDataDetails } from '../../../Models/Allumrn/GridDataDetails';
 export class AllumrnComponent implements OnInit {
     Allumrn: FormGroup;
     insert: Umrn_Class;
-   // Addumrn: FormGroup;
+    Addumrn: FormGroup;
     submitted = false;
     Umrndta: GridData;
+    Count: CountGrid;
+    Singlerow: Singlerow;
     griddatadetail: GridDataDetails;
     Preloader: boolean = true;
-   // dataArray: Array<GridData> = [];
+    dataArray: Array<GridDataDetails> = [];
     showmodalcreateumrn: boolean;
     showModalumrnstatement: boolean;
-     Entityid;
-     Pageno;
+    showModalumrnstatement1: boolean;
+    showModalumrnstatement2 :boolean;
+    showdisplay: boolean;
+    showdisplay1: boolean;
+    SelectionStatusOfMutants = [];
+    UserId: string = "";
+    EntityId: string = "";
+    searchheader:number;
+    
+    Pageno;
+    HeaderArray;
+    HeaderArray1;
+    Selectionrow: Array<GridData> = [];
+    checkFlag: number = 0;
+    datacount: any;
+    umrndata1: GridData;
+    Pageno1: number = 1;
+    savedata: any;
+    custo1:any;
+    refre1:any;
+    umrn1:any;
 
     constructor(private formBuilder: FormBuilder, private _allumrn: AllumrnService) { }
 
     ngOnInit() {
         this.showmodalcreateumrn = false;
         this.showModalumrnstatement = false;
+        this.showModalumrnstatement1 = false;
+        this.showModalumrnstatement2 = false;
+        this.showdisplay = false;
+        this.showdisplay1 = false;
         this.Preloader = false;
-       // let item = JSON.parse(sessionStorage.getItem('User'));
-        
+       
         this.GridBind();
         
-      
-
         this.Allumrn = this.formBuilder.group({
            
             Searchvalidation: ['', Validators.required]
         });
 
 
-        //this.Addumrn = this.formBuilder.group({
+        this.Addumrn = this.formBuilder.group({
 
-        //    Newumrn: ['', Validators.required],
-        //    CustomerName: ['', Validators.required],
-        //    ReferenceNumber: ['', Validators.required],
-        //    Amount: ['', Validators.required],
-        //    FromDate: ['', Validators.required],
-        //    ToDate: ['', Validators.required]
-        //});
+            Newumrn: ['', Validators.required],
+            CustomerName: ['', Validators.required],
+            ReferenceNumber: ['', Validators.required],
+            Amount: ['', Validators.required],
+            FromDate: ['', Validators.required],
+            ToDate: ['', Validators.required]
+        });
     }
 
-    GridBind() {
-        this.Entityid = 13;
-        this.Pageno = 1;
-        this.Preloader = true;
-        this._allumrn.GridBind(this.Entityid, this.Pageno).subscribe(
-            (data) => {
-                this.Preloader = false;
-                this.Umrndta = data;
-                console.log(this.Umrndta);
+   
 
+
+    GridBind() {
+       
+        let item = JSON.parse(sessionStorage.getItem('User'));
+        this.UserId = item.UserId;
+        this.EntityId = item.ReferenceId;
+        this.Preloader = true;
+        this.searchheader=0;
+
+
+        this._allumrn.GridBind1(this.EntityId, this.Pageno1).subscribe(
+            (data) => {
+               // console.log(data);
+                this.Preloader = false;
+                this.umrndata1 = data.Table;
+                this.Count = data.Table1[0];
+               // alert(this.Count.TR)
+
+
+
+                let k = data.Table.length;
+          
+               
+                if (k < 10) {
+
+                    this.showdisplay = false;
+
+                }
+                else {
+
+                    this.showdisplay = true;
+
+                }
+
+             
+                
 
             });
+
+    }
+
+    pageprev() {
+        
+        if(this.searchheader==0)
+        {
+          this.Pageno1 = this.Pageno1 - 1;
+        if (this.Pageno1 == 1) {
+            this.showdisplay1 = false;
+        }
+        this.GridBind();
+      }
+      else{
+        this.custo1=((document.getElementById("custo1") as HTMLInputElement).value);
+        this.refre1=((document.getElementById("refre1") as HTMLInputElement).value);
+        this.umrn1=((document.getElementById("umrn1") as HTMLInputElement).value);
+        this.Pageno1 = this.Pageno1 - 1;
+        this.SearchFunction(this.umrn1, this.custo1, this.refre1);
+        if(this.Pageno1 == 1)
+        {
+          this.showdisplay1 = false;
+        }
+
+      }
+
+
+    }
+
+
+    pagenext() {
+       
+        //this.GridBind();
+        if(this.searchheader==1)
+        {
+          this.custo1=((document.getElementById("custo1") as HTMLInputElement).value);
+          this.refre1=((document.getElementById("refre1") as HTMLInputElement).value);
+          this.umrn1=((document.getElementById("umrn1") as HTMLInputElement).value);
+          this.Pageno1 = this.Pageno1 + 1;
+          this.SearchFunction(this.umrn1, this.custo1, this.refre1);
+          this.showdisplay1 = true;
+        }
+        else{
+
+          if (this.Pageno1 >= 1) {
+            this.Pageno1 = this.Pageno1 + 1;
+            this.GridBind();
+           
+        }
+        else {
+            this.Pageno1 = 1;
+            this.GridBind();
+            
+        }
+
+        if (this.Pageno1 > 1) {
+            this.showdisplay1 = true;
+            this.GridBind();
+            
+        }
+          
+
+        }
+
+
 
     }
      
@@ -78,48 +194,60 @@ export class AllumrnComponent implements OnInit {
     hide() {
         this.showmodalcreateumrn = false;
         this.showModalumrnstatement = false;
+        this.showModalumrnstatement1 = false;
+        this.showModalumrnstatement2 = false;
     }
 
-
     
-    //onClick(event) {
-    //    this.showModalumrnstatement = true;
-
-
-    //}
-
-    //hide() {
-    //    this.showModalumrnstatement = false;
-    //}
     
     Insertumrn(NEWUMRN, Customername, ReferenceNumber, Amount, FromDate, ToDate) {
 
-
-        let Entityid = 13;
-        let Userid = 86;
-        let CreatedBy = 1;
+        if (this.Addumrn.valid) {
+            let item = JSON.parse(sessionStorage.getItem('User'));
+            this.UserId = item.UserId;
+            this.EntityId = item.ReferenceId;
+       // let CreatedBy = 1;
         var jasondata = {
             "UMRN": NEWUMRN,
             "CustomerName": Customername,
             "ReferenceNumber": ReferenceNumber,
-            "Entityid": Entityid,
+            "Entityid": this.EntityId,
             "Amount": Amount,
             "FromDate": FromDate,
             "ToDate": ToDate,
-            "Userid": Userid,
-            "CreatedBy": CreatedBy
+            "Userid": this.UserId,
+            "CreatedBy": Customername
         }
 
         
-        //this._allumrn.AddUmrn(jasondata).subscribe(
-          //  (data) => {
-            //    this.insert = data;
-              //  alert("Data Save successfully");
-                //this.showmodalcreateumrn = false;
+        this._allumrn.AddUmrn1(jasondata).subscribe(
+            (data) => {
+
+                console.log(data);
+                console.log(data.Table[0].updated);
                 
-           // });
+               
 
+                if (data.Table[0].updated == 2) {
+                    alert("UMRN Already Exist");
+                }
+                else {
 
+                    alert("Data Save successfully");
+
+                }
+               
+                this.showmodalcreateumrn = false;
+                this.GridBind();
+                this.Addumrn.reset();
+                
+            });
+
+        } else
+        {
+
+            this.validateAllFormFields(this.Addumrn);
+        }
        
 
 
@@ -128,31 +256,42 @@ export class AllumrnComponent implements OnInit {
 
 
     onRowClicked(data: any) {
-        alert("dlclick");
-        //const Currentrowid = this.Allumrn.value;
-        this.showModalumrnstatement = true;
-       
-       // this.dataArray.push(data);
+        
         var UMRN = data.UMRN;
-        var Entityid = 13;
-      //  this._allumrn.GridDataDetails(UMRN, Entityid).subscribe(
-       //    (data) => {
-         //       this.Preloader = false;
-           //     this.griddatadetail = data;
-             //  console.log(this.griddatadetail);
+        let item = JSON.parse(sessionStorage.getItem('User'));
+        this.UserId = item.UserId;
+        this.EntityId = item.ReferenceId;
+        this._allumrn.GridDataDetails(UMRN, this.EntityId).subscribe(
+           (data) => {
+               this.Preloader = false;
+               this.griddatadetail = data;
+               this.dataArray.push(data);
+              
+               var i = Object.entries(this.griddatadetail)[0][1];
+               console.log(i.type);
+             
+               if (i.type == 0)
+               {
+                   //alert("0");
+                   this.showModalumrnstatement1 = true;
+
+               } else
+                   if (i.type == 2)
+                   {
+                      // alert("2");
+                       this.showModalumrnstatement2 = true;
+                   }
+                   else
+                   {
+                       //alert("1");
+                           this.showModalumrnstatement = true;
+                    }
+
+           
 
 
-        //  });
-       // this.dataArray = data;
-        //this.showModalumrnstatement = true;
-       
-
-        //this.Login.controls['FullName'].setValue(data.FullName);
-        //this.Login.controls['Email'].setValue(data.Email);
-        //this.Login.controls['Password'].setValue(data.Password);
-        //this.buttonDisabled1 = false;
-        //this.Temp = 2;
-       
+          });
+    
     }
    
     isFieldValid(field: string) {
@@ -164,90 +303,352 @@ export class AllumrnComponent implements OnInit {
             'validate': this.isFieldValid(field),
         };
     }
-    //isFieldValid1(field: string) {
-    //    return !this.Addumrn.get(field).valid && this.Addumrn.get(field).touched;
-    //}
+    isFieldValid1(field: string) {
+        return !this.Addumrn.get(field).valid && this.Addumrn.get(field).touched;
+    }
 
-    //displayFieldCss1(field: string) {
-    //    return {
-    //        'validate': this.isFieldValid1(field),
-    //    };
-    //}
-
-    //Addumrn1() {
-
-    //    if (this.Addumrn.valid) {
-    //        alert("valid");
-    //        //let Entityid = 13;
-    //        //let Pageno = 1;
-    //        //var umrn1 = UMRN.replace('\t', '');
-    //        //var CustomerName1 = CustomerName.replace('\t', '');
-    //        //var ReferenceNumber1 = ReferenceNumber.replace('\t', '');
-
-    //        //var jasondata = {
-    //        //    "UMRN": umrn1,
-    //        //    "CustomerName": CustomerName1,
-    //        //    "ReferenceNumber": ReferenceNumber1,
-    //        //    "Entityid": Entityid,
-    //        //    "Pageno": Pageno
-    //        //}
-
-    //        //this.Preloader = true;
-    //        //this._allumrn.SearchData(jasondata).subscribe(
-    //        //    (data) => {
-    //        //        this.Preloader = false;
-    //        //        this.Umrndta = data;
-    //        //    });
-
-    //    } else {
-
-    //        alert("Not valid");
-    //        this.validateAllFormFields(this.Addumrn);
-    //    }
+    displayFieldCss1(field: string) {
+        return {
+            'validate': this.isFieldValid1(field),
+        };
+    }
 
 
-    //}
+    backClick() {
+        this.Addumrn.reset();      
+        this.Allumrn.reset();
+        this.GridBind();
 
-//    SearchFunction(UMRN, CustomerName, ReferenceNumber) {
-        //this.submitted = true;
-  //      if (this.Allumrn.valid) {
-    //        alert("valid");
-      //      let Entityid = 13;
-        //    let Pageno = 1;
-          //  var umrn1 = UMRN.replace('\t', '');
-            //var CustomerName1 = CustomerName.replace('\t', '');
-          //  var ReferenceNumber1 = ReferenceNumber.replace('\t', '');
+    }
 
-           // var jasondata = {
-             //   "UMRN": umrn1,
-              //  "CustomerName": CustomerName1,
-              //  "ReferenceNumber": ReferenceNumber1,
-              //  "Entityid": Entityid,
-               // "Pageno": Pageno
-           // }
+    
+    downloadfile(lang) {
+       // alert("Clicked");
+        this.SelectionStatusOfMutants.push(lang);
+        //this.Singlerow = lang;
+        //console.log(this.Singlerow);
+        this.checkFlag = 1;
+       
+        
+    }
 
-          //  this.Preloader = true;
-           // this._allumrn.SearchData(jasondata).subscribe(
-            //    (data) => {
-              //      this.Preloader = false;
-                //    this.Umrndta = data;
-               // });
+    SearchFunction(UMRN, CustomerName, Refere) {
+       
+        if (this.Allumrn.valid) {
 
-       // } else {
+         
+          //  alert("valid");
+            let item = JSON.parse(sessionStorage.getItem('User'));
+            this.UserId = item.UserId;
+            this.EntityId = item.ReferenceId;
+           // let Pageno = 1;
+            var umrn1 = UMRN.replace('\t', '');
+            var CustomerName1 = CustomerName.replace('\t', '');
+            var ReferenceNumber1 = Refere.replace('\t', '');;
+            
+            var jasondata = {
+                "UMRN": umrn1,
+                "CustomerName": CustomerName1,
+                "ReferenceNumber": ReferenceNumber1,
+                "Entityid": this.EntityId,
+                "Pageno": this.Pageno1
+            }
 
-         //   alert("Not valid");
-          // this.validateAllFormFields(this.Allumrn);
-       // }
-  // }
-  //  validateAllFormFields(formGroup: FormGroup) {
-    //    Object.keys(formGroup.controls).forEach(field => {
-      //      const control = formGroup.get(field);
-        //    if (control instanceof FormControl) {
-          //      control.markAsTouched({ onlySelf: true });
-          //  } else if (control instanceof FormGroup) {
-          //      this.validateAllFormFields(control);
-          //  }
-      //  });
-   // }
-          
+            this.Preloader = true;
+            this._allumrn.SearchData1(jasondata).subscribe(
+                (data) => {
+                    this.Preloader = false;
+                    this.umrndata1 = data.Table;
+                    this.searchheader=1;
+                    this.Count = data.Table1[0];
+                    if (this.Pageno1 == 1) {
+                        if (this.Count.IsNxtRequired == 1) {
+                            this.showdisplay = true;
+
+                        }
+                        else {
+                            this.showdisplay = false;
+                        }
+                    }
+
+                    let k = data.Table.length;
+
+
+                    if (k < 10) {
+
+                        this.showdisplay = false;
+
+                    }
+                    else {
+
+                        this.showdisplay = true;
+
+                    }
+                });
+
+        } else {
+
+           // alert("Not valid");
+           this.validateAllFormFields(this.Allumrn);
+        }
+    }
+    validateAllFormFields(formGroup: FormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+            const control = formGroup.get(field);
+            if (control instanceof FormControl) {
+                control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {
+                this.validateAllFormFields(control);
+            }
+        });
+    }
+
+    ConvertToCSV(objArray) {
+       
+        this.HeaderArray = {
+            UMRN: "UMRN", Amount: "Amount", Status: "Status", ReferenceNo: "ReferenceNo",
+            PresentmentDate: "PresentmentDate", type: "Type", FileNo: "FileNo", customer1: "Customer Name"
+
+        }
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+        var row = "";
+
+        for (var index in objArray[0]) {
+            //Now convert each value to string and comma-separated
+            row += index + ',';
+        }
+        row = row.slice(0, -1);
+        //append Label row with line break
+        str += row + '\r\n';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+
+            if (i == 0) {
+                for (var index in this.HeaderArray) {
+                    if (line != '') line += ','
+
+                    line += this.HeaderArray[index];
+                }
+                str += line + '\r\n';
+            }
+
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+
+
+
+    ConvertToCSV1(objArray) {
+     
+        this.HeaderArray1 = {
+            Srno: "Srno", UMRN: "UMRN", CustomerName: "CustomerName", Refrence: "Refrence",
+            Amount: "Amount", FromDate: "FromDate", ToDate: "ToDate", CreatedOn: "CreatedOn", RecordType: "RecordType", MandateStatus: "MandateStatus", ErrorCode: "ErrorCode"
+
+        }
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+        var row = "";
+
+        for (var index in objArray[0]) {
+            //Now convert each value to string and comma-separated
+            row += index + ',';
+        }
+        row = row.slice(0, -1);
+        //append Label row with line break
+        str += row + '\r\n';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+
+            if (i == 0) {
+                for (var index in this.HeaderArray1) {
+                    if (line != '') line += ','
+
+                    line += this.HeaderArray1[index];
+                }
+                str += line + '\r\n';
+            }
+
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+
+    ConvertToCSV3(objArray) {
+
+        this.HeaderArray = {
+            UMRN: "UMRN", Amount: "Amount", Status: "Status", Reference: "Reference",
+            type: "Type", CustomerName: "Customer Name", FromDate: "FromDate", ToDate: "ToDate",
+
+        }
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+        var row = "";
+
+        for (var index in objArray[0]) {
+            //Now convert each value to string and comma-separated
+            row += index + ',';
+        }
+        row = row.slice(0, -1);
+        //append Label row with line break
+        str += row + '\r\n';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+
+            if (i == 0) {
+                for (var index in this.HeaderArray) {
+                    if (line != '') line += ','
+
+                    line += this.HeaderArray[index];
+                }
+                str += line + '\r\n';
+            }
+
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+
+
+    ConvertToCSV4(objArray) {
+
+        this.HeaderArray = {
+            UMRN: "UMRN", Amount: "Amount", Refrence1: "Reference",
+             FromDate: "FromDate", ToDate: "ToDate",
+
+        }
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+        var row = "";
+
+        for (var index in objArray[0]) {
+            //Now convert each value to string and comma-separated
+            row += index + ',';
+        }
+        row = row.slice(0, -1);
+        //append Label row with line break
+        str += row + '\r\n';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+
+            if (i == 0) {
+                for (var index in this.HeaderArray) {
+                    if (line != '') line += ','
+
+                    line += this.HeaderArray[index];
+                }
+                str += line + '\r\n';
+            }
+
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+    download4() {
+        var csvData = this.ConvertToCSV4(JSON.stringify(this.griddatadetail));
+
+        var a = document.createElement("a");
+        a.setAttribute('style', 'display:none;');
+        document.body.appendChild(a);
+        var blob = new Blob([csvData], { type: 'text/csv' });
+        var url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = 'User_Results.csv';/* your file name*/
+        a.click();
+        return 'success';
+
+
+    }
+
+    download3() {
+        var csvData = this.ConvertToCSV3(JSON.stringify(this.griddatadetail));
+
+        var a = document.createElement("a");
+        a.setAttribute('style', 'display:none;');
+        document.body.appendChild(a);
+        var blob = new Blob([csvData], { type: 'text/csv' });
+        var url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = 'User_Results.csv';/* your file name*/
+        a.click();
+        return 'success';
+
+
+    }
+
+
+    download() {
+
+        
+        var csvData = this.ConvertToCSV(JSON.stringify(this.griddatadetail));
+
+            
+            // var csvData = this.ConvertToCSV(JSON.stringify(this.Databind));
+            var a = document.createElement("a");
+            a.setAttribute('style', 'display:none;');
+            document.body.appendChild(a);
+            var blob = new Blob([csvData], { type: 'text/csv' });
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'User_Results.csv';/* your file name*/
+            a.click();
+            return 'success';
+        
+    
+    }
+
+    download1() {
+
+        if (this.checkFlag == 0) {
+           var csvData = this.ConvertToCSV1(JSON.stringify(this.umrndata1));
+        }
+       else {
+        var csvData = this.ConvertToCSV(JSON.stringify(this.SelectionStatusOfMutants));
+
+       }
+      //  var csvData = this.ConvertToCSV1(JSON.stringify(this.Umrndta));
+
+
+        // var csvData = this.ConvertToCSV(JSON.stringify(this.Databind));
+        var a = document.createElement("a");
+        a.setAttribute('style', 'display:none;');
+        document.body.appendChild(a);
+        var blob = new Blob([csvData], { type: 'text/csv' });
+        var url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = 'User_Results.csv';/* your file name*/
+        a.click();
+        return 'success';
+
+
+    }
 }
