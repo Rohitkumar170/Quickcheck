@@ -21,7 +21,9 @@ export class BulkEmandateComponent implements OnInit {
     datacount: any;
     count: any;
     EntityId123: any;
+    Preloader: boolean = true;
     ngOnInit() {
+        this.Preloader = false;
         //ActivityType: string = 'p';
         let item = JSON.parse(sessionStorage.getItem('User'));
 // this.UserId = item.UserId;
@@ -33,10 +35,12 @@ export class BulkEmandateComponent implements OnInit {
 
     BindGrid(EntityId, topVal, ActivityType) {
         let item = JSON.parse(sessionStorage.getItem('User'));
+        this.Preloader = true;
         this.myservice.GetGridAllData(item.UserId, EntityId, topVal, ActivityType).subscribe((res) => {
             console.log(res);
             this.tabledata = res.Table;
             this.datacount = res.Table1;
+            this.Preloader = false;
             console.log(this.datacount);
             //this.count = JSON.stringify(this.datacount);
             var str = JSON.stringify(this.datacount);
@@ -65,7 +69,11 @@ export class BulkEmandateComponent implements OnInit {
       //  console.log(this.topVal);
         
     }
+    Redirectpage(){
 
+        window.location.href="../../EBulkUploadedData";
+
+    }
 
     ConvertToCSV(objArray) {
         //this.HeaderArray = {
@@ -117,7 +125,7 @@ export class BulkEmandateComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            a.download = 'MandateExcel.csv';/* your file name*/
             a.click();
             return 'success';
     }
