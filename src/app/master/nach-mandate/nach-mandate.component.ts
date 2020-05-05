@@ -109,9 +109,7 @@ this.showModal = true;
 
 }
 
-hide() {
-this.showModal = false;
-}
+
 
 showModalunsucess: boolean;
 onClicksucess(event) {

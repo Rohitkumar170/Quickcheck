@@ -31,6 +31,7 @@ export class DownloadoldemandateComponent implements OnInit {
     Ischecked: number = 0;
     CheckedCount: number = 0;
     UncheckedCount: number = 0;
+    k:any;
     //IsMandateID: string;
     constructor(public _downloadservice: DownloadoldemandateService) { }
 
@@ -47,8 +48,8 @@ export class DownloadoldemandateComponent implements OnInit {
 
                // alert(y.sponsorbankcode);
                 var u = y.sponsorbankcode;
-                 var k = formatDate(new Date(), "yyyy-MM-dd", "en");
-                this.PostData(k,k, u);
+                  this.k = formatDate(new Date(), "yyyy-MM-dd", "en");
+                this.PostData(this.k,this.k, u);
             });
 
         this.BankBind();
@@ -69,14 +70,22 @@ export class DownloadoldemandateComponent implements OnInit {
                 this.dataArray.push(this.Databind);
                // alert(this.dataArray.length);
                 //console.log(this.Databind);
-               
+                let json = JSON.stringify(this.Databind);
+                    var CountRecordArray = typeof json != 'object' ? JSON.parse(json) : json;
+                    var TotalCount = CountRecordArray.length;
+                 
+                    if (TotalCount > 0) {
+           
+                        this.showlabel = true;
+                    }
+
 
             });
-        if (this.dataArray.length > 0) {
+        //if (this.dataArray.length > 0) {
            // alert(this.dataArray.length);
-            this.showlabel = true;
-        }
-
+          //  this.showlabel = true;
+       // }
+       
 
     }
     Removelabel() { this.errormsg = ''; }
@@ -227,7 +236,9 @@ export class DownloadoldemandateComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            //var w =this.Databind.length;
+            var y = formatDate(new Date(), "MMddyyyy", "en");
+            a.download = 'OutWard_NB__'+ y +'.csv';/* your file name*/
             a.click();
             return 'success';
         }

@@ -11,6 +11,11 @@
 .DivAllDimensionDetails .form-group {
     overflow: visible;
 }
+.legals{font-size: 18px;
+    color: #003974 !important;
+    text-align: justify;
+    font-weight: bold;
+}
 
 .weekly {
     margin-top: 3px;
@@ -22,6 +27,8 @@
 .AdhocDiv {
     margin-top: 3px;
 }
+
+
 
 
 form {
@@ -24639,6 +24646,9 @@ img.image {
     .validate::placeholder {
         color: #8e0909;
     }
+.hidden{
+    display: none !important;
+}
 
 .dropdown-menu {
     font-size: 12px;

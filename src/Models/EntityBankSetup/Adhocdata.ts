@@ -1,7 +1,9 @@
-import { Time } from '@angular/common';
-import { Data } from '@angular/router';
+import { EntityData } from './entity-data';
 
-export class EntityData {
+export class Adhocdata {
+    UserId:string;
+    adhocarr:string[]=[];
+    arrsequence:string[]=[];
     ddlentity: number;
     ddlbank: number; 
     chkexcel: boolean; 
@@ -9,7 +11,6 @@ export class EntityData {
     chkxml: boolean;
     rdoDate: string; 
     ddlday: number;
-    ddlsequence: number;
     ddldate: number;
     txtdatepicker: string;
     txtdatepicker1: string;
@@ -19,6 +20,5 @@ export class EntityData {
     txtdatepicker5: string;
     txttotalcount: number;
     presentmenttime: string;
-    
-
+    result:number;
 }

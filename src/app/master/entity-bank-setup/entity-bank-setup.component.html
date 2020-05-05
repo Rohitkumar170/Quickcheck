@@ -2,7 +2,7 @@
     <div class="content">
         <div class="col-md-12 col-sm-6 col-xs-4">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                <span class="legal">Entity Bank Setup</span>
+                <span class="legals">Entity Bank Setup</span>
             </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
@@ -54,7 +54,7 @@
                             <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> Entity </label>
                             <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
                                 <select class="alldropdown" formControlName="ddlentity" [ngClass]="displayFieldCss('ddlentity')" name="ddlentity" (change)="BindBank()">
-                                    <option value="0">--Select--</option>
+                                    <option value="">--Select--</option>
 
                                     <option *ngFor="let Entity of entity" value="{{Entity.EntityId}}"> {{Entity.Name}} </option>
 
@@ -66,8 +66,8 @@
                         <div class="form-group">
                             <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> Bank </label>
                             <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                <select class="alldropdown" formControlName="ddlbank" [ngClass]="displayFieldCss('ddlbank')" name="ddlbank" (change)="BindData()">
-                                    <option value="0">--Select--</option>
+                                <select class="alldropdown" formControlName="ddlbank" [ngClass]="displayFieldCss('ddlbank')" name="ddlbank" (change)="BindData($event)">
+                                    <option value="">--Select--</option>
 
                                     <option *ngFor="let Bank of bank" value="{{Bank.SponsorBankCodeId}}"> {{Bank.SponsorBankName}} </option>
 
@@ -81,7 +81,7 @@
                 <div class="clearfix">
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="margin-top: 1%;">
-                    <span class="legal" style="font-size: 13px; color: #1f497d; font-style: normal;">Bank Name</span>
+                    <span class="legal" style="font-size: 13px; color: #1f497d; font-style: normal;">{{BankName}}</span>
 
                 </div>
                 <div class=" DivAllDimensionDetails  col-md-12 col-sm-12 col-xs-12 tabscrollview entityCheckscroll">
@@ -132,8 +132,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12 no-padding-left">
-                                <div class="form-group" *ngIf="divlength">
+                            <div class="col-md-4 col-sm-4 col-xs-12 no-padding-left" *ngIf="divlength">
+                                <div class="form-group">
                                     <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
                                         Length
                                     </label>
@@ -142,8 +142,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-sm-3 col-xs-12 no-padding-left">
-                                <div class="form-group" *ngIf="divvalue">
+                            <div class="col-md-3 col-sm-3 col-xs-12 no-padding-left" *ngIf="divvalue">
+                                <div class="form-group">
                                     <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
                                         Value
                                     </label>
@@ -153,12 +153,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-4 col-xs-12 no-padding-left" *ngIf="divdateformat">
+                            <div class="col-md-4 col-sm-4 col-xs-12 no-padding " *ngIf="divdateformat">
                                 <div class="form-group">
+                                  
                                     <label class="col-sm-3 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
                                         Date Format
                                     </label>
-                                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding">
+                                    <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                         <select class="alldropdown col-sm-9 col-md-12 col-xs-12" name="ddldate" formControlName="ddldate" (change)="onDateChange($event)">
                                             <option value="0">--Select--</option>
                                             <option value="1">DDMMYY</option>
@@ -187,13 +188,15 @@
                                             <option value="24">MM-DD-YYYY</option>
                                         </select>
                                     </div>
+                                
                                 </div>
                             </div>
-                            <div class="col-md-2 col-sm-2 col-xs-12 pull-right  no-padding-left">
+                            <div class="col-md-2 col-sm-2 col-xs-12 pull-right  no-padding-left" style="position: fixed;
+                            right: 20px;  ">
                                 <div class="form-group col-md-12 no-padding pull-right">
                                     <div class="AddbtnDimensionDetail col-md-10 pull-right">
-                                        <input type="button" class=" pull-right AddbtnCSS col-md-10 btn btn-success marginbtnadd"
-                                               value="Add" (click)=" tblDataBind()">
+                                        <input type="button" class=" pull-right AddbtnCSS col-md-6 btn btn-success marginbtnadd"
+                                               value="Add" (click)=" tblDataBind()"  >
                                     </div>
                                 </div>
                             </div>
@@ -203,10 +206,10 @@
                                 <tbody>
                                     <tr>
                                         <td class="CCtexTextareaHighlight">
-                                            <div class='flexiblewidth' *ngFor="let Data of arrvalue">
+                                            <div class='flexiblewidth' *ngFor="let Data of arrvalue,let i = index" id="divseq{{i}}">
                                                 <label id='lblFileSequence' class='control-label no-padding'>{{Data}}</label>
                                                 <span class='crossimgDiv'>
-                                                    <img src='../../assets/images/cross.png' id='lnkremoveEmail' class='crosswidth no-padding' (click)="removeSequencediv($event)"/>
+                                                    <img src='../../assets/images/cross.png' id='lnkremoveEmail' class='crosswidth no-padding' (click)="removeSequencediv(Data,i)"/>
                                                 </span>
                                             </div>
 
@@ -228,20 +231,20 @@
                                     <div class="col-md-3 col-sm-4 col-xs-4 no-padding displayinlineblock">
                                         <label class="no-padding">
                                             <input class="entityCheck" name="chkxml"
-                                                   value="checkbox" type="checkbox" formControlName="chkxml" (click)="Removeclass()">
+                                                    type="checkbox" formControlName="chkxml" (click)="Removechkxml()">
                                             <span style="vertical-align: top">XML</span>
                                         </label>
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-4 No-padding displayinlineblock" >
                                         <label class="no-padding">
                                             <input class="entityCheck" name="chkexcel"
-                                                   value="checkbox" type="checkbox" formControlName="chkexcel" (click)="Removeclass()">
+                                                    type="checkbox" formControlName="chkexcel" (click)="Removechkexcel()">
                                             <span style="vertical-align: top">Excel</span>
                                         </label>
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-4 No-padding displayinlineblock">
                                         <label class="no-padding">
-                                            <input class="entityCheck" name="chkcsv" value="checkbox" type="checkbox" formControlName="chkcsv" (click)="Removeclass">
+                                            <input class="entityCheck" name="chkcsv"  type="checkbox" formControlName="chkcsv" (click)="Removechkcsv">
                                             <span style="vertical-align: top">CSV</span>
                                         </label>
                                     </div>
@@ -310,16 +313,16 @@
                                         <input type="time" id="txtdatepicker5" name="txtdatepicker5" formControlName="txtdatepicker5" class="col-sm-12 col-md-10 col-xs-12 tabletmargin" [attr.disabled]="isDisableddate5 ? '' : null" />
 
                                         <input type="button" class=" marginbtnadd pull-right AddbtnCSS
-                                             btn btn-success" value="Add" (click)="tbladhoc()">
+                                             btn btn-success" value="Add" (click)="tbladhoc()" *ngIf="btnAdhoc">
                                     </div>
-                                    <div id="Div1" class="col-md-12 col-sm-12 col-xs-12 no-padding marginrowadd" style="margin: 5px 0;display:block;">
+                                    <div id="Divadhoc" class="col-md-12 col-sm-12 col-xs-12 no-padding marginrowadd" style="margin: 5px" *ngIf="Divadhoc">
                                         <table id="tbladhoc" class="DimensionTable table table-striped table-hover rowmarginbtn">
                                             <tbody>
                                                 <tr>
                                                     <td class="CCtexTextareaHighlight">
-                                                        <div class='flexiblewidth' *ngFor="let Data of adhocarr">
+                                                        <div class='flexiblewidth' *ngFor="let Data of adhocarr,let i=index" id="divad{{i}}">
                                                             <label id='lbladhoc' class='control-label no-padding'>{{Data}}</label>
-                                                            <span class='crossimgDiv'><img src='../../assets/images/cross.png' id='lnkremoveadhoc' class='crosswidth no-padding' /></span>
+                                                            <span class='crossimgDiv'><img src='../../assets/images/cross.png' id='lnkremoveadhoc' class='crosswidth no-padding' (click)="removeAdhocdiv(Data,i)"/></span>
                                                         </div>
 
                                                     </td>
@@ -380,7 +383,36 @@
 
                 </div>
             </div>
+        
         </div>
+        <div class="modal alertpop" id="myModal" [style.display]="showModalalert ? 'block' : 'none'">
+            <div class="modal-dialog">
+                <div class="modal-content">
+    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <img src="../../assets/images/caution2.png" style="height:62px" />
+    
+    
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                    </div>
+    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p>{{popuptext}}</p>
+                        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" (click)="hide()">Close</button>
+                    </div>
+    
+                    <!-- Modal footer -->
+    
+    
+    
+    
+                </div>
+            </div>
+      
     </div>
 </div>
 

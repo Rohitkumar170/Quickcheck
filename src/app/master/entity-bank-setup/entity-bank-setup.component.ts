@@ -7,6 +7,8 @@ import { EntityData } from '../../../Models/EntityBankSetup/entity-data';
 import { Table1 } from '../../../Models/EntityBankSetup/table1';
 import { Table2 } from '../../../Models/EntityBankSetup/table2';
 import { Table3 } from '../../../Models/EntityBankSetup/table3';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Adhocdata } from 'src/Models/EntityBankSetup/Adhocdata';
 
 @Component({
     selector: 'app-entity-bank-setup',
@@ -17,12 +19,13 @@ export class EntityBankSetupComponent implements OnInit {
     Entitysetup: FormGroup; entity: Entity; bank: Bank; isDisabledtext: boolean = false; htmlToAdd=""; public SelectedSequence; isDisabledtextlength: boolean = false; isDisabledtextvalue: boolean = false;
     divlength: boolean = false; divvalue: boolean = false; divdateformat: boolean = false; items; isDisableddate: boolean = false; isDisableddate1: boolean = false; isDisableddate2: boolean = false; isDisableddate3: boolean = false; isDisableddate4: boolean = false;
     isDisableddate5: boolean = false; isDisabledday: boolean = false; RemainingCount; public arrvalue: any = []; lblFileSequence; public sequence: any; public adhocarr: any = []; public adhoc: any;
-    entitydata: EntityData; showModalsave: boolean = false; tblentitybanksetup: Table1; tblFilesequence: Table2; tblEntitybankdate: Table3; public Id: any; temp: number; public arr:any=[];
-
+    entitydata: EntityData; showModalsave: boolean = false; tblentitybanksetup: Table1; tblFilesequence: Table2; tblEntitybankdate: Table3; public Id: any; temp: number; public arr:any=[]; public btnAdhoc:boolean=false; public Divadhoc:boolean=false
+    public BankName:any; public popuptext:any; showModalalert: boolean=false;adhocdata:Adhocdata; public divadhoctable:boolean=false; public divsequencetable:boolean=false;
    
     constructor(private formBuilder: FormBuilder, private entitybankservice: EntityBankService) { }
     hide() {
         this.showModalsave = false;
+        this.showModalalert=false;
     }
     ngOnInit() {
         this.Entitysetup = this.formBuilder.group({
@@ -54,6 +57,10 @@ export class EntityBankSetupComponent implements OnInit {
         this.isDisableddate3 = true;
         this.isDisableddate4 = true;
         this.isDisableddate5 = true;
+        this.btnAdhoc=false;
+        this.Divadhoc=false;
+        this.divadhoctable=false;
+        this.divsequencetable=false;
         this.temp = 1;
         this.Id = "";
         
@@ -160,7 +167,8 @@ export class EntityBankSetupComponent implements OnInit {
 
             if (this.RemainingCount == 0) {
                 flag = 1;
-                alert('You can not add more than total length!');
+               this.popuptext='You can not add more than total length!';
+               this.showModalalert=true;
 
             }
 
@@ -172,8 +180,8 @@ export class EntityBankSetupComponent implements OnInit {
                     if (value != length) {
                         flag = 1;
                         
-                        alert('Total Length should be equal to length of selected items!!!');
-
+                        this.popuptext='Total Length should be equal to length of selected items!!!';
+                        this.showModalalert=true;
 
                     }
 
@@ -203,7 +211,7 @@ export class EntityBankSetupComponent implements OnInit {
         var RemainingCount = 0;
         if (this.DataCheck() == true) {
 
-            if(this.RemainingCount == '') {
+            if(this.RemainingCount == '' || this.RemainingCount==0) {
                 RemainingCount = this.Entitysetup.value.txttotalcount;
 
             }
@@ -258,7 +266,7 @@ export class EntityBankSetupComponent implements OnInit {
             this.Entitysetup.controls['ddlsequence'].setValue(0);
             this.Entitysetup.controls['ddldate'].setValue(0);
 
-            
+            this.divsequencetable=true;
             this.arrvalue.push(this.sequence);
             
 
@@ -322,7 +330,8 @@ export class EntityBankSetupComponent implements OnInit {
         if (this.Entitysetup.value.ddldate = 0) {
             if (this.SelectedSequence.length > this.Entitysetup.value.txtremaining) {
                 flag = 1;
-                alert('You can not add more than total length!');
+                this.popuptext='You can not add more than total length!';
+                this.showModalalert=true;
                 this.Entitysetup.controls['ddldate'].setValue(0);
             }
         }
@@ -375,7 +384,8 @@ export class EntityBankSetupComponent implements OnInit {
         this.Entitysetup.controls['txtdatepicker5'].setValue('');
         this.isDisabledday = true;
         this.Entitysetup.controls['ddlday'].setValue(0);
-        
+        this.btnAdhoc=false;
+        this.Divadhoc=false;
     }
 
     weeklyClick() {
@@ -392,7 +402,8 @@ export class EntityBankSetupComponent implements OnInit {
         this.Entitysetup.controls['txtdatepicker4'].setValue('');
         this.Entitysetup.controls['txtdatepicker5'].setValue('');
         this.isDisabledday = false;
-        
+        this.btnAdhoc=false;
+        this.Divadhoc=false;
 
     }
 
@@ -411,7 +422,8 @@ export class EntityBankSetupComponent implements OnInit {
         this.Entitysetup.controls['txtdatepicker5'].setValue('');
         this.isDisabledday = true;
         this.Entitysetup.controls['ddlday'].setValue(0);
-
+        this.btnAdhoc=false;
+        this.Divadhoc=false;
 
     }
 
@@ -430,6 +442,9 @@ export class EntityBankSetupComponent implements OnInit {
         this.Entitysetup.controls['txtdatepicker4'].setValue('');
         this.isDisabledday = true;
         this.Entitysetup.controls['ddlday'].setValue(0);
+        this.btnAdhoc=true;
+        this.Divadhoc=true;
+
     }
 
     timePress(e: any) {
@@ -468,7 +483,8 @@ export class EntityBankSetupComponent implements OnInit {
 
         if (parseInt(this.RemainingCount) < this.Entitysetup.value.txtlength) {
             this.Entitysetup.controls['txtlength'].setValue('');
-            alert('You can not enter more than the remaining length.!');
+            this.popuptext='You can not enter more than the remaining length.!';
+            this.showModalalert=true;
 
         }
     }
@@ -497,9 +513,32 @@ export class EntityBankSetupComponent implements OnInit {
             var date = this.Entitysetup.value.rdoDate;
             var DailyTime="";
             var IsFormat=0;
-           
-
             let item = JSON.parse(sessionStorage.getItem('User'));
+           let _adhocdata=new Adhocdata();
+           _adhocdata.UserId=item.UserId;
+           for(var i=0; i<this.adhocarr.length; i++){
+           _adhocdata.adhocarr.push(this.adhocarr[i]);
+           }
+           for(var i=0; i<this.arrvalue.length; i++){
+            _adhocdata.arrsequence.push(this.arrvalue[i]);
+        }
+           _adhocdata.chkcsv=this.Entitysetup.value.chkcsv;
+           _adhocdata.chkexcel=this.Entitysetup.value.chkexcel;
+           _adhocdata.chkxml=this.Entitysetup.value.chkxml;
+           _adhocdata.ddlbank=this.Entitysetup.value.ddlbank;
+           _adhocdata.ddlentity=this.Entitysetup.value.ddlentity;
+           _adhocdata.presentmenttime=this.Entitysetup.value.presentmenttime;
+           _adhocdata.ddlday=this.Entitysetup.value.ddlday;
+           _adhocdata.rdoDate=this.Entitysetup.value.rdoDate;
+           _adhocdata.txtdatepicker=this.Entitysetup.value.txtdatepicker;
+           _adhocdata.txtdatepicker1=this.Entitysetup.value.txtdatepicker1;
+           _adhocdata.txtdatepicker2=this.Entitysetup.value.txtdatepicker2;
+           _adhocdata.txtdatepicker3=this.Entitysetup.value.txtdatepicker3;
+           _adhocdata.txtdatepicker4=this.Entitysetup.value.txtdatepicker4;
+           _adhocdata.txtdatepicker5=this.Entitysetup.value.txtdatepicker5;
+           _adhocdata.txttotalcount=this.Entitysetup.value.txttotalcount;
+           _adhocdata.ddldate=this.Entitysetup.value.ddldate;
+           
             if (this.adhocarr == "") {
                 this.adhocarr.push(0);
             }
@@ -557,22 +596,24 @@ export class EntityBankSetupComponent implements OnInit {
       
             if (this.arrvalue == "") {
                 
-                alert('Please Create Sequence File Number !!');
+                this.popuptext='Please Create Sequence File Number !!';
+                this.showModalalert=true;
                 return;
             }
             
             
 
-            this.entitybankservice.SaveData(JSON.stringify(this.Entitysetup.value), item.UserId, this.arrvalue, this.adhocarr).subscribe(
+            this.entitybankservice.SaveData(JSON.stringify(_adhocdata)).subscribe(
                 (data) => {
 
-                    this.entitydata = data;
-                    if (this.entitydata[0].result == 1) {
+                    this.adhocdata = data;
+                    if (this.adhocdata[0].result == 1) {
                         this.showModalsave = true;
                     }
                     this.Entitysetup.reset();
                     this.adhocarr = [];
                     this.arrvalue = [];
+                    this.BankName="";
                 });
                
     }
@@ -585,6 +626,31 @@ export class EntityBankSetupComponent implements OnInit {
            
 
             let item = JSON.parse(sessionStorage.getItem('User'));
+            let _adhocdata=new Adhocdata();
+           _adhocdata.UserId=item.UserId;
+           for(var i=0; i<this.adhocarr.length; i++){
+           _adhocdata.adhocarr.push(this.adhocarr[i]);
+           }
+           for(var i=0; i<this.arrvalue.length; i++){
+            _adhocdata.arrsequence.push(this.arrvalue[i]);
+        }
+           _adhocdata.chkcsv=this.Entitysetup.value.chkcsv;
+           _adhocdata.chkexcel=this.Entitysetup.value.chkexcel;
+           _adhocdata.chkxml=this.Entitysetup.value.chkxml;
+           _adhocdata.ddlbank=this.Entitysetup.value.ddlbank;
+           _adhocdata.ddlentity=this.Entitysetup.value.ddlentity;
+           _adhocdata.presentmenttime=this.Entitysetup.value.presentmenttime;
+           _adhocdata.ddlday=this.Entitysetup.value.ddlday;
+           _adhocdata.rdoDate=this.Entitysetup.value.rdoDate;
+           _adhocdata.txtdatepicker=this.Entitysetup.value.txtdatepicker;
+           _adhocdata.txtdatepicker1=this.Entitysetup.value.txtdatepicker1;
+           _adhocdata.txtdatepicker2=this.Entitysetup.value.txtdatepicker2;
+           _adhocdata.txtdatepicker3=this.Entitysetup.value.txtdatepicker3;
+           _adhocdata.txtdatepicker4=this.Entitysetup.value.txtdatepicker4;
+           _adhocdata.txtdatepicker5=this.Entitysetup.value.txtdatepicker5;
+           _adhocdata.txttotalcount=this.Entitysetup.value.txttotalcount;
+           _adhocdata.ddldate=this.Entitysetup.value.ddldate;
+           
             if (this.adhocarr == "") {
                 this.adhocarr.push(0);
             }
@@ -621,43 +687,45 @@ export class EntityBankSetupComponent implements OnInit {
 
             }
             
-            if (this.Entitysetup.value.chkcsv == true) {
+           // if (this.Entitysetup.value.chkcsv == true) {
 
-                IsFormat = 1;
-            }
-            if (this.Entitysetup.value.chkxml == true) {
+              //  IsFormat = 1;
+           // }
+           // if (this.Entitysetup.value.chkxml == true) {
 
-                IsFormat = 1;
-            }
-            if (this.Entitysetup.value.chkexcel == true) {
+               // IsFormat = 1;
+           // }
+           // if (this.Entitysetup.value.chkexcel == true) {
                 
-                IsFormat = 1;
-            }
-            if (IsFormat == 0) {
-                document.getElementById('divformat').classList.add('validate');
+              //  IsFormat = 1;
+           // }
+           // if (IsFormat == 0) {
+               // document.getElementById('divformat').classList.add('validate');
                 
-            }
+          //  }
            
               
             if (this.arrvalue == "") {
                 
-                alert('Please Create Sequence File Number !!');
+                this.popuptext='Please Create Sequence File Number !!';
+                this.showModalalert=true;
+                return;
                 
             }
-            var str
-            this.adhocarr=this.adhocarr.replace(':','-')
             
-       this.entitybankservice.UpdateData(JSON.stringify(this.Entitysetup.value), item.UserId, this.arrvalue, this.adhocarr,this.Id).subscribe(
+            
+       this.entitybankservice.UpdateData(JSON.stringify(_adhocdata), this.Id).subscribe(
             (data) => {
 
-                this.entitydata = data;
-                if (this.entitydata[0].result == 1) {
+                this.adhocdata = data;
+                if (this.adhocdata[0].result == 1) {
                     this.showModalsave = true;
                     this.adhocarr = [];
                      this.arrvalue = [];
                      this.Entitysetup.reset();
                     this.temp = 1;
                     this.Id = "";
+                    this.BankName="";
                 }
                 
             });
@@ -688,11 +756,14 @@ export class EntityBankSetupComponent implements OnInit {
               this.Entitysetup.controls['txtdatepicker3'].setValue('');
             this.Entitysetup.controls['txtdatepicker5'].setValue('');
             this.adhocarr.push(this.adhoc);
-            console.log(this.adhocarr);
+            this.divadhoctable=true;
         }
     }
 
-    BindData() {
+    BindData(event:any) {
+        this.arrvalue=[];
+        this.sequence="";
+        this.BankName=event.target.options[event.target.options.selectedIndex].text;
         let EntityId = this.Entitysetup.value.ddlentity;
         let BankId = this.Entitysetup.value.ddlbank;
         this.entitybankservice.EditData(EntityId, BankId).subscribe(
@@ -754,6 +825,7 @@ export class EntityBankSetupComponent implements OnInit {
                         this.isDisableddate4 = true;
                     }
                     if (this.tblentitybanksetup[0].IsAdhoc == true) {
+                        this.Entitysetup.controls['rdoDate'].setValue('A');
                         this.isDisableddate3 = false;
                         this.isDisableddate5 = false;
                         this.Entitysetup.controls['txtdatepicker3'].setValue('');
@@ -763,12 +835,18 @@ export class EntityBankSetupComponent implements OnInit {
                         for (var k = 0; k < AdhocArray.length; k++) {
                             this.adhocarr.push(AdhocArray[k]);
                         }
+                        this.Divadhoc=true;
+                        this.btnAdhoc=true;
+                        this.divadhoctable=true;
                     }
                     else {
                         this.Entitysetup.controls['txtdatepicker3'].setValue('');
                         this.Entitysetup.controls['txtdatepicker5'].setValue('');
                         this.isDisableddate3 = true;
                         this.isDisableddate5 = true;
+                        this.Divadhoc=false;
+                        this.btnAdhoc=false;
+                        this.divadhoctable=false;
                     }
                     this.Entitysetup.controls['presentmenttime'].setValue(this.tblentitybanksetup[0].TimeDuration);
                     this.Id = this.tblentitybanksetup[0].EntityBankSetupId;
@@ -780,27 +858,27 @@ export class EntityBankSetupComponent implements OnInit {
                     for (var i = 0; i < data.Table1.length; i++) {
                         this.arrvalue.push(this.tblFilesequence[i].name);
                     }
-                    this.RemainingCount = 0;
+                    this.divsequencetable=true;
+                   this.RemainingCount=0;
+
                 }
                 else {
-                    
+                    this.Entitysetup.reset();
+                    this.Entitysetup.controls['ddlentity'].setValue(EntityId);
+                    this.Entitysetup.controls['ddlbank'].setValue(BankId);
+                    this.isDisabledtext=false;
+                    this.adhocarr=[];
+                    this.arrvalue=[];
+                    this.Id="";
+                    this.temp=1;
                 }
             });
 
     }
     Removeclass() {
-    if(this.Entitysetup.value.chkcsv==true)
-    {
-        document.getElementById('divformat').classList.remove('validate');
-    }
-    if(this.Entitysetup.value.chkexcel==true)
-    {
-        document.getElementById('divformat').classList.remove('validate');
-    }
-    if(this.Entitysetup.value.chkxml==true)
-    {
-        document.getElementById('divformat').classList.remove('validate');
-    }
+    
+    
+    
     document.getElementById('txtdatepicker').classList.remove('validate');
     document.getElementById('txtdatepicker1').classList.remove('validate');
     document.getElementById('txtdatepicker2').classList.remove('validate');
@@ -810,15 +888,68 @@ export class EntityBankSetupComponent implements OnInit {
     document.getElementById('ddlday').classList.remove('validate');
 }
 
-    //removeSequencediv(event:any){
+    removeSequencediv(data:any,i){
+        
+    
+        var result=data;
+        
+        
+        
+        var arrvalue1 = [];
+        arrvalue1 = result.split('_');
+        if (arrvalue1[0] == 'Date') {
+            result = arrvalue1[1].length;
+        }
+        else if (arrvalue1[0] == 'Increment') {
+            result = arrvalue1[1].length;
+        }
+       
+        else {
+            result  = result.length.toString();
+        }
+        
+    
+        var aa = parseInt(this.RemainingCount) + parseInt(result);
+        this.RemainingCount=aa;
+        //this.divsequencetable = false;
+        var dynamicid='divseq'+i;
+        document.getElementById(dynamicid).classList.add("hidden");
+        this.arrvalue.pop(data);
+        
+    if(this.Entitysetup.value.txttotalcount==this.RemainingCount){
+        this.isDisabledtext=true;
+    }
+    else{
+        this.isDisabledtext=false;
+    }
+   }
 
-     //   event.target.parent.remove;
-   // }
+   removeAdhocdiv(data:any,i){
+    var dynamid='divad'+i;
+    document.getElementById(dynamid).classList.add("hidden");
+    this.adhocarr.pop(data);
+     
+}
+Removechkxml(){
+    if(this.Entitysetup.value.chkxml==true)
+    {
+        document.getElementById('divformat').classList.remove('validate');
+    }
+}
 
-   // removeAdhocdiv(event:any){
+Removechkexcel() {
+     if(this.Entitysetup.value.chkexcel==true)
+    {
+        document.getElementById('divformat').classList.remove('validate');
+    }
+}
+Removechkcsv(){
+    if(this.Entitysetup.value.chkcsv==true)
+    {
+        document.getElementById('divformat').classList.remove('validate');
+    }
 
-       // event.target.parent.remove;
-   // }
+}
 
 
 

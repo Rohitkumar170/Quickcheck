@@ -2,6 +2,10 @@
     padding: 0px;
 }
 
+.tblborder{
+    border:1px solid #cdcdcd !important;
+}
+
 form {
     display: block;
     overflow: visible !important;
