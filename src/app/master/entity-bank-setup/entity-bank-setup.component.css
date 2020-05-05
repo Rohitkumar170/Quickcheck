@@ -11,6 +11,11 @@
 .DivAllDimensionDetails .form-group {
     overflow: visible;
 }
+.legals{font-size: 18px;
+    color: #003974 !important;
+    text-align: justify;
+    font-weight: bold;
+}
 
 .weekly {
     margin-top: 3px;
