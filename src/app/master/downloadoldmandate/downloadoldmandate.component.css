@@ -82,6 +82,14 @@
     width: 86%;
 }
 
+.lbltxt{
+    color: red;
+    display: block;
+    position: absolute;
+    top: 65px;
+    /* right: 620px; */
+    left: -472px;
+}
 .rightmenu {
     float: right;
     position: absolute;

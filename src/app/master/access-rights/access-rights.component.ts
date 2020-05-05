@@ -29,6 +29,7 @@ export class AccessRightsComponent implements OnInit {
    storeIsRead = [];
   storeIsActive = [];
   numbers = [];
+  showsavebutton:boolean;
   constructor(private _accessRightsService: AccessRightsService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -38,6 +39,7 @@ export class AccessRightsComponent implements OnInit {
     })
 
       this.getEntityDetails();
+      this.showsavebutton=false;
          
   }
 
@@ -84,6 +86,7 @@ export class AccessRightsComponent implements OnInit {
                   this.checkAccessRights(res),
 
                   this.showdvCheckbox=true;
+                  this.showsavebutton=true;
               error => console.log(error)
           })
         }
