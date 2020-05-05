@@ -66,10 +66,10 @@ export class NachMandateComponent implements OnInit {
     grd: boolean = false;
     divform: boolean = true;
     constructor(private router: Router, private formBuilder: FormBuilder, private _bankformService: BankFormService,public datepipe: DatePipe) { }
-    hide() {
+    // hide() {
        
-        this.showModalsave = false;
-    }
+    //     this.showModalsave = false;
+    // }
     ngOnInit() {
         this.NachMandate = this.formBuilder.group({
             MandateMode: [''], Catagorycode: ['', Validators.required], Mandatetype: [''], UMRN: [''], UMRNDATE: ['', Validators.required], Sponsorcode: ['Select', Validators.required],  Utilitycode: [''], Create: [''], Modify: [''],

@@ -124,14 +124,14 @@ export class DownloadoldemandateComponent implements OnInit {
     }
 
     onChange(event, item) {
-
+     // console.log(item);
         //var element = <HTMLInputElement>document.getElementById("is3dCheckBox");
         //var isChecked = element.checked;
         //if (count == '') {
         this.checkFlag = 0;
        // this.IsMandateID = item.mandateid;
         //var CheckedCount = 0, UncheckedCount = 0;
-
+        
         if (event.target.checked) {
             this.SelectionStatusOfMutants.push(item);
            // console.log(this.SelectionStatusOfMutants);
