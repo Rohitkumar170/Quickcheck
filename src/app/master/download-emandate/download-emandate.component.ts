@@ -78,6 +78,8 @@ export class DownloadEmandateComponent implements OnInit {
             });
     }
     SearchFunction(FromDate, ToDate, Bank) {
+        var tbldiv = <HTMLFormElement>document.getElementById('tbldiv');
+        tbldiv.style.display = 'none';
         this.Preloader = true;
         let item = JSON.parse(sessionStorage.getItem('User'));
         this.DEService.BindGridData(FromDate, ToDate, Bank, item.UserId).subscribe(
@@ -85,12 +87,19 @@ export class DownloadEmandateComponent implements OnInit {
                 this.Preloader = false;
                 this.Databind = data;
                 this.dataArray.push(this.Databind);
-            });
-       
-        if (this.dataArray.length > 0) {
+                var tbldiv = <HTMLFormElement>document.getElementById('tbldiv');
+                tbldiv.style.display = 'block';
+                let json = JSON.stringify(this.Databind);
+                    var CountRecordArray = typeof json != 'object' ? JSON.parse(json) : json;
+                    var TotalCount = CountRecordArray.length;
+                 
+                    if (TotalCount > 0) {
            
-            this.showlabel = true;
-        }
+                        this.showlabel = true;
+                    }
+            });
+    
+       
     }
 
     toggleSelect = function (event) {
@@ -193,7 +202,8 @@ export class DownloadEmandateComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            var kex = formatDate(new Date(), "ddMMyyyy", "en");
+        a.download = 'OutWard_NB_'+kex+'.xls';/* your file name*/
             a.click();
             return 'success';
         }
