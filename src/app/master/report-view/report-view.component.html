@@ -47,15 +47,15 @@
 
 
         <div class="col-md-12 col-sm-12 col-xs-12" id="divForm" style="display:block;margin-top: 3%;">
-            <form>
+            <form [formGroup]="UMRNUploadform" autocomplete="off">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12" style="margin-top: -6px;">
                         <div class="form-group">
                             <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> User </label>
                             <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-
-                                <select class="alldropdown"  #alldropdown>
-                                    <!--<option value="0" selected id="ddluser" formControlName="ddluser">Select</option>-->
+                                <p [ngClass]="displayFieldCss('alldropdown')">
+                                <select class="alldropdown" formControlName="alldropdown" id="alldropdown"  #alldropdown>
+                                    <option value="" selected >Select</option>
                                     <option *ngFor="let lang of binduser"
                                             value="{{lang.UserId}}" text="{{lang.UserName}}"></option>
 
@@ -63,6 +63,7 @@
                                     <!--<option value="volvo">User 1</option>
                                     <option value="saab">User 2</option>-->
                                 </select>
+                            </p>
                             </div>
                         </div>
                     </div>
@@ -72,10 +73,10 @@
                                 From Date
                             </label>
                             <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
+                                
+                                <input type="date"  id="Fromdate"  name="Fromdate" formControlName="alldropdown" value="{{currentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12 no-padding" #Fromdate>
 
-                                <input type="date" name="Fromdate" value="{{currentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12 no-padding" #Fromdate>
-
-
+                               
                             </div>
                         </div>
                     </div>
@@ -85,9 +86,9 @@
                                 To Date
                             </label>
                             <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
-
-                                <input type="date" name="Todate" value="{{currentDate | date:'yyyy-MM-dd'}}" class="col-sm-12 col-md-12 col-xs-12 no-padding" #Todate>
-
+                               
+                                <input type="date" id="Todate" name="Todate" formControlName="alldropdown" value="{{currentDate | date:'yyyy-MM-dd'}}"  class="col-sm-12 col-md-12 col-xs-12 no-padding" #Todate>
+                                
                             </div>
                         </div>
                     </div>
@@ -110,6 +111,7 @@
             </form>
 
         </div>
+        
         <div class="col-md-12 col-sm-12 col-xs-12">
             <button type="button" class="btn btn-success" style="margin-bottom:3px;"(click)="download()" >Download Excel</button>
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding" id="tbldiv" style="overflow-x:scroll; border:1px solid #cdcdcd;">
@@ -117,19 +119,19 @@
             <table id="tblreport">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th style="width:150px;">Sr No</th>
+                        
+                        <th style="width:150px;">SrNo</th>
                         <th style="width:220px;">Refrence</th>
                         <th style="width:220px;">Created On</th>
-                        <th style="width:400px;">Updated On</th>
-                        <th style="width:150px;">created By</th>
-                        <th style="width:150px;">Updated By</th>
-                        <th style="width:150px;">File Updated Count</th>
-                        <th style="width:150px;">Bank Validationn</th>
-                        <th style="width:150px;">Acc Validation</th>
-                        <th style="width:150px;">Saved Count</th>
-                        <th style="width:150px;">Edit Count</th>
-                        <th style="width:150px;">Entity Name</th>
+                        <th style="width:220px;">Updated On</th>
+                        <th style="width:220px;">Created By</th>
+                        <th style="width:220px;">Updated By</th>
+                        <th style="width:220px;">File Updated Count</th>
+                        <th style="width:220px;">Bank Validationn</th>
+                        <th style="width:220px;">Acc Validation</th>
+                        <th style="width:220px;">Saved Count</th>
+                        <th style="width:220px;">Edit Count</th>
+                        <th style="width:220px;">Entity Name</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -156,6 +158,9 @@
 
             </table>
         </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
         </div>
     </div>
 </div>

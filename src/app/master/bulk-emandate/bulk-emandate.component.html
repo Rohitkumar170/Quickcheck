@@ -10,7 +10,7 @@
 
                         <i class="fa fa-file-text" aria-hidden="true"></i>
                         <input type="button" class="btn btn-success" id="btnreject"
-                               value="New" />
+                               value="New" (click)="Redirectpage()" />
                                <!-- (click)="goToPage('/ebulkuploadeddata', 123)" -->
 
                     </span>
@@ -74,7 +74,9 @@
             </div>
         </div>
 
-
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+        </div>
     </div>
 </div>
 

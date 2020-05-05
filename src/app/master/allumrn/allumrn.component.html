@@ -88,16 +88,16 @@
             <div class="col-md-12 col-sm-12 col-xs-12 boxsetting" style="margin-top: 3% !important;">
 
                 <div class="col-md-12 col-sm-12 col-xs-12 boxhead">
-                    <div class="row no-padding" [ngClass]="displayFieldCss('Searchvalidation')">
+                    <div class="row no-padding" >
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                     UMRN
                                 </label>
                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-
+                                 <p [ngClass]="displayFieldCss('Searchvalidation')">
                                     <input type="text" required name="UMRN" id="umrn1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #UMRN />
-
+                                </p>
                                 </div>
                             </div>
                         </div>
@@ -107,9 +107,9 @@
                                     Customer Name
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-
+                                    <p [ngClass]="displayFieldCss('Searchvalidation')">
                                     <input type="text" required name="CustomerName" id="custo1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #CustomerName />
-
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -119,9 +119,9 @@
                                     Reference Number
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-
+                                    <p [ngClass]="displayFieldCss('Searchvalidation')">
                                     <input type="text" required name="Refere" id="refre1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #Refere />
-
+                                    </p>
                                 </div>
                             </div>
                         </div>

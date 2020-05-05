@@ -186,6 +186,7 @@ export class AllumrnComponent implements OnInit {
     }
      
     onClick(event) {
+        this.Addumrn.reset();
         this.showmodalcreateumrn = true;
 
 
@@ -261,6 +262,7 @@ export class AllumrnComponent implements OnInit {
         let item = JSON.parse(sessionStorage.getItem('User'));
         this.UserId = item.UserId;
         this.EntityId = item.ReferenceId;
+        this.Preloader = true;
         this._allumrn.GridDataDetails(UMRN, this.EntityId).subscribe(
            (data) => {
                this.Preloader = false;
@@ -582,7 +584,7 @@ export class AllumrnComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
+        a.download = 'UMRNStatement.csv';/* your file name*/
         a.click();
         return 'success';
 
@@ -598,7 +600,7 @@ export class AllumrnComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
+        a.download = 'UMRNStatement.csv';/* your file name*/
         a.click();
         return 'success';
 
@@ -619,7 +621,7 @@ export class AllumrnComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            a.download = 'UMRNStatement.csv';/* your file name*/
             a.click();
             return 'success';
         
@@ -645,7 +647,7 @@ export class AllumrnComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
+        a.download = 'AllUMRN.csv';/* your file name*/
         a.click();
         return 'success';
 
