@@ -68,7 +68,7 @@
 
                                                         </label>
                                                         <div class="col-sm-8 col-md-8 col-xs-7 ">
-                                                            <select id="ddlUserType" (change)="getLinksForUser(user.value)" #user class="col-sm-12 col-md-12 col-xs-12 no-padding alldropdown">
+                                                            <select id="ddlUserType" formControlName="Entityval" (change)="getLinksForUser(user.value)" #user class="col-sm-12 col-md-12 col-xs-12 no-padding alldropdown">
                                                                 <option value="0">Select</option>
                                                                 <option *ngFor="let lang of entitydDetails"
                                                                         value={{lang.userid}}>
@@ -81,11 +81,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding " >
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group no-padding " id="dvTable" *ngIf="showdvCheckbox">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding" *ngIf="showdvCheckbox" >
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group no-padding " id="dvTable" >
                                                 <div class="col-md-12 col-sm-12  boxaccordian">
                                                     <div class="col-md-12 col-sm-12 AccessList">
-                                                        <div class="row" style="margin-top:1%;" >
+                                                        <div class="row" style="margin-top:1%;"  >
                                                             <div class="col-md-4 col-sm-4 col-xs-3" *ngFor="let data of AccessRightDetails" >
                                                                 <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom" >
                                                                     <i class="fa fa-user "></i>

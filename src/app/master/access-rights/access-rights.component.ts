@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccessRightsService } from '../../services/accessrights/access-rights.service';
 import { AccessRightsEntityDetails } from '../../../models/accessrights/access-rights-entity-details';
 import { AccessRightsDetails } from '../../../models/accessrights/access-rights-details';
-
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-access-rights',
   templateUrl: './access-rights.component.html',
@@ -24,23 +24,31 @@ export class AccessRightsComponent implements OnInit {
   showModalSuccess: boolean;
   storeLinkID = [];
   showdvCheckbox:boolean;
- 
+
+  accessform:FormGroup
    storeIsRead = [];
   storeIsActive = [];
   numbers = [];
-  constructor(private _accessRightsService: AccessRightsService) { }
+  constructor(private _accessRightsService: AccessRightsService,private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.showdvCheckbox=false;
+    this.accessform = this.formBuilder.group({
+        Entityval: new FormControl()
+    })
+
       this.getEntityDetails();
-      this.showdvCheckbox=false;   
+         
   }
 
   hideSuccess() {
 
-     // alert('hide');
+     
       this.showModalSuccess = false;
-      this.getEntityDetails();
+      
       this.showdvCheckbox=false;
+      this.getEntityDetails();
+    // this.accessform.controls['Entityval'].setValue("");
   }
 
   showSuccess() {
@@ -56,24 +64,32 @@ export class AccessRightsComponent implements OnInit {
           (data) => {
               //(res => this.entitydDetails = res, error => console.log(error))
               this.entitydDetails = data;
-              this.showdvCheckbox=true;
+              //this.showdvCheckbox=true;
           })
           
   }
 
   getLinksForUser(data) {
+     // console.log(data)
       let item = JSON.parse(sessionStorage.getItem('User'));
       //alert(data.userid)
       //alert(data)
       //userid
+      if(data != '0'){
       this._accessRightsService.getLinksForUser(data, item.UserType).subscribe
           (res => {
               this.AccessRightDetails = res,
                   this.Ischecked = 0,
+                  
                   this.checkAccessRights(res),
+
+                  this.showdvCheckbox=true;
               error => console.log(error)
           })
-      
+        }
+        else{
+            this.showdvCheckbox=false;
+        }
 
   }
   checkAccessRights(data) {
