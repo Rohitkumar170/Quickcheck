@@ -77,3 +77,46 @@ form {
     top: 0px;
     right: 21px;
 }
+
+
+
+
+
+
+
+
+#histmandtbl tbody {
+    display: inherit;
+    max-height: 60vh;
+}
+
+    #histmandtbl tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+.htmldateheight {
+    height: 24px;
+}
+
+#tblallumrn thead tr {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+}
+
+#tblallumrn {
+    overflow-x: scroll;
+    display: inline-block;
+}
+
+
+        #tblallumrn tbody td {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        #tblallumrn{
+            border:1px solid #cdcdcd;
+        }
