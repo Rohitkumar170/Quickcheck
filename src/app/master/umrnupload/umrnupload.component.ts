@@ -35,6 +35,8 @@ export class UmrnuploadComponent implements OnInit {
     constructor(private _UmrnUploadService: UmrnUploadService) { }
 
     ngOnInit() {
+        var tbldiv1 = <HTMLFormElement>document.getElementById('tbldiv1');
+        tbldiv1.style.display = 'none';
         this.BindGrid();
     }
 
@@ -49,6 +51,8 @@ export class UmrnuploadComponent implements OnInit {
             subscribe((data) => {
                 this.umrnupload = data.Table;
                 this.Preloader = false;
+                var tbldiv1 = <HTMLFormElement>document.getElementById('tbldiv1');
+        tbldiv1.style.display = 'block';
         //         this.tbldiv1 = true;
         // this.tbldiv2 = false;
         // this.tbldiv3 = false;
@@ -73,7 +77,8 @@ export class UmrnuploadComponent implements OnInit {
     }
 
     BindOnRowdblClick() {
-
+        var tbldiv1 = <HTMLFormElement>document.getElementById('tbldiv1');
+        tbldiv1.style.display = 'none';
         this.Preloader = true;
         this._UmrnUploadService.BindOnRowdblClick(this.UploadHeaderId).
             subscribe((data) => {
@@ -89,8 +94,7 @@ export class UmrnuploadComponent implements OnInit {
                 document.getElementById('lblsuccessCount').innerHTML = 'Validated Records : ' + successCount;
                 document.getElementById('lblUnsuccessCount').innerHTML = 'Rejected Records : ' + UnsuccessCount;
                 
-                var tbldiv1 = <HTMLFormElement>document.getElementById('tbldiv1');
-                tbldiv1.style.display = 'none';
+             
                 var tbldiv2 = <HTMLFormElement>document.getElementById('tbldiv2');
                 tbldiv2.style.display = 'block';
 
@@ -165,7 +169,7 @@ export class UmrnuploadComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'UMRN_Grid_details.csv';
+        a.download = 'TotalUMRN.csv';
         a.click();
         return 'success';
     }
@@ -187,7 +191,7 @@ export class UmrnuploadComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'UMRN_Success.csv';
+        a.download = 'ValidatedUMRN.csv';
         a.click();
         return 'success';
     }
@@ -206,7 +210,7 @@ export class UmrnuploadComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'UMRN_UnSuccess.csv';
+        a.download = 'RejectedUMRN.csv';
         a.click();
         return 'success';
     }
@@ -240,7 +244,7 @@ export class UmrnuploadComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'UMRN_Upload_List.csv';
+        a.download = 'UMRNUpload.csv';
         a.click();
         return 'success';
     }

@@ -68,7 +68,7 @@
 
 
         </div>
-        <div class="row">
+        <div class="row" *ngIf="buttonshow" >
             <div class="col-md-6 col-sm-6 col-xs-6"></div>
             <div class="col-md-6 col-sm-6 col-xs-12" id="btngroup">
                 <span id="btnp">
@@ -81,6 +81,12 @@
                     <i class="fa fa-download" aria-hidden="true"></i>
                     <input type="button" class=" btn btn-success" id="btnexcel"
                            value="Download Excel" (click)="download()" />
+                </span>
+
+                <span id="btnspa">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <input type="button" class=" btn btn-success" id="btnexcel"
+                           value="Download Scanned Mandate" (click)="downloadScannedMandate()" />
                 </span>
 
                 <!--<span id="btnspa">
@@ -281,7 +287,7 @@
                                 Reason
                             </label>
                             <div class="col-sm-9 col-md-9 col-xs-9 no-padding-left">
-                                <textarea name=""  id="myform" #RejectedReason class="col-sm-12 col-md-12 col-xs-12 no-padding"></textarea>
+                                <textarea name=""  id="myform" (keydown)="removeClass()" #RejectedReason class="col-sm-12 col-md-12 col-xs-12 no-padding"></textarea>
                             </div>
                         </div>
                     </div>
@@ -289,7 +295,7 @@
                     <div class=" btfooter">
 
 
-                        <button type="button" class="btn btn-primary " (click)="RejectMandate(FromDate.value,ToDate.value,Bank.value,RejectedReason.value)" style="width:48%; margin-right:4%">Reject</button>
+                        <button type="button" class="btn btn-primary " (click)="validation(FromDate.value,ToDate.value,Bank.value,RejectedReason.value)" style="width:48%; margin-right:4%">Reject</button>
                         <button type="button" class="btn btn-primary" (click)="cancelrejecthide()" style="width:48%">Cancel</button>
                     </div>
                 </div>
