@@ -21,7 +21,8 @@ export class EntityBankSetupComponent implements OnInit {
     isDisableddate5: boolean = false; isDisabledday: boolean = false; RemainingCount; public arrvalue: any = []; lblFileSequence; public sequence: any; public adhocarr: any = []; public adhoc: any;
     entitydata: EntityData; showModalsave: boolean = false; tblentitybanksetup: Table1; tblFilesequence: Table2; tblEntitybankdate: Table3; public Id: any; temp: number; public arr:any=[]; public btnAdhoc:boolean=false; public Divadhoc:boolean=false
     public BankName:any; public popuptext:any; showModalalert: boolean=false;adhocdata:Adhocdata; public divadhoctable:boolean=false; public divsequencetable:boolean=false;
-   
+    public DayName:any; 
+
     constructor(private formBuilder: FormBuilder, private entitybankservice: EntityBankService) { }
     hide() {
         this.showModalsave = false;
@@ -100,9 +101,8 @@ export class EntityBankSetupComponent implements OnInit {
         var flag = 0;
 
 
-
         if (this.Entitysetup.value.ddlsequence != '') {
-            if (this.Entitysetup.value.ddlsequence == 0) {
+            if (this.Entitysetup.value.ddlsequence == "" || this.Entitysetup.value.ddlsequence == null) {
                 document.getElementById('ddlsequence').classList.add('validate');
                 flag = 1;
             }
@@ -129,7 +129,7 @@ export class EntityBankSetupComponent implements OnInit {
                 }
                 if (this.Entitysetup.value.ddlsequence == 3) {
 
-                    if (this.Entitysetup.value.ddldate == 0) {
+                    if (this.Entitysetup.value.ddldate == "") {
                         document.getElementById('ddldate').classList.add('validate');
                         flag = 1;
                     }
@@ -263,8 +263,8 @@ export class EntityBankSetupComponent implements OnInit {
 
             this.Entitysetup.controls['txtlength'].setValue('');
             this.Entitysetup.controls['txtvalue'].setValue('');
-            this.Entitysetup.controls['ddlsequence'].setValue(0);
-            this.Entitysetup.controls['ddldate'].setValue(0);
+            this.Entitysetup.controls['ddlsequence'].setValue("");
+            this.Entitysetup.controls['ddldate'].setValue("");
 
             this.divsequencetable=true;
             this.arrvalue.push(this.sequence);
@@ -276,6 +276,7 @@ export class EntityBankSetupComponent implements OnInit {
         }
     }
     onChangesequence(event: any) {
+        document.getElementById('ddlsequence').classList.remove('validate');
         if (this.Entitysetup.value.ddlsequence == 2) {
             this.Entitysetup.controls['txtlength'].setValue(1);
             this.isDisabledtextlength = true;
@@ -328,11 +329,11 @@ export class EntityBankSetupComponent implements OnInit {
         var flag = 0;
         this.SelectedSequence = event.target.options[event.target.options.selectedIndex].text;
         if (this.Entitysetup.value.ddldate = 0) {
-            if (this.SelectedSequence.length > this.Entitysetup.value.txtremaining) {
+            if (this.SelectedSequence.length > this.RemainingCount) {
                 flag = 1;
                 this.popuptext='You can not add more than total length!';
                 this.showModalalert=true;
-                this.Entitysetup.controls['ddldate'].setValue(0);
+                this.Entitysetup.controls['ddldate'].setValue("");
             }
         }
     }
@@ -383,7 +384,7 @@ export class EntityBankSetupComponent implements OnInit {
         this.Entitysetup.controls['txtdatepicker4'].setValue('');
         this.Entitysetup.controls['txtdatepicker5'].setValue('');
         this.isDisabledday = true;
-        this.Entitysetup.controls['ddlday'].setValue(0);
+        this.Entitysetup.controls['ddlday'].setValue("");
         this.btnAdhoc=false;
         this.Divadhoc=false;
     }
@@ -421,7 +422,7 @@ export class EntityBankSetupComponent implements OnInit {
         
         this.Entitysetup.controls['txtdatepicker5'].setValue('');
         this.isDisabledday = true;
-        this.Entitysetup.controls['ddlday'].setValue(0);
+        this.Entitysetup.controls['ddlday'].setValue("");
         this.btnAdhoc=false;
         this.Divadhoc=false;
 
@@ -441,7 +442,7 @@ export class EntityBankSetupComponent implements OnInit {
 
         this.Entitysetup.controls['txtdatepicker4'].setValue('');
         this.isDisabledday = true;
-        this.Entitysetup.controls['ddlday'].setValue(0);
+        this.Entitysetup.controls['ddlday'].setValue("");
         this.btnAdhoc=true;
         this.Divadhoc=true;
 
@@ -528,7 +529,7 @@ export class EntityBankSetupComponent implements OnInit {
            _adhocdata.ddlbank=this.Entitysetup.value.ddlbank;
            _adhocdata.ddlentity=this.Entitysetup.value.ddlentity;
            _adhocdata.presentmenttime=this.Entitysetup.value.presentmenttime;
-           _adhocdata.ddlday=this.Entitysetup.value.ddlday;
+           _adhocdata.ddlday=this.DayName;
            _adhocdata.rdoDate=this.Entitysetup.value.rdoDate;
            _adhocdata.txtdatepicker=this.Entitysetup.value.txtdatepicker;
            _adhocdata.txtdatepicker1=this.Entitysetup.value.txtdatepicker1;
@@ -575,22 +576,22 @@ export class EntityBankSetupComponent implements OnInit {
 
             }
             
-            if (this.Entitysetup.value.chkcsv == true) {
+           // if (this.Entitysetup.value.chkcsv == true) {
 
-                IsFormat = 1;
-            }
-            if (this.Entitysetup.value.chkxml == true) {
+             //   IsFormat = 1;
+           // }
+           // if (this.Entitysetup.value.chkxml == true) {
 
-                IsFormat = 1;
-            }
-            if (this.Entitysetup.value.chkexcel == true) {
+             //   IsFormat = 1;
+           // }
+           // if (this.Entitysetup.value.chkexcel == true) {
                 
-                IsFormat = 1;
-            }
-            if (IsFormat == 0) {
-                document.getElementById('divformat').classList.add('validate');
-                return;
-            }
+            //    IsFormat = 1;
+           // }
+           // if (IsFormat == 0) {
+            //    document.getElementById('divformat').classList.add('validate');
+            //    return;
+          //  }
             
             
       
@@ -600,6 +601,30 @@ export class EntityBankSetupComponent implements OnInit {
                 this.showModalalert=true;
                 return;
             }
+
+            var arrvalue1;
+            var value1="";
+            for(var i=0; i<this.arrvalue.length;i++)
+            {
+            arrvalue1 = this.arrvalue[i];
+            
+            arrvalue1=arrvalue1.split('__');
+            if(arrvalue1!=undefined)
+            {
+            if (arrvalue1[0] == ('Increment')) {
+                value1 = "0";
+            }
+        }
+    }
+            
+            if(value1 == "")
+            {
+                 this.popuptext='Please select Auto Increment Number!!';
+                this.showModalalert=true;
+                return;
+            }
+            
+        
             
             
 
@@ -609,11 +634,13 @@ export class EntityBankSetupComponent implements OnInit {
                     this.adhocdata = data;
                     if (this.adhocdata[0].result == 1) {
                         this.showModalsave = true;
+                        this.Entitysetup.reset();
+                        this.adhocarr = [];
+                        this.arrvalue = [];
+                        this.BankName="";
+                        this.RemainingCount="";
                     }
-                    this.Entitysetup.reset();
-                    this.adhocarr = [];
-                    this.arrvalue = [];
-                    this.BankName="";
+                   
                 });
                
     }
@@ -640,7 +667,7 @@ export class EntityBankSetupComponent implements OnInit {
            _adhocdata.ddlbank=this.Entitysetup.value.ddlbank;
            _adhocdata.ddlentity=this.Entitysetup.value.ddlentity;
            _adhocdata.presentmenttime=this.Entitysetup.value.presentmenttime;
-           _adhocdata.ddlday=this.Entitysetup.value.ddlday;
+           _adhocdata.ddlday=this.DayName;
            _adhocdata.rdoDate=this.Entitysetup.value.rdoDate;
            _adhocdata.txtdatepicker=this.Entitysetup.value.txtdatepicker;
            _adhocdata.txtdatepicker1=this.Entitysetup.value.txtdatepicker1;
@@ -712,6 +739,30 @@ export class EntityBankSetupComponent implements OnInit {
                 return;
                 
             }
+
+            var arrvalue1;
+            var value1="";
+            for(var i=0; i<this.arrvalue.length;i++)
+            {
+            arrvalue1 = this.arrvalue[i];
+            
+            arrvalue1=arrvalue1.split('__');
+            if(arrvalue1!=undefined)
+            {
+            if (arrvalue1[0] == ('Increment')) {
+                value1 = "0";
+            }
+        }
+    }
+            
+            if(value1 == "")
+            {
+                 this.popuptext='Please select Auto Increment Number!!';
+                this.showModalalert=true;
+                return;
+            }
+            
+        
             
             
        this.entitybankservice.UpdateData(JSON.stringify(_adhocdata), this.Id).subscribe(
@@ -726,6 +777,7 @@ export class EntityBankSetupComponent implements OnInit {
                     this.temp = 1;
                     this.Id = "";
                     this.BankName="";
+                    this.RemainingCount="";
                 }
                 
             });
@@ -798,12 +850,36 @@ export class EntityBankSetupComponent implements OnInit {
                         this.isDisableddate1 = false;
                         var WeeklyArray = [];
                         WeeklyArray = (this.tblEntitybankdate[0].WeeklyDate).split('_');
+                        
+                        if(WeeklyArray[0]=='Monday')
+                        {
+                            WeeklyArray[0]=1;
+                        }
+                        else if(WeeklyArray[0]=='Tuesday'){
+                            WeeklyArray[0]=2;
+                        }
+                        else if(WeeklyArray[0]=='Wednesday'){
+                            WeeklyArray[0]=3;
+                        }
+                        else if(WeeklyArray[0]=='Thursday'){
+                            WeeklyArray[0]=4;
+                        }
+                        else if(WeeklyArray[0]=='Friday'){
+                            WeeklyArray[0]=5;
+                        }
+                        else if(WeeklyArray[0]=='Saturday'){
+                            WeeklyArray[0]=6;
+                        }
+                        else if(WeeklyArray[0]=='Sunday'){
+                            WeeklyArray[0]=7;
+                        }
+
                         this.Entitysetup.controls['ddlday'].setValue(WeeklyArray[0]);
                         this.Entitysetup.controls['txtdatepicker1'].setValue(WeeklyArray[1]);
                         this.isDisabledday = false;
                     }
                     else {
-                        this.Entitysetup.controls['ddlday'].setValue('');
+                        this.Entitysetup.controls['ddlday'].setValue("");
                         this.Entitysetup.controls['txtdatepicker1'].setValue('');
                         this.isDisabledday = true;
                         this.isDisableddate1 = true;
@@ -898,10 +974,10 @@ export class EntityBankSetupComponent implements OnInit {
         var arrvalue1 = [];
         arrvalue1 = result.split('_');
         if (arrvalue1[0] == 'Date') {
-            result = arrvalue1[1].length;
+            result = arrvalue1[2].length;
         }
         else if (arrvalue1[0] == 'Increment') {
-            result = arrvalue1[1].length;
+            result = arrvalue1[2].length;
         }
        
         else {
@@ -951,8 +1027,11 @@ Removechkcsv(){
 
 }
 
+ddldaychange(event:any){
 
-
- }
+    this.DayName=event.target.options[event.target.options.selectedIndex].text;
+    document.getElementById('ddlday').classList.remove('validate');
+    }
+}
 
  
