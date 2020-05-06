@@ -1,4 +1,4 @@
-/// <reference path="../../../models/nachtransactionpresentation/nachtransactionpresentation.ts" />
+// /// <reference path="../../../models/nachtransactionpresentation/nachtransactionpresentation.ts" />
 
 import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
