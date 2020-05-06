@@ -20,9 +20,14 @@ export class DownloadmandateComponent implements OnInit {
     ZipDownloadArray: Array<DownloadMandateDetails> = [];
     errorMessage: string; public errormsg: any;
     HeaderArray = {}; Preloader: boolean = true;
-   // SelectionStatusOfMutants: any = {};
-    SelectionStatusOfMutants = []
+    //SelectionStatusOfMutants: any = [{}];
+    SelectionStatusOfMutants = [];
+    temp = [];
+    storeMandateID = [];
+    //SelectionStatusOfMutants: Downloadmandategrid[];
     selectMandateId = [];
+    showBindgrid:boolean;
+
     dmandateForm: FormGroup;
     public dmandate: DownloadMandateDetails;
     bindgrid: Downloadmandategrid[];
@@ -38,7 +43,9 @@ export class DownloadmandateComponent implements OnInit {
     IsMandateID: string;
     Isallcheck: number = 0;
     IsCHFlag: number = 0;
-   
+
+    dataArray:any;
+  //  showlabel: boolean;
     todate: Date;
     fromdate: Date;
     Bank: string;
@@ -48,22 +55,31 @@ export class DownloadmandateComponent implements OnInit {
     selectedAll: any;
     length: any;
 
+    tempFromDate: any;
+    tempToDate: any;
+    tempBank: any;
+    temprefNo: any;
+
+    Exdate:string;
     CheckedCount : number = 0;
     UncheckedCount: number = 0;
+    validationFlag: number = 0;
 //     dmandateForm1 = new FormGroup({
 //    scode: new FormControl(this.dmandate[0]),
-//});
+//});showModalrejectmandate
     
     //selected: false;
     //todate = new FormControl('');
     //fromdate = new FormControl('');
-
+    showModalrejectmandate: boolean;
+    
     showModal: boolean;
     showModalSuccess: boolean;
+    buttonshow:boolean;
     constructor(private _downloadMandateService: DownloadmandateService, private fb: FormBuilder) {
         
 
-
+        
         this.fromdate = new Date();
         this.todate = new Date();
         this.dmandateForm = fb.group({
@@ -78,28 +94,45 @@ export class DownloadmandateComponent implements OnInit {
 
     show() {
         if (this.Ischecked == 1) {
-            this.showModal = true;
+            //this.showModal = true;
+            this.showModalrejectmandate = true;
+           // alert('in');
         }
         else {
-            alert('Please select checkbox');
+            this.errormsg = "Please select Mandate";
         }
     }
-    hide() {
-        this.showModal = false;
+    //hide() {
+    //    this.showModal = false;
        
-    }
+    //}
     hideSuccess() {
         this.showModalSuccess = false;
     }
 
-    showSuccess() {
-        this.showModalSuccess = true;
+    // showSuccess() {
+    //     this.showModalSuccess = true;
+    // }
+
+    // onClick() {
+    //     this.showModalrejectmandate = true;
+
+
+    // }
+
+    cancelrejecthide() {
+       // this.showModalSuccess=false;
+        this.showModalrejectmandate = false;
+        
+
     }
+
 
    
     ngOnInit() {
         
         this.getdmandate();
+        this.showBindgrid=true;
         // this.fromdate = parseDate(fromdate : string);
        // console.log(this.dmandateForm1.value);
 
@@ -163,11 +196,16 @@ export class DownloadmandateComponent implements OnInit {
     //    }
     //}
 
+    //checkAll(ev) {
+    //    this.bindgrid.forEach(x => x.state = ev.target.checked)
+    //}
+
+    //isAllChecked() {
+    //    return this.bindgrid.every(_ => _.state);
+    //}
 
     toggleSelect = function (event) {
-    //toggleSelect(event) {
-      // var SelectionStatusOfMutants = [];
-        this.all = event.target.checked;
+            this.all = event.target.checked;
         this.bindgrid.forEach(function (item) {
            // console.log(item);
             item.selected = event.target.checked;
@@ -176,88 +214,151 @@ export class DownloadmandateComponent implements OnInit {
         });
 
         this.checkFlag = 1;
-
+       
         if (event.target.checked) {
-            this.Ischecked = 1;
-          //  alert('all checked')
-            this.Isallcheck = 1;
-        }
-        else {
-            this.Ischecked = 0;
-           // alert('all not checked')
-            //this.Isallcheck = 1;
-        }
+            this.SelectionStatusOfMutants = [];
+                this.Ischecked = 1;
+                
+                this.Isallcheck = 1;
+               
+                let item = JSON.parse(sessionStorage.getItem('User'));
+                if (this.temprefNo == '') {
+                   // this.Preloader = true;
+                    this._downloadMandateService.getBindGrid(item.UserId, this.tempToDate, this.tempFromDate, this.tempBank)
+                        .subscribe((data) => {
+                           // this.allCheckData(data);
+                            for (var i = 0; i < data.length; ++i) {
+                                this.SelectionStatusOfMutants.push(data[i]);
+                            }
+
+
+                           
+                        });
+                }
+                else {
+                    
+                   // this.Preloader = true;
+                    this._downloadMandateService.getBindGridRef(item.UserId, this.temprefNo)
+                        .subscribe((data) => {
+                           
+                           // this.allCheckData(data);
+
+                            for (var i = 0; i < data.length; ++i) {
+                                this.SelectionStatusOfMutants.push(data[i]);
+                            }
+                          
+                        });
+                }
+                
+
+            }
+            else {
+                this.Ischecked = 0;
+                this.Isallcheck = 0;
+                this.SelectionStatusOfMutants = [];
+               
+            }
+      
        
 
-    }       
+    }     
+
+
+    //allCheckData(data) {
+
+    //    for (var i = 0; i < data.length; ++i) {
+    //          this.SelectionStatusOfMutants.push(data[i]);
+    //    }
+
+    //}
+
+    
+
+
+    
+
+
 
     onChange(event, item) {
 
-        //var element = <HTMLInputElement>document.getElementById("is3dCheckBox");
-        //var isChecked = element.checked;
-        //if (count == '') {
-       this.Removelabel();
-        this.checkFlag = 0;
-       // this.IsMandateID = item.mandateid;
+        
        
-
-      //  if (this.Isallcheck == 0) {
-
+        this.checkFlag = 0;
+        // var selectindex=item.length;
+        //  console.log(selectindex)
             if (event.target.checked) {
+
+                this.Removelabel();
+                
+                
                 this.SelectionStatusOfMutants.push(item);
+                //this.SelectionStatusOfMutants.splice(-1, 1);
                 this.selectMandateId.push(item.mandateid);
 
+
                 console.log(this.SelectionStatusOfMutants);
-                
-                
+
+
+
                 this.Ischecked = 1;
-               this. CheckedCount++;
-              
+                this.CheckedCount++;
+
             }
             else {
-                //  alert('not checked')
-              //  if (this.Isallcheck == 1) {
-                    //this.SelectionStatusOfMutants.push(this.bindgrid);
-                    //console.log(this.SelectionStatusOfMutants);
-                //}
-
-                this.SelectionStatusOfMutants.pop();
-                console.log(this.SelectionStatusOfMutants);
-               this. UncheckedCount++;
-                
-                if (this.UncheckedCount ==this.CheckedCount) {
-                    this.Ischecked = 0;
-                   // alert('in')
+               
+                var index = 0;
+                var ids = item.mandateid;
+                console.log('select');
+                console.log(this.SelectionStatusOfMutants[0]["mandateid"]);
+               for (var i = 0; i < this.SelectionStatusOfMutants.length; ++i) {
+                    if (this.SelectionStatusOfMutants[i]["mandateid"] == ids) {
+                        index = i;
+                    }
                 }
+                console.log("Index= " + "" + index);
+                this.SelectionStatusOfMutants.splice(index, 1)
+
+                console.log(this.SelectionStatusOfMutants);
+
+                var index1 = 0;
+                // var ids = item.mandateid;
+                console.log('selectMandateID');
+                 console.log(this.selectMandateId[0]);
+                
+                for (var i = 0; i < this.selectMandateId.length; ++i) {
+                     if (this.selectMandateId[i] == ids) {
+                         index1 = i;
+                     }
+                 }
+                 console.log("Index= " + "" + index1);
+                 this.selectMandateId.splice(index1, 1)
+
+
+                this.UncheckedCount++;
+
+                if (this.UncheckedCount == this.CheckedCount) {
+                    this.Ischecked = 0;
+                   
+                }
+
+               
+
+                
+               
             }
-       // }
-        //else {
-        //    this.SelectionStatusOfMutants.push(this.bindgrid);
-        //    console.log(this.SelectionStatusOfMutants);
-        //    this.onChange(event, item);
-        //    this.Isallcheck = 0;
-
-        //}
-        //}
-        //else
-        //{
-        //    this.bindgrid.forEach(function (item) {
-        //        // console.log(item);
-        //        //item.selected = event.target.checked;
-        //        // this.onChange(event, item);
-        //        if (event.target.checked) {
-        //            this.SelectionStatusOfMutants.push(item);
-        //            alert('c')
-        //        }
-        //        else {
-        //            this.SelectionStatusOfMutants.pop();
-        //            alert('nc')
-        //        }
-
-        //    });
-           
-        //}
     }   
+
+    
+    //onCheckdownload() {
+
+    //    this.bindgrid.forEach(function (item) {
+    //        // console.log(item);
+    //        item.target.checked;
+    //        // this.onChange(event, item);
+
+    //    });
+    //}
+
 
     SubmitToDate() {
 
@@ -268,9 +369,7 @@ export class DownloadmandateComponent implements OnInit {
     get AllFields() { return this.dmandateForm.controls; }
 
     getdmandate() {
-        //alert(userID);
-        //let item = JSON.parse(sessionStorage.getItem('User'));
-        //console.log(item.UserId);
+        
 
         let item = JSON.parse(sessionStorage.getItem('User'));
         //console.log(item.UserId);
@@ -296,47 +395,119 @@ export class DownloadmandateComponent implements OnInit {
         //console.log(item.UserId);
 
        // console.log(refNo);
+        this.tempFromDate = FromDate;
+        this.tempToDate = ToDate;
+        this.tempBank = Bank;
+        this.temprefNo = refNo;
         let item = JSON.parse(sessionStorage.getItem('User'));
         if (refNo == '') {
             this.Preloader = true;
+            this.showBindgrid=false;
             this._downloadMandateService.getBindGrid(item.UserId, ToDate, FromDate, Bank)
                 .subscribe((data) => {
                     this.Preloader = false;
                     this.bindgrid = data;
+                    if(this.bindgrid.length > 0 ){
+                      this.buttonshow=true;
+                    }
+                    else{
+                        this.buttonshow=false;
+                    }
+                    this.StoreMandateId(data);
+                    this.showBindgrid=true;
+
+                   // this.dataArray = Object.entries(this.bindgrid)[0][1];
+                   // this.dataArray.push(this.bindgrid);
                 });
           //  this.loading = false;
+            //if (this.dataArray.length > 0) {
+
+            //    this.showlabel = true;
+            //}
 
         }
         else {
             //console.log(refNo);
             this.Preloader = true;
+            this.showBindgrid=false;
             this._downloadMandateService.getBindGridRef(item.UserId, refNo)
                 .subscribe((data) => {
                     this.Preloader = false;
                     this.bindgrid = data;
-                    refNo = '';
+                    if(this.bindgrid.length > 0 ){
+                        this.buttonshow=true;
+                      }
+                      else{
+                          this.buttonshow=false;
+                      }
+                    this.StoreMandateId(data);
+                    this.showBindgrid=true;
+                   // this.dataArray.push(this.bindgrid);
+            //        var dta = <HTMLInputElement>document.getElementById('reference');
+            // dta.value = "";
                 });
             this.loading = false;
+
+           
 
         }
     }
 
+    StoreMandateId(data) {
+        for (var i = 0; i < data.length; ++i) {
+            this.storeMandateID.push(data[i]["mandateid"]);
+          
+        }
+
+        console.log("After bind storemandateid");
+        console.log(this.storeMandateID);
+
+    }
+
+
+    validation(fromdate, todate, bank, rejectcomnt){
+        let reason = ((document.getElementById("myform") as HTMLInputElement).value);
+       // alert(phnumber)
+        if (reason.length > 0) {
+           // ((document.getElementById("txtPhNumber") as HTMLInputElement).value) == "";
+           //this.NachMandate.controls['Phoneno'].setValue("");
+           this.RejectMandate(fromdate, todate, bank, rejectcomnt);
+           
+            ///document.getElementById("txtPhNumber").setAttribute("placeholder", "Please enter 10 - digit");
+        }
+        else{
+            document.getElementById("myform").classList.add('validate');
+           // this.validationFlag=1;
+           
+        }
+    }
+
+    removeClass(){
+        document.getElementById("myform").classList.remove('validate');
+       // this.validationFlag=0;
+    }
+
     RejectMandate(fromdate, todate, bank, rejectcomnt) {
       //  this.Ischecked = 1
-       // if (this.Ischecked == 1) {
+   // if (this.validationFlag == 0) {
+        
             let item = JSON.parse(sessionStorage.getItem('User'));
             // console.log(item.UserId);
             this.showModal = false;
             var dta = <HTMLInputElement>document.getElementById('myform');
             dta.value = "";
             //var rejectcomnt = 'test131';
+       // alert(fromdate + '' + todate + '' + bank + '' + rejectcomnt + '' + item.UserId + '' + this.selectMandateId );
             this._downloadMandateService.getRejectMandate(item.UserId, fromdate, todate, this.selectMandateId, rejectcomnt).subscribe((res) => {
                 console.log(res),
-                    error => console.log(error); this.BindGrid(fromdate, todate, bank, '')
+                    error => console.log(error); this.Ischecked = 0;this.BindGrid(fromdate, todate, bank, '')
+                this.showModalrejectmandate = false;
                 //alert('Mandate Rejected');
-                this.showSuccess();
-            })
-        //}
+               // this.showSuccess();
+               
+        })
+        
+     //   }
         //else {
         //    alert('Please select checkbox');
         //}
@@ -387,26 +558,26 @@ export class DownloadmandateComponent implements OnInit {
         return str;
     }
     download() {
-      //  alert(this.Ischecked);
-        //console.log(this.checkFlag);
-        if (this.Ischecked == 1) {
-            if (this.checkFlag == 0) {
-                var csvData = this.ConvertToCSV(JSON.stringify(this.SelectionStatusOfMutants));
-            }
-            else {
-                var csvData = this.ConvertToCSV(JSON.stringify(this.bindgrid));
 
-            }
+        if (this.Ischecked == 1) {
+       // console.log(this.SelectionStatusOfMutants.length);
+        if (this.SelectionStatusOfMutants.length > 0) {
+            var csvData = this.ConvertToCSV(JSON.stringify(this.SelectionStatusOfMutants));
+
             var a = document.createElement("a");
             a.setAttribute('style', 'display:none;');
             document.body.appendChild(a);
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            var kex = formatDate(new Date(), "ddMMyyyy", "en");
+            a.download = 'Avasfin_'+kex+'_1.xls';/* your file name*/
+
+            //var k = formatDate(new Date(), "yyyy-MM-dd", "en"); Avasfin_18042020_1
             a.click();
             return 'success';
         }
+    }
         else {
             
             this.errormsg = "Please select Mandate";
@@ -416,11 +587,11 @@ export class DownloadmandateComponent implements OnInit {
 
     downloadScannedMandate() {
         this.ZipDownloadArray = [];
-        if (this.checkFlag == 0) {
+        if (this.SelectionStatusOfMutants.length > 0) {
             this.getZipFile(JSON.stringify(this.SelectionStatusOfMutants));
         }
         else {
-            this.getZipFile(JSON.stringify(this.bindgrid));
+            this.errormsg = "Please select Mandate";
         }
     }
 
@@ -435,7 +606,7 @@ export class DownloadmandateComponent implements OnInit {
         var url = window.URL.createObjectURL(blob);
 
         a.href = url;
-        a.download = "test.zip";
+        a.download = "Zip_Avasfin_18042020_1.zip";
         a.click();
         window.URL.revokeObjectURL(url);
 

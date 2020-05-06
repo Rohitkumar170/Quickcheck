@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
         });
     }
     get AllFields() { return this.LoginForm.controls; }
-    Removelabel() { this.errormsg = ''; }
+    Removelabel() { this.errormsg = '';  this.btnloginDisabled = false; this.btnAgreeDisabled = false;}
     displayFieldCss(field: string) {
 
         return {

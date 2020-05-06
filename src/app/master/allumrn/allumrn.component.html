@@ -85,19 +85,19 @@
 
 
 
-            <div class="col-md-12 col-sm-12 col-xs-12 boxsetting" style="margin-top: 5% !important;">
+            <div class="col-md-12 col-sm-12 col-xs-12 boxsetting" style="margin-top: 3% !important;">
 
                 <div class="col-md-12 col-sm-12 col-xs-12 boxhead">
-                    <div class="row no-padding" [ngClass]="displayFieldCss('Searchvalidation')">
+                    <div class="row no-padding" >
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                     UMRN
                                 </label>
                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-
-                                    <input type="text" required name="UMRN" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #UMRN />
-
+                                 <p [ngClass]="displayFieldCss('Searchvalidation')">
+                                    <input type="text" required name="UMRN" id="umrn1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #UMRN />
+                                </p>
                                 </div>
                             </div>
                         </div>
@@ -107,9 +107,9 @@
                                     Customer Name
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-
-                                    <input type="text" required name="CustomerName" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #CustomerName />
-
+                                    <p [ngClass]="displayFieldCss('Searchvalidation')">
+                                    <input type="text" required name="CustomerName" id="custo1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #CustomerName />
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -119,9 +119,9 @@
                                     Reference Number
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-
-                                    <input type="text" required name="Refere" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #Refere />
-
+                                    <p [ngClass]="displayFieldCss('Searchvalidation')">
+                                    <input type="text" required name="Refere" id="refre1" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="Searchvalidation" #Refere />
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -145,9 +145,8 @@
         </form>
 
 
-        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
-            <img src="../../ClientApp/assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
-        </div>
+        
+
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding-left">
             <div class="col-sm-6 col-md-6 col-xs-6 no-padding" style="margin-top: 11px;">
 
@@ -179,17 +178,17 @@
             <table id="tblallumrn">
                 <thead>
                     <tr>
-                        <th style="width:150px;"> Srno</th>
+                        <th style="width:150px;"> Sr no</th>
                         <th style="width:220px;"> UMRN</th>
-                        <th style="width:220px;">CustomerName</th>
+                        <th style="width:220px;">Customer Name</th>
                         <th style="width:220px;">Refrence</th>
                         <th style="width:220px;">Amount</th>
-                        <th style="width:220px;">FromDate</th>
-                        <th style="width:220px;">ToDate</th>
-                        <th style="width:220px;">CreatedOn</th>
-                        <th style="width:220px;">RecordType</th>
-                        <th style="width:220px;"> MandateStatus</th>
-                        <th style="width:220px;"> ErrorCode</th>
+                        <th style="width:220px;">From Date</th>
+                        <th style="width:220px;">To Date</th>
+                        <th style="width:220px;">Created On</th>
+                        <th style="width:220px;">Record Type</th>
+                        <th style="width:220px;"> Mandate Status</th>
+                        <th style="width:220px;"> Error Code</th>
 
 
                     </tr>
@@ -233,14 +232,17 @@
                     </li>
                     <li id="" [style.display]="showdisplay1 ? 'block' : 'none'">
                         <i class="" aria-hidden="true" title="Save"></i>
-                        <input type="button" id="btnprev" class="btn btn-primary" (click)="pageprev()" style="border: 1px solid #fff;padding: 3px 5px 3px 5px;font-size: 12px;" value="Previous" />
+                        <input type="button" id="btnprev" class="btn btn-success" (click)="pageprev()" style="border: 1px solid #fff;padding: 3px 5px 3px 5px;font-size: 12px;" value="Previous" />
                     </li>
                     <li id="" [style.display]="showdisplay ? 'block' : 'none'">
                         <i class="" aria-hidden="true" title="Save"></i>
-                        <input type="button" id="btnLoadMore" class="btn btn-primary" (click)="pagenext()" style="border: 1px solid #fff;padding: 3px 5px 3px 5px;font-size: 12px;" value="Load More" />
+                        <input type="button" id="btnLoadMore" class="btn btn-success" (click)="pagenext()" style="border: 1px solid #fff;padding: 3px 5px 3px 5px;font-size: 12px;" value="Load More" />
                     </li>
                 </ul>
             </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader" style="display:none">
+            <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
         </div>
 
         <div class="modal" id="myModal1" [style.display]="showModalumrnstatement2 ? 'block' : 'none'">

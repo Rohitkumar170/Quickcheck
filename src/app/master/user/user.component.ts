@@ -40,6 +40,7 @@ export class UserComponent implements OnInit {
     submitted = false; Temp: number = 1;
     public tableid: boolean = false;
     public formid: boolean = false;
+    Preloader:boolean=false;
     // public divuserlist:boolean = false;
     public divaccessright: boolean = false;
     disabled = false;
@@ -95,7 +96,7 @@ export class UserComponent implements OnInit {
 
     ngOnInit() {
         this.UserForm = this.formBuilder.group({
-            UserName: [, Validators.required],
+            UserName: ['', Validators.required],
             sponsorbankcode: ['', Validators.required],
             categorycode: ['', Validators.required],
             Type: ['', Validators.required],
@@ -128,7 +129,7 @@ export class UserComponent implements OnInit {
             this.selectedRow = index;
         }
 
-        this.tableid = true;
+       
         this.formid = false;
         this.divaccessright = false;
         this.divNachUser = false;
@@ -142,18 +143,18 @@ export class UserComponent implements OnInit {
         this.dvEnableCancel = false;
         this.isSelected = false;
         this.lblalluser = false;
-
+        this.bindUser();
 
         document.getElementById("btnEdit").setAttribute("disabled", "disabled");
         document.getElementById("btnBack").setAttribute("disabled", "disabled");
         document.getElementById("btnSave").setAttribute("disabled", "disabled");
-        this.bindUser();
+       
         this.bindPresentmentMaker();
         this.BindPresentmentChecker();
-        this.UserForm.controls['sponsorbankcode'].setValue(0);
-        this.UserForm.controls['categorycode'].setValue(0);
-        this.UserForm.controls['maker'].setValue(0);
-        this.UserForm.controls['nachuser'].setValue(0);
+        //this.UserForm.controls['sponsorbankcode'].setValue(0);
+        //this.UserForm.controls['categorycode'].setValue(0);
+        //this.UserForm.controls['maker'].setValue(0);
+        //this.UserForm.controls['nachuser'].setValue(0);
     }
 
     isFieldValid(field: string) {
@@ -190,12 +191,13 @@ export class UserComponent implements OnInit {
         if (this.Search_Text == "") {
             this.Search_Text = "0";
         }
+        this.Preloader=true;
         let item = JSON.parse(sessionStorage.getItem('User'));
         this.userservice.getUser(item.ReferenceId, this.Page_Count, this.Search_Text).subscribe((data) => {
-
+this.Preloader=false;
             this.userdata = data.Table;
 
-
+            this.tableid = true;
             this.sponsorbankcode = data.Table2;
 
 
@@ -206,6 +208,8 @@ export class UserComponent implements OnInit {
 
 
             this.bankacc = data.Table5;
+            if(data.Table5.length>0)
+            {
             this.UserForm.controls['bankval'].setValue("");
             this.UserForm.controls['accountval'].setValue("");
             if (this.bankacc[0].EnableUserWise == true) {
@@ -228,6 +232,7 @@ export class UserComponent implements OnInit {
             }
             else {
                 this.dvEnableCancel = false;
+            }
             }
 
             this.tempdata = data.Table6;
@@ -329,16 +334,17 @@ export class UserComponent implements OnInit {
     }
 
     backClick() {
-        this.bindUser();
-        this.tableid = true;
         this.formid = false;
+        this.bindUser();
+      //  this.tableid = true;
+      this.UserForm.reset();
         document.getElementById('divSearch').hidden = false;
         document.getElementById('btnExport').hidden = false;
         document.getElementById("btnSave").setAttribute("disabled", "disabled");
         document.getElementById("btnEdit").setAttribute("disabled", "disabled");
         document.getElementById("btnNew").removeAttribute("disabled");
         document.getElementById("btnBack").setAttribute("disabled", "disabled");
-        this.UserForm.reset();
+       
 
     }
 
@@ -392,7 +398,14 @@ export class UserComponent implements OnInit {
     }
     SaveUser() {
 
-
+        if (this.checkbulkuploadlink.length==0)
+        {
+            this.checkbulkuploadlink.push(0);
+        }
+        if (this.chkvideolink.length==0)
+        {
+            this.chkvideolink.push(0);
+        }
 
         let item = JSON.parse(sessionStorage.getItem('User'));
 
@@ -429,7 +442,14 @@ export class UserComponent implements OnInit {
 
 
         let item = JSON.parse(sessionStorage.getItem('User'));
-
+        if (this.checkbulkuploadlink.length==0)
+        {
+            this.checkbulkuploadlink.push(0);
+        }
+        if (this.chkvideolink.length==0)
+        {
+            this.chkvideolink.push(0);
+        }
 
         this.userservice.UpdateUser(JSON.stringify(this.UserForm.value), item.ReferenceId, item.UserId, this.Userid, this.IsViewAll, this.checkbulkuploadlink, this.chkvideolink).subscribe(
             (data) => {
@@ -510,6 +530,7 @@ export class UserComponent implements OnInit {
         const Currentrowid = this.UserForm.value;
         this.Userid = User.UserId;
 
+
         this.editData();
         //document.getElementById("btnSave").removeAttribute("disabled");
         //document.getElementById("btnEdit").setAttribute("disabled", "disabled");
@@ -522,15 +543,20 @@ export class UserComponent implements OnInit {
     }
 
     editData() {
+        this.Preloader=true;
         this.userservice.EditData(this.Userid).subscribe((data) => {
-
+          
+            this.Preloader=false;
             this.userdata = data.Table;
             this.sponsorbankid = data.Table1;
             this.getcatcode = data.Table9;
             this.getmaker = data.Table4;
             this.getAccessRight1 = data.Table5;
             this.getAccessRight2 = data.Table6;
-
+          
+            this.tableid=false;
+            this.formid=true;
+            this.UserForm.controls['Type'].setValue(this.userdata[0].UserType);
             this.UserForm.controls['UserName'].setValue(this.userdata[0].UserName);
             this.UserForm.controls['EmailId'].setValue(this.userdata[0].EmailId);
             this.UserForm.controls['emailsent'].setValue(this.userdata[0].EmailSendTo);
@@ -538,7 +564,16 @@ export class UserComponent implements OnInit {
             this.UserForm.controls['sponsorbankcode'].setValue(this.sponsorbankid[0].SponsorBankCodeId);
             this.UserForm.controls['bankval'].setValue(this.userdata[0].BankValidationUserCount);
             this.UserForm.controls['accountval'].setValue(this.userdata[0].AcValidationUserCount);
+            if (this.userdata[0].UserType == 'u') {
+                this.divaccessright = true;
+            }
+            else {
+                this.divaccessright = false;
+            }
+            if(data.Table9.length>0)
+            {
             this.UserForm.controls['categorycode'].setValue(this.getcatcode[0].CategoryCode);
+            }
             if (this.userdata[0].PresentmentMaker == 1) {
                 this.UserForm.controls['chkPresentMaker'].setValue(true);
             }
@@ -547,7 +582,8 @@ export class UserComponent implements OnInit {
                 this.UserForm.controls['chkPresentChecker'].setValue(true);
 
             }
-
+                if(data.Table5.length>0)
+            {
             if (this.getAccessRight1[0].IsCreate == true) {
                 this.UserForm.controls['chkCreate'].setValue(true);
             }
@@ -564,12 +600,16 @@ export class UserComponent implements OnInit {
                 this.UserForm.controls['chkView'].setValue(false);
                 this.divNachUser = false;
             }
+            }
 
             this.getmaker = data.Table4;
+            if(data.Table4.length>0)
+            {
             if (this.userdata[0].PresentmentChecker == "1") {
                 this.divMaker = true;
                 this.UserForm.controls['maker'].setValue(this.getmaker[0].MakerUserId);
             }
+        }
 
             if (this.userdata[0].IsRefrenceEdit == true) {
                 this.UserForm.controls['chkRefEdit'].setValue(true);
@@ -589,15 +629,10 @@ export class UserComponent implements OnInit {
             else {
                 this.UserForm.controls['chkEnableCancel'].setValue(false);
             }
-            this.UserForm.controls['Type'].setValue(this.userdata[0].UserType);
+           
 
-            if (this.userdata[0].UserType == 'u') {
-                this.divaccessright = true;
-            }
-            else {
-                this.divaccessright = false;
-            }
-            debugger;
+           
+            
             for (var i = 0; i < data.Table6.length; i++) {
                 if (this.getAccessRight2[i].LinkID == 17) {
                     this.UserForm.controls['chkUmrnHistory'].setValue(true);
@@ -743,7 +778,7 @@ export class UserComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            a.download = 'Userlist.csv';/* your file name*/
             a.click();
             return 'success';
         });

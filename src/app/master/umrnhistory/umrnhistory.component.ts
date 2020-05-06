@@ -23,18 +23,40 @@ export class UmrnhistoryComponent implements OnInit {
             //CustomerName: ['', Validators.required],
             //ReferenceNumber: ['', Validators.required]
             searchtext: ['', Validators.required]
+            
         });
 
         this.Preloader = false;
+        var UMRN = ((document.getElementById("txtumrn") as HTMLInputElement).value);
+        var name = ((document.getElementById("txtcustname") as HTMLInputElement).value);
+        var refno = ((document.getElementById("txtrefno") as HTMLInputElement).value);
+       // this.BindGrid();
     }
     isFieldValid(field: string) {
         return !this.SearchData.get(field).valid && this.SearchData.get(field).touched;
     }
 
-    SearchFunction(UMRN, CustomerName, RefrNo) {
+    SearchFunction() {
+      
+        if (this.SearchData.valid) {
+            var tbldiv = <HTMLFormElement>document.getElementById('tbldiv');
+           // tbldiv.style.display = 'none';
+            this.Preloader = true;
+            this.BindGrid();            
+        }
+
+        else {
+            this.validateAllFormFields(this.SearchData);
+        }
         
+    }
+    BindGrid(){
+       
+        var UMRN = ((document.getElementById("txtumrn") as HTMLInputElement).value);
+        var CustomerName = ((document.getElementById("txtcustname") as HTMLInputElement).value);
+        var RefrNo = ((document.getElementById("txtrefno") as HTMLInputElement).value);
         let item = JSON.parse(sessionStorage.getItem('User'));
-        // alert(UMRN + " " + CustomerName + " " + RefrNo + " " + item.UserId);
+       
        
             var jasondata = {
                 "UMRN": UMRN,
@@ -42,20 +64,15 @@ export class UmrnhistoryComponent implements OnInit {
                 "RefrNo": RefrNo,
                 "UserId": item.UserId
         }
-        if (this.SearchData.valid) {
-            this.Preloader = true;
-            this.UMRService.BindGridData(jasondata).subscribe(
-                (data) => {
-                    this.Preloader = false;
-                    this.AllData = data;
-                });
-        }
-
-        else {
-
-            this.validateAllFormFields(this.SearchData);
-        }
-        
+      
+        this.UMRService.BindGridData(jasondata).subscribe(
+            (data) => {
+                this.Preloader = false;
+                var tbldiv = <HTMLFormElement>document.getElementById('tbldiv');
+                tbldiv.style.display = 'block';
+                this.AllData = data;
+                console.log(data)
+            });
     }
 
    

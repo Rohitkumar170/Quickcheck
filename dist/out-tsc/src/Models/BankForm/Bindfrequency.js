@@ -1,0 +1,1 @@
+//# sourceMappingURL=Bindfrequency.js.map

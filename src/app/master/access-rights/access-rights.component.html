@@ -1,30 +1,47 @@
 <div class="main-content" id="maincontent">
     <div class="content">
 
-        <div class="col-md-12 col-sm-6 col-xs-12 contnt-wrapper" id="">
-            <div class="row">
-                <div class="col-sm-6 col-md-6 col-xs-7 ">
-                    <span class="legal">Access Rights Setup</span>
-                </div>
-                <div class="col-md-6 no-padding">
-                    <span id="btnspa">
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                        <input type="button" class=" btn btn-success" id="btnexcel"
-                               value="Save" />
-                    </span>
+
+        <div class="col-md-12 col-sm-6 col-xs-4" >
 
 
-
-
-
-
-
-
-
-                </div>
-
+            <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
+                <span class="legals">Access Right Setup</span>
             </div>
+
+            <div class="rightmenu" *ngIf="showsavebutton">
+                <form FormGroup="">
+                    <div class="toolbar pull-right">
+                        <ul class="toolbar-content">
+
+
+                            <li id="btnNew">
+                               
+                                <i (click)="InsertData(user.value)"class="fa fa-floppy-o" aria-hidden="true" title="Export"></i>
+                                <label>
+                                    Save
+                                </label>
+                            </li>
+
+
+
+                         
+
+
+                        </ul>
+                    </div>
+                  
+                </form>
+            </div>
+
+
+
+
+
+          
+
         </div>
+
         <div id="divform" class=" col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="">
@@ -51,9 +68,12 @@
 
                                                         </label>
                                                         <div class="col-sm-8 col-md-8 col-xs-7 ">
-                                                            <select id="ddlUserType" class="col-sm-12 col-md-12 col-xs-12 no-padding alldropdown">
-                                                                <option>1</option>
-                                                                <option>2</option>
+                                                            <select id="ddlUserType" formControlName="Entityval" (change)="getLinksForUser(user.value)" #user class="col-sm-12 col-md-12 col-xs-12 no-padding alldropdown">
+                                                                <option value="0">Select</option>
+                                                                <option *ngFor="let lang of entitydDetails"
+                                                                        value={{lang.userid}}>
+                                                                    {{lang.username}}
+                                                                </option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -61,89 +81,23 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding ">
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group no-padding " id="dvTable">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 no-padding" *ngIf="showdvCheckbox" >
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group no-padding " id="dvTable" >
                                                 <div class="col-md-12 col-sm-12  boxaccordian">
                                                     <div class="col-md-12 col-sm-12 AccessList">
-                                                        <div class="row" style="margin-top:1%;">
-                                                            <div class="col-md-4 col-sm-4 col-xs-3">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom">
+                                                        <div class="row" style="margin-top:1%;"  >
+                                                            <div class="col-md-4 col-sm-4 col-xs-3" *ngFor="let data of AccessRightDetails" >
+                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom" >
                                                                     <i class="fa fa-user "></i>
                                                                     <label class="col-md-8">
-                                                                        Access Rights
+                                                                        {{data.LinkName}}
                                                                     </label>
-                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" />
+                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" (click)="checkAccessRights(data)" [checked]="data.IsRead" value={{data.LinkID}} id={{data.LinkID}} />
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4 col-sm-4 col-xs-3">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom">
-                                                                    <i class="fa fa-user "></i>
-                                                                    <label class="col-md-8">
-                                                                        Bulk E-Mandate
-                                                                    </label>
-                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 col-sm-4 col-xs-3">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom">
-                                                                    <i class="fa fa-user "></i>
-                                                                    <label class="col-md-8">
-                                                                        Bulk Physical
-                                                                    </label>
-                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" />
-                                                                </div>
-                                                            </div>
+                                                           
                                                         </div>
-                                                        <div class="row" style="margin-top:1%;">
-                                                            <div class="col-md-4 col-sm-4 col-xs-3">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom">
-                                                                    <i class="fa fa-user "></i>
-                                                                    <label class="col-md-8">
-                                                                        Bulk Upload
-                                                                    </label>
-                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 col-sm-4 col-xs-3">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom">
-                                                                    <i class="fa fa-user"></i>
-                                                                    <label class="col-md-8">
-                                                                        Dashboard
-                                                                    </label>
-                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 col-sm-4 col-xs-3">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom">
-                                                                    <i class="fa fa-user"></i>
-                                                                    <label class="col-md-8">
-                                                                        Demo(E-Mandate)
-                                                                    </label>
-                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row" style="margin-top:1%;">
-                                                            <div class="col-md-4 col-sm-4 col-xs-3">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom">
-                                                                    <i class="fa fa-user"></i>
-                                                                    <label class="col-md-8">
-                                                                        Demo(Physical)
-                                                                    </label>
-                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4 col-sm-4 col-xs-3">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 accessborderbottom">
-                                                                    <i class="fa fa-user"></i>
-                                                                    <label class="col-md-8">
-                                                                        Report
-                                                                    </label>
-                                                                    <input type="checkbox" class="col-md-2 chkboxlist pull-right" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                       </div>                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -159,5 +113,33 @@
 
 
         </div>
+   
+
+
+<div class="modal" id="myModal" [style.display]="showModalSuccess ? 'block' : 'none'">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <img src="../../assets/images/saveSuccessImg.png" />
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="hideSuccess()">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>Saved Successfully</p>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hideSuccess()">Close</button>
+            </div>
+
+        </div>
     </div>
+</div>
+
 </div>

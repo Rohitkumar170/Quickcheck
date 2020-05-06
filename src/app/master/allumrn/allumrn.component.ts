@@ -32,6 +32,7 @@ export class AllumrnComponent implements OnInit {
     SelectionStatusOfMutants = [];
     UserId: string = "";
     EntityId: string = "";
+    searchheader:number;
     
     Pageno;
     HeaderArray;
@@ -42,6 +43,10 @@ export class AllumrnComponent implements OnInit {
     umrndata1: GridData;
     Pageno1: number = 1;
     savedata: any;
+    custo1:any;
+    refre1:any;
+    umrn1:any;
+
     constructor(private formBuilder: FormBuilder, private _allumrn: AllumrnService) { }
 
     ngOnInit() {
@@ -81,6 +86,7 @@ export class AllumrnComponent implements OnInit {
         this.UserId = item.UserId;
         this.EntityId = item.ReferenceId;
         this.Preloader = true;
+        this.searchheader=0;
 
 
         this._allumrn.GridBind1(this.EntityId, this.Pageno1).subscribe(
@@ -96,7 +102,7 @@ export class AllumrnComponent implements OnInit {
                 let k = data.Table.length;
           
                
-                if (k < 100) {
+                if (k < 10) {
 
                     this.showdisplay = false;
 
@@ -115,33 +121,72 @@ export class AllumrnComponent implements OnInit {
     }
 
     pageprev() {
-        this.Pageno1 = this.Pageno1 - 1;
+        
+        if(this.searchheader==0)
+        {
+          this.Pageno1 = this.Pageno1 - 1;
         if (this.Pageno1 == 1) {
             this.showdisplay1 = false;
         }
         this.GridBind();
+      }
+      else{
+        this.custo1=((document.getElementById("custo1") as HTMLInputElement).value);
+        this.refre1=((document.getElementById("refre1") as HTMLInputElement).value);
+        this.umrn1=((document.getElementById("umrn1") as HTMLInputElement).value);
+        this.Pageno1 = this.Pageno1 - 1;
+        this.SearchFunction(this.umrn1, this.custo1, this.refre1);
+        if(this.Pageno1 == 1)
+        {
+          this.showdisplay1 = false;
+        }
+
+      }
 
 
     }
 
 
     pagenext() {
-        if (this.Pageno1 >= 1) {
+       
+        //this.GridBind();
+        if(this.searchheader==1)
+        {
+          this.custo1=((document.getElementById("custo1") as HTMLInputElement).value);
+          this.refre1=((document.getElementById("refre1") as HTMLInputElement).value);
+          this.umrn1=((document.getElementById("umrn1") as HTMLInputElement).value);
+          this.Pageno1 = this.Pageno1 + 1;
+          this.SearchFunction(this.umrn1, this.custo1, this.refre1);
+          this.showdisplay1 = true;
+        }
+        else{
+
+          if (this.Pageno1 >= 1) {
             this.Pageno1 = this.Pageno1 + 1;
+            this.GridBind();
+           
         }
         else {
             this.Pageno1 = 1;
+            this.GridBind();
+            
         }
 
         if (this.Pageno1 > 1) {
             this.showdisplay1 = true;
+            this.GridBind();
+            
         }
-       
-        this.GridBind();
+          
+
+        }
+
+
 
     }
      
     onClick(event) {
+        this.Addumrn.reset();
         this.showmodalcreateumrn = true;
 
 
@@ -195,7 +240,7 @@ export class AllumrnComponent implements OnInit {
                
                 this.showmodalcreateumrn = false;
                 this.GridBind();
-                this.Allumrn.reset();
+                this.Addumrn.reset();
                 
             });
 
@@ -217,6 +262,7 @@ export class AllumrnComponent implements OnInit {
         let item = JSON.parse(sessionStorage.getItem('User'));
         this.UserId = item.UserId;
         this.EntityId = item.ReferenceId;
+        this.Preloader = true;
         this._allumrn.GridDataDetails(UMRN, this.EntityId).subscribe(
            (data) => {
                this.Preloader = false;
@@ -291,6 +337,8 @@ export class AllumrnComponent implements OnInit {
     SearchFunction(UMRN, CustomerName, Refere) {
        
         if (this.Allumrn.valid) {
+
+         
           //  alert("valid");
             let item = JSON.parse(sessionStorage.getItem('User'));
             this.UserId = item.UserId;
@@ -313,6 +361,7 @@ export class AllumrnComponent implements OnInit {
                 (data) => {
                     this.Preloader = false;
                     this.umrndata1 = data.Table;
+                    this.searchheader=1;
                     this.Count = data.Table1[0];
                     if (this.Pageno1 == 1) {
                         if (this.Count.IsNxtRequired == 1) {
@@ -327,7 +376,7 @@ export class AllumrnComponent implements OnInit {
                     let k = data.Table.length;
 
 
-                    if (k < 100) {
+                    if (k < 10) {
 
                         this.showdisplay = false;
 
@@ -535,7 +584,7 @@ export class AllumrnComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
+        a.download = 'UMRNStatement.csv';/* your file name*/
         a.click();
         return 'success';
 
@@ -551,7 +600,7 @@ export class AllumrnComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
+        a.download = 'UMRNStatement.csv';/* your file name*/
         a.click();
         return 'success';
 
@@ -572,7 +621,7 @@ export class AllumrnComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            a.download = 'UMRNStatement.csv';/* your file name*/
             a.click();
             return 'success';
         
@@ -598,7 +647,7 @@ export class AllumrnComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
+        a.download = 'AllUMRN.csv';/* your file name*/
         a.click();
         return 'success';
 

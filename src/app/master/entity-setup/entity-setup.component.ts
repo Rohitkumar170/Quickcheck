@@ -3,7 +3,26 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { EntitySetupServiceService } from '../../services/enity_setup/entity-setup-service.service';
 import { BindCountry } from '../../../models/entity_setup/bind-country';
+import { BindState } from '../../../models/entity_setup/bind-state';
+import { BindCity } from '../../../models/entity_setup/bind-city';
 import { BindBank } from '../../../models/entity_setup/bind-bank';
+import { EditDataAny } from '../../../models/entity_setup/edit-data-any';
+import { EditData1 } from '../../../models/entity_setup/edit-data1';
+import { EditData2 } from '../../../models/entity_setup/edit-data2';
+import { EditData3 } from '../../../models/entity_setup/edit-data3';
+import { EditData4 } from '../../../models/entity_setup/edit-data4';
+import { EditData5 } from '../../../models/entity_setup/edit-data5';
+import { EditData6 } from '../../../models/entity_setup/edit-data6';
+import { EditData7 } from '../../../models/entity_setup/edit-data7';
+import { EditData8 } from '../../../models/entity_setup/edit-data8';
+import { EditData9 } from '../../../models/entity_setup/edit-data9';
+import { EditData10 } from '../../../models/entity_setup/edit-data10';
+import { EditData11 } from '../../../models/entity_setup/edit-data11';
+import { EditData12 } from '../../../models/entity_setup/edit-data12';
+import { EditData13 } from '../../../models/entity_setup/edit-data13';
+import { EditData14 } from '../../../models/entity_setup/edit-data14';
+import { SaveResult } from '../../../models/entity_setup/save-result';
+import { AllEditData } from '../../../models/entity_setup/all-edit-data';
 import { EntityBusinessCode } from '../../../models/entity_setup/entity-business-code';
 import { MainGrid } from '../../../models/entity_setup/main-grid';
 import { count } from 'rxjs/operators';
@@ -14,6 +33,26 @@ import { count } from 'rxjs/operators';
     styleUrls: ['./entity-setup.component.css']
 })
 export class EntitySetupComponent implements OnInit {
+    AllEditData : AllEditData;
+    EditDataAny: EditDataAny;
+    EditData1 : EditData1;
+    EditData2 : EditData2;
+    EditData3 : EditData3;
+    EditData4 : EditData4;
+    EditData5 : EditData5;
+    EditData6 : EditData6;
+    EditData7 : EditData7;
+    EditData8 : EditData8;
+    EditData9 : EditData9;
+    EditData10 : EditData10;
+    EditData11 : EditData11;
+    EditData12 : EditData12;
+    EditData13 : EditData13;
+    EditData14 : EditData14;
+    showModalsave: boolean = false;
+    SaveResultData : SaveResult;
+    StateData: BindState;
+    CityData: BindCity
     CountryData: BindCountry;
     BankData: BindBank;
     EntityBusinessCodeData: EntityBusinessCode;
@@ -30,27 +69,65 @@ export class EntitySetupComponent implements OnInit {
     PhysicalTab: boolean = false;
     IsThirdTransactionTab: boolean = false;
     isSelected: boolean = false;
+    liSave: boolean = true;
     IsValidationCountEnableTab: boolean = false;
     RecheckTab: boolean = false;
+    SponsorBankCodeArray = [];
+    SponsorBankCodeArrayData = [];
+    //i = 0;
+    count = 0;
+    liBack: boolean = true;
+    SB_Radio:boolean = true;
+    CA_Radio:boolean = true;
+    CC_Radio:boolean = true;
+    SB_NRE_Radio:boolean = true;
+    SB_NRO_Radio:boolean = true;
+    Other_Radio:boolean = true;
+    Monthly_Radio:boolean = true;
+    Quarterly_Radio:boolean = true;
+    Half_Yearly_Radio:boolean = true;
+    Yearly_Radio:boolean = true;
+    Presented_Radio:boolean = true;
+    FixedAmount_Radio:boolean = true;
+    MaximumAmount_Radio:boolean = true;
+    To_Radio:boolean = true; 
+    UntillCancelled_Radio:boolean = true; 
+    DivSponsorCode : boolean = false;
+    SponsoredBankcode;
+    HeaderArray ;
+    AmountArray;
+    isSelectedCountry : boolean = true;
+    isSelectedState : boolean = true;
+    isSelectedCity : boolean = true;
+    isselectSBN : boolean=true;
+    isSelectEntityBC:boolean=true;
+    liDelete : boolean = true;
+    liEdit: boolean=true;
+    liNew : boolean=false;
+    CheckedDataArray = [];
+    EntityId = "";
 
     constructor(private ESService: EntitySetupServiceService, private formBuilder: FormBuilder) { }
-
+    hide() {
+       
+        this.showModalsave = false;
+    }
     ngOnInit() {
         this.EntitySetupForm = this.formBuilder.group({
             Code: [''],
-            EntityName: [''],
-            AppID: [''],
+            EntityName: ['', Validators.required],
+            AppID: ['', Validators.required],
             MerchantKey: [''],
             Name: [''],
             Email: [''],
             MobileNo: [''],
-            Address: [''],
-            Country: [''],
-            State: [''],
-            City: [''],
+            Address: ['', Validators.required],
+            Country: ['', Validators.required],
+            State: ['', Validators.required],
+            City: ['', Validators.required],
             PinCode: [''],
-            UserName: [''],
-            EntityBCode: [''],
+            UserName: ['', Validators.required],
+            EntityBCode: ['', Validators.required],
             IsEMandate: [''],
             IsOverPrintMandate: [''],
             NetBankingCh: [''],
@@ -78,13 +155,89 @@ export class EntitySetupComponent implements OnInit {
             Cash_Ch: [''],
             Cheque_Ch: [''],
             DemandDraft_Ch: [''],
-            Electronic_Ch: ['']
+            Electronic_Ch: [''],
+            BankValidationAdminCount: [''],
+            BankValidationUserCount: [''],
+            AcValidationAdminCount: [''],
+            AcValidationUserCount: [''],
+            EnableUserWise_Ch: [''],
+            SponsoredBankName: [''],
+            SponsoredBankCode: [''],
+            UtilityCode: [''],
+            IFSC: [''],
+            AccountNumber: [''],
+            FixedAmount_Ch: [''],
+            MaximumAmount_Ch: [''],
+            Monthly_Ch:[''],
+            Quarterly_Ch: [''],
+            Half_Yearly_Ch: [''],
+            Yearly_Ch: [''],
+            Presented_Ch: [''],
+            To_Ch: [''],
+            UntillCancelled_Ch: [''],
+            FileName1: [''],
+            FileName2: [''],
+            FileName3: [''],
+            FileName4: [''],
+            FileName5: [''],
+            FileName6: [''],
+            InstructingMenmerId : [''],
+            Type : [''],
+            DebitType: [''],
+            ToDebit: [''],
+            FrequencyType: [''],
+            Amount : [''],
+            ISEnableCancelUser : [''],
+            CheckerRequire:[''],
+            ValidationByCustomer_Ch : [''],
+            ValidationByCorporate_Ch:[''],
+            OCRCode_Ch: [''],
+            QRCode_Ch: [''],
+            Logo_Ch: [''],
+            PhoneNumber_ch: [''],
+            E_mailID_Ch : [''],
+            ValidateThroughEmail_Ch : [''],
+            Manual_Ch: [''],
+            SMS_Ch:[''],
+            DebitValidateThroughEmail : [''],
+            DebitManual : [''],
+            DebitSMS : [''],
+            AadhaarValidateThroughEmail : [''],
+            AadhaarManual : [''],
+            AadhaarSMS :[''],
+            Accountvalidation_Ch: [''],
+            Presentment_Ch: [''],
+            AmountBank: [''],
+            AmountOfBank: ['']
+
         });
         this.Preloader = false;
         this.BindCountryAndBank();
         this.BingGrid();
     }
 
+    isNumber(evt): boolean {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+
+        if (charCode > 31 && (charCode != 46 && (charCode < 48 || charCode > 57))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    chkEmail() {
+        let email = ((document.getElementById("txtEmailId") as HTMLInputElement).value);
+        let regex = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
+        if (regex.test(email) != true) {
+            this.EntitySetupForm.controls['Email'].setValue("");
+            document.getElementById("txtEmailId").classList.add('validate');
+            document.getElementById("txtEmailId").setAttribute("placeholder", "Invalid-Email");
+        }
+        else {
+            document.getElementById("txtEmailId").classList.remove('validate');
+        }
+    }
     BindCountryAndBank() {
         this.ESService.BindCountryAndBank().subscribe(
             (data) => {
@@ -94,7 +247,19 @@ export class EntitySetupComponent implements OnInit {
             });
     }
     CountryFunction(CountryId) {
-
+        this.ESService.BindState(CountryId).subscribe(
+            (data) => {
+                this.StateData = data.Table;
+                this.isSelectedState = true;
+            });
+            
+    }
+    StateFun(StateId){
+        this.ESService.BindCity(StateId).subscribe(
+            (data) => {
+                this.CityData = data.Table;
+                this.isSelectedCity = true;
+            });
     }
     BingGrid() {
         this.Preloader = true;
@@ -102,15 +267,25 @@ export class EntitySetupComponent implements OnInit {
             (data) => {
                 this.Preloader = false;
                 this.MainGridData = data.Table;
-            });
+            });           
     }
     NewFun() {
+        this.EntityId = "N";
         this.MainGideDiv = false;
         this.EntityFormDiv = true;
+        this.liBack = false;
+        this.liSave = false;
+        this.liEdit = true;
+        this.liNew = true;
+        this.liDelete = true;
     }
     BackFun() {
         this.MainGideDiv = true;
         this.EntityFormDiv = false;
+        this.liBack = true;
+        this.liSave = true;
+        this.liEdit = true;
+        this.liNew = false;
     }
     get AllFields() { return this.EntitySetupForm.controls; }
 
@@ -147,10 +322,14 @@ export class EntitySetupComponent implements OnInit {
         }
     }
     ActivePaymentModeFun() {
+        //alert(this.AllFields.ActivePaymentModeCh.value);
         if (this.AllFields.ActivePaymentModeCh.value == true) {
+           // alert("true");
             this.ActivePaymentModeTab = true;
+           
         }
         else {
+           // alert("false");
             this.ActivePaymentModeTab = false;
         }
     }
@@ -187,7 +366,7 @@ export class EntitySetupComponent implements OnInit {
         }
     }
     RecheckthepresentmentfileFun() {
-        if (this.AllFields.IsValidationCountEnableCh.value == true) {
+        if (this.AllFields.recheckthepresentmentfileCh.value == true) {
             this.RecheckTab = true;
         }
         else {
@@ -195,10 +374,342 @@ export class EntitySetupComponent implements OnInit {
         }
     }
     SaveFun() {
+     if (this.EntitySetupForm.valid) { 
         const data = this.EntitySetupForm.value;
-        this.ESService.SaveData(data).subscribe(
+        this.ESService.SaveData(data,this.EntityId).subscribe(
             (data) => {
-                console.log(data);
+                this.SaveResultData = data.Table1;
+                if(this.SaveResultData[0].Result==-1){
+                       alert("User already Exist");
+                }
+                else if(this.SaveResultData[0].Result == '' || this.SaveResultData[0].Result==null){                
+                    alert("error");                
+                }
+                else {
+                    this.showModalsave = true;
+                    this.BingGrid();
+                    this.MainGideDiv = true;
+                    this.EntityFormDiv = false;
+                }            
             });
+        }
+        else{
+            this.validateAllFormFields(this.EntitySetupForm);
+        }
+       
+    }
+
+    validateAllFormFields(formGroup: FormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+            const control = formGroup.get(field);
+            if (control instanceof FormControl) {
+                control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {
+                this.validateAllFormFields(control);
+            }
+        });
+    }
+    displayFieldCss(field: string) {
+        return {
+            'validate': this.isFieldValid(field),
+        };
+    }
+    isFieldValid(field: string) {
+        return !this.EntitySetupForm.get(field).valid && this.EntitySetupForm.get(field).touched;
+    }
+
+    SB_ChFun(){
+        if (this.AllFields.SB_Ch.value == true) {
+            this.SB_Radio = true;
+        }
+        else {
+            this.SB_Radio = false;
+        }
+    }
+    CA_ChFun(){
+        if (this.AllFields.CA_Ch.value == true) {
+            this.CA_Radio = true;
+        }
+        else {
+            this.CA_Radio = false;
+        }
+    }
+    CC_ChFun(){
+        if (this.AllFields.CC_Ch.value == true) {
+            this.CC_Radio = true;
+        }
+        else {
+            this.CC_Radio = false;
+        }
+    }
+    SB_NRE_ChFun(){
+        if (this.AllFields.SB_NRE_Ch.value == true) {
+            this.SB_NRE_Radio = true;
+        }
+        else {
+            this.SB_NRE_Radio = false;
+        }
+    }
+    SB_NRO_ChFun(){
+        if (this.AllFields.SB_NRO_Ch.value == true) {
+            this.SB_NRO_Radio = true;
+        }
+        else {
+            this.SB_NRO_Radio = false;
+        } 
+    }
+    Other_ChFun(){
+        if (this.AllFields.Other_Ch.value == true) {
+            this.Other_Radio = true;
+        }
+        else {
+            this.Other_Radio = false;
+        } 
+    }
+    Monthly_ChFun(){
+        if (this.AllFields.Monthly_Ch.value == true) {
+            this.Monthly_Radio = true;
+        }
+        else {
+            this.Monthly_Radio = false;
+        } 
+    }
+    Quarterly_ChFun(){
+        if (this.AllFields.Quarterly_Ch.value == true) {
+            this.Quarterly_Radio = true;
+        }
+        else {
+            this.Quarterly_Radio = false;
+        }
+    }
+    Half_Yearly_ChFun(){
+        if (this.AllFields.Half_Yearly_Ch.value == true) {
+            this.Half_Yearly_Radio = true;
+        }
+        else {
+            this.Half_Yearly_Radio = false;
+        }
+    }
+    Yearly_ChFun(){
+        if (this.AllFields.Yearly_Ch.value == true) {
+            this.Yearly_Radio = true;
+        }
+        else {
+            this.Yearly_Radio = false;
+        }
+    }
+    Presented_ChFun(){
+        if (this.AllFields.Presented_Ch.value == true) {
+            this.Presented_Radio = true;
+        }
+        else {
+            this.Presented_Radio = false;
+        }
+    }
+    FixedAmount_ChFun(){
+        if (this.AllFields.FixedAmount_Ch.value == true) {
+            this.FixedAmount_Radio = true;
+        }
+        else {
+            this.FixedAmount_Radio = false;
+        }
+    }
+    MaximumAmount_ChFun(){
+        if (this.AllFields.MaximumAmount_Ch.value == true) {
+            this.MaximumAmount_Radio = true;
+        }
+        else {
+            this.MaximumAmount_Radio = false;
+        } 
+    }
+    To_ChFun(){
+        if (this.AllFields.To_Ch.value == true) {
+            this.To_Radio = true;
+        }
+        else {
+            this.To_Radio = false;
+        }   
+    }
+    UntillCancelled_ChFun(){
+        if (this.AllFields.UntillCancelled_Ch.value == true) {
+            this.UntillCancelled_Radio = true;
+        }
+        else {
+            this.UntillCancelled_Radio = false;
+        } 
+    }
+
+    SponCodBankAddFun() {
+        alert("Add");
+        this.DivSponsorCode=true;
+        //this.i += 1;
+        //this.SponsorBankCodeArray.push(this.i);
+        this.SponsorBankCodeArrayData.push( this.AllFields.SponsoredBankCode.value);
+        //this.SponsoredBankcode = this.AllFields.SponsoredBankCode.value;
+        this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankName.value,this.AllFields.SponsoredBankCode.value
+           ,this.AllFields.UtilityCode.value,this.AllFields.IFSC.value,this.AllFields.AccountNumber.value ); 
+        //this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankCode.value);  
+        //this.SponsorBankCodeArray.push(this.AllFields.UtilityCode.value); 
+        //this.SponsorBankCodeArray.push(this.AllFields.IFSC.value);
+        //this.SponsorBankCodeArray.push(this.AllFields.AccountNumber.value);
+        console.log(this.SponsorBankCodeArray);
+    }
+    ConvertToCSV(objArray) {
+        this.HeaderArray = {
+            SrNo: "Sr No.", Code: "Code", Name: "Name", SponsorBankName: "Sponsor Bank Name"    
+        }
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+        var row = "";
+
+        for (var index in objArray[0]) {
+            //Now convert each value to string and comma-separated
+            row += index + ',';
+        }
+        row = row.slice(0, -1);
+        //append Label row with line break
+        str += row + '\r\n';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+
+            if (i == 0) {
+                for (var index in this.HeaderArray) {
+                    if (line != '') line += ','
+
+                    line += this.HeaderArray[index];
+                }
+                str += line + '\r\n';
+                var line = '';
+            }           
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+    download() {
+            var csvData = this.ConvertToCSV(JSON.stringify(this.MainGridData));
+            var a = document.createElement("a");
+            a.setAttribute('style', 'display:none;');
+            document.body.appendChild(a);
+            var blob = new Blob([csvData], { type: 'text/csv' });
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'User_Results.csv';/* your file name*/
+            a.click();
+            return 'success';
+    }
+    AddAmountArray(){
+        alert("Add");
+        this.AmountArray.push(this.AllFields.AmountBank.value);
+        this.AmountArray.push(this.AllFields.AmountOfBank.value); 
+        console.log(this.AmountArray);
+    }
+    doubleClick(data: any) {        
+       // alert(data.EntityId);
+       this.EntityId = "";
+       this.EntityId = data.EntityId;
+        this.ESService.EditFun(data.EntityId).subscribe(
+            (data) => {
+                this.EditData1 = data.Table;
+                this.EditData2 = data.Table1;
+                this.EditData3 = data.Table2;
+                this.EditData4 = data.Table3;
+                this.EditDataAny = data.Table4;
+                this.EditData5 = data.Table5;
+                this.EditData6 = data.Table6;
+                this.EditData7 = data.Table7;
+                this.EditData8 = data.Table8;
+                this.EditData9 = data.Table9;
+                this.EditData10 = data.Table10;
+                this.EditData11 = data.Table11;
+                this.EditData12 = data.Table12;
+                this.EditData13 = data.Table13;
+                this.EditData14 = data.Table14;
+                console.log(data);
+                console.log(this.EditData14);
+                console.log(this.EditDataAny);
+                console.log(this.EditData5);
+                console.log(this.AllEditData);
+              
+                this.EntitySetupForm.controls['Address'].setValue(this.EditData3[0].Address);
+                this.EntitySetupForm.controls['Email'].setValue(this.EditData3[0].Email);
+                this.EntitySetupForm.controls['MobileNo'].setValue(this.EditData3[0].Mobile);
+                this.EntitySetupForm.controls['PinCode'].setValue(this.EditData3[0].PinCode);
+                this.EntitySetupForm.controls['City'].setValue(this.EditData3[0].CityId);
+                this.EntitySetupForm.controls['Country'].setValue(this.EditData3[0].CountryId);
+                this.EntitySetupForm.controls['State'].setValue(this.EditData3[0].StateId);
+                this.EntitySetupForm.controls['UserName'].setValue(this.EditData4[0].UserName);
+
+                this.EntitySetupForm.controls['Code'].setValue(this.EditData1[0].Code);
+                this.EntitySetupForm.controls['AppID'].setValue(this.EditData1[0].AppId);
+                this.EntitySetupForm.controls['MerchantKey'].setValue(this.EditData1[0].EnitityMarchantKey);
+                this.EntitySetupForm.controls['EntityName'].setValue(this.EditData1[0].Name);
+                this.EntitySetupForm.controls['Name'].setValue(this.EditData1[0].ContactPerson);
+
+                this.MainGideDiv = false;
+                this.EntityFormDiv = true;
+                this.liBack = false;
+                this.liSave = false;
+                this.liEdit = true;
+                this.liNew = true;
+                this.liDelete = true;
+
+            });
+           
+             
+           
+    }
+    AfterEditFillForm(){
+       // alert(ad);
+        //this.EntitySetupForm.controls['Address'].setValue(this.AllEditData[0].Address);
+    }
+    CheckBoxFun(event,data){
+        if (event.target.checked) {
+            this.count = this.count+1;
+            this.EntityId = data.EntityId;
+            this.CheckedDataArray.push(data.EntityId);
+        }
+        else {
+            this.count = this.count-1;
+            this.CheckedDataArray.pop();
+        }
+        if(this.count == 1){
+          this.liEdit = false;
+          this.liDelete = false;
+        }
+        else if(this.count > 0 && this.count !=1 ){
+            this.liEdit = true;
+            this.liDelete = false;
+        } 
+        else{
+            this.liDelete = true;
+           this.liEdit = true;
+        }
+    }
+    DeleteFun(){
+        var EntityArray ="";
+        
+       for(let i=0;i<this.CheckedDataArray.length; i++) {
+        EntityArray +=  this.CheckedDataArray[i];
+        EntityArray += ",";
+       }
+       var jasondata = {
+        "Code": EntityArray     
+        }
+       alert(EntityArray);
+
+
+        this.ESService.DeleteFun(this.EntityId, jasondata).subscribe(
+            (data) => {
+            console.log(data);
+            });
+            alert("Delete Successfully");
+            this.BingGrid();
+            this.CheckedDataArray = [];
     }
 }

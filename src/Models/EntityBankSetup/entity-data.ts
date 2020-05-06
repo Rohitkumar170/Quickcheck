@@ -11,11 +11,14 @@ export class EntityData {
     ddlday: number;
     ddlsequence: number;
     ddldate: number;
-    txtdatepicker: Time;
-    txtdatepicker1: Time;
-    txtdatepicker2: Date;
-    txtdatepicker3: Date;
-    txtdatepicker4: Time;
-    txtdatepicker5: Time;
+    txtdatepicker: string;
+    txtdatepicker1: string;
+    txtdatepicker2: string;
+    txtdatepicker3: string;
+    txtdatepicker4: string;
+    txtdatepicker5: string;
+    txttotalcount: number;
+    presentmenttime: string;
+    
 
 }

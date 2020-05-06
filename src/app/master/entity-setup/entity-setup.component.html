@@ -11,26 +11,32 @@
                         <ul class="toolbar-content">
 
 
-                            <li (click)="NewFun()">
-                                <i class="fa fa-file-text" aria-hidden="true" title="New"></i>
+                            <li (click)="NewFun()" [attr.disabled]="liNew ? '' : null">
+                                <i class="fa fa-file-text" aria-hidden="true" title="New" ></i>
                                 <label>
                                     New
                                 </label>
                             </li>
-                            <li>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
+                            <li  [attr.disabled]="liEdit ? '' : null">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit" ></i>
                                 <label>
                                     Edit
                                 </label>
                             </li>
-                            <li (click)="SaveFun()">
+                            <li (click)="SaveFun()" [attr.disabled]="liSave ? '' : null">
                                 <i class="fa fa-floppy-o" aria-hidden="true" title="Save"></i>
                                 <label>
                                     Save
                                 </label>
                             </li>
+                            <li (click)="DeleteFun()" [attr.disabled]="liDelete ? '' : null" >
+                                <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
+                                <label>
+                                    Delete
+                                </label>
+                            </li>
 
-                            <li (click)="BackFun()">
+                            <li (click)="BackFun()" [attr.disabled]="liBack ? '' : null" >
                                 <i class="fa fa-reply" aria-hidden="true" title="Back"></i>
                                 <label>
                                     Back
@@ -46,7 +52,7 @@
                     <div class="row no-padding" style="height: 23px;">
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <ul class="toolbar-content">
-                                <li>
+                                <li (click)="download()">
                                     <i class="fa fa-file-text" aria-hidden="true" title="Export TO Excel"></i>
                                     <label>
                                         Export TO Excel
@@ -75,8 +81,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let Data of MainGridData">
-                            <td style="width:90px;"><input name="all" type="checkbox" [checked]="isSelected"></td>
+                        <tr *ngFor="let Data of MainGridData" (dblclick)="doubleClick(Data)">
+                            <td style="width:90px;"><input name="all" type="checkbox" [checked]="isSelected" (click)="CheckBoxFun($event,Data)"></td>
                             <td style="width:150px;">{{Data.Srno}}</td>
                             <td style="width:150px;">{{Data.Code}}</td>
                             <td style="width:150px;">{{Data.Name}}</td>
@@ -128,7 +134,7 @@
                                                             </label>
                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
                                                                 <input type="text" class="col-sm-12 col-ms-12 col-xs-12"
-                                                                       placeholder="Required" formControlName="EntityName" />
+                                                                       placeholder="Required" formControlName="EntityName" [ngClass]="displayFieldCss('EntityName')"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -136,7 +142,7 @@
                                                                 App ID
                                                             </label>
                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
-                                                                <input type="text" maxlength="6" class="col-sm-12 col-md-12 col-xs-12" formControlName="AppID" />
+                                                                <input type="text" maxlength="6" class="col-sm-12 col-md-12 col-xs-12" formControlName="AppID"   [ngClass]="displayFieldCss('AppID')"   (keypress)="isNumber($event)"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -172,7 +178,7 @@
                                                             </label>
                                                             <div id="Div3" class="col-md-7 col-sm-12 col-xs-8 no-padding displayinlineblock">
                                                                 <div class="logo-img">
-                                                                    <img src="../../assets/images/default_logo.png" alt="" id="LogoImg" width="100%" height="100%" />
+                                                                    <img src="../../ClientApp/assets/images/default_logo.png" alt="" id="LogoImg" width="100%" height="100%" />
                                                                 </div>
                                                                 <div class="" id="image-upload">
                                                                     <label for="FileUpload">
@@ -205,7 +211,7 @@
                                                                 E-mail
                                                             </label>
                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
-                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Email" />
+                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Email" id="txtEmailId" (change)="chkEmail()"/>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
@@ -213,7 +219,7 @@
                                                                 Mobile No
                                                             </label>
                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
-                                                                <input type="text" maxlength="10" class="col-sm-12 col-md-12 col-xs-12" formControlName="MobileNo" />
+                                                                <input type="text" maxlength="10" class="col-sm-12 col-md-12 col-xs-12" formControlName="MobileNo" (keypress)="isNumber($event)"/>
                                                             </div>
                                                         </div>
 
@@ -232,7 +238,7 @@
                                                                             Address
                                                                         </label>
                                                                         <div class="col-sm-8 col-md-8 col-xs-7 no-padding displayinlineblock">
-                                                                            <textarea id="txtAddr1" cols="20" rows="2" class="col-sm-12 col-md-12 col-xs-12" formControlName="Address"></textarea>
+                                                                            <textarea id="txtAddr1" cols="20" rows="2" class="col-sm-12 col-md-12 col-xs-12" formControlName="Address" [ngClass]="displayFieldCss('Address')" ></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
@@ -241,8 +247,8 @@
                                                                         </label>
                                                                         <div class="col-sm-8 col-md-8 col-xs-7 no-padding displayinlineblock">
                                                                             <!--<input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />-->
-                                                                            <select id="" class="alldropdown" #Country (change)="CountryFunction(Country.value)" formControlName="Country">
-                                                                                <option value="0">Select Country</option>
+                                                                            <select id="" class="alldropdown" #Country (change)="CountryFunction(Country.value)" formControlName="Country" [ngClass]="displayFieldCss('Country')">
+                                                                                <option value="" [selected]="isSelectedCountry">Select Country</option>
                                                                                 <option *ngFor="let data of CountryData"
                                                                                         value={{data.CountryId}}>
                                                                                     {{data.CountryName}}
@@ -259,9 +265,12 @@
                                                                         </label>
                                                                         <div class="col-sm-8 col-md-8 col-xs-7 no-padding displayinlineblock">
                                                                             <!--<input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />-->
-                                                                            <select id="" class="alldropdown" formControlName="State">
-                                                                                <option value="volvo">Bank 1</option>
-                                                                                <option value="saab">Bank 2</option>
+                                                                            <select id="" class="alldropdown" #StateId formControlName="State" (change)="StateFun(StateId.value)" [ngClass]="displayFieldCss('State')">
+                                                                                <option value="" [selected]="isSelectedState">Select State</option>
+                                                                                <option *ngFor="let data of StateData"
+                                                                                        value={{data.StateId}}>
+                                                                                    {{data.StateName}}
+                                                                                </option>
 
                                                                             </select>
                                                                         </div>
@@ -272,9 +281,12 @@
                                                                         </label>
                                                                         <div class="col-sm-8 col-md-8 col-xs-7 no-padding displayinlineblock">
                                                                             <!--<input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />-->
-                                                                            <select id="" class="alldropdown" formControlName="City">
-                                                                                <option value="volvo">Bank 1</option>
-                                                                                <option value="saab">Bank 2</option>
+                                                                            <select id="" class="alldropdown" formControlName="City" [ngClass]="displayFieldCss('City')">
+                                                                                <option value="" [selected]="isSelectedCity">Select City</option>
+                                                                                <option *ngFor="let data of CityData"
+                                                                                        value={{data.CityId}}>
+                                                                                    {{data.CityName}}
+                                                                                </option>
 
                                                                             </select>
                                                                         </div>
@@ -321,8 +333,8 @@
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
                                                                     <!--<input type="text" maxlength="50" class="col-sm-12 col-md-12 col-xs-12 no-padding" />-->
-                                                                    <select id="" class="alldropdown">
-                                                                        <option value="0">select Bank Name</option>
+                                                                    <select id="" class="alldropdown" formControlName="SponsoredBankName">
+                                                                        <option value="0" [selected]="isselectSBN">select Bank Name</option>
                                                                         <option *ngFor="let data of BankData"
                                                                                 value={{data.bankid}}>
                                                                             {{data.Bank}}
@@ -338,7 +350,7 @@
                                                                     Sponsored Bank Code
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="SponsoredBankCode"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -348,7 +360,7 @@
                                                                     Utility Code
                                                                 </label>
                                                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding displayinlineblock">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="UtilityCode"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -360,7 +372,7 @@
                                                                     IFSC
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="IFSC" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -370,7 +382,7 @@
                                                                     Account Number
                                                                 </label>
                                                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding displayinlineblock">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="AccountNumber" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -412,7 +424,7 @@
                                                             <div class="form-group col-md-3 no-padding pull-right">
                                                                 <div class="AddbtnDimensionDetail col-md-10 pull-right ">
                                                                     <input type="button" class=" pull-right AddbtnCSS col-md-12 btn btn-success"
-                                                                           value="Add" style="font-size: 12px; height: 24px;">
+                                                                           value="Add" style="font-size: 12px; height: 24px;"   (click)="SponCodBankAddFun()">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -420,29 +432,34 @@
                                                     <div id="Div2" class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                         <table id="TableSponsorBankCode" class="DimensionTable table table-striped table-hover">
                                                             <tbody>
-                                                                <tr>
-                                                                    <td class="CCtexTextareaHighlight"></td>
+                                                                <!--<tr>
+        <td class="CCtexTextareaHighlight"></td>
+
+    </tr>-->
+                                                                <tr *ngFor="let Data of SponsorBankCodeArray">
                                                                     
+                                                                    <td style="width:1px;">{{Data}}</td>
                                                                 </tr>
+                                                               
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding" *ngIf="DivSponsorCode">
                                                     <div id="DivSponsorBankCodeFiles">
-                                                        <!--<div class="form-group">
+                                                        <div class="form-group" *ngFor="let data of SponsorBankCodeArrayData">
                                                         <label class="col-sm-1 col-md-1 col-xs-4 control-label no-padding" for="form-field-1">
-                                                            Sponsor Code
+                                                            <span [innerHTML]="data"> </span>
                                                         </label>
                                                         <div class="col-sm-11 col-md-11 col-xs-8 no-padding spDiv">
-                                                            <input type="text" id="Text1" class="" placeholder="File Name 1" />
-                                                            <input type="text" id="Text2" class="" placeholder="File Name 2" />
-                                                            <input type="text" id="Text3" class="" placeholder="File Name 3" />
-                                                            <input type="text" id="Text4" class="" placeholder="File Name 4" />
-                                                            <input type="text" id="Text5" class="" placeholder="File Name 5" />
-                                                            <input type="text" id="Text6" class="" placeholder="File Name 6" />
+                                                            <input type="text" id="Text1" class="" placeholder="File Name 1" formControlName="FileName1"/>
+                                                            <input type="text" id="Text2" class="" placeholder="File Name 2" formControlName="FileName2"/>
+                                                            <input type="text" id="Text3" class="" placeholder="File Name 3" formControlName="FileName3"/>
+                                                            <input type="text" id="Text4" class="" placeholder="File Name 4" formControlName="FileName4"/>
+                                                            <input type="text" id="Text5" class="" placeholder="File Name 5" formControlName="FileName5"/>
+                                                            <input type="text" id="Text6" class="" placeholder="File Name 6" formControlName="FileName6"/>
                                                         </div>
-                                                    </div>-->
+                                                    </div>
                                                     </div>
                                                 </div>
 
@@ -457,50 +474,50 @@
                                                                     <div class="col-sm-7 col-md-12 col-xs-8">
                                                                         <div class="row">
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-7 no-padding">
-                                                                                <input name="rdoNomGender" disabled="disabled" id="rdsb" value="sb" type="radio" />
+                                                                                <input name=""  [attr.disabled]="SB_Radio ? '' : null" value="sb" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint"
-                                                                                           value="checkbox" type="checkbox" formControlName="SB_Ch" />
+                                                                                           value="checkbox" type="checkbox" formControlName="SB_Ch" (click)="SB_ChFun()" />
                                                                                     <span style="vertical-align: top">SB</span>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-5 no-padding">
-                                                                                <input name="rdoNomGender" disabled="disabled" id="rdca" value="ca" type="radio" />
+                                                                                <input name=""  [attr.disabled]="CA_Radio ? '' : null" value="ca" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox1"
-                                                                                           value="checkbox" type="checkbox" formControlName="CA_Ch" />
+                                                                                           value="checkbox" type="checkbox" formControlName="CA_Ch" (click)="CA_ChFun()"/>
                                                                                     <span style="vertical-align: top">CA</span>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-7 no-padding">
-                                                                                <input name="rdoNomGender" disabled="disabled" id="rdcc" value="cc" type="radio" />
+                                                                                <input name=""  [attr.disabled]="CC_Radio ? '' : null" value="cc" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox2"
-                                                                                           value="checkbox" type="checkbox" formControlName="CC_Ch" />
+                                                                                           value="checkbox" type="checkbox" formControlName="CC_Ch"  (click)="CC_ChFun()"/>
                                                                                     <span style="vertical-align: top">CC</span>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-5 no-padding">
-                                                                                <input name="rdoNomGender" disabled="disabled" id="rdnbre" value="re" type="radio" />
+                                                                                <input name=""  [attr.disabled]="SB_NRE_Radio ? '' : null" value="re" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox3"
-                                                                                           value="checkbox" type="checkbox" formControlName="SB_NRE_Ch" />
+                                                                                           value="checkbox" type="checkbox" formControlName="SB_NRE_Ch" (click)="SB_NRE_ChFun()"/>
                                                                                     <span style="vertical-align: top">SB-NRE</span>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-7 no-padding">
-                                                                                <input name="rdoNomGender" disabled="disabled" id="rdsbnrd" value="rd" type="radio" />
+                                                                                <input name=""  [attr.disabled]="SB_NRO_Radio ? '' : null" value="rd" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox5"
-                                                                                           value="checkbox" type="checkbox" formControlName="SB_NRO_Ch" />
+                                                                                           value="checkbox" type="checkbox" formControlName="SB_NRO_Ch" (click)="SB_NRO_ChFun()"/>
                                                                                     <span style="vertical-align: top">SB-NRO</span>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="lblradiobtnss col-md-6 col-sm-6 col-xs-5 no-padding">
-                                                                                <input name="rdoNomGender" disabled="disabled" id="rdother" value="ot" type="radio" />
+                                                                                <input name=""  [attr.disabled]="Other_Radio ? '' : null"  value="ot" type="radio" formControlName="ToDebit"/>
                                                                                 <label class="no-padding">
                                                                                     <input class="entityCheck" name="overprint" id="Checkbox6"
-                                                                                           value="checkbox" type="checkbox" formControlName="Other_Ch" />
+                                                                                           value="checkbox" type="checkbox" formControlName="Other_Ch" (click)="Other_ChFun()"/>
                                                                                     <span style="vertical-align: top">Other</span>
                                                                                 </label>
                                                                             </div>
@@ -517,42 +534,42 @@
                                                                 <div id="frequency" class="col-sm-8 col-md-7 col-xs-8  radio displayinlineblock">
                                                                     <div class="row">
                                                                         <div class="lblradiobtnss col-md-7 col-sm-6 col-xs-7 no-padding ">
-                                                                            <input name="rdoNomFrequency" disabled="disabled" id="rdmonthly" value="m" type="radio" />
+                                                                            <input name=""  [attr.disabled]="Monthly_Radio ? '' : null" value="m" type="radio" formControlName="FrequencyType"/>
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox7"
-                                                                                       value="checkbox" type="checkbox" />
+                                                                                       value="checkbox" type="checkbox" formControlName="Monthly_Ch" (click)="Monthly_ChFun()"/>
                                                                                 <span style="vertical-align: top">Monthly</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="lblradiobtnss col-md-5 col-sm-6 col-xs-5 no-padding">
-                                                                            <input name="rdoNomFrequency" disabled="disabled" id="rdquaterly" value="q" type="radio" />
+                                                                            <input name=""  [attr.disabled]="Quarterly_Radio ? '' : null" value="q" type="radio" formControlName="FrequencyType"/>
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox8"
-                                                                                       value="checkbox" type="checkbox" />
+                                                                                       value="checkbox" type="checkbox" formControlName="Quarterly_Ch" (click)="Quarterly_ChFun()"/>
                                                                                 <span style="vertical-align: top">Quarterly</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="lblradiobtnss col-md-7 col-sm-6 col-xs-7 no-padding" style="padding-right: 0;">
-                                                                            <input name="rdoNomFrequency" disabled="disabled" id="rdhalfyrly" value="h" type="radio" />
+                                                                            <input name=""  [attr.disabled]="Half_Yearly_Radio ? '' : null" value="h" type="radio" formControlName="FrequencyType" />
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox9"
-                                                                                       value="checkbox" type="checkbox" />
+                                                                                       value="checkbox" type="checkbox" formControlName="Half_Yearly_Ch" (click)="Half_Yearly_ChFun()"/>
                                                                                 <span style="vertical-align: top">Half-Yearly</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="lblradiobtnss col-md-5 col-sm-6 col-xs-5 no-padding">
-                                                                            <input name="rdoNomFrequency" disabled="disabled" id="rdyearly" value="y" type="radio" />
+                                                                            <input name=""  [attr.disabled]="Yearly_Radio ? '' : null" value="y" type="radio" formControlName="FrequencyType"/>
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox10"
-                                                                                       value="checkbox" type="checkbox" />
+                                                                                       value="checkbox" type="checkbox" formControlName="Yearly_Ch" (click)="Yearly_ChFun()"/>
                                                                                 <span style="vertical-align: top">Yearly</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="lblradiobtnss col-md-12 col-sm-12 col-xs-12 no-padding">
-                                                                            <input name="rdoNomFrequency" disabled="disabled" id="Radio3" value="a" type="radio" />
+                                                                            <input name=""  [attr.disabled]="Presented_Radio ? '' : null" value="a" type="radio" formControlName="FrequencyType"/>
                                                                             <label class="no-padding">
                                                                                 <input class="entityCheck" name="overprint" id="Checkbox11"
-                                                                                       value="checkbox" type="checkbox" />
+                                                                                       value="checkbox" type="checkbox" formControlName="Presented_Ch" (click)="Presented_ChFun()"/>
                                                                                 <span style="vertical-align: top">As &amp; When Presented</span>
                                                                             </label>
                                                                         </div>
@@ -567,19 +584,19 @@
                                                                 </label>
                                                                 <div id="debittype" class="col-sm-8 col-md-7 col-xs-8  radio no-padding-right displayinlineblock" style="margin: 0;">
                                                                     <div class="lblradiobtnss col-md-12 col-sm-12 col-xs-12">
-                                                                        <input name="rdoNomDebit" disabled="disabled" id="rdfxdamt" value="f" type="radio" />
+                                                                        <input name=""  [attr.disabled]="FixedAmount_Radio ? '' : null" value="f" type="radio" formControlName="DebitType"/>
                                                                         <label class="no-padding">
-                                                                            <input class="entityCheck" name="overprint" id="Checkbox12"
-                                                                                   value="checkbox" type="checkbox" />
+                                                                            <input class="entityCheck" name="overprint" id=""
+                                                                                   value="checkbox" type="checkbox" formControlName="FixedAmount_Ch" (click)="FixedAmount_ChFun()" />
                                                                             <span style="vertical-align: top">Fixed Amount</span>
                                                                         </label>
                                                                     </div>
                                                                     <div class="lblradiobtnss col-md-12 col-sm-12 col-xs-12" style="/* text-align: right;
                                                                     */">
-                                                                        <input name="rdoNomDebit" disabled="disabled" id="rdmaxamt" value="m" type="radio" />
+                                                                        <input name=""  [attr.disabled]="MaximumAmount_Radio ? '' : null"  value="m" type="radio" formControlName="DebitType"/>
                                                                         <label class="no-padding">
-                                                                            <input class="entityCheck" name="overprint" id="Checkbox13"
-                                                                                   value="checkbox" type="checkbox" />
+                                                                            <input class="entityCheck" name="overprint" id=""
+                                                                                   value="checkbox" type="checkbox" formControlName="MaximumAmount_Ch" (click)="MaximumAmount_ChFun()"/>
                                                                             <span style="vertical-align: top">Maximum Amount</span>
                                                                         </label>
                                                                     </div>
@@ -596,18 +613,18 @@
                                                             </label>
                                                             <div id="DivradioPeriod" class="col-sm-6 col-md-7 col-xs-5 no-padding radio displayinlineblock">
                                                                 <div class="lblradiobtnss col-md-12 col-sm-12 col-xs-12">
-                                                                    <input name="rdoPeriod" disabled="disabled" id="Radio1" value="t" type="radio" />
+                                                                    <input name=""  [attr.disabled]="To_Radio ? '' : null"  value="t" type="radio" formControlName="Type"/>
                                                                     <label class="no-padding">
-                                                                        <input class="entityCheck" name="overprint" id="Checkbox14"
-                                                                               value="checkbox" type="checkbox" />
+                                                                        <input class="entityCheck" name="overprint" id=""
+                                                                               value="checkbox" type="checkbox" formControlName="To_Ch" (click)="To_ChFun()"/>
                                                                         <span style="vertical-align: top">To</span>
                                                                     </label>
                                                                 </div>
                                                                 <div class="lblradiobtnss col-md-12 col-sm-12 col-xs-12 no-padding-right">
-                                                                    <input name="rdoPeriod" disabled="disabled" id="Radio2" value="u" type="radio" />
+                                                                    <input name=""   [attr.disabled]="UntillCancelled_Radio ? '' : null"    id="" value="u" type="radio" formControlName="Type"/>
                                                                     <label class="no-padding">
-                                                                        <input class="entityCheck" name="overprint" id="Checkbox15"
-                                                                               value="checkbox" type="checkbox" />
+                                                                        <input class="entityCheck" name="overprint" id=""
+                                                                               value="checkbox" type="checkbox" formControlName="UntillCancelled_Ch" (click)="UntillCancelled_ChFun()"/>
                                                                         <span style="vertical-align: top">Untill Cancelled</span>
                                                                     </label>
                                                                 </div>
@@ -622,7 +639,7 @@
                                                                 Instructing Member ID
                                                             </label>
                                                             <div class="col-sm-5 col-md-5 col-xs-6 no-padding">
-                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="InstructingMenmerId"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -650,7 +667,7 @@
                                                         <div class="col-md-3 col-sm-3 col-xs-6 no-padding" id="divEmandatecheck">
                                                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
                                                                 <label class="col-md-9 col-sm-12 col-xs-12 no-padding">
-                                                                    <input name="overprint" value="Cheque" type="checkbox" formControlName="IsEMandate" (change)="IsEMandateFun()"/>
+                                                                    <input name="overprint" value="Cheque" type="checkbox" formControlName="IsEMandate" (change)="IsEMandateFun()" [ngClass]="displayFieldCss('IsEMandate')"/>
                                                                     <span>Is E-Mandate</span>
                                                                 </label>
                                                             </div>
@@ -745,7 +762,7 @@
                                                                 </label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-12 col-sm-12 col-xs-12 boxhead" id="DivAdminUserCount" *ngIf="IsValidationCountEnableTab">  <!--style="display: none; padding-top:6px"-->
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 boxhead" id="" *ngIf="IsValidationCountEnableTab">  <!--style="display: none; padding-top:6px"-->
                                                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                 <div class="col-md-6 col-sm-6 col-xs-12 no-padding">
                                                                     <div class="form-group">
@@ -753,7 +770,7 @@
                                                                             Bank Validation Admin Count
                                                                         </label>
                                                                         <div class="col-sm-6 col-md-6 col-xs-6 no-padding">
-                                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="BankValidationAdminCount" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -763,7 +780,7 @@
                                                                             Bank Validation User Count
                                                                         </label>
                                                                         <div class="col-sm-6 col-md-6 col-xs-6 no-padding">
-                                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="BankValidationUserCount" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -775,7 +792,7 @@
                                                                             Account Validation Admin Count
                                                                         </label>
                                                                         <div class="col-sm-6 col-md-6 col-xs-6 no-padding">
-                                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="AcValidationAdminCount" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -785,7 +802,7 @@
                                                                             Account Validation User Count
                                                                         </label>
                                                                         <div class="col-sm-6 col-md-6 col-xs-6 no-padding">
-                                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="AcValidationUserCount" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -794,7 +811,7 @@
                                                                 <div class="col-md-6 col-sm-6 col-xs-12 no-padding">
                                                                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
                                                                         <label class="col-md-9 col-sm-12 col-xs-12 no-padding">
-                                                                            <input name="" value="Cheque" type="checkbox" />
+                                                                            <input name="" value="Cheque" type="checkbox" formControlName="EnableUserWise_Ch" />
                                                                             <span>Enable User Wise</span>
                                                                         </label>
 
@@ -805,22 +822,27 @@
                                                         </div>
                                                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                             <div class="col-md-3 col-sm-3 col-xs-6 no-padding">
-                                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
-                                                                    <label class="col-md-9 col-sm-12 col-xs-12 no-padding">
-                                                                        <input name="overprint" value="Cheque" type="checkbox" />
-                                                                        <span>Account Validation</span>
-                                                                    </label>
-                                                                </div>
+                                                                <!--<div class="col-md-12 col-sm-12 col-xs-12 no-padding pull-left">
+        <label class="col-md-9 col-sm-12 col-xs-12 no-padding">
+            <input type="checkbox" value="Cheque" />
+            <span>Account Validation</span>
+        </label>
+    </div>-->
+                                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+
+                                                                <label><input type="checkbox"  formControlName="Accountvalidation_Ch"/></label>
+                                                                <span>Account validation</span>
                                                             </div>
+                                                                </div>
                                                             <div id="divqrlogo" class="col-md-3 col-sm-6 col-xs-12 no-padding">
 
                                                                 <div class="col-md-6 col-sm-6 col-xs-6 no-padding" id="divQrLogo">
                                                                     <label class="lblradiobtnss col-md-6 col-sm-6 col-xs-6 no-padding">
-                                                                        <input id="rdQR" value="DD" type="checkbox" />
+                                                                        <input id="" value="DD" type="checkbox" formControlName="QRCode_Ch"/>
                                                                         <span>QR Code</span>
                                                                     </label>
                                                                     <label class="lblradiobtnss col-md-6 col-sm-3 col-xs-4 no-padding">
-                                                                        <input id="rdQRLogo" value="DD" type="checkbox" />
+                                                                        <input id="" value="DD" type="checkbox" formControlName="Logo_Ch"/>
                                                                         <span>Logo</span>
                                                                     </label>
 
@@ -829,13 +851,13 @@
                                                             </div>
                                                             <div id="divphone" class="col-md-3 col-sm-12 col-xs-12 no-padding pull-left">
                                                                 <label class="col-md-8 col-sm-12 col-xs-12 no-padding">
-                                                                    <input name="Validate" id="chkhone" value="Validate" type="checkbox" />
+                                                                    <input name="Validate" id="" value="Validate" type="checkbox" formControlName="PhoneNumber_ch"/>
                                                                     <span>Phone Number</span>
                                                                 </label>
                                                             </div>
                                                             <div id="divemail" class="col-md-3 col-sm-12 col-xs-12 no-padding pull-left">
                                                                 <label class="col-md-8 col-sm-12 col-xs-12 no-padding">
-                                                                    <input name="Validate" id="chkemail" value="Validate" type="checkbox" />
+                                                                    <input name="Validate" id="chkemail" value="Validate" type="checkbox" formControlName="E_mailID_Ch"/>
                                                                     <span>E-mail ID</span>
                                                                 </label>
                                                             </div>
@@ -843,7 +865,8 @@
                                                         <div class=" col-sm-12 col-xs-12 col-md-12 no-padding">
                                                             <div class="col-md-3 no-padding pull-left">
                                                                 <label class="col-md-12 col-sm-12 col-xs-12 no-padding">
-                                                                    <input name="rdoGender" value="Cheque" type="checkbox" formControlName="ActivePaymentModeCh" (change)="ActivePaymentModeFun()"/>
+                                                                    <input type="checkbox" formControlName="ActivePaymentModeCh" (change)="ActivePaymentModeFun()" />
+                                                                    <!--<input name="rdoGender" value="Cheque" type="checkbox" formControlName="ActivePaymentModeCh" (change)="ActivePaymentModeFun()"/>-->
                                                                     <span>Active Payment Mode</span>
                                                                 </label>
                                                             </div>
@@ -856,13 +879,13 @@
                                                             </div>
                                                             <div id="div4" class="col-md-3 col-sm-12 col-xs-12 no-padding pull-left">
                                                                 <label class="col-md-8 col-sm-12 col-xs-12 no-padding">
-                                                                    <input name="Validate" value="Validate" type="checkbox" />
+                                                                    <input name="Validate" value="Validate" type="checkbox" formControlName="Presentment_Ch"/>
                                                                     <span>Presentment</span>
                                                                 </label>
                                                             </div>
                                                             <div id="div5" class="col-md-3 col-sm-12 col-xs-12 no-padding pull-left">
                                                                 <label class="col-md-8 col-sm-12 col-xs-12 no-padding">
-                                                                    <input name="Validate" value="Validate" type="checkbox" />
+                                                                    <input name="Validate" value="Validate" type="checkbox" formControlName="ISEnableCancelUser" />
                                                                     <span>Enable Cancel User Wisespan</span>
                                                                 </label>
                                                             </div>
@@ -875,8 +898,8 @@
                                                                             </label>
                                                                             <div class="col-sm-7 col-md-7 col-xs-7 no-padding">
                                                                                 <!--<input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />-->
-                                                                                <select id="" class="alldropdown">
-                                                                                    <option value="0">select Bank Name</option>
+                                                                                <select id="" class="alldropdown" formControlName="AmountBank">
+                                                                                    <option value="">select Bank Name</option>
                                                                                     <option *ngFor="let data of BankData"
                                                                                             value={{data.bankid}}>
                                                                                         {{data.Bank}}
@@ -892,14 +915,14 @@
                                                                                 Amount
                                                                             </label>
                                                                             <div class="col-sm-4 col-md-7 col-xs-7 no-padding">
-                                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />
+                                                                                <input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" formControlName="AmountOfBank"  (keypress)="isNumber($event)"/>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="AddbtnDimensionDetail col-md-1 pull-right">
                                                                         <div class="col-md-12 no-padding form-group ">
                                                                             <input type="button" class=" AddbtnCSS col-md-10 btn btn-success"
-                                                                                   value="Add" />
+                                                                                   value="Add" (click)="AddAmountArray()" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -913,10 +936,10 @@
                                                                     </table>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-12 col-xs-12 col-md-12" id="ModeOfPayment"  *ngIf="ActivePaymentModeTab" >   <!--style="display: none"-->
+                                                            <div class="col-sm-12 col-xs-12 col-md-12" id=""  *ngIf="ActivePaymentModeTab" >   <!--style="display: none"-->
                                                                 <div class="col-md-3 col-sm-6 col-xs-6">
                                                                     <div class="col-md-10 col-sm-10 col-xs-10 imgDiv" style="text-align: left;">
-                                                                        <img src="../../assets/images/cashondelivery.png" alt="" />
+                                                                        <img src="../../ClientApp/assets/images/cashondelivery.png" alt="" />
                                                                     </div>
                                                                     <div style="">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12" style="text-align: left;">
@@ -927,7 +950,7 @@
                                                                 </div>
                                                                 <div class="col-md-3 col-sm-6 col-xs-6">
                                                                     <div class="col-md-10 col-sm-10 col-xs-10 imgDiv" style="text-align: left;">
-                                                                        <img src="../../assets/images/chequ.png" alt="" />
+                                                                        <img src="../../ClientApp/assets/images/chequ.png" alt="" />
                                                                     </div>
                                                                     <div style="">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12" style="text-align: left;">
@@ -938,7 +961,7 @@
                                                                 </div>
                                                                 <div class="col-md-3 col-sm-6 col-xs-6">
                                                                     <div class="col-md-10 col-sm-10 col-xs-10 imgDiv" style="text-align:center;">
-                                                                        <img src="../../assets/images/Ddraft.png" alt="" />
+                                                                        <img src="../../ClientApp/assets/images/Ddraft.png" alt="" />
                                                                     </div>
                                                                     <div style="">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12" style="text-align:center;">
@@ -949,7 +972,7 @@
                                                                 </div>
                                                                 <div class="col-md-3 col-sm-6 col-xs-6">
                                                                     <div class="col-md-10 col-sm-10 col-xs-10 imgDiv" style="text-align:center;">
-                                                                        <img src="../../assets/images/online.png" alt="" />
+                                                                        <img src="../../ClientApp/assets/images/online.png" alt="" />
                                                                     </div>
                                                                     <div style="">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12" style="text-align:center;">
@@ -965,11 +988,11 @@
                                                                         </label>
                                                                         <div id="divAmont" class="col-sm-8 col-md-7 col-xs-8 no-padding radio">
                                                                             <label class="lblradiobtnss col-md-6 col-sm-6 col-xs-12">
-                                                                                <input name="rdoAmount" value="PM" type="radio" />
+                                                                                <input name="" value="PM" type="radio" formControlName="Amount"/>
                                                                                 <span>Amount as per Mandate</span>
                                                                             </label>
                                                                             <label class="lblradiobtnss col-md-6 col-sm-3 col-xs-12">
-                                                                                <input name="rdoAmount" value="M" type="radio" />
+                                                                                <input name="" value="M" type="radio" formControlName="Amount"/>
                                                                                 <span>Manually</span>
                                                                             </label>
                                                                         </div>
@@ -987,19 +1010,19 @@
                                                                 <div class="col-sm-12 col-xs-12 col-md-6 no-padding checktopmargin" id="divphy">
                                                                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                            <input id="chkcustomer" value="Cash" type="checkbox" />
+                                                                            <input id="" value="Cash" type="checkbox" formControlName="ValidationByCustomer_Ch"/>
                                                                             <span>Validation By Customer</span>
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                            <input id="Chkcooperate" value="Cheque" type="checkbox" />
+                                                                            <input id="" value="Cheque" type="checkbox" formControlName="ValidationByCorporate_Ch"/>
                                                                             <span>Validation By Corporate</span>
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12 no-padding " style="text-align: left;">
-                                                                            <input id="Chkocr" value="E" type="checkbox" />
+                                                                            <input id="" value="E" type="checkbox" formControlName="OCRCode_Ch"/>
                                                                             <span>OCR Code</span>
                                                                         </label>
                                                                     </div>
@@ -1012,18 +1035,21 @@
                                                                     <label class=" col-sm-12 col-md-12 col-xs-5 no-padding useright ">
                                                                         E-Mandate Mode
                                                                     </label>
+
+
+
                                                                 </div>
                                                                 <div class="col-sm-12 col-xs-12 col-md-10 checktopmargin no-padding-left" id="divMandateMode">
 
                                                                     <div class="col-md-4 col-sm-12 col-xs-12 no-padding">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                            <input id="chknet" value="Net" type="checkbox" formControlName="NetBankingCh" (change)="NetBankingFun()"/>
+                                                                            <input id="" value="Net" type="checkbox" formControlName="NetBankingCh" (change)="NetBankingFun()"/>
                                                                             <span>Net Banking</span>
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-4 col-sm-12 col-xs-12 no-padding">
                                                                         <label class="col-md-10 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                            <input id="chkdebit" value="Debit" type="checkbox" formControlName="DebitCardCh" (change)="DebitCardFun()" />
+                                                                            <input id="" value="Debit" type="checkbox" formControlName="DebitCardCh" (change)="DebitCardFun()" />
                                                                             <span>Debit Card</span>
                                                                         </label>
                                                                     </div>
@@ -1047,19 +1073,19 @@
                                                                     <div class="col-sm-8 col-xs-12 col-md-8 no-padding checktopmargin" id="divnet">
                                                                         <div class="col-md-12 col-sm-12 col-xs-12  no-padding">
                                                                             <label class="col-md-12 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                                <input id="Chknetmail" value="Cash" type="checkbox" />
+                                                                                <input id="" value="Cash" type="checkbox" formControlName="ValidateThroughEmail_Ch" />
                                                                                 <span>Validate Through E-mail</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                             <label class="col-md-10 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                                <input id="Chknetmanual" value="Cheque" type="checkbox" />
+                                                                                <input id="" value="Cheque" type="checkbox" formControlName="Manual_Ch"/>
                                                                                 <span>Manual</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                             <label class="col-md-10 col-sm-10 col-xs-12 no-padding " style="text-align: left;">
-                                                                                <input id="chknetsms" value="DD" type="checkbox" />
+                                                                                <input id="chknetsms" value="DD" type="checkbox" formControlName="SMS_Ch"/>
                                                                                 <span>SMS</span>
                                                                             </label>
                                                                         </div>
@@ -1076,19 +1102,19 @@
                                                                     <div class="col-sm-8 col-xs-12 col-md-8 no-padding checktopmargin" id="divdeb">
                                                                         <div class="col-md-12 col-sm-12 col-xs-12  no-padding">
                                                                             <label class="col-md-12 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                                <input id="Chkdebitmail" value="Cash" type="checkbox" />
+                                                                                <input id="" value="Cash" type="checkbox" formControlName="DebitValidateThroughEmail"/>
                                                                                 <span>Validate Through E-mail</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                             <label class="col-md-10 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                                <input id="Chkdebitmanual" value="Cheque" type="checkbox" />
+                                                                                <input id="" value="Cheque" type="checkbox" formControlName="DebitManual"/>
                                                                                 <span>Manual</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                             <label class="col-md-10 col-sm-10 col-xs-12 no-padding " style="text-align: left;">
-                                                                                <input id="chkdebitsms" value="DD" type="checkbox" />
+                                                                                <input id="" value="DD" type="checkbox" formControlName="DebitSMS"/>
                                                                                 <span>SMS</span>
                                                                             </label>
                                                                         </div>
@@ -1105,19 +1131,19 @@
                                                                     <div class="col-sm-8 col-xs-12 col-md-8 no-padding checktopmargin" id="divaadhr">
                                                                         <div class="col-md-12 col-sm-12 col-xs-12  no-padding">
                                                                             <label class="col-md-12 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                                <input id="chkaadharmail" value="Cash" type="checkbox" />
+                                                                                <input id="" value="Cash" type="checkbox" formControlName="AadhaarValidateThroughEmail"/>
                                                                                 <span>Validate Through E-mail</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                             <label class="col-md-10 col-sm-10 col-xs-12 no-padding " style="text-align: left;">
-                                                                                <input id="chkaadharmanual" value="Cheque" type="checkbox" />
+                                                                                <input id="" value="Cheque" type="checkbox" formControlName="AadhaarManual"/>
                                                                                 <span>Manual</span>
                                                                             </label>
                                                                         </div>
                                                                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                                                                             <label class="col-md-10 col-sm-10 col-xs-12 no-padding" style="text-align: left;">
-                                                                                <input id="chkaadharsms" value="DD" type="checkbox" />
+                                                                                <input id="" value="DD" type="checkbox" formControlName="AadhaarSMS"/>
                                                                                 <span>SMS</span>
                                                                             </label>
                                                                         </div>
@@ -1162,7 +1188,7 @@
                                                             Username
                                                         </label>
                                                         <div class="col-sm-7 col-md-7 col-xs-5 no-padding displayinlineblock">
-                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="UserName" />
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="UserName" [ngClass]="displayFieldCss('UserName')"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1220,11 +1246,11 @@
                                                     </label>
                                                     <div class="col-sm-6 col-md-4 col-xs-4 no-padding-right radio displayinlineblock">
                                                         <label class="lblradiobtnss col-md-2 col-sm-2 col-xs-5 no-padding">
-                                                            <input name="rdoCheck" value="1" type="radio" />
+                                                            <input name="" value="1" type="radio" formControlName="CheckerRequire"/>
                                                             <span>Yes</span>
                                                         </label>
                                                         <label class="lblradiobtnss col-md-3 col-sm-5 col-xs-4 no-padding">
-                                                            <input name="rdoCheck" value="2" type="radio" />
+                                                            <input name="" value="2" type="radio" formControlName="CheckerRequire"/>
                                                             <span>No</span>
                                                         </label>
                                                     </div>
@@ -1255,8 +1281,8 @@
                                                             </label>
                                                             <div class="col-sm-10 col-md-3 col-xs-7 no-padding-left displayinlineblock">
                                                                 <!--<input type="text" class="col-sm-12 col-md-12 col-xs-12 no-padding" />-->
-                                                                <select id="" class="alldropdown" formControlName="EntityBCode">
-                                                                    <option value="volvo">Select Entity Business Codes</option>
+                                                                <select id="" class="alldropdown" formControlName="EntityBCode" [ngClass]="displayFieldCss('EntityBCode')" >
+                                                                    <option value="0" [selected]="isSelectEntityBC"  >Select Entity Business Codes</option>
                                                                     <option *ngFor="let data of EntityBusinessCodeData"
                                                                             value={{data.code}}>
                                                                         {{data.entityBusinesscode}}
@@ -1284,6 +1310,30 @@
         </div>
 
 
+        <div class="modal success" id="myModal" [style.display]="showModalsave ? 'block' : 'none'">
+            <div class="modal-dialog">
+                <div class="modal-content">
+    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <img src="../../assets/images/saveSuccessImg.png" />
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" (click)="hide()">&times;</button>
+                    </div>
+    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p id="modelmsg"> Saved Successfully</p>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="hide()">Close</button>
+                    </div>
+    
+                </div>
+            </div>
 
     </div>
 

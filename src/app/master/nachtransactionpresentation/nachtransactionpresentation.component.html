@@ -23,10 +23,6 @@
                             </li>
 
 
-
-
-
-
                         </ul>
                     </div>
 
@@ -125,18 +121,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let lang of bindmaingrid">
+                    <tr *ngFor="let lang of bindmaingrid" (dblclick)="BindOnRowdblClick(lang);">
                         <td style="width:90px;">{{lang.RowNumber}}</td>
-                        <td style="width:150px;">Demo</td>
+                        <td style="width:150px;">{{lang.date}}</td>
                         <td style="width:150px;">{{lang.FileNo}}</td>
-                        <td style="width:150px;">Demo</td>
+                        <td style="width:150px;">{{lang.CreatedOn}}</td>
                         <td style="width:150px;">{{lang.UserName}}</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
+                        <td style="width:150px;">{{lang.UpdatedBy}}</td>
+                        <td style="width:150px;">{{lang.UpdatedOn}}</td>
+                        <td style="width:150px;">{{lang.ApprovedBy}}</td>
+                        <td style="width:150px;">{{lang.ApprovedOn}}</td>
                         <td style="width:150px;">{{lang.BankName}}</td>
-                        <td style="width:150px;">Demo</td>
+                        <td style="width:150px;">{{lang.LastStatus}}</td>
                         <td style="width:150px;">{{lang.FileStatus}}</td>
 
 
@@ -147,8 +143,8 @@
             </table>
 
         </div>
-        <form [style.display]="showlabel1 ? 'block' : 'none'">
-            <div class="col-md-12 col-sm-12 col-xs-12 boxsetting">
+        <form [formGroup]="Allumrn">
+            <div class="col-md-12 col-sm-12 col-xs-12 boxsetting" [style.display]="showlabel1 ? 'block' : 'none'">
                 <div class="col-md-12 col-sm-12 col-xs-12 boxhead">
                     <div class="row no-padding">
                         <div class="col-md-4 col-sm-4 col-xs-12">
@@ -157,7 +153,7 @@
                                     Bank:
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 displayinlineblock">
-                                    <select id="" class="alldropdown" (change)="BindGridForm(25, 86, 10)">
+                                    <select id="" class="alldropdown" #BankId (change)="BindGridForm(BankId.value)" name="BankValue" formControlName="BankValue">
                                         <option value="0">Select</option>
                                         <option *ngFor="let lang of bankbind"
                                                 value={{lang.SponsorBankCodeId}}>
@@ -170,8 +166,8 @@
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> Presentment Date: </label>
-                                <div class="col-sm-7 col-md-7 col-xs-7 displayinlineblock">
-                                    <input class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" type="date">
+                                <div class="col-sm-7 col-md-7 col-xs-7 displayinlineblock"  [ngClass]="displayFieldCss('Searchvalidation')">
+                                    <input class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" type="date" name="Searchvalidation"  formControlName="Searchvalidation" #PresentmentDate>
                                 </div>
                             </div>
                         </div>
@@ -179,14 +175,15 @@
 
                         </div>
                     </div>
-                    <div class="row no-padding" *ngFor="let lang of bindgrid">
+                    <div class="row no-padding">
+                        <!--*ngFor="let lang of bindgrid"-->
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                     Bank Account Number:
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                    <label class="col-sm-12 col-md-12 col-xs-12">{{lang.AccountNumber}}</label>
+                                    <label class="col-sm-12 col-md-12 col-xs-12">{{AccountNumber}}</label>
                                 </div>
                             </div>
                         </div>
@@ -196,7 +193,7 @@
                                     Sponsor Bank code:
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                    <label class="col-sm-12 col-md-12 col-xs-12">{{lang.SponsorBankcode}}</label>
+                                    <label class="col-sm-12 col-md-12 col-xs-12">{{SponsorBankcode}}</label>
                                 </div>
                             </div>
                         </div>
@@ -206,19 +203,20 @@
                                     Utility Code:
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                    <label class="col-sm-12 col-md-12 col-xs-12">{{lang.UtilityCode}}</label>
+                                    <label class="col-sm-12 col-md-12 col-xs-12">{{UtilityCode}}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row no-padding" *ngFor="let lang of bindgrid">
+                    <div class="row no-padding"  >  
+                        <!-- [style.display]="showlabel3 ? 'block' : 'none'" -->
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
                                     Created By:
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                    <label class="col-sm-12 col-md-12 col-xs-12">{{lang.UserName}}</label>
+                                    <label class="col-sm-12 col-md-12 col-xs-12">{{UserName}}</label>
                                 </div>
                             </div>
                         </div>
@@ -228,7 +226,7 @@
                                     IFSC:
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                    <label class="col-sm-12 col-md-12 col-xs-12">{{lang.IFSC}}</label>
+                                    <label class="col-sm-12 col-md-12 col-xs-12">{{IFSC}}</label>
                                 </div>
                             </div>
                         </div>
@@ -242,97 +240,99 @@
         <div class="clearfix">
 
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" style="display:block;margin-top: 10%;" [style.display]="showlabel ? 'block' : 'none'">
-
-            <div class="col-md-12 col-sm-12 no-padding">
-                <div class="row no-padding" style="height: 23px;">
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="form-group">
-                            <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
-                                Uploaded Records:
-                            </label>
-                            <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                <label class="col-sm-12 col-md-12 col-xs-12">1</label>
+        <div class="col-md-12 col-sm-12 col-xs-12" id="divform" style="margin-top: 10%;" [style.display]="showlabel ? 'block' : 'none'">
+            <form [formGroup]="UMRNRefSet" autocomplete="off">
+                <div class="col-md-12 col-sm-12 no-padding">
+                    <div class="row no-padding" style="height: 23px;" >
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="form-group">
+                                <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
+                                    Uploaded Records:
+                                </label>
+                                <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
+                                    <label class="col-sm-12 col-md-12 col-xs-12">1</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="col-md-4 col-sm-4 col-xs-12">
 
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <ul class="toolbar-content" style="float: right;">
-                            <li>
-                                <i (click)="BindUMRN(); BindRefrence()" class="fa fa-reply" aria-hidden="true" title="Export"></i>
-                                <label>
-                                    New
-                                </label>
-                            </li>
-                            <li>
-                                <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
-                                <label>
-                                    Edit
-                                </label>
-                            </li>
-                            <li>
-                                <i class="fa fa-floppy-o" aria-hidden="true" title="Cancel"></i>
-                                <label>
-                                    Cancel
-                                </label>
-                            </li>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <ul class="toolbar-content" style="float: right;">
+                                <li>
+                                    <i (click)="BindUMRN(PresentmentDate.value); BindRefrence(PresentmentDate.value)" class="fa fa-reply" aria-hidden="true" title="Export"></i>
+                                    <label>
+                                        New
+                                    </label>
+                                </li>
+                                <li>
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
+                                    <label>
+                                        Edit
+                                    </label>
+                                </li>
+                                <li>
+                                    <i class="fa fa-floppy-o" aria-hidden="true" title="Cancel"></i>
+                                    <label>
+                                        Cancel
+                                    </label>
+                                </li>
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <table id="tblsecondgrd">
-                <thead>
-                    <tr>
-                        <th style="width:90px;"><input name="all" type="checkbox">All</th>
-                        <th style="width:150px;">UMRN</th>
-                        <th style="width:150px;">Reference No</th>
-                        <th style="width:150px;">Amount</th>
-                        <th style="width:150px;"> Status</th>
-                        <th style="width:150px;">Reason</th>
-                        <th style="width:150px;">Client Code</th>
-                        <th style="width:150px;">Corporate Ac/No</th>
+                <table id="tblsecondgrd">
+                    <thead>
+                        <tr>
+                            <th style="width:90px;"><input name="all" type="checkbox">All</th>
+                            <th style="width:150px;">UMRN</th>
+                            <th style="width:150px;">Reference No</th>
+                            <th style="width:150px;">Amount</th>
+                            <th style="width:150px;"> Status</th>
+                            <th style="width:150px;">Reason</th>
+                            <th style="width:150px;">Client Code</th>
+                            <th style="width:150px;">Corporate Ac/No</th>
 
 
 
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="width:90px;"><input name="all" type="checkbox"></td>
-                        <td style="width:150px;">
-                            <select class="col-md-12 col-sm-12 col-xs-12" >
-                                <option value="0">Select</option>
-                                <option *ngFor="let lang of bindumrn">
-                                    {{lang.UMRN}}
-                              
-                            </select>
-                        </td>
-                        <td style="width:150px;">
-                            <select class="col-md-12 col-sm-12 col-xs-12" (change)="BindUMRNOnchange(95,13,'rrdtr')">
-                                <option value="0">Select</option>
-                                <option *ngFor="let lang of bindref">
-                                    {{lang.Refrence1}}
-</select>
-                        </td>
-                        <td style="width:150px;"><input type="text" style="width:100%"></td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  >
+                            <td style="width:90px;"><input name="all" type="checkbox"></td>
+                            <td style="width:150px;">
+                                <select  class="col-md-12 col-sm-12 col-xs-12" formControlName="UMRNNo"  (change)="BindRefOnchange()">
+                                    <!--// #UMRN-->
+                                    <option value="0">Select</option>
+                                    <option *ngFor="let lang of bindumrn"  value="{{lang.UMRN}}">
+                                        {{lang.UMRN}}
+
+                                </select>
+                            </td>
+                            <td style="width:150px;">
+                                <select  class="col-md-12 col-sm-12 col-xs-12" formControlName="RefrenceNo" (change)="BindUMRNOnchange()">
+                                    <!--#Refrence1-->
+                                    <option value="0">Select</option>
+                                    <option *ngFor="let lang of bindref" value="{{lang.Refrence1}}">
+                                        {{lang.Refrence1}}
+                                </select>
+                            </td>
+                            <td style="width:150px;"><input type="text"  style="width:100%" ></td>
+                            <td style="width:150px;"></td>
+                            <td style="width:150px;"></td>
+                            <td style="width:150px;"></td>
+                            <td style="width:150px;"></td>
 
 
 
-                    </tr>
+                        </tr>
 
-                </tbody>
+                    </tbody>
 
-            </table>
-
+                </table>
+</form>
         </div>
 
 

@@ -6,7 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { error } from 'util';
 
 import { EntityData } from '../../../Models/EntityBankSetup/entity-data';
-
+import { Adhocdata } from '../../../Models/EntityBankSetup/Adhocdata';
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +25,25 @@ export class EntityBankService {
         return this._http.get<any>(this.baseUrl + 'api/EntityBank/getBank/' + EntityId);
 
     }
-    SaveData(em: any, UserId,arrvalue,adhocarr): Observable<EntityData> {
+    SaveData(em): Observable<Adhocdata> {
         const body = em;
         const headers = new HttpHeaders().set('content-type', 'application/json');
-        return this._http.post<EntityData>(this.baseUrl + 'api/EntityBank/SaveData/' + UserId + '/' + arrvalue + '/' + adhocarr, body, {
+        return this._http.post<Adhocdata>(this.baseUrl + 'api/EntityBank/SaveData', body, {
             headers
         });
+    }
+    UpdateData(em,Id): Observable<Adhocdata> {
+        const body = em;
+        const headers = new HttpHeaders().set('content-type', 'application/json');
+        return this._http.post<Adhocdata>(this.baseUrl + 'api/EntityBank/UpdateData/' + Id, body, {
+            headers
+        });
+    }
+
+    EditData(EntityId,BankId): Observable<any> {
+
+        return this._http.get<any>(this.baseUrl + 'api/EntityBank/EditData/' + EntityId + '/' + BankId);
+
     }
 
 }

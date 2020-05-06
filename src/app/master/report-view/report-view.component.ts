@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class ReportViewComponent implements OnInit {
 
     HeaderArray;
+    
     UMRNUploadform: FormGroup;
     showlabel: boolean;
     dataArray: Array<Bindgrid> = [];
@@ -24,100 +25,180 @@ export class ReportViewComponent implements OnInit {
     length: any;
     binduser: BindUser;
     bindgrid: Bindgrid;
-    userId; selectedLevel;
-    username; FromDate; ToDate;
-  
-    constructor(private reportviewService: ReportViewService, private formBuilder: FormBuilder, private route: Router) { }
+    userId;
+    alldropdown;
+    FromDate;
+    Todate;
+   // UserId: string = "";
+    constructor(private reportviewService: ReportViewService, private formBuilder: FormBuilder) { }
         
     ngOnInit() {
-        let item = JSON.parse(sessionStorage.getItem('User'));
+      //  let item = JSON.parse(sessionStorage.getItem('User'));
         this.UMRNUploadform = this.formBuilder.group({
-        ddluser: new FormControl(),
-            FromDate: [''],
-            ToDate: ['']
+            alldropdown: ["", Validators.required]
         });
         this.showlabel = false;
         this.Preloader = false;
-       // let item = JSON.parse(sessionStorage.getItem('User'));
 
-        this.userId = item.UserId;
+       // let item = JSON.parse(sessionStorage.getItem('User'));
+       // this.userId = item.UserId
+       // this.reportviewService.BindUser(this.userId).
+          //  subscribe((data) => {
+          //      console.log(data);
+           //     this.binduser = data.Table;
+
+           //     var y = Object.entries(this.binduser)[0][1];
+
+            //    var u = y.UserId;
+            //    var k = formatDate(new Date(), "yyyy-MM-dd", "en");
+           //     this.PostData(u,k, k);
+
+           // });
+
+
         this.BindUser();
+       // this.PostData();
+    }
+    isFieldValid(field: string) {
+        return !this.UMRNUploadform.get(field).valid && this.UMRNUploadform.get(field).touched;
+    }
+    
+    displayFieldCss(field: string) {
+        return {
+            'validate': this.isFieldValid(field),
+        };
+    }
+    validateAllFormFields(formGroup: FormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+            const control = formGroup.get(field);
+            if (control instanceof FormControl) {
+                control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {
+                this.validateAllFormFields(control);
+            }
+        });
     }
 
-    //isFieldValid(field: string) {
-    //    return !this.SearchData.get(field).valid && this.SearchData.get(field).touched;for
-    //}
-    
     BindUser() {
         let item = JSON.parse(sessionStorage.getItem('User'));
-        
-        this.userId = item.UserId;
-
+        this.userId = item.UserId
         this.reportviewService.BindUser(this.userId).
             subscribe((data) => {
-                console.log(data);
                 this.binduser = data.Table;
 
-                var y = Object.entries(this.binduser)[0][1];
-               // console.log(y);
-                //// alert(y.sponsorbankcode);
-               // var u = y.UserId;
-               // console.log(u);
-                //var k = formatDate(new Date(), "yyyy-MM-dd", "en");
-             //   this.PostData(k, k, u);
-                
             });
-       // this.BindUser();
+      
     }
 
-    GetAllData(ddluser, FromDate, ToDate) {
-        //alert(ddluser + "   " + FromDate + "   " + Todate);
+    
+
+    currentDate = new Date();
+   
+    PostData(alldropdown,FromDate,Todate) {
+       // this.alldropdown=((document.getElementById("alldropdown") as HTMLInputElement).value);
+       // this.FromDate=((document.getElementById("refre1") as HTMLInputElement).value);
+       // this.Todate=((document.getElementById("umrn1") as HTMLInputElement).value);
+        if (this.UMRNUploadform.valid) {
         let item = JSON.parse(sessionStorage.getItem('User'));
-        ////this.username = this.UMRNUploadform.controls['ddluser'].value();
-        //this.FromDate = this.UMRNUploadform.controls['FromDate'].value();
-        //this.ToDate = this.UMRNUploadform.controls['ToDate'].value();
-
-        //this.username = (<HTMLSelectElement>document.getElementById('ddluser')).value;
-        //this.FromDate = (<HTMLSelectElement>document.getElementById('FromDate')).value;
-        //this.ToDate = (<HTMLSelectElement>document.getElementById('ToDate')).value;
-
-        this.reportviewService.SearchData(ddluser, FromDate, ToDate, item.UserId).subscribe(
+        //let username = this.UMRNUploadform.controls['ddluser'].value();
+        //let item = JSON.parse(sessionStorage.getItem('User'));
+        this.userId = item.UserId;
+        this.Preloader = true;
+        var jasondata = {
+            "FromDate": FromDate,
+            "Todate": Todate,
+            "alldropdown": alldropdown,
+            "UserId": this.userId
+            
+        }
+        this.reportviewService.SearchData(jasondata).subscribe(
             (data) => {
 
                 this.Preloader = false;
+                console.log(data);
                 this.bindgrid = data.Table;
-                this.dataArray.push(this.bindgrid);
+               // this.dataArray.push(this.bindgrid);
                 // alert(this.dataArray.length);
                 //console.log(this.Databind);
 
             });
+       // if (this.dataArray.length > 0) {
+            // alert(this.dataArray.length);
+          //  this.showlabel = true;
+      //  }
+
+    }else
+    {
+        this.validateAllFormFields(this.UMRNUploadform);
+
+    }
 
     }
 
 
-   // currentDate = new Date();
-    PostData(FromDate, Todate,  userdrop) {
+    ConvertToCSV(objArray) {
+       
+        this.HeaderArray = {
+            SrNo: "SrNo", Refrence1: "Refrence", CreatedOn: "Created On", UpdatedOn: "Updated On",
+            createdBy: "Created By", UpdatedBy: "Updated By", FileUpdatedCount: "FileUpdated Count", BankValidation: "BankValidation"
+            ,AcValidation: "AcValidation", SavedCount: "Saved Count",
+            EditCount: "Edit Count", entityName: "Entity Name"
 
-        let item = JSON.parse(sessionStorage.getItem('User'));
-       let username = this.UMRNUploadform.controls['ddluser'].value();
-       // let username = this.selectedLevel;
-
-        this.reportviewService.SearchData(FromDate, Todate, username, item.UserId).subscribe(
-            (data) => {
-
-                this.Preloader = false;
-                this.bindgrid = data.Table;
- // alert(this.dataArray.length);
-                this.dataArray.push(this.bindgrid);
-               
-                //console.log(this.Databind);
-
-            });
-        if (this.dataArray.length > 0) {
-            // alert(this.dataArray.length);
-            this.showlabel = true;
         }
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+        var row = "";
 
+        for (var index in objArray[0]) {
+            //Now convert each value to string and comma-separated
+            row += index + ',';
+        }
+        row = row.slice(0, -1);
+        //append Label row with line break
+        str += row + '\r\n';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+
+            if (i == 0) {
+                for (var index in this.HeaderArray) {
+                    if (line != '') line += ','
+
+                    line += this.HeaderArray[index];
+                }
+                str += line + '\r\n';
+            }
+
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+            str += line + '\r\n';
+        }
+        return str;
+    }
+
+
+    download() {
+
+        
+        var csvData = this.ConvertToCSV(JSON.stringify(this.bindgrid));
+
+            
+          
+            var a = document.createElement("a");
+            a.setAttribute('style', 'display:none;');
+            document.body.appendChild(a);
+            var blob = new Blob([csvData], { type: 'text/csv' });
+            var url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = 'MandateReport.csv';/* your file name*/
+            a.click();
+            return 'success';
+        
+    
     }
 
 }

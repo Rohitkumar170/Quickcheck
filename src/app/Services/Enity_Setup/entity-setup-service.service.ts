@@ -21,16 +21,33 @@ export class EntitySetupServiceService {
         return this._http.get<any>(this.baseUrl + 'api/BindCountryAndBank');
     }
     BingGrid(): Observable<any> {
-        return this._http.get<any>(this.baseUrl + 'api/BingGrid');
+        return this._http.get<any>(this.baseUrl + 'api/BindGrid');
     }
-    SaveData(em: any): Observable<any> {
+    SaveData(em: any, EntityId): Observable<any> {
         const body = em;
         const headers = new HttpHeaders().set('content-type', 'application/json');
-        return this._http.post<any>(this.baseUrl + 'api/SaveData', body, {
+        return this._http.post<any>(this.baseUrl + 'api/SaveData/' + EntityId , body, {
             headers
         });
     }
-
+    BindState(CountryId): Observable<any> {
+        return this._http.get<any>(this.baseUrl + 'api/BindState/'+ CountryId);
+    }
+    BindCity(StateId): Observable<any> {
+        return this._http.get<any>(this.baseUrl + 'api/BindCity/'+ StateId);
+    }
+    EditFun(EntityId): Observable<any> {
+        return this._http.get<any>(this.baseUrl + 'api/EditData/'+ EntityId);
+    }
+    DeleteFun(EntityId,em:any): Observable<any> {
+       const body=em;
+       alert(body);
+       console.log(body);
+       const headers = new HttpHeaders().set('content-type', 'application/json');
+        return this._http.post<any>(this.baseUrl + 'api/DeleteData/' +EntityId , body, {
+            headers
+        });
+    }
     errorHandler(error: Response) {
         console.log(error);
         return Observable.throw(error);

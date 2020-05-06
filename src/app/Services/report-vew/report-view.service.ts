@@ -24,10 +24,19 @@ export class ReportViewService {
 
     }
 
-    SearchData(FromDate, Todate, userdrop,UserId): Observable<any> {
+    SearchData(em: any): Observable<any> {
+        
+         const body = em;
 
-        return this._http.get<any>(this.baseUrl + 'api/ReportView/Bindgrid/' + FromDate + '/' + Todate + '/' + userdrop + '/' + UserId);
+        const headers = new HttpHeaders().set('content-type', 'application/json');
+        return this._http.post<any>(this.baseUrl + 'api/ReportView/SearchData/', body, {
+            headers
+        });
 
     }
+    
+
 
 }
+
+
