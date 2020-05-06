@@ -34,22 +34,22 @@
                 Login
             </h1>
             <div class="inset">
-                <p [ngClass]="displayFieldCss('UserName')">
+                <p >
                 
                     <label for="email">
                         UserName
                     </label>
-                    <input name="UserName" type="text" class="form-control inputbox" formControlName="UserName" 
+                    <input [ngClass]="displayFieldCss('UserName')" name="UserName" type="text" class="form-control inputbox" formControlName="UserName" 
 
 (keypress)="Removelabel()" placeholder="" />
                     
                 </p>
-                <p [ngClass]="displayFieldCss('Password')">
+                <p >
                 
                     <label for="password">
                         Password
                     </label>
-                    <input name="Password" type="password" class="form-control inputbox" formControlName="Password" 
+                    <input name="Password" [ngClass]="displayFieldCss('Password')" type="password" class="form-control inputbox" formControlName="Password" 
 
 (keypress)="Removelabel()" placeholder="" />
                     
@@ -77,12 +77,12 @@
                 Retrieve Password
             </h1>
             <div class="inset">
-                <p style="margin-top: 8%" [ngClass]="displayFieldCss('Email')">
+                <p style="margin-top: 8%" >
                 
                     <label for="password">
                         Email
                     </label>
-                    <input name="Email" type="text" formControlName="Email" (keypress)="Removelabel()" class="form-control inputbox"
+                    <input name="Email" type="text" [ngClass]="displayFieldCss('Email')" formControlName="Email" (keypress)="Removelabel()" class="form-control inputbox"
                 placeholder="Email" />
                 
                 </p>
