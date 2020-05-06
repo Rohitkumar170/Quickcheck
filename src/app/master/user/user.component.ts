@@ -208,6 +208,8 @@ this.Preloader=false;
 
 
             this.bankacc = data.Table5;
+            if(data.Table5.length>0)
+            {
             this.UserForm.controls['bankval'].setValue("");
             this.UserForm.controls['accountval'].setValue("");
             if (this.bankacc[0].EnableUserWise == true) {
@@ -230,6 +232,7 @@ this.Preloader=false;
             }
             else {
                 this.dvEnableCancel = false;
+            }
             }
 
             this.tempdata = data.Table6;
@@ -395,7 +398,14 @@ this.Preloader=false;
     }
     SaveUser() {
 
-
+        if (this.checkbulkuploadlink.length==0)
+        {
+            this.checkbulkuploadlink.push(0);
+        }
+        if (this.chkvideolink.length==0)
+        {
+            this.chkvideolink.push(0);
+        }
 
         let item = JSON.parse(sessionStorage.getItem('User'));
 
@@ -432,7 +442,14 @@ this.Preloader=false;
 
 
         let item = JSON.parse(sessionStorage.getItem('User'));
-
+        if (this.checkbulkuploadlink.length==0)
+        {
+            this.checkbulkuploadlink.push(0);
+        }
+        if (this.chkvideolink.length==0)
+        {
+            this.chkvideolink.push(0);
+        }
 
         this.userservice.UpdateUser(JSON.stringify(this.UserForm.value), item.ReferenceId, item.UserId, this.Userid, this.IsViewAll, this.checkbulkuploadlink, this.chkvideolink).subscribe(
             (data) => {
@@ -539,6 +556,7 @@ this.Preloader=false;
           
             this.tableid=false;
             this.formid=true;
+            this.UserForm.controls['Type'].setValue(this.userdata[0].UserType);
             this.UserForm.controls['UserName'].setValue(this.userdata[0].UserName);
             this.UserForm.controls['EmailId'].setValue(this.userdata[0].EmailId);
             this.UserForm.controls['emailsent'].setValue(this.userdata[0].EmailSendTo);
@@ -546,7 +564,16 @@ this.Preloader=false;
             this.UserForm.controls['sponsorbankcode'].setValue(this.sponsorbankid[0].SponsorBankCodeId);
             this.UserForm.controls['bankval'].setValue(this.userdata[0].BankValidationUserCount);
             this.UserForm.controls['accountval'].setValue(this.userdata[0].AcValidationUserCount);
+            if (this.userdata[0].UserType == 'u') {
+                this.divaccessright = true;
+            }
+            else {
+                this.divaccessright = false;
+            }
+            if(data.Table9.length>0)
+            {
             this.UserForm.controls['categorycode'].setValue(this.getcatcode[0].CategoryCode);
+            }
             if (this.userdata[0].PresentmentMaker == 1) {
                 this.UserForm.controls['chkPresentMaker'].setValue(true);
             }
@@ -555,7 +582,8 @@ this.Preloader=false;
                 this.UserForm.controls['chkPresentChecker'].setValue(true);
 
             }
-
+                if(data.Table5.length>0)
+            {
             if (this.getAccessRight1[0].IsCreate == true) {
                 this.UserForm.controls['chkCreate'].setValue(true);
             }
@@ -572,12 +600,16 @@ this.Preloader=false;
                 this.UserForm.controls['chkView'].setValue(false);
                 this.divNachUser = false;
             }
+            }
 
             this.getmaker = data.Table4;
+            if(data.Table4.length>0)
+            {
             if (this.userdata[0].PresentmentChecker == "1") {
                 this.divMaker = true;
                 this.UserForm.controls['maker'].setValue(this.getmaker[0].MakerUserId);
             }
+        }
 
             if (this.userdata[0].IsRefrenceEdit == true) {
                 this.UserForm.controls['chkRefEdit'].setValue(true);
@@ -597,15 +629,10 @@ this.Preloader=false;
             else {
                 this.UserForm.controls['chkEnableCancel'].setValue(false);
             }
-            this.UserForm.controls['Type'].setValue(this.userdata[0].UserType);
+           
 
-            if (this.userdata[0].UserType == 'u') {
-                this.divaccessright = true;
-            }
-            else {
-                this.divaccessright = false;
-            }
-            debugger;
+           
+            
             for (var i = 0; i < data.Table6.length; i++) {
                 if (this.getAccessRight2[i].LinkID == 17) {
                     this.UserForm.controls['chkUmrnHistory'].setValue(true);
