@@ -61,7 +61,7 @@ export class NachtransactionpresentationComponent implements OnInit {
         this.showlabel3= false;
         this.BindMainGrid();
         //this.BankBind();
-       // this.CheckUser();
+       //this.CheckUser();
         //this.BindUMRN();
         //this.BindRefrence();
         //this.BindOnRowdblClick();
