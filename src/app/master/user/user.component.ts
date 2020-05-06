@@ -97,8 +97,8 @@ export class UserComponent implements OnInit {
     ngOnInit() {
         this.UserForm = this.formBuilder.group({
             UserName: ['', Validators.required],
-            sponsorbankcode: ['--Select--', Validators.required],
-            categorycode: ['--Select--', Validators.required],
+            sponsorbankcode: ['', Validators.required],
+            categorycode: ['', Validators.required],
             Type: ['', Validators.required],
             PhoneNo: new FormControl(),
             EmailId: new FormControl(),
@@ -151,10 +151,10 @@ export class UserComponent implements OnInit {
        
         this.bindPresentmentMaker();
         this.BindPresentmentChecker();
-        this.UserForm.controls['sponsorbankcode'].setValue(0);
-        this.UserForm.controls['categorycode'].setValue(0);
-        this.UserForm.controls['maker'].setValue(0);
-        this.UserForm.controls['nachuser'].setValue(0);
+        //this.UserForm.controls['sponsorbankcode'].setValue(0);
+        //this.UserForm.controls['categorycode'].setValue(0);
+        //this.UserForm.controls['maker'].setValue(0);
+        //this.UserForm.controls['nachuser'].setValue(0);
     }
 
     isFieldValid(field: string) {
