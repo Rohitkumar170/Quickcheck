@@ -16,6 +16,7 @@ import { GetMaker } from '../../../Models/User/get-maker';
 import { GetAccessRights } from '../../../Models/User/get-access-rights';
 import { GetCategoryCode } from '../../../Models/User/get-category-code';
 import { Userdata } from '../../../Models/User/userdata';
+import { MultiSelectService } from '../../multi-select.service';
 //import { Directive, HostListener } from '@angular/core';
 //import { UserServiceService } from 'ClientApp/app/Services/user/user-service.service';
 
@@ -75,13 +76,19 @@ export class UserComponent implements OnInit {
     isSingleChk: boolean = false;
     Userid: number = 0;
     selected_checkbox = {};
-    constructor(private formBuilder: FormBuilder, private userservice: UserServiceService) { }
+    public searchValue: string = null;
+    public citiesArray = [];
+    public filteredCitiesArray = [];
+    public selectedCitiesArray = [];
+    public isDropDownVisible: boolean = false;
+    constructor(private formBuilder: FormBuilder, private userservice: UserServiceService, private multiSelectService: MultiSelectService) { }
     showModal: boolean;
     showModalsave: boolean;
     showModalalert: boolean;
     IsViewAll: number = 0;
     lblalluser: boolean = false;
-
+    
+  
     onClick(event) {
         this.showModal = true;
 
@@ -95,6 +102,13 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.multiSelectService.getCities().subscribe(cities => {
+            this.citiesArray = cities;
+            for(let item of this.citiesArray){
+              item['selected'] = false;
+            }
+            this.filteredCitiesArray = [...this.citiesArray]
+          })
         this.UserForm = this.formBuilder.group({
             UserName: ['', Validators.required],
             sponsorbankcode: ['', Validators.required],
@@ -877,5 +891,48 @@ this.Preloader=false;
     // @HostListener('cut', ['$event']) blockCut(e: KeyboardEvent) {
     //     e.preventDefault();
     //}
+
+    filterCities() {
+        this.filteredCitiesArray  = this.citiesArray.filter(city => {
+            return city.name.toLowerCase().includes(this.searchValue.toLowerCase()) >= 1;
+        });
+      }
+    
+      selectCity($event) {
+        if ($event.target.nodeName === 'INPUT') {
+          if ($event.target.checked) {
+            for (let city of this.citiesArray) {
+              if (city.value === +$event.target.value) {
+                city.selected = true;
+                this.selectedCitiesArray.push(city);
+              }
+            }
+          } else {
+    
+            this.selectedCitiesArray = this.selectedCitiesArray.filter((city) => {
+              if(city.value === +$event.target.value){
+                city.selected = false;
+              }
+              return city.value !== +$event.target.value;
+            });
+          }
+        }
+      }
+    
+      removeCity(value) {
+        this.selectedCitiesArray = this.selectedCitiesArray.filter((city) => {
+          if (city.value === value) {
+            city.selected = false;
+          }
+          return city.value !== value;
+        });
+      }
+    
+      showDropDown($event) {
+        if ($event.target.nodeName === 'DIV' || $event.target.nodeName === 'UL' || $event.target.nodeName === 'path') {
+          this.isDropDownVisible = !this.isDropDownVisible;
+        }
+      }
+    
 }
 
