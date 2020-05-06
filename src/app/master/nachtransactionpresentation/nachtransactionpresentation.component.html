@@ -125,18 +125,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let lang of bindmaingrid">
+                    <tr *ngFor="let lang of bindmaingrid" (dblclick)="BindOnRowdblClick(lang);">
                         <td style="width:90px;">{{lang.RowNumber}}</td>
-                        <td style="width:150px;">Demo</td>
+                        <td style="width:150px;">{{lang.date}}</td>
                         <td style="width:150px;">{{lang.FileNo}}</td>
-                        <td style="width:150px;">Demo</td>
+                        <td style="width:150px;">{{lang.CreatedOn}}</td>
                         <td style="width:150px;">{{lang.UserName}}</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
+                        <td style="width:150px;">{{lang.UpdatedBy}}</td>
+                        <td style="width:150px;">{{lang.UpdatedOn}}</td>
+                        <td style="width:150px;">{{lang.ApprovedBy}}</td>
+                        <td style="width:150px;">{{lang.ApprovedOn}}</td>
                         <td style="width:150px;">{{lang.BankName}}</td>
-                        <td style="width:150px;">Demo</td>
+                        <td style="width:150px;">{{lang.LastStatus}}</td>
                         <td style="width:150px;">{{lang.FileStatus}}</td>
 
 
@@ -147,8 +147,8 @@
             </table>
 
         </div>
-        <form [style.display]="showlabel1 ? 'block' : 'none'">
-            <div class="col-md-12 col-sm-12 col-xs-12 boxsetting">
+        <form [formGroup]="Allumrn">
+            <div class="col-md-12 col-sm-12 col-xs-12 boxsetting" [style.display]="showlabel1 ? 'block' : 'none'">
                 <div class="col-md-12 col-sm-12 col-xs-12 boxhead">
                     <div class="row no-padding">
                         <div class="col-md-4 col-sm-4 col-xs-12">
@@ -157,7 +157,7 @@
                                     Bank:
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 displayinlineblock">
-                                    <select id="" class="alldropdown" #BankId (change)="BindGridForm(BankId.value)">
+                                    <select id="" class="alldropdown" #BankId (change)="BindGridForm(BankId.value)" name="BankValue" formControlName="BankValue">
                                         <option value="0">Select</option>
                                         <option *ngFor="let lang of bankbind"
                                                 value={{lang.SponsorBankCodeId}}>
@@ -170,8 +170,8 @@
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1"> Presentment Date: </label>
-                                <div class="col-sm-7 col-md-7 col-xs-7 displayinlineblock">
-                                    <input class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" type="date" #PresentmentDate>
+                                <div class="col-sm-7 col-md-7 col-xs-7 displayinlineblock"  [ngClass]="displayFieldCss('Searchvalidation')">
+                                    <input class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" type="date" name="Searchvalidation"  formControlName="Searchvalidation" #PresentmentDate>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +212,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row no-padding" *ngFor="let lang of bindgrid">
+                    <div class="row no-padding"  >  
+                        <!-- [style.display]="showlabel3 ? 'block' : 'none'" -->
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label class="col-sm-6 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
@@ -303,10 +304,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr  >
                             <td style="width:90px;"><input name="all" type="checkbox"></td>
                             <td style="width:150px;">
-                                <select name="UMRNNo"  class="col-md-12 col-sm-12 col-xs-12" formControlName="UMRNNo"  (change)="BindRefOnchange()">
+                                <select  class="col-md-12 col-sm-12 col-xs-12" formControlName="UMRNNo"  (change)="BindRefOnchange()">
                                     <!--// #UMRN-->
                                     <option value="0">Select</option>
                                     <option *ngFor="let lang of bindumrn"  value="{{lang.UMRN}}">
@@ -315,18 +316,18 @@
                                 </select>
                             </td>
                             <td style="width:150px;">
-                                <select name="RefrenceNo" class="col-md-12 col-sm-12 col-xs-12" formControlName="RefrenceNo" (change)="BindUMRNOnchange()">
+                                <select  class="col-md-12 col-sm-12 col-xs-12" formControlName="RefrenceNo" (change)="BindUMRNOnchange()">
                                     <!--#Refrence1-->
                                     <option value="0">Select</option>
                                     <option *ngFor="let lang of bindref" value="{{lang.Refrence1}}">
                                         {{lang.Refrence1}}
                                 </select>
                             </td>
-                            <td style="width:150px;"><input type="text" style="width:100%"></td>
-                            <td style="width:150px;">Demo</td>
-                            <td style="width:150px;">Demo</td>
-                            <td style="width:150px;">Demo</td>
-                            <td style="width:150px;">Demo</td>
+                            <td style="width:150px;"><input type="text"  style="width:100%" ></td>
+                            <td style="width:150px;"></td>
+                            <td style="width:150px;"></td>
+                            <td style="width:150px;"></td>
+                            <td style="width:150px;"></td>
 
 
 
