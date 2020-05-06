@@ -31,10 +31,10 @@ export class UserServiceService {
         return this._http.get<any>(this.baseUrl + 'api/USer/CheckIsPresentmentChecker/' + EntityId);
     }
 
-    SaveUser(em: any, EntityId, UserId, IsViewAll, checkbulkuploadlink, chkvideolink): Observable<Users> {
+    SaveUser(em: any, EntityId, UserId,IsViewAll,checkbulkuploadlink, chkvideolink): Observable<Users> {
         const body = em;
         const headers = new HttpHeaders().set('content-type', 'application/json');
-        return this._http.post<Users>(this.baseUrl + 'api/USer/SaveData/' + EntityId + '/' + UserId + '/' + IsViewAll + '/' + checkbulkuploadlink + '/' + chkvideolink, body, {
+        return this._http.post<Users>(this.baseUrl + 'api/USer/SaveData/' + EntityId + '/' + UserId + '/' +  IsViewAll +  '/' + checkbulkuploadlink + '/' + chkvideolink , body, {
             headers
         });
     }
@@ -42,10 +42,10 @@ export class UserServiceService {
 
         return this._http.get<any>(this.baseUrl + 'api/USer/EditData/' + UserId);
     }
-    UpdateUser(em: any, EntityId, UserId, Id, IsViewAll, checkbulkuploadlink, chkvideolink): Observable<Users> {
+    UpdateUser(em: any, EntityId, UserId, Id ,IsViewAll, checkbulkuploadlink, chkvideolink): Observable<Users> {
         const body = em;
         const headers = new HttpHeaders().set('content-type', 'application/json');
-        return this._http.post<Users>(this.baseUrl + 'api/USer/UpdateData/' + EntityId + '/' + UserId + '/' + Id + '/' + IsViewAll + '/' + checkbulkuploadlink + '/' + chkvideolink, body, {
+        return this._http.post<Users>(this.baseUrl + 'api/USer/UpdateData/' + EntityId + '/' + UserId + '/' + Id + '/' + IsViewAll + '/' + checkbulkuploadlink + '/' + chkvideolink  , body, {
             headers
         });
     }
