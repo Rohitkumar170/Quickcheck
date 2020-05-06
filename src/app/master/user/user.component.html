@@ -71,8 +71,11 @@
             </div>
 
         </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+        </div>
         <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" *ngIf="tableid">
-            <table>
+            <table class="tbluserlist">
                 <thead>
                     <tr>
                         <th style="display: none;"></th>
@@ -235,7 +238,7 @@
 
                                                 </ng-multiselect-dropdown>-->
                                                 <select class="col-sm-12 col-md-12 col-xs-12 no-padding  spneser bankcodeposition" formControlName="sponsorbankcode" [ngClass]="displayFieldCss('sponsorbankcode')" name="sponsorbankcode">
-                                                    <option value="0">--Select--</option>
+                                                    <option value="">--Select--</option>
 
                                                     <option *ngFor="let SponsorBankCode of sponsorbankcode" value="{{SponsorBankCode.SponsorBankCodeId}}"> {{SponsorBankCode.name}} </option>
                                                 </select>
@@ -251,7 +254,7 @@
                                             </label>
                                             <div class="col-sm-10 col-md-10 col-xs-7 no-padding-left displayinlineblock">
                                                 <select class="col-sm-12 col-md-12 col-xs-12 no-padding  spneser bankcodeposition" formControlName="categorycode" [ngClass]="displayFieldCss('categorycode')" name="categorycode">
-                                                    <option value="0">--Select--</option>
+                                                    <option value="">--Select--</option>
 
                                                     <option *ngFor="let CategoryCode of categorycode" value="{{CategoryCode.code}}"> {{CategoryCode.name}} </option>
                                                 </select>
@@ -428,7 +431,7 @@
                                                         <div *ngIf="divNachUser">
                                                             <div class="col-sm-10 col-md-10 col-xs-7 no-padding">
                                                                 <select class="col-sm-12 col-md-12 col-xs-12  viewrowmargin  no-padding" formControlName="nachuser" name="nachuser">
-                                                                    <option value="0">--Select--</option>
+                                                                    <option value="">--Select--</option>
 
                                                                     <option *ngFor="let NachUser of nachuser" value="{{NachUser.UserId}}"> {{NachUser.UserName}} </option>
                                                                 </select>
@@ -512,7 +515,7 @@
 
                                                         <div class="col-sm-10 col-md-10 col-xs-7 no-padding">
                                                             <select class="col-sm-12 col-md-12 col-xs-12  viewrowmargin  no-padding" formControlName="maker" name="maker">
-                                                                <option value="0">--Select--</option>
+                                                                <option value="">--Select--</option>
 
                                                                 <option *ngFor="let Maker of maker" value="{{Maker.UserId}}"> {{Maker.UserName}} </option>
                                                             </select>

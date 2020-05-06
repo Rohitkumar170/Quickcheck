@@ -1,21 +1,20 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LinkSetupComponent } from './link-setup.component';
 import { LinkSetupRoutingModule } from './link-setup-routing.module';
-import {AppSettings} from '../../app-settings';
-import {AuthGuardService } from '../../Services/auth-guard.service';
+//import { LinkSetupService } from 'ClientApp/app/Services/link-setup/link-setup.service';
+
 @NgModule({
     declarations: [LinkSetupComponent],
     imports: [
         CommonModule,
-        LinkSetupRoutingModule
-    ], providers: [
-        AuthGuardService,
-          { provide: 'BASE_URL', useFactory: getBaseUrl }
-    ]
+        LinkSetupRoutingModule, FormsModule, ReactiveFormsModule
+    ],
+    //providers: [LinkSetupService, { provide: 'BASE_URL', useFactory: getBaseUrl }]
 })
 export class LinkSetupModule { }
-export function getBaseUrl() {
-    var BASE_URL=AppSettings.API_ENDPOINT;
-      return BASE_URL;
-  }
+//export function getBaseUrl() {
+//    return document.getElementsByTagName('base')[0].href;
+//}

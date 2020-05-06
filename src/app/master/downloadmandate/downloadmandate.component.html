@@ -68,10 +68,11 @@
 
 
         </div>
-        <div class="row">
+        <div class="row" *ngIf="buttonshow" >
             <div class="col-md-6 col-sm-6 col-xs-6"></div>
             <div class="col-md-6 col-sm-6 col-xs-12" id="btngroup">
                 <span id="btnp">
+                        <i class="fa fa-close" aria-hidden="true"></i>
                     <input type="button" class="btn btn-success" id="btnreject"
                            (click)="show()" data-toggle="modal" data-target="#myModal" value="Reject Mandate" />
 
@@ -80,6 +81,12 @@
                     <i class="fa fa-download" aria-hidden="true"></i>
                     <input type="button" class=" btn btn-success" id="btnexcel"
                            value="Download Excel" (click)="download()" />
+                </span>
+
+                <span id="btnspa">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <input type="button" class=" btn btn-success" id="btnexcel"
+                           value="Download Scanned Mandate" (click)="downloadScannedMandate()" />
                 </span>
 
                 <!--<span id="btnspa">
@@ -130,7 +137,7 @@
                         </label>
 
                         <div [formGroup]="dmandateForm" class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                            <input type="text" value="1" formControlName="referenceNo" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" #RefNo />
+                            <input type="text" id="reference"value="1" formControlName="referenceNo" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" #RefNo />
                         </div>
                     </div>
                 </div>
@@ -157,11 +164,11 @@
                 <div class="col-md-4 col-sm-4 col-xs-12  no-padding">
                     <input type="button" class="col-md-2 col-sm-12 col-xs-12 btn btn-success" id="btnOk"
                            (click)="BindGrid(FromDate.value,ToDate.value,Bank.value,RefNo.value)" value="Search" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%;" />
-                    <label id="lblName">{{errormsg}}</label>
+                    <label id="lblName" style="color:#ff0000">{{errormsg}}</label>
 
                     <!--<input type="button" class="col-md-2 col-sm-12 col-xs-12 btn btn-success" id=""
-                (click)="downloadScannedMandate()" value="Download Scanned Mandate" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%;" />
-            </div>-->
+                        (click)="downloadScannedMandate()" value="Download Scanned Mandate" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%;" />
+                    </div>-->
 
                     <div class="col-md-4 col-sm-4 col-xs-12  no-padding">
 
@@ -171,7 +178,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
                 <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding" id="tbldiv" [style.display]="showBindgrid ? 'block' : 'none'">
                 <table id="tbldownmandate">
                     <thead>
                         <tr>
@@ -225,42 +232,12 @@
     </div>
 
 
-    <div class="container">
+    <!--<div class="container">
         <!-- Modal -->
-        <div class="modal" id="myModal" role="dialog" [style.display]="showModal ? 'block':'none'">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-
-                        <h5 class="modal-title" style="text-align:center">Are you Sure to Reject Mandate</h5>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <label>Reason</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <textarea class="form-control" id="myform" #RejectedReason placeholder="Enter The Reason"></textarea>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer" style="text-align:center">
-
-                        <button type="button" class="btn btn-primary" (click)="RejectMandate(FromDate.value,ToDate.value,Bank.value,RejectedReason.value)">Reject</button> &nbsp;
-                        <button type="button" class="btn btn-default" (click)="hide()" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
+    <!--</div>-->
 
 
-    <div class="modal" id="myModal" [style.display]="showModalSuccess ? 'block' : 'none'">
+    <div class="modal" id="" [style.display]="showModalSuccess ? 'block' : 'none'">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -285,5 +262,51 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" id="" [style.display]="showModalrejectmandate ? 'block' : 'none'">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <div class="col-md-12" style="text-align:center;">
+                            <img src="../../assets/images/caution.png" style="width:11%;" />
+                        </div>
+                        <label class="col-md-12 col-sm-12 col-xs-12" style="text-align:center;">Are you sure you want to reject mandate ?</label>
+                    </h4>
+
+                    <button type="button" class="close" data-dismiss="modal" (click)="cancelrejecthide()">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-group" style="margin-top: 2%; margin-bottom:3%;">
+                        <div class="row">
+                            <label class="col-sm-3 col-md-3 col-xs-3 control-label" for="form-field-1">
+                                Reason
+                            </label>
+                            <div class="col-sm-9 col-md-9 col-xs-9 no-padding-left">
+                                <textarea name=""  id="myform" (keydown)="removeClass()" #RejectedReason class="col-sm-12 col-md-12 col-xs-12 no-padding"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" btfooter">
+
+
+                        <button type="button" class="btn btn-primary " (click)="validation(FromDate.value,ToDate.value,Bank.value,RejectedReason.value)" style="width:48%; margin-right:4%">Reject</button>
+                        <button type="button" class="btn btn-primary" (click)="cancelrejecthide()" style="width:48%">Cancel</button>
+                    </div>
+                </div>
+
+               
+
+                <!-- Modal footer -->
+
+
+            </div>
+        </div>
     </div>
 
+</div>

@@ -3,14 +3,15 @@
         <div class="col-md-12 contnt-wrapper" id="">
             <div class="row">
                 <div class="col-sm-4 col-md-4 col-xs-6 ">
-                    <span class="legal">Bulk E-Mandate</span>
+                    <span class="legals">Bulk E-Mandate</span>
                 </div>
                 <div class="col-md-8 col-sm-8">
                     <span id="btnp">
 
                         <i class="fa fa-file-text" aria-hidden="true"></i>
                         <input type="button" class="btn btn-success" id="btnreject"
-                               value="New" />
+                               value="New" (click)="Redirectpage()" />
+                               <!-- (click)="goToPage('/ebulkuploadeddata', 123)" -->
 
                     </span>
                     <span id="btnspa">
@@ -35,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let td of tabledata">
+                    <tr *ngFor="let td of tabledata" (dblclick)="rbulkupdData(data)">
 
                         <td style="width:150px;">{{td.Srno}}</td>
                         <td style="width:220px;">{{td.ActivityId}}</td>
@@ -66,14 +67,16 @@
                     </li>
                     <li id="">
                         <i class="" aria-hidden="true" title="Save"></i>
-                        <input type="button" id="btnLoadMore" class="btn btn-primary" (click)="pagenext()" style="border: 1px solid #fff;padding: 3px 5px 3px 5px;font-size: 12px;" value="Load More" />
+                        <input type="button" id="btnLoadMore" class="btn btn-success" (click)="pagenext()" style="border: 1px solid #fff;padding: 3px 5px 3px 5px;font-size: 12px;" value="Load More" />
                     </li>
 
                 </ul>
             </div>
         </div>
 
-
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+        </div>
     </div>
 </div>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BulkEmandateAttributeClass } from '../../../Models/BulkEmandate/BulkEmandateAttributeClass';
 import { BuldEmandateService } from '../../../app/Services/BulkEMandate/buld-emandate.service';
-import { Route } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { forEach } from '@angular/router/src/utils/collection';
 import { formatDate } from '@angular/common';
 import { count } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { count } from 'rxjs/operators';
 })
 export class BulkEmandateComponent implements OnInit {
 
-    constructor(private myservice: BuldEmandateService) { }
+    constructor(private myservice: BuldEmandateService,private router:Router) { }
     ActivityType: string = 'E';
     topVal: any=50;
     EntityId: any;
@@ -21,7 +21,9 @@ export class BulkEmandateComponent implements OnInit {
     datacount: any;
     count: any;
     EntityId123: any;
+    Preloader: boolean = true;
     ngOnInit() {
+        this.Preloader = false;
         //ActivityType: string = 'p';
         let item = JSON.parse(sessionStorage.getItem('User'));
 // this.UserId = item.UserId;
@@ -33,10 +35,12 @@ export class BulkEmandateComponent implements OnInit {
 
     BindGrid(EntityId, topVal, ActivityType) {
         let item = JSON.parse(sessionStorage.getItem('User'));
+        this.Preloader = true;
         this.myservice.GetGridAllData(item.UserId, EntityId, topVal, ActivityType).subscribe((res) => {
             console.log(res);
             this.tabledata = res.Table;
             this.datacount = res.Table1;
+            this.Preloader = false;
             console.log(this.datacount);
             //this.count = JSON.stringify(this.datacount);
             var str = JSON.stringify(this.datacount);
@@ -65,7 +69,11 @@ export class BulkEmandateComponent implements OnInit {
       //  console.log(this.topVal);
         
     }
+    Redirectpage(){
 
+        window.location.href="../../EBulkUploadedData";
+
+    }
 
     ConvertToCSV(objArray) {
         //this.HeaderArray = {
@@ -117,11 +125,24 @@ export class BulkEmandateComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            a.download = 'MandateExcel.csv';/* your file name*/
             a.click();
             return 'success';
     }
 
+  //  editdata0;
+    rbulkupdData(data){
+    // data1={
+      //  var ID=5;
+    // }
+      //  document.getElementById("AResponse").setAttribute('href', '..' + this.editdata0[0].xmlpath + '');
+     // this.router.navigate(['/ebulkuploadeddata']);
+    // document.getElementById("AResponse").setAttribute('href', '..' + this.editdata0[0].xmlpath + '');
+   //  window.location.href="../../dashboard?ID="+ID+"";
+    }
+
+
+   
 
 
 }

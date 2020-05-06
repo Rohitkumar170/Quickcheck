@@ -17,8 +17,7 @@ import { count } from 'rxjs/operators';
   styleUrls: ['./link-setup.component.css']
 })
 export class LinkSetupComponent implements OnInit {
-    Linksetup: FormGroup;
-   
+    Linksetup: FormGroup;   
     showModalsave: boolean;
     setSelectedRow: Function;
     Preloader: boolean = false;
@@ -30,10 +29,13 @@ export class LinkSetupComponent implements OnInit {
     Temp: number = 1; submitted = false;
     LinkId: number = 0;
     message: string;
+    btnNewDisabled: boolean = false;
+    btnEditDisabled: boolean = false;
+    btnSaveDisabled: boolean = false;
+    btnBackDisabled: boolean = false;
 
     constructor(private formBuilder: FormBuilder, private _LinkSetupService: LinkSetupService) { }
-    hide() {
-       
+    hide() {       
         this.showModalsave = false;
     }
     ngOnInit() {
@@ -43,19 +45,19 @@ export class LinkSetupComponent implements OnInit {
             OrderNo: ['', Validators.required],
             IconName: [''],
             Purpose: [''],
-            IsActive: ['']
-            
-        });
-
-       // this.Preloader = false;
-        this.BindGrid();
-      
+            IsActive: ['']            
+        });     
+        this.BindGrid();      
         this.GetIconDropDown();
 
 
-        document.getElementById("btnEdit").setAttribute("disabled", "disabled");
-        document.getElementById("btnBack").setAttribute("disabled", "disabled");
-        document.getElementById("btnSave").setAttribute("disabled", "disabled");
+        // document.getElementById("btnEdit").setAttribute("disabled", "disabled");
+        // document.getElementById("btnBack").setAttribute("disabled", "disabled");
+        // document.getElementById("btnSave").setAttribute("disabled", "disabled");
+        this.btnSaveDisabled=true;
+        this.btnEditDisabled=true;
+        this.btnBackDisabled=true;
+        this.btnNewDisabled=false;
 
         this.setSelectedRow = function (index) {
             this.selectedRow = index;
@@ -125,27 +127,26 @@ export class LinkSetupComponent implements OnInit {
             subscribe((data) => {
                 this.Preloader = false;            
                 this.linksetup = data.Table;
-                this.tbldiv = true;
-                
+                this.tbldiv = true;                
             });
-
-
     }
     GetIconDropDown() {
         this._LinkSetupService.GetIconDropDown().
-            subscribe((data) => {
-              
-                this.iconname = data.Table;
-                console.log(this.iconname);
+            subscribe((data) => {              
+                this.iconname = data.Table;                
             });
     }
 
     btnNew_Click() {
         this.Linksetup.reset();
-        document.getElementById("btnSave").removeAttribute("disabled");
-        document.getElementById("btnEdit").setAttribute("disabled", "disabled");
-        document.getElementById("btnNew").setAttribute("disabled", "disabled");
-        document.getElementById("btnBack").removeAttribute("disabled");
+        // document.getElementById("btnSave").removeAttribute("disabled");
+        // document.getElementById("btnEdit").setAttribute("disabled", "disabled");
+        // document.getElementById("btnNew").setAttribute("disabled", "disabled");
+        // document.getElementById("btnBack").removeAttribute("disabled");
+        this.btnSaveDisabled=false;
+        this.btnEditDisabled=true;
+        this.btnBackDisabled=false;
+        this.btnNewDisabled=true;
         this.tbldiv = false;
         this.formid = true;
         this.Temp = 1;
@@ -153,17 +154,19 @@ export class LinkSetupComponent implements OnInit {
     }
 
     btnBack_Click() {
-       
-      
         this.formid = false;
         this.BindGrid();
        // this.tbldiv = true;
         //document.getElementById('divSearch').hidden = false;
         //document.getElementById('btnExport').hidden = false;
-        document.getElementById("btnSave").setAttribute("disabled", "disabled");
-        document.getElementById("btnEdit").setAttribute("disabled", "disabled");
-        document.getElementById("btnNew").removeAttribute("disabled");
-        document.getElementById("btnBack").setAttribute("disabled", "disabled");
+        // document.getElementById("btnSave").setAttribute("disabled", "disabled");
+        // document.getElementById("btnEdit").setAttribute("disabled", "disabled");
+        // document.getElementById("btnNew").removeAttribute("disabled");
+        // document.getElementById("btnBack").setAttribute("disabled", "disabled");
+        this.btnSaveDisabled=true;
+        this.btnEditDisabled=true;
+        this.btnBackDisabled=true;
+        this.btnNewDisabled=false;
         this.Linksetup.reset();
     }
     editData() {
@@ -175,39 +178,35 @@ export class LinkSetupComponent implements OnInit {
             this.Linksetup.controls['Url'].setValue(this.linksetup[0].url);
             this.Linksetup.controls['Purpose'].setValue(this.linksetup[0].Purpose);
             this.Linksetup.controls['OrderNo'].setValue(this.linksetup[0].OrderNo);
-            this.Linksetup.controls['IconName'].setValue(this.linksetup[0].IconName);
-           
+            this.Linksetup.controls['IconName'].setValue(this.linksetup[0].IconName);           
             if (this.linksetup[0].IsActive == 1) {
                 this.Linksetup.controls['IsActive'].setValue(true);
-            }
-           
+            }           
         });
-        document.getElementById("btnSave").removeAttribute("disabled");
-        document.getElementById("btnEdit").setAttribute("disabled", "disabled");
-        document.getElementById("btnNew").setAttribute("disabled", "disabled");
-        document.getElementById("btnBack").removeAttribute("disabled");
+        // document.getElementById("btnSave").removeAttribute("disabled");
+        // document.getElementById("btnEdit").setAttribute("disabled", "disabled");
+        // document.getElementById("btnNew").setAttribute("disabled", "disabled");
+        // document.getElementById("btnBack").removeAttribute("disabled");
+        this.btnSaveDisabled=false;
+        this.btnEditDisabled=true;
+        this.btnBackDisabled=false;
+        this.btnNewDisabled=true;
         //document.getElementById('divSearch').hidden = true;
         //document.getElementById('btnExport').hidden = true;
         this.tbldiv = false;
         this.formid = true;
     }
     onSubmit() {
-
-
         this.submitted = true;
-        if (this.Linksetup.valid) {
-            //this.sucess=true;
+        if (this.Linksetup.valid) {           
             const datat = this.Linksetup.value;
             if (this.Temp == 1) {
                 this.InsertData();
-
             }
             else {
                 this.UpDateLink();
             }
-
         } else {
-
             this.validateAllFormFields(this.Linksetup);
         }
     }
@@ -215,85 +214,72 @@ export class LinkSetupComponent implements OnInit {
     InsertData() {
         let item = JSON.parse(sessionStorage.getItem('User'));
         this._LinkSetupService.InsertData(JSON.stringify(this.Linksetup.value), item.UserId).subscribe(
-            (data) => {
-                // this.linksetup = data;
+            (data) => {               
                 this.linksetup = data;
                 if (this.linksetup[0].Result == -1) {
-
                     this.message = 'Link already exists';
                     alert(this.message);
                 }
                 else {
-                   
-                        //innerHTML("Link Save SuccessFully");
                     this.showModalsave = true;
                 }
                 this.Linksetup.reset();
                 this.BindGrid();
-
                 this.formid = false;
                 this.tbldiv = true;
-                document.getElementById("btnEdit").setAttribute("disabled", "disabled");
-                document.getElementById("btnBack").setAttribute("disabled", "disabled");
-                document.getElementById("btnSave").setAttribute("disabled", "disabled");
-                document.getElementById("btnNew").removeAttribute("disabled");
-                //document.getElementById('divSearch').hidden = false;
-                //document.getElementById('btnExport').hidden = false;
-
-
+                // document.getElementById("btnEdit").setAttribute("disabled", "disabled");
+                // document.getElementById("btnBack").setAttribute("disabled", "disabled");
+                // document.getElementById("btnSave").setAttribute("disabled", "disabled");
+                // document.getElementById("btnNew").removeAttribute("disabled");
+                this.btnSaveDisabled=true;
+                this.btnEditDisabled=true;
+                this.btnBackDisabled=true;
+                this.btnNewDisabled=false;
             }
         )
     }
 
     UpDateLink() {
         let item = JSON.parse(sessionStorage.getItem('User'));
-
-
         this._LinkSetupService.UpDateLink(JSON.stringify(this.Linksetup.value), item.UserId, this.LinkId).subscribe(
             (data) => {
                 this.linksetup = data;
                 if (this.linksetup[0].Result == -1) {
-
                     this.message = 'Error';
                     alert(this.message);
-
                 }
                 else {
                     this.showModalsave = true;
                 }
-
                 this.Linksetup.reset();
                 this.BindGrid();
-
                 this.formid = false;
                 this.tbldiv = true;
-                document.getElementById("btnEdit").setAttribute("disabled", "disabled");
-                document.getElementById("btnBack").setAttribute("disabled", "disabled");
-                document.getElementById("btnSave").setAttribute("disabled", "disabled");
-                document.getElementById("btnNew").removeAttribute("disabled");
-                //document.getElementById('divSearch').hidden = false;
-                //document.getElementById('btnExport').hidden = false;
-
-
-            }
+                // document.getElementById("btnEdit").setAttribute("disabled", "disabled");
+                // document.getElementById("btnBack").setAttribute("disabled", "disabled");
+                // document.getElementById("btnSave").setAttribute("disabled", "disabled");
+                // document.getElementById("btnNew").removeAttribute("disabled");
+                this.btnSaveDisabled=true;
+                this.btnEditDisabled=true;
+                this.btnBackDisabled=true;
+                this.btnNewDisabled=false;
+               }
         )
     }
 
     doubleClick(Data: any) {
         const Currentrowid = this.Linksetup.value;
         this.LinkId = Data.LinkID;
-
         this.editData();        
         this.Temp = 2;
-
     }
 
     setClickedRow(Data: any) {
         const Currentrowid = this.Linksetup.value;
         this.LinkId = Data.LinkID;
         this.Temp = 2;
-
-        document.getElementById("btnEdit").removeAttribute("disabled");
+        //document.getElementById("btnEdit").removeAttribute("disabled");
+        this.btnEditDisabled=false;
     }
 
    

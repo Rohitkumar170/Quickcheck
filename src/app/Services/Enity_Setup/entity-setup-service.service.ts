@@ -21,7 +21,7 @@ export class EntitySetupServiceService {
         return this._http.get<any>(this.baseUrl + 'api/BindCountryAndBank');
     }
     BingGrid(): Observable<any> {
-        return this._http.get<any>(this.baseUrl + 'api/BingGrid');
+        return this._http.get<any>(this.baseUrl + 'api/BindGrid');
     }
     SaveData(em: any): Observable<any> {
         const body = em;
@@ -29,6 +29,12 @@ export class EntitySetupServiceService {
         return this._http.post<any>(this.baseUrl + 'api/SaveData', body, {
             headers
         });
+    }
+    BindState(CountryId): Observable<any> {
+        return this._http.get<any>(this.baseUrl + 'api/BindState/'+ CountryId);
+    }
+    BindCity(StateId): Observable<any> {
+        return this._http.get<any>(this.baseUrl + 'api/BindCity/'+ StateId);
     }
 
     errorHandler(error: Response) {

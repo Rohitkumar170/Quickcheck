@@ -56,12 +56,14 @@
                 </div>
             </div>
         </div>
-
-
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+        </div>
+<div class="clearfix"></div>
         <div class="col-md-12 col-sm-12 col-xs-12 boxsetting">
             <form [formGroup]="SearchData" autocomplete="off">
                 <div class="col-md-12 col-sm-12 col-xs-12 boxhead">
-                    <div class="row no-padding" [ngClass]="displayFieldCss('searchtext')">
+                    <div class="row no-padding">
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="form-group">
                                 <label class="col-sm-5 col-md-4 col-xs-4 control-label no-padding" for="form-field-1">
@@ -69,7 +71,7 @@
 
                                 </label>
                                 <div class="col-sm-7 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                    <input type="text" required name="UMRN" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="searchtext" #UMRN />
+                                    <input type="text" id="txtumrn" required name="UMRN" [ngClass]="displayFieldCss('searchtext')" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="searchtext" #UMRN />
                                 </div>
                             </div>
                         </div>
@@ -79,7 +81,7 @@
                                     Customer Name
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                    <input type="text" required name="CustomerName" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="searchtext" #CustomerName />
+                                    <input type="text" id="txtcustname" [ngClass]="displayFieldCss('searchtext')" required name="CustomerName" class="col-sm-12 col-md-12 col-xs-12" style="height: 22px;" formControlName="searchtext" #CustomerName />
                                 </div>
                             </div>
                         </div>
@@ -89,7 +91,7 @@
                                     Reference Number
                                 </label>
                                 <div class="col-sm-6 col-md-7 col-xs-7 no-padding-left displayinlineblock">
-                                    <input type="text" required name="ReferenceNumber" class="col-sm-12 col-md-12 col-xs-12" style="height:  22px;" formControlName="searchtext" #RefrNo />
+                                    <input type="text" id="txtrefno" [ngClass]="displayFieldCss('searchtext')" required name="ReferenceNumber" class="col-sm-12 col-md-12 col-xs-12" style="height:  22px;" formControlName="searchtext" #RefrNo />
                                 </div>
                             </div>
                         </div>
@@ -102,22 +104,22 @@
 
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-12  no-padding">
-                            <input type="button" class="col-md-2 col-sm-12 col-xs-12 btn btn-success" id="btnOk"
-                                   value="Search" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%;float:right;" (click)="SearchFunction(UMRN.value,CustomerName.value,RefrNo.value)" />
-                        </div>
+                            <!-- <input type="button" class="col-md-2 col-sm-12 col-xs-12 btn btn-success" id="btnOk"
+                                   value="Search" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%;float:right;" (click)="SearchFunction(UMRN.value,CustomerName.value,RefrNo.value)" /> -->
+                                   <input type="button" class="col-md-2 col-sm-12 col-xs-12 btn btn-success" id="btnOk"
+                                   value="Search" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%;float:right;" (click)="SearchFunction()" />
+                                </div>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
-            <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
-        </div>
+       
 
-        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" style="margin-top:1%;">
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" style="margin-top:1%; display:none;">
             <table id="tblUmrnhistory">
                 <thead>
                     <tr>
-                        <th style="width:150px;">SR.No.</th>
+                        <th style="width:150px;">Sr. No.</th>
                         <th style="width:220px;">UMRN</th>
                         <th style="width:220px;">Customer Name</th>
                         <th style="width:220px;">Reference Number</th>

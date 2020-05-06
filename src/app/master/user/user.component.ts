@@ -40,6 +40,7 @@ export class UserComponent implements OnInit {
     submitted = false; Temp: number = 1;
     public tableid: boolean = false;
     public formid: boolean = false;
+    Preloader:boolean=false;
     // public divuserlist:boolean = false;
     public divaccessright: boolean = false;
     disabled = false;
@@ -95,7 +96,7 @@ export class UserComponent implements OnInit {
 
     ngOnInit() {
         this.UserForm = this.formBuilder.group({
-            UserName: [, Validators.required],
+            UserName: ['', Validators.required],
             sponsorbankcode: ['', Validators.required],
             categorycode: ['', Validators.required],
             Type: ['', Validators.required],
@@ -128,7 +129,7 @@ export class UserComponent implements OnInit {
             this.selectedRow = index;
         }
 
-        this.tableid = true;
+       
         this.formid = false;
         this.divaccessright = false;
         this.divNachUser = false;
@@ -142,18 +143,18 @@ export class UserComponent implements OnInit {
         this.dvEnableCancel = false;
         this.isSelected = false;
         this.lblalluser = false;
-
+        this.bindUser();
 
         document.getElementById("btnEdit").setAttribute("disabled", "disabled");
         document.getElementById("btnBack").setAttribute("disabled", "disabled");
         document.getElementById("btnSave").setAttribute("disabled", "disabled");
-        this.bindUser();
+       
         this.bindPresentmentMaker();
         this.BindPresentmentChecker();
-        this.UserForm.controls['sponsorbankcode'].setValue(0);
-        this.UserForm.controls['categorycode'].setValue(0);
-        this.UserForm.controls['maker'].setValue(0);
-        this.UserForm.controls['nachuser'].setValue(0);
+        //this.UserForm.controls['sponsorbankcode'].setValue(0);
+        //this.UserForm.controls['categorycode'].setValue(0);
+        //this.UserForm.controls['maker'].setValue(0);
+        //this.UserForm.controls['nachuser'].setValue(0);
     }
 
     isFieldValid(field: string) {
@@ -190,12 +191,13 @@ export class UserComponent implements OnInit {
         if (this.Search_Text == "") {
             this.Search_Text = "0";
         }
+        this.Preloader=true;
         let item = JSON.parse(sessionStorage.getItem('User'));
         this.userservice.getUser(item.ReferenceId, this.Page_Count, this.Search_Text).subscribe((data) => {
-
+this.Preloader=false;
             this.userdata = data.Table;
 
-
+            this.tableid = true;
             this.sponsorbankcode = data.Table2;
 
 
@@ -329,16 +331,17 @@ export class UserComponent implements OnInit {
     }
 
     backClick() {
-        this.bindUser();
-        this.tableid = true;
         this.formid = false;
+        this.bindUser();
+      //  this.tableid = true;
+      this.UserForm.reset();
         document.getElementById('divSearch').hidden = false;
         document.getElementById('btnExport').hidden = false;
         document.getElementById("btnSave").setAttribute("disabled", "disabled");
         document.getElementById("btnEdit").setAttribute("disabled", "disabled");
         document.getElementById("btnNew").removeAttribute("disabled");
         document.getElementById("btnBack").setAttribute("disabled", "disabled");
-        this.UserForm.reset();
+       
 
     }
 
@@ -510,6 +513,7 @@ export class UserComponent implements OnInit {
         const Currentrowid = this.UserForm.value;
         this.Userid = User.UserId;
 
+
         this.editData();
         //document.getElementById("btnSave").removeAttribute("disabled");
         //document.getElementById("btnEdit").setAttribute("disabled", "disabled");
@@ -522,15 +526,19 @@ export class UserComponent implements OnInit {
     }
 
     editData() {
+        this.Preloader=true;
         this.userservice.EditData(this.Userid).subscribe((data) => {
-
+          
+            this.Preloader=false;
             this.userdata = data.Table;
             this.sponsorbankid = data.Table1;
             this.getcatcode = data.Table9;
             this.getmaker = data.Table4;
             this.getAccessRight1 = data.Table5;
             this.getAccessRight2 = data.Table6;
-
+          
+            this.tableid=false;
+            this.formid=true;
             this.UserForm.controls['UserName'].setValue(this.userdata[0].UserName);
             this.UserForm.controls['EmailId'].setValue(this.userdata[0].EmailId);
             this.UserForm.controls['emailsent'].setValue(this.userdata[0].EmailSendTo);
@@ -743,7 +751,7 @@ export class UserComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            a.download = 'Userlist.csv';/* your file name*/
             a.click();
             return 'success';
         });

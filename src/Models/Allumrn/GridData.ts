@@ -11,20 +11,11 @@
     RecordType: string;
     MandateStatus: string;
     ErrorCode: string;
-
     Reference1: string;
-    //UMRN: string;
-    //Amount: string;
-    //FromDate: string;
-    //ToDate: string;
     type: string;
-
-   
     ReferenceNumber: string;
     Entityid: string;
-  
     Userid:string
     CreatedBy: string;
-
-
+    updated: number;
 }

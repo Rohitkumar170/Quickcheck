@@ -4,7 +4,7 @@
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
                 <span class="legal">Download Old Mandate</span>
             </div>
-            <div class="rightmenu">
+            <div class="rightmenu" style="display:none">
                 <div class="toolbar pull-right">
                     <ul class="toolbar-content">
 
@@ -109,16 +109,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12  no-padding">
-                    <input type="button" class="col-md-2 col-sm-12 col-xs-12 btn btn-success" id="btnOk"
+                <div class="" >
+                    <input type="button" class="col-md-12 col-sm-12 col-xs-12 btn btn-success" id=""
                            value="Search" (click)="SearchByReference(Reference.value)" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%;" />
-                    <button type="button" class="btn btn-success" (click)="downloadExcel()">Download Mandate Excel File</button> &nbsp;
-                    <label data-toggle="modal" data-target="#myModal" (click)="show()">
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12  no-padding" *ngIf="buttonshow">
+                           <span id="downloadexcel">
+                        <i class="fa fa-download" aria-hidden="true" title="Export"></i>
+                         <button type="button" class="btn btn-success btnx" (click)="downloadExcel()">Download Mandate Excel File</button></span> 
+                    <span id="reject">
+                            <i _ngcontent-c6="" aria-hidden="true" class="fa fa-close"></i>
+                            <button type="button" class="btnx btn btn-success"data-toggle="modal" data-target="#myModal" (click)="show()">
                         Reject Mandate
-                    </label>
+                    </button></span>
 
-                    <button type="button" class="btn btn-success" (click)="downloadScannedMandate()">Download Scanned mandate</button> &nbsp; &nbsp;
-                    <label [style.display]="MandateMessage ? 'block' : 'none'" [ngStyle]="{'color':'red'}">Please Select Mandate</label>
+                   <span id="downlaodmandate">
+                        <i class="fa fa-download" aria-hidden="true" title="Export"></i>
+                         <button type="button" class="btn btn-success btnx" (click)="downloadScannedMandate()">Download Scanned mandate</button> &nbsp; &nbsp;
+                    <label [style.display]="MandateMessage ? 'block' : 'none'" [ngStyle]="{'color':'red'}" class="lbltxt">Please Select Mandate</label></span>
                     <!--<button type="button" class="btn btn-success" (click)="checkedDemo()"> Excel File DEmo</button>-->
 
                 </div>
@@ -134,7 +142,7 @@
 
 
 
-        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv">
+        <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" [style.display]="showBindgrid ? 'block' : 'none'">
             <table id="tbldownoldmandate">
                 <thead>
                     <tr>
@@ -156,8 +164,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let td of tabledata; let i=index;">
-                        <td style="width:150px;"><input type="checkbox" value="td.selected" [checked]="td.selected" (change)="onChange($event,td); td.selected = !(td.selected)" name="all"></td>
+                    <tr *ngFor="let td of tabledata">
+                        <td style="width:150px;"><input type="checkbox" value="td.selected" [checked]="td.selected" (change)="onChange($event,td); td.selected = !(td.selected)"></td>
                         <td style="width:150px;">{{td.mandateid}}</td>
                         <td style="width:150px;">{{td.Customer1}}</td>
                         <td style="width:150px;">{{td.DateOnMandate}}</td>
@@ -222,7 +230,7 @@
 
 
 
-<div class="modal" id="myModal" role="dialog" [style.display]="showModal ? 'block':'none'">
+<div class="modal" id="" role="dialog" [style.display]="showModal ? 'block':'none'">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -246,7 +254,7 @@
                             Reason
                         </label>
                         <div class="col-sm-9 col-md-9 col-xs-9 no-padding-left">
-                            <textarea name=""  id="myform" #RejectedReason class="col-sm-12 col-md-12 col-xs-12 no-padding"></textarea>
+                            <textarea name=""  id="myform" (keydown)="removeClass()" #RejectedReason class="col-sm-12 col-md-12 col-xs-12 no-padding"></textarea>
                         </div>
                     </div>
                 </div>
@@ -254,7 +262,7 @@
                 <div class=" btfooter">
 
 
-                    <button type="button" class="btn btn-primary "  data-dismiss="modal" (click)="RejectData(FromDate.value,ToDate.value,RejectedReason.value,selected.value)" style="width:48%; margin-right:4%">Reject</button>
+                    <button type="button" class="btn btn-primary "  data-dismiss="modal" (click)="validation(FromDate.value,ToDate.value,RejectedReason.value,selected.value)" style="width:48%; margin-right:4%">Reject</button>
                     <button type="button" class="btn btn-primary" (click)="hide()" data-dismiss="modal" style="width:48%">Cancel</button>
                 </div>
             </div>
@@ -277,7 +285,7 @@
 </div>
 </div>-->
 
-<div class="modal" id="myModal" [style.display]="SuccessModal ? 'block' : 'none'">
+<div class="modal" id="" [style.display]="SuccessModal ? 'block' : 'none'">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
