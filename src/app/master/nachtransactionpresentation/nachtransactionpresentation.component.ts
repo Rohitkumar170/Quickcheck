@@ -71,6 +71,7 @@ export class NachtransactionpresentationComponent implements OnInit {
             AccountNumber:new FormControl(),
             BankValue:new FormControl(),
             Searchvalidation: ['', Validators.required]
+            
         });
 
 
