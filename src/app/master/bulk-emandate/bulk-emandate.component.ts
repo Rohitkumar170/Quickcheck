@@ -139,7 +139,7 @@ export class BulkEmandateComponent implements OnInit {
       let item = JSON.parse(sessionStorage.getItem('User'));
     //    this.UserId = item.UserId;
     //           this.EntityId = item.ReferenceId;
-    //          // var TEUHID=item.TEUHID;
+  
               
     //          alert(ActivityId1+"  "+this.UserId+"  "+this.EntityId+"  "+TEUHID1+" "+this.topVal);
    this.router.navigate(['/eBulkUploadedData']);
