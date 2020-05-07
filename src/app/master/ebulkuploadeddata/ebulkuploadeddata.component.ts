@@ -41,7 +41,7 @@ export class EbulkuploadeddataComponent implements OnInit {
   gridData(Activity_Id,UserId,EntityId,TEUH_ID,topVal){
    // alert("ActivityID="+Activity_Id+"  "+"UserId="+UserId+"  "+"EntityId="+EntityId+"  "+"TEUH_ID="+TEUH_ID+" "+"topVal="+topVal);
        this.myservice.GetGridAllData(Activity_Id,UserId,EntityId,TEUH_ID,topVal).subscribe((res)=>{
-       //  console.log(res);
+       
        this.MainTableData=res.Table;
        this.MainTableCount=res=Table1;
        this.InvalidTableData=res.Table4;
