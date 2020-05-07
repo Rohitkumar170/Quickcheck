@@ -26,38 +26,59 @@ export class ReportViewComponent implements OnInit {
     binduser: BindUser;
     bindgrid: Bindgrid;
     userId;
+    alldropdown;
+    FromDate;
+    Todate;
    // UserId: string = "";
     constructor(private reportviewService: ReportViewService, private formBuilder: FormBuilder) { }
         
     ngOnInit() {
       //  let item = JSON.parse(sessionStorage.getItem('User'));
-      //  this.UMRNUploadform = this.formBuilder.group({
-      //  ddluser: new FormControl(),
-      //      FromDate: [''],
-      //      ToDate: ['']
-      //  });
+        this.UMRNUploadform = this.formBuilder.group({
+            alldropdown: ["", Validators.required]
+        });
         this.showlabel = false;
         this.Preloader = false;
 
-        let item = JSON.parse(sessionStorage.getItem('User'));
-        this.userId = item.UserId
-        this.reportviewService.BindUser(this.userId).
-            subscribe((data) => {
-                console.log(data);
-                this.binduser = data.Table;
+       // let item = JSON.parse(sessionStorage.getItem('User'));
+       // this.userId = item.UserId
+       // this.reportviewService.BindUser(this.userId).
+          //  subscribe((data) => {
+          //      console.log(data);
+           //     this.binduser = data.Table;
 
-                var y = Object.entries(this.binduser)[0][1];
+           //     var y = Object.entries(this.binduser)[0][1];
 
-                var u = y.UserId;
-                var k = formatDate(new Date(), "yyyy-MM-dd", "en");
-                this.PostData(u,k, k);
+            //    var u = y.UserId;
+            //    var k = formatDate(new Date(), "yyyy-MM-dd", "en");
+           //     this.PostData(u,k, k);
 
-            });
+           // });
 
 
         this.BindUser();
+       // this.PostData();
+    }
+    isFieldValid(field: string) {
+        return !this.UMRNUploadform.get(field).valid && this.UMRNUploadform.get(field).touched;
     }
     
+    displayFieldCss(field: string) {
+        return {
+            'validate': this.isFieldValid(field),
+        };
+    }
+    validateAllFormFields(formGroup: FormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+            const control = formGroup.get(field);
+            if (control instanceof FormControl) {
+                control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {
+                this.validateAllFormFields(control);
+            }
+        });
+    }
+
     BindUser() {
         let item = JSON.parse(sessionStorage.getItem('User'));
         this.userId = item.UserId
@@ -69,23 +90,15 @@ export class ReportViewComponent implements OnInit {
       
     }
 
-    //GetAllData(ddluser, FromDate, ToDate) {
-        //alert(ddluser + "   " + FromDate + "   " + Todate);
-      //  let item = JSON.parse(sessionStorage.getItem('User'));
-        ////this.username = this.UMRNUploadform.controls['ddluser'].value();
-        //this.FromDate = this.UMRNUploadform.controls['FromDate'].value();
-        //this.ToDate = this.UMRNUploadform.controls['ToDate'].value();
-
-        //this.username = (<HTMLSelectElement>document.getElementById('ddluser')).value;
-        //this.FromDate = (<HTMLSelectElement>document.getElementById('FromDate')).value;
-        //this.ToDate = (<HTMLSelectElement>document.getElementById('ToDate')).value;
-
-       // this.reportviewService.SearchData(ddluser, FromDate, ToDate, item.UserId).subscribe(
-       //     (data) => {
+    
 
     currentDate = new Date();
-    PostData(alldropdown, FromDate, Todate) {
-
+   
+    PostData(alldropdown,FromDate,Todate) {
+       // this.alldropdown=((document.getElementById("alldropdown") as HTMLInputElement).value);
+       // this.FromDate=((document.getElementById("refre1") as HTMLInputElement).value);
+       // this.Todate=((document.getElementById("umrn1") as HTMLInputElement).value);
+        if (this.UMRNUploadform.valid) {
         let item = JSON.parse(sessionStorage.getItem('User'));
         //let username = this.UMRNUploadform.controls['ddluser'].value();
         //let item = JSON.parse(sessionStorage.getItem('User'));
@@ -109,10 +122,16 @@ export class ReportViewComponent implements OnInit {
                 //console.log(this.Databind);
 
             });
-        if (this.dataArray.length > 0) {
+       // if (this.dataArray.length > 0) {
             // alert(this.dataArray.length);
-            this.showlabel = true;
-        }
+          //  this.showlabel = true;
+      //  }
+
+    }else
+    {
+        this.validateAllFormFields(this.UMRNUploadform);
+
+    }
 
     }
 
@@ -175,7 +194,7 @@ export class ReportViewComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'Reportview_Results.csv';/* your file name*/
+            a.download = 'MandateReport.csv';/* your file name*/
             a.click();
             return 'success';
         

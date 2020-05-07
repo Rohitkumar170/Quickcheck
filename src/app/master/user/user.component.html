@@ -71,6 +71,9 @@
             </div>
 
         </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 loaderposition" id="divLoarder" *ngIf="Preloader">
+            <img src="../../assets/images/loader.gif" style="margin-left: 45%;margin-top: 19%;" />
+        </div>
         <div class="col-md-12 col-sm-12 col-xs-12" id="tbldiv" *ngIf="tableid">
             <table class="tbluserlist">
                 <thead>
@@ -110,7 +113,7 @@
                             </h5>
                         </div>
 
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="overflow-y:scroll; max-height:446px;">
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="row no-padding">
                                     <div class="col-md-4 col-sm-5 col-xs-12 no-padding">
@@ -235,10 +238,37 @@
 
                                                 </ng-multiselect-dropdown>-->
                                                 <select class="col-sm-12 col-md-12 col-xs-12 no-padding  spneser bankcodeposition" formControlName="sponsorbankcode" [ngClass]="displayFieldCss('sponsorbankcode')" name="sponsorbankcode">
-                                                    <option value="0">--Select--</option>
+                                                    <option value="">--Select--</option>
 
                                                     <option *ngFor="let SponsorBankCode of sponsorbankcode" value="{{SponsorBankCode.SponsorBankCodeId}}"> {{SponsorBankCode.name}} </option>
                                                 </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12 p-0 mb-2">
+                                            <label class="col-sm-2 col-md-2 col-xs-4 control-label p-0 " style="vertical-align: top;" for="form-field-1">
+                                                Sponsor Bank Code:
+                                            </label>
+                                            <div class="col-sm-10 col-md-10 col-xs-7 no-padding-left displayinlineblock spneser">
+                                                <div class="chipsContainer " (click)="showDropDown($event)">
+                                                    <span class="dropDownIcon" [ngClass]="{'active': isDropDownVisible}"><i class="fa fa-caret-down" aria-hidden="true" style="color:#858585"></i></span>
+                                                    <ul>
+                                                      <li *ngFor="let city of selectedCitiesArray">{{city.name}}<span class="deleteCity"  (click)="removeCity(city.value)">X</span></li>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="citiList " [hidden]="!isDropDownVisible">
+                                                    <div class="filter">
+                                                      <input placeholder="Search city" (input)="filterCities()" [(ngModel)]="searchValue">
+                                                    </div>
+                                                    <ul (click)="selectCity($event)">
+                                                      <li *ngFor="let city of filteredCitiesArray" [ngClass]="{'selected':city.selected}">
+                                                        <label>
+                                                          <input type="checkbox" value="{{city.value}}" [checked]="city.selected">{{city.name}}
+                                                        </label>
+                                                      </li>
+                                                    </ul>
+                                                  </div>
                                             </div>
                                         </div>
                                     </div>
@@ -251,7 +281,7 @@
                                             </label>
                                             <div class="col-sm-10 col-md-10 col-xs-7 no-padding-left displayinlineblock">
                                                 <select class="col-sm-12 col-md-12 col-xs-12 no-padding  spneser bankcodeposition" formControlName="categorycode" [ngClass]="displayFieldCss('categorycode')" name="categorycode">
-                                                    <option value="0">--Select--</option>
+                                                    <option value="">--Select--</option>
 
                                                     <option *ngFor="let CategoryCode of categorycode" value="{{CategoryCode.code}}"> {{CategoryCode.name}} </option>
                                                 </select>
@@ -259,6 +289,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class=" col-sm-12 col-xs-12 col-md-12 no-padding" style="display:none">
                                     <div class=" col-sm-10 col-xs-12 col-md-12 no-padding">
                                         <div class="form-group">
@@ -428,7 +459,7 @@
                                                         <div *ngIf="divNachUser">
                                                             <div class="col-sm-10 col-md-10 col-xs-7 no-padding">
                                                                 <select class="col-sm-12 col-md-12 col-xs-12  viewrowmargin  no-padding" formControlName="nachuser" name="nachuser">
-                                                                    <option value="0">--Select--</option>
+                                                                    <option value="">--Select--</option>
 
                                                                     <option *ngFor="let NachUser of nachuser" value="{{NachUser.UserId}}"> {{NachUser.UserName}} </option>
                                                                 </select>
@@ -512,7 +543,7 @@
 
                                                         <div class="col-sm-10 col-md-10 col-xs-7 no-padding">
                                                             <select class="col-sm-12 col-md-12 col-xs-12  viewrowmargin  no-padding" formControlName="maker" name="maker">
-                                                                <option value="0">--Select--</option>
+                                                                <option value="">--Select--</option>
 
                                                                 <option *ngFor="let Maker of maker" value="{{Maker.UserId}}"> {{Maker.UserName}} </option>
                                                             </select>

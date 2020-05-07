@@ -23,7 +23,7 @@ export class Downloadmandategrid {
     //Frequency: string;
     //ToDebit: string;
 
-    mandateid: any;
+    mandateid: string;
     Customer1: string;
     DateOnMandate: string;
     IsPrint: string;

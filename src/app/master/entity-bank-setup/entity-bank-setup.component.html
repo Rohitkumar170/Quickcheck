@@ -2,7 +2,7 @@
     <div class="content">
         <div class="col-md-12 col-sm-6 col-xs-4">
             <div class="col-sm-6 col-md-6 col-xs-3 no-padding">
-                <span class="legal">Entity Bank Setup</span>
+                <span class="legals">Entity Bank Setup</span>
             </div>
             <div class="rightmenu">
                 <div class="toolbar pull-right">
@@ -121,7 +121,7 @@
                                     </label>
                                     <div class="col-sm-8 col-md-8 col-xs-8 no-padding displayinlineblock">
                                         <select class="alldropdown col-sm-9 col-md-12 col-xs-12" id="ddlsequence" name="ddlsequence" formControlName="ddlsequence" (change)="onChangesequence($event)">
-                                            <option value="0">--Select--</option>
+                                            <option value="">--Select--</option>
                                             <option value="1">Constant</option>
                                             <option value="2">Separator</option>
                                             <option value="3">Date</option>
@@ -161,7 +161,7 @@
                                     </label>
                                     <div class="col-sm-8 col-md-8 col-xs-8 no-padding-left displayinlineblock">
                                         <select class="alldropdown col-sm-9 col-md-12 col-xs-12" name="ddldate" formControlName="ddldate" (change)="onDateChange($event)">
-                                            <option value="0">--Select--</option>
+                                            <option value="">--Select--</option>
                                             <option value="1">DDMMYY</option>
                                             <option value="2">YYMMDD</option>
                                             <option value="3">DDMMMYY</option>
@@ -273,8 +273,8 @@
                                         <span>Weekly</span>
                                     </label>
                                     <div class="col-md-5 col-sm-9 col-xs-8 no-padding-left rowalign weeklyinputbox displayinlineblock">
-                                        <select class="alldropdown col-sm-9 col-md-12 col-xs-12" id="ddlday" name="ddlday" formControlName="ddlday" [attr.disabled]="isDisabledday ? '' : null" (change)="Removeclass()">
-                                            <option value="0">--Select--</option>
+                                        <select class="alldropdown col-sm-9 col-md-12 col-xs-12" id="ddlday" name="ddlday" formControlName="ddlday" [attr.disabled]="isDisabledday ? '' : null" (change)="ddldaychange($event)">
+                                            <option value="">--Select--</option>
                                             <option value="1">Monday</option>
                                             <option value="2">Tuesday</option>
                                             <option value="3">Wednesday</option>

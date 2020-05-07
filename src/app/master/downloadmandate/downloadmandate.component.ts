@@ -60,8 +60,10 @@ export class DownloadmandateComponent implements OnInit {
     tempBank: any;
     temprefNo: any;
 
+    Exdate:string;
     CheckedCount : number = 0;
     UncheckedCount: number = 0;
+    validationFlag: number = 0;
 //     dmandateForm1 = new FormGroup({
 //    scode: new FormControl(this.dmandate[0]),
 //});showModalrejectmandate
@@ -73,6 +75,7 @@ export class DownloadmandateComponent implements OnInit {
     
     showModal: boolean;
     showModalSuccess: boolean;
+    buttonshow:boolean;
     constructor(private _downloadMandateService: DownloadmandateService, private fb: FormBuilder) {
         
 
@@ -279,15 +282,19 @@ export class DownloadmandateComponent implements OnInit {
     onChange(event, item) {
 
         
-       this.Removelabel();
-        this.checkFlag = 0;
        
+        this.checkFlag = 0;
+        // var selectindex=item.length;
+        //  console.log(selectindex)
             if (event.target.checked) {
 
+                this.Removelabel();
                 
                 
                 this.SelectionStatusOfMutants.push(item);
+                //this.SelectionStatusOfMutants.splice(-1, 1);
                 this.selectMandateId.push(item.mandateid);
+
 
                 console.log(this.SelectionStatusOfMutants);
 
@@ -400,6 +407,12 @@ export class DownloadmandateComponent implements OnInit {
                 .subscribe((data) => {
                     this.Preloader = false;
                     this.bindgrid = data;
+                    if(this.bindgrid.length > 0 ){
+                      this.buttonshow=true;
+                    }
+                    else{
+                        this.buttonshow=false;
+                    }
                     this.StoreMandateId(data);
                     this.showBindgrid=true;
 
@@ -421,15 +434,21 @@ export class DownloadmandateComponent implements OnInit {
                 .subscribe((data) => {
                     this.Preloader = false;
                     this.bindgrid = data;
+                    if(this.bindgrid.length > 0 ){
+                        this.buttonshow=true;
+                      }
+                      else{
+                          this.buttonshow=false;
+                      }
                     this.StoreMandateId(data);
                     this.showBindgrid=true;
                    // this.dataArray.push(this.bindgrid);
-                    refNo = '';
+            //        var dta = <HTMLInputElement>document.getElementById('reference');
+            // dta.value = "";
                 });
             this.loading = false;
 
-            var dta = <HTMLInputElement>document.getElementById('reference');
-            dta.value = "";
+           
 
         }
     }
@@ -445,9 +464,32 @@ export class DownloadmandateComponent implements OnInit {
 
     }
 
+
+    validation(fromdate, todate, bank, rejectcomnt){
+        let reason = ((document.getElementById("myform") as HTMLInputElement).value);
+       // alert(phnumber)
+        if (reason.length > 0) {
+           // ((document.getElementById("txtPhNumber") as HTMLInputElement).value) == "";
+           //this.NachMandate.controls['Phoneno'].setValue("");
+           this.RejectMandate(fromdate, todate, bank, rejectcomnt);
+           
+            ///document.getElementById("txtPhNumber").setAttribute("placeholder", "Please enter 10 - digit");
+        }
+        else{
+            document.getElementById("myform").classList.add('validate');
+           // this.validationFlag=1;
+           
+        }
+    }
+
+    removeClass(){
+        document.getElementById("myform").classList.remove('validate');
+       // this.validationFlag=0;
+    }
+
     RejectMandate(fromdate, todate, bank, rejectcomnt) {
       //  this.Ischecked = 1
-       // if (this.Ischecked == 1) {
+   // if (this.validationFlag == 0) {
         
             let item = JSON.parse(sessionStorage.getItem('User'));
             // console.log(item.UserId);
@@ -458,14 +500,14 @@ export class DownloadmandateComponent implements OnInit {
        // alert(fromdate + '' + todate + '' + bank + '' + rejectcomnt + '' + item.UserId + '' + this.selectMandateId );
             this._downloadMandateService.getRejectMandate(item.UserId, fromdate, todate, this.selectMandateId, rejectcomnt).subscribe((res) => {
                 console.log(res),
-                    error => console.log(error); this.Ischecked == 0;this.BindGrid(fromdate, todate, bank, '')
+                    error => console.log(error); this.Ischecked = 0;this.BindGrid(fromdate, todate, bank, '')
                 this.showModalrejectmandate = false;
                 //alert('Mandate Rejected');
                // this.showSuccess();
                
         })
         
-        //}
+     //   }
         //else {
         //    alert('Please select checkbox');
         //}
@@ -518,7 +560,7 @@ export class DownloadmandateComponent implements OnInit {
     download() {
 
         if (this.Ischecked == 1) {
-        console.log(this.SelectionStatusOfMutants.length);
+       // console.log(this.SelectionStatusOfMutants.length);
         if (this.SelectionStatusOfMutants.length > 0) {
             var csvData = this.ConvertToCSV(JSON.stringify(this.SelectionStatusOfMutants));
 
@@ -528,7 +570,10 @@ export class DownloadmandateComponent implements OnInit {
             var blob = new Blob([csvData], { type: 'text/csv' });
             var url = window.URL.createObjectURL(blob);
             a.href = url;
-            a.download = 'User_Results.csv';/* your file name*/
+            var kex = formatDate(new Date(), "ddMMyyyy", "en");
+            a.download = 'Avasfin_'+kex+'_1.xls';/* your file name*/
+
+            //var k = formatDate(new Date(), "yyyy-MM-dd", "en"); Avasfin_18042020_1
             a.click();
             return 'success';
         }
@@ -542,11 +587,11 @@ export class DownloadmandateComponent implements OnInit {
 
     downloadScannedMandate() {
         this.ZipDownloadArray = [];
-        if (this.checkFlag == 0) {
+        if (this.SelectionStatusOfMutants.length > 0) {
             this.getZipFile(JSON.stringify(this.SelectionStatusOfMutants));
         }
         else {
-            this.getZipFile(JSON.stringify(this.bindgrid));
+            this.errormsg = "Please select Mandate";
         }
     }
 
@@ -561,7 +606,7 @@ export class DownloadmandateComponent implements OnInit {
         var url = window.URL.createObjectURL(blob);
 
         a.href = url;
-        a.download = "test.zip";
+        a.download = "Zip_Avasfin_18042020_1.zip";
         a.click();
         window.URL.revokeObjectURL(url);
 

@@ -1,3 +1,120 @@
+
+  .chipsContainer{
+    padding: 5px 0px 5px 5px;
+    width: 84%;
+    overflow: hidden;
+    position: relative;
+    height: 30px;
+    border: solid 1px #eee;
+    cursor: pointer;
+  }
+  .dropDownIcon{
+    position: absolute;
+    width: 35px;
+    height: 26px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+  .dropDownIcon.active{
+    transform: rotate(-180deg);
+  }
+  .dropDownIcon svg{
+    width: 15px;
+  }
+  .chipsContainer ul{
+    margin: 0 30px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    width: calc(100% - 30px);
+    overflow: auto;
+  }
+  .chipsContainer ul li{
+    padding: 1px 2px 1px 8px;
+    background: #003974;
+    color: #fff;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    margin-right: 5px;
+    white-space: nowrap
+  }
+  .chipsContainer ul li .deleteCity{
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #43709e;
+    border-radius: 3px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  .citiesListFilter{
+    position: relative;
+    padding: 10px;
+    background: #fff;
+    border: solid 1px #eee;
+  }
+  .citiList{
+    z-index: 999;
+    width: 82%;
+    position: absolute;
+    margin-top: 7px;
+    left: 0;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+  .citiList ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .citiList ul li{
+    font-size: 13px;
+  }
+  .citiList ul li label{
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+    cursor: pointer;
+  }
+  .citiList ul li:hover{
+    background: #eee;
+  }
+  .citiList ul li.selected{
+    background: #003974;
+    color: #fff;
+  }
+  .citiList ul li input{
+    width: 15px;
+    height: 15px;
+    border: 0;
+    background: #333;
+    margin-right:3px;
+  }
+  .filter{
+    margin-bottom: 10px;
+  }
+  .filter input{
+    width: 100%;
+    padding: 5px 10px;
+    border: solid 1px #eee;
+    border-radius: 3px;
+  }
+  .form-group > label{
+    margin-bottom: 4px;
+    vertical-align: top;
+}
+
+
 .card-header {
     padding: 0px;
     

@@ -129,7 +129,11 @@
 body {
     font-size: 12px !important;
 }
-
+.legals{font-size: 18px;
+    color: #003974 !important;
+    text-align: justify;
+    font-weight: bold;
+}
 
 
 table {

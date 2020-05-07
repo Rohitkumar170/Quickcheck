@@ -1,4 +1,4 @@
-/// <reference path="../../../models/nachtransactionpresentation/nachtransactionpresentation.ts" />
+// /// <reference path="../../../models/nachtransactionpresentation/nachtransactionpresentation.ts" />
 
 import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,12 +22,10 @@ export class NachtransactionporesentationService {
         return this._http.get<BankBind>(this.baseUrl + 'api/NachtransactionPresentation/BankBind/' + EntityId + '/' + UserId);
        
     }
-
     CheckUser(EntityId, UserId): Observable<CheckUser> {
         return this._http.get<CheckUser>(this.baseUrl + 'api/NachtransactionPresentation/CheckUser/' + EntityId + '/' + UserId);
 
     }
-
     BindGridForm(EntityId, UserId, Bank): Observable<BindGridForm> {
         return this._http.get<BindGridForm>(this.baseUrl + 'api/NachtransactionPresentation/BindGridForm/' + EntityId + '/' + UserId + '/' + Bank);
     }

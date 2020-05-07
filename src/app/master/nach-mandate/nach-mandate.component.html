@@ -394,7 +394,7 @@
                                                                             </div>
                                                                             <div class="col-sm-8 col-md-8 col-xs-7  ">
 
-                                                                                <input type="date"  formControlName="UMRNDATE" #UMRNDATE [ngClass]="displayFieldCss('UMRNDATE')" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker hasDatepicker aa" id="txtperiodfrom" name="date-picker"  placeholder="Select Date" [attr.disabled]="UMRNDATEdisabled ? '' : null">
+                                                                                <input type="date"  formControlName="UMRNDATE"  [ngModel]="today | date:'yyyy-MM-dd'"  class="col-sm-12 col-md-12 col-xs-12 form-control" id="txtperiodfrom"  placeholder="Select Date" [attr.disabled]="UMRNDATEdisabled ? '' : null">
                                                                                 
 
                                                                 
@@ -415,9 +415,11 @@
                                                                                 </label>
                                                                             </div>
                                                                             <div class="col-sm-8 col-md-8 col-xs-6 mandatetextboxborder ">
-                                                                                <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Sponsorcode" [ngClass]="displayFieldCss('Sponsorcode')" [attr.disabled]="Sponsorcodedisabled ? '' : null">
-                                                                                    <option value="" selected>Select</option>
-                                                                                    <option *ngFor="let Sponcode of Table3" value={{Sponcode.utilityCode}}>
+                                                                                <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Sponsorcode" #Sponsorcode (change)="ValueAssign(Sponsorcode.value)" [ngClass]="displayFieldCss('Sponsorcode')" [attr.disabled]="Sponsorcodedisabled ? '' : null">
+                                                                                      
+                                                                                    <option *ngFor="let Sponcode of Table3;index as i"
+                                                                                    
+                                                                                    value={{Sponcode.utilityCode}}>
                                                                                         {{Sponcode.name}}
                                                                                     </option>
                                                                                 </select>
@@ -811,7 +813,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
-                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" #PeriodFrom [ngClass]="displayFieldCss('PeriodFrom')" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" placeholder="Select Date" tabindex="-1" [attr.disabled]="PeriodFromdisabled ? '' : null">
+                                                                        <input type="date" id="txtFrom" formControlName="PeriodFrom" [ngModel]="todayperiodfrom | date:'yyyy-MM-dd'" class="col-sm-12 col-md-12 col-xs-12 form-control"  placeholder="Select Date" tabindex="-1" [attr.disabled]="PeriodFromdisabled ? '' : null">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -825,7 +827,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 no-padding">
-                                                                        <input type="date" formControlName="PeriodTo" [ngClass]="{'divDisable' : _isActive}" onchange="RemoveClass();" id="txtTo" style="width: 96%;" class="form-control date-picker hasDatepicker" name="date-picker" data-date-format="dd-mm-yyyy" tabindex="-1" [attr.disabled]="Periodtocodedisabled ? '' : null" />
+                                                                        <input type="date" formControlName="PeriodTo" [ngModel]="todayperiodto | date:'yyyy-MM-dd'" [ngClass]="{'divDisable' : _isActive}" onchange="RemoveClass();" id="txtTo" style="width: 96%;" class="form-control date-picker hasDatepicker" name="date-picker" data-date-format="dd-mm-yyyy" tabindex="-1" [attr.disabled]="Periodtocodedisabled ? '' : null" />
                                                                     </div>
                                                                 </div>
                                                             </div>

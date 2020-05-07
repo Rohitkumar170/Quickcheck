@@ -23,11 +23,16 @@ export class DownloadoldmandateComponent implements OnInit {
     SponserBankCode: any;
     length: any;
     ZipDownloadArray: Array<OldMandateClass1> = [];
-
+    buttonshow:boolean;
+    CheckedCount : number = 0;
+    UncheckedCount: number = 0; //
+    validationFlag: number = 0;
     constructor(public myservice: OldmandateService) { }
     showModal: boolean;
     SuccessModal: boolean;
     MandateMessage: boolean;
+    showBindgrid:boolean;
+    HeaderArray = {};
     //onClick(event) {
     //    this.showModal = true;
 
@@ -40,7 +45,18 @@ export class DownloadoldmandateComponent implements OnInit {
     }
 
     show() {
-        this.showModal = true;
+       
+        
+        if (this.Ischecked == 1) {
+            //this.showModal = true;
+            this.showModal = true;
+           // alert('in');
+        }
+        else {
+            this.MandateMessage = true;
+            this.showModal=false;
+        }
+       
     }
     hide() {
         this.showModal = false;
@@ -71,6 +87,7 @@ export class DownloadoldmandateComponent implements OnInit {
 
         });
         this.Preloader = false;
+        this.showBindgrid=true;
 
 
     }
@@ -78,6 +95,31 @@ export class DownloadoldmandateComponent implements OnInit {
     CurrentDate = new Date();
   //  list = [];
     //reject mandate
+    validation(FromDate, ToDate, RejectedReason,selected){
+        let reason = ((document.getElementById("myform") as HTMLInputElement).value);
+       // alert(phnumber)
+       // if (phnumber != null) {
+           //alert(reason.length)
+        if (reason.length > 0) {
+           // ((document.getElementById("txtPhNumber") as HTMLInputElement).value) == "";
+           //this.NachMandate.controls['Phoneno'].setValue("");
+           //alert("go");
+           this.RejectData(FromDate, ToDate, RejectedReason,selected);
+            ///document.getElementById("txtPhNumber").setAttribute("placeholder", "Please enter 10 - digit");
+        }
+        else{
+          //  this.RejectData(FromDate, ToDate, RejectedReason,selected);
+        
+          document.getElementById("myform").classList.add('validate');
+            this.validationFlag=1;
+        }
+    }
+
+    removeClass(){
+        document.getElementById("myform").classList.remove('validate');
+        this.validationFlag=0;
+    }
+
     RejectData(FromDate, ToDate, RejectedReason,selected) {
       //  alert(FromDate + " " + ToDate + " " + RejectedReason);
         //   alert(this.selectMandateId);
@@ -90,18 +132,22 @@ export class DownloadoldmandateComponent implements OnInit {
         this.showModal = false;
         let item = JSON.parse(sessionStorage.getItem('User'));
        // alert(item.UserId);
-        if (RejectedReason != null) {
+        if ( this.validationFlag == 0) {
             this.myservice.RejectData(FromDate, ToDate, RejectedReason, item.UserId, this.selectMandateId).subscribe((res) => {
                // console.log(res);
                // this.tabledata = res;
                 this.mydate(FromDate, ToDate, selected);
                // alert('Mandate Rejected');
+               this.Ischecked = 0;
+               
                 this.SuccessModal = true;
+                
+        
             })
                 }
         else {
           //  alert("please checked the mandate and fill the Reason");
-            this.MandateMessage = true;
+            //this.MandateMessage = true;
         }
      
     }
@@ -122,6 +168,7 @@ export class DownloadoldmandateComponent implements OnInit {
 
         if (event.target.checked) {
             this.Ischecked = 1;
+            this.MandateMessage = false;
             //  this.Isallcheck = 1;
         }
         else {
@@ -133,32 +180,70 @@ export class DownloadoldmandateComponent implements OnInit {
 
 
     onChange(event, item) {
-
+        //console.log(item);
         //var element = <HTMLInputElement>document.getElementById("is3dCheckBox");
         //var isChecked = element.checked;
         //if (count == '') {
         this.checkFlag = 0;
         // this.IsMandateID = item.mandateid;
-        var CheckedCount = 0, UncheckedCount = 0;
+        //var CheckedCount = 0, UncheckedCount = 0;
 
         if (event.target.checked) {
+            this.MandateMessage = false;
             this.SelectionStatusOfMutants.push(item);
             this.selectMandateId.push(item.mandateid);
  
           //  console.log(this.SelectionStatusOfMutants);
+          console.log(this.SelectionStatusOfMutants);
+          console.log(this.selectMandateId);
           //  alert('checked')
             this.Ischecked = 1;
-            CheckedCount++;
+            this.CheckedCount++;
 
         }
         else {
             //
+
+            var index = 0;
+                var ids = item.mandateid;
+                console.log('select');
+                console.log(this.SelectionStatusOfMutants[0]["mandateid"]);
+               for (var i = 0; i < this.SelectionStatusOfMutants.length; ++i) {
+                    if (this.SelectionStatusOfMutants[i]["mandateid"] == ids) {
+                        index = i;
+                    }
+                }
+                console.log("Index= " + "" + index);
+                this.SelectionStatusOfMutants.splice(index, 1)
+
+                console.log(this.SelectionStatusOfMutants);
+
+                var index1 = 0;
+                // var ids = item.mandateid;
+                console.log('selectMandateID');
+                 console.log(this.selectMandateId[0]);
+                
+                for (var i = 0; i < this.selectMandateId.length; ++i) {
+                     if (this.selectMandateId[i] == ids) {
+                         index1 = i;
+                     }
+                 }
+                 console.log("Index= " + "" + index1);
+                 this.selectMandateId.splice(index1, 1)
+
+
+                this.UncheckedCount++;
+
+                if (this.UncheckedCount == this.CheckedCount) {
+                    this.Ischecked = 0;
+                   
+                }
            // alert('please select mandate ');
-            this.SelectionStatusOfMutants.pop();
-            UncheckedCount++;
-            if (UncheckedCount == CheckedCount) {
-                this.Ischecked = 0;
-            }
+            // this.SelectionStatusOfMutants.pop();
+            // UncheckedCount++;
+            // if (UncheckedCount == CheckedCount) {
+            //     this.Ischecked = 0;
+            // }
         }
         //}
         //else
@@ -247,6 +332,7 @@ export class DownloadoldmandateComponent implements OnInit {
         //var formElement = <HTMLFormElement>document.getElementById('divLoarder2');
         //formElement.style.display = 'block';
         this.Preloader = true;
+        this.showBindgrid=false;
         if (FromDate != null && ToDate != null) {
             let item = JSON.parse(sessionStorage.getItem('User'));
             //  console.log(item.UserId);
@@ -256,14 +342,20 @@ export class DownloadoldmandateComponent implements OnInit {
             this.loading = true;
             this.myservice.BindbyDate(item.UserId, FromDate, ToDate, selected).subscribe((res) => {
                 this.Preloader = false;
+                this.showBindgrid=true;
                   // console.log(res);
+                 
                 this.tabledata = res;
+                if(this.tabledata.length > 0 ){
+                    this.buttonshow=true;
+                  }
+                  else{
+                      this.buttonshow=false;
+                  }
             });
            // this.loading = false;
         }
-        else {
-            alert("please choose the Date");
-        }
+       
         //  console.log(this.list);
         //var formloder = <HTMLElement>document.getElementById('divLoarder2');
         //formloder.style.display = 'none';
@@ -276,6 +368,12 @@ export class DownloadoldmandateComponent implements OnInit {
         this.myservice.BindbyBank(item.UserId, FromDate, ToDate, selected).subscribe((res) => {
             //  console.log(res);
             this.tabledata = res;
+            if(this.tabledata.length > 0 ){
+                this.buttonshow=true;
+              }
+              else{
+                  this.buttonshow=false;
+              }
         });
     }
 
@@ -283,6 +381,11 @@ export class DownloadoldmandateComponent implements OnInit {
         //this.HeaderArray = {
         
         //}
+        this.HeaderArray = {
+            mandateid: "Mandate ID", Customer1: "Name", DateOnMandate: "Date On Mandate", IsPrint: "Mandate Printed",
+            IsScan: "Mandate Scan", Refrence1: "Reference", Amount: "Amount", AcNo: "Account No.", Code: "IFSC/MICR",
+            BankName: "Bank Name", Frequency: "Frequency", DebitType: "Debit Type", ToDebit: "Debit To", createdon: "Created on"
+        }
         var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
         var str = '';
         var row = "";
@@ -298,16 +401,16 @@ export class DownloadoldmandateComponent implements OnInit {
         for (var i = 0; i < array.length; i++) {
             var line = '';
 
-            //if (i == 0) {
-            //    for (var index in this.HeaderArray) {
-            //        if (line != '') line += ','
+            if (i == 0) {
+               for (var index in this.HeaderArray) {
+                   if (line != '') line += ','
 
-            //        line += this.HeaderArray[index];
-            //    }
-            //    str += line + '\r\n';
-            //}
+                   line += this.HeaderArray[index];
+               }
+               str += line + '\r\n';
+            }
 
-            //var line = '';
+            var line = '';
             for (var index in array[i]) {
                 if (line != '') line += ','
 
@@ -321,7 +424,8 @@ export class DownloadoldmandateComponent implements OnInit {
        // alert("this method is working");
 
        // alert(this.Ischecked);
-        //console.log(this.checkFlag);
+        console.log(this.SelectionStatusOfMutants);
+    
         if (this.Ischecked == 1) {
             if (this.checkFlag == 0) {
                 var csvData = this.ConvertToCSV(JSON.stringify(this.SelectionStatusOfMutants));
@@ -338,7 +442,8 @@ export class DownloadoldmandateComponent implements OnInit {
         var blob = new Blob([csvData], { type: 'text/csv' });
         var url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'User_Results.csv';/* your file name*/
+        var kex = formatDate(new Date(), "ddMMyyyy", "en");
+        a.download = 'Avasfin_'+kex+'_1.xls';/* your file name*/
         a.click();
             return 'success';
         }
@@ -406,7 +511,7 @@ export class DownloadoldmandateComponent implements OnInit {
         var url = window.URL.createObjectURL(blob);
 
         a.href = url;
-        a.download = "test.zip";
+        a.download = "Zip_Avasfin_18042020_1.zip";
         a.click();
         window.URL.revokeObjectURL(url);
 

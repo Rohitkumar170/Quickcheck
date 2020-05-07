@@ -42,7 +42,7 @@ export class NachMandateComponent implements OnInit {
     mandateId=0;today: Date;
     dataArray: Array<BindGrid>= [];
     //bindgrid:Bindgrid;
-    bindgrid:BindGrid;
+    bindgrid:BindGrid; todayperiodfrom: Date;  todayperiodto: Date;
     btnCancel = false; btnSecVal = false; btnFirstVal = false; btnEditDisable = false; btnPhysicalMandate = false; btnEemandate = false; btnenach = false; 
     // Work on Header button work
     btnedit = false; btnscanprint = false; btnmandateprint = false; btnblackmandateprint = false; btnoldoverprintmandate = false; btnprint = false; btnscanhalf = false; btnscan = false; btnvalidate = false; AEresponse = false; btnregisfund = false; 
@@ -66,10 +66,10 @@ export class NachMandateComponent implements OnInit {
     grd: boolean = false;
     divform: boolean = true;
     constructor(private router: Router, private formBuilder: FormBuilder, private _bankformService: BankFormService,public datepipe: DatePipe) { }
-    hide() {
+    // hide() {
        
-        this.showModalsave = false;
-    }
+    //     this.showModalsave = false;
+    // }
     ngOnInit() {
         this.NachMandate = this.formBuilder.group({
             MandateMode: [''], Catagorycode: ['', Validators.required], Mandatetype: [''], UMRN: [''], UMRNDATE: ['', Validators.required], Sponsorcode: ['Select', Validators.required],  Utilitycode: [''], Create: [''], Modify: [''],
@@ -135,7 +135,9 @@ onClicksucess(event) {
                     this.IsCancel = false;
                 }
                 this.Table7 = data.Table7; this.Table8 = data.Table8; this.Table10 = data.Table10; this.Table9 = data.Table9; if (data.Table9[0].isenable == true) { this.Periodtocodedisabled = false } else { this.Periodtocodedisabled = true } if (data.Table9[1].isenable == true) { this.Untillcancelledcodedisabled = false } else { this.Untillcancelledcodedisabled = true }
-                this.Table2 = data.Table2; this.Table11 = data.Table11; this.Table3 = data.Table3; this.NachMandate.controls['Utilitycode'].setValue(this.Table3[0].utilityCode);
+                this.Table2 = data.Table2; this.Table11 = data.Table11; this.Table3 = data.Table3; 
+                 
+                this.NachMandate.controls['Utilitycode'].setValue(this.Table3[0].utilityCode);
                 this.Table = data.Table; this.lblTodateMandataoryforEsign = this.Table[0].IsTodatemandatoryenach; this.lblISSendEmailCustomer = this.Table[0].ISSendEmailCustomer;
                 this.NachMandate.controls['Sponsorcode'].setValue(this.Table[0].SponsorBankCode);
                 if (this.Table[0].ModeOfPayment == 'Y') {
@@ -146,13 +148,9 @@ onClicksucess(event) {
                     this.IsShow = false;
                 }
                 
-                this.NachMandate.controls['PeriodFrom'].setValue(this.Table[0].FromDate);
-                let dateString = data.Table[0].Date;
                 
-
-                this.NachMandate.controls['UMRNDATE'].setValue(data.Table[0].Date);
-               //this.UMRNDATE = new Date(data.Table[0].Date);
-
+                this.todayperiodfrom=new Date(this.Table[0].FromDate);
+                this.today=   new Date(data.Table[0].Date);
                 this.NachMandate.controls['Authrizename'].setValue(this.Table[0].Name);
                 this.EntityNameCodedesabled = true;
                 this.NachMandate.controls['Debittype'].setValue(this.Table[0].DebitType);
@@ -219,7 +217,10 @@ onClicksucess(event) {
         return index; // or item.id
     }
    
+    ValueAssign(deviceValue) {
+        this.NachMandate.controls['Utilitycode'].setValue(deviceValue);
 
+    }
     btnsave_click() {       
         this.submitted = true;
         if (this.NachMandate.valid) {            
@@ -626,8 +627,9 @@ this.btnEditDisabledisabled=false;
                 this.NachMandate.controls['Refrence2'].setValue(this.editdata0[0].Refrence2);
                 this.Reference2codedisabled=false;
                 this.NachMandate.controls['Email'].setValue(this.editdata0[0].EmailId);
-                this.NachMandate.controls['PeriodFrom'].setValue(this.editdata0[0].FromDate);
-                this.NachMandate.controls['PeriodTo'].setValue(this.editdata0[0].Todate);
+                this.todayperiodfrom=new Date(this.editdata0[0].FromDate);
+                this.today=   new Date(this.editdata0[0].Todate);
+               // this.NachMandate.controls['PeriodTo'].setValue(this.editdata0[0].Todate);
                 this.NachMandate.controls['Customer1'].setValue(this.editdata0[0].Customer1);
                 this.NachMandate.controls['Customer2'].setValue(this.editdata0[0].Customer2);
                 this.NachMandate.controls['Customer3'].setValue(this.editdata0[0].Customer3);             

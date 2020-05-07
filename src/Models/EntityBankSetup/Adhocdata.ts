@@ -10,7 +10,7 @@ export class Adhocdata {
     chkcsv: boolean;
     chkxml: boolean;
     rdoDate: string; 
-    ddlday: number;
+    ddlday: string;
     ddldate: number;
     txtdatepicker: string;
     txtdatepicker1: string;

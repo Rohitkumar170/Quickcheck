@@ -12,7 +12,8 @@ export interface CheckUser {
 
     PresentmentChecker: string;
     PresentmentMaker: string;
-    admin: string;
+    // admin: string;
+    
 
 }
 
@@ -36,9 +37,10 @@ export interface BindMainGrid {
     UserName: string;
     CreatedOn: string;
     UpdatedOn: string;
-    ApprovedBy: number;
-    ApprovedOn: number;
-    LastStatus: number;
+    UpdatedBy: string;
+    ApprovedBy: string;
+    ApprovedOn: string;
+    LastStatus: string;
     BankName: string;
     FileStatus: string;
 
@@ -58,7 +60,7 @@ export interface BindRefrence {
 export interface BindOnRowdblClick {
 
     SponsorBankName: string;
-    SponsorbankId: number;
+    SponsorbankId: string;
     Date: string;
     FileNo: string;
     AccountNumber: string;
@@ -66,9 +68,11 @@ export interface BindOnRowdblClick {
     SponsorBankcode: string;
     IFSC: string;
     UtilityCode: string;
+    UMRN:string;
+    CorporateAcNo:number;
     UserID: number;
     presentmentchecker: string;
-    presentmentmaker: string;
+    presentmentmaker: number;
 
 
 }
