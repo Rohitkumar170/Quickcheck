@@ -36,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let td of tabledata" (dblclick)="rbulkupdData(data)">
+                    <tr *ngFor="let td of tabledata" (dblclick)="rbulkupdData(td)">
 
                         <td style="width:150px;">{{td.Srno}}</td>
                         <td style="width:220px;">{{td.ActivityId}}</td>

@@ -34,10 +34,10 @@ export class BulkEmandateComponent implements OnInit {
     BindGrid(EntityId, topVal, ActivityType) {
         let item = JSON.parse(sessionStorage.getItem('User'));
         this.myservice.GetGridAllData(item.UserId, EntityId, topVal, ActivityType).subscribe((res) => {
-            console.log(res);
+          //  console.log(res);
             this.tabledata = res.Table;
             this.datacount = res.Table1;
-            console.log(this.datacount);
+          //  console.log(this.datacount);
             //this.count = JSON.stringify(this.datacount);
             var str = JSON.stringify(this.datacount);
             this.count = str.replace('[{"Totalcount":', '').replace('}]', '');
@@ -122,15 +122,27 @@ export class BulkEmandateComponent implements OnInit {
             return 'success';
     }
 
-  //  editdata0;
+    UserId:any;
     rbulkupdData(data){
-    // data1={
-      //  var ID=5;
-    // }
-      //  document.getElementById("AResponse").setAttribute('href', '..' + this.editdata0[0].xmlpath + '');
-     // this.router.navigate(['/ebulkuploadeddata']);
-    // document.getElementById("AResponse").setAttribute('href', '..' + this.editdata0[0].xmlpath + '');
-   //  window.location.href="../../dashboard?ID="+ID+"";
+        
+         var ActivityId=data.ActivityId;
+         var TEUHID=data.TEUHID;
+        
+         var ActivityId1= sessionStorage.setItem('ActivityId1',ActivityId);
+         var TEUHID1= sessionStorage.setItem('TEUHID1',TEUHID);
+
+        //  alert(TEUHID1);
+          //  let item1 = sessionStorage.getItem('ActivityId1');
+      
+    //  window.location.href="../../dashboard?ID="+ID+""; 
+      
+      let item = JSON.parse(sessionStorage.getItem('User'));
+    //    this.UserId = item.UserId;
+    //           this.EntityId = item.ReferenceId;
+    //          // var TEUHID=item.TEUHID;
+              
+    //          alert(ActivityId1+"  "+this.UserId+"  "+this.EntityId+"  "+TEUHID1+" "+this.topVal);
+   this.router.navigate(['/eBulkUploadedData']);
     }
 
 

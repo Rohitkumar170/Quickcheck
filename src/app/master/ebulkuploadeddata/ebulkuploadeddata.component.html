@@ -94,45 +94,45 @@
     <table id="maingrid">
         <thead>
             <tr>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
-                <th style="width:150px;">Demo</th>
+                <th style="width:150px;">Date On Mandate</th>
+                <th style="width:150px;">Sponser Bank</th>
+                <th style="width:150px;">Utility code</th>
+                <th style="width:150px;">Bank A/C Number</th>
+                <th style="width:150px;">IFSC</th>
+                <th style="width:150px;">Amount</th>
+                <th style="width:150px;">Frequency</th>
+                <th style="width:150px;">Debit Type</th>
+                <th style="width:150px;">Reference 1</th>
+                <th style="width:150px;">Phone Number</th>
+                <th style="width:150px;">Email Id</th>
+                <th style="width:150px;">From Date</th>
+                <th style="width:150px;">To Date</th>
+                <th style="width:150px;">Name As in BankRecords</th>
+                <th style="width:150px;">CreatedOn</th>
+                <!-- <th style="width:150px;">Demo</th>
+                <th style="width:150px;">Demo</th> -->
                 
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
-                <td style="width:150px;">Demo</td>
+            <tr *ngFor="let MaintdDt of MainTableData">
+                <td style="width:150px;">{{MaintdDt.DateOnMandate}}</td>
+                <td style="width:150px;">{{MaintdDt.SponsorBank}}</td>
+                <td style="width:150px;">{{MaintdDt.Utilitycode}}</td>
+                <td style="width:150px;">{{MaintdDt.BankACNumber}}</td>
+                <td style="width:150px;">{{MaintdDt.IFSC}}</td>
+                <td style="width:150px;">{{MaintdDt.Amount}}</td>
+                <td style="width:150px;">{{MaintdDt.Frequency}}</td>
+                <td style="width:150px;">{{MaintdDt.DebitType}}</td>
+                <td style="width:150px;">{{MaintdDt.RefNo1}}</td>
+                <td style="width:150px;">{{MaintdDt.PhoneNumber}}</td>
+                <td style="width:150px;">{{MaintdDt.EmailID}}</td>
+                <td style="width:150px;">{{MaintdDt.FromDate}}</td>
+                <td style="width:150px;">{{MaintdDt.ToDate}}</td>
+                <td style="width:150px;">{{MaintdDt.NameAsBankRrds1}}</td>
+                <td style="width:150px;">{{MaintdDt.CreatedOn}}</td>
+                <!-- <td style="width:150px;">{{MaintdDt.}}</td>
+                <td style="width:150px;">{{MaintdDt.}}</td> -->
                 
 
             </tr>
@@ -159,7 +159,7 @@
             <table id="Invalidate">
                 <thead>
                     <tr>
-                        <th style="width:150px;">Demo</th>
+                        <th style="width:150px;">Reference No</th>
                         <th style="width:150px;">Customer Name</th>
                         <th style="width:150px;">A/C Number</th>
                         <th style="width:150px;">IFSC</th>
@@ -169,12 +169,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
+                    <tr *ngFor="let InvDt of InvalidTableData">
+                        <td style="width:150px;">{{InvDt.Reference}}</td>
+                        <td style="width:150px;">{{InvDt.CustomerName}}</td>
+                        <td style="width:150px;">{{InvDt.BankacNumber}}</td>
+                        <td style="width:150px;">{{InvDt.IFSC}}</td>
+                        <td style="width:150px;">{{InvDt.Remark}}</td>
                   
                         
 
@@ -225,13 +225,13 @@
 
          <div class="col-md-12 col-sm-12 col-xs-12" id="ValidatedDiv">
          <div class="col-md-12 col-sm-12 col-xs-12 no-padding headerbg">
-           <label class="headlinecolor" id="lblValidate">Validated Data</label>
+           <label class="headlinecolor" id="lblValidate">Valid Data</label>
 </div>
         <div class="scoll">
             <table id="validate">
                 <thead>
                     <tr>
-                        <th style="width:150px;">Demo</th>
+                        <th style="width:150px;">Reference No</th>
                         <th style="width:150px;">Customer Name</th>
                         <th style="width:150px;">A/C Number</th>
                         <th style="width:150px;">IFSC</th>
@@ -241,12 +241,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
-                        <td style="width:150px;">Demo</td>
+                    <tr *ngFor="let VtdDt of ValidTableData">
+                        <td style="width:150px;">{{VtdDt.Reference}}</td>
+                        <td style="width:150px;">{{VtdDt.CustomerName}}</td>
+                        <td style="width:150px;">{{VtdDt.BankacNumber}}</td>
+                        <td style="width:150px;">{{VtdDt.IFSC}}</td>
+                        <td style="width:150px;">{{VtdDt.Remark}}</td>
                   
                         
 
@@ -316,22 +316,22 @@
                   <table id="othIssue">
                       <thead>
                           <tr>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
+                              <th style="width:150px;">Reference No</th>
+                              <th style="width:150px;">Account Number</th>
+                              <th style="width:150px;">Customer Name</th>
+                              <th style="width:150px;">Description</th>
+                              <!-- <th style="width:150px;">Demo</th> -->
                               
                               
                           </tr>
                       </thead>
                       <tbody>
-                          <tr>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
+                          <tr *ngFor="let AcIssue of AccountIssueTableData">
+                              <td style="width:150px;">{{AcIssue.Refrence1}}</td>
+                              <td style="width:150px;">{{AcIssue.AcNo}}</td>
+                              <td style="width:150px;">{{AcIssue.Customer1}}</td>
+                              <td style="width:150px;">{{AcIssue.Description}}</td>
+                              <!-- <td style="width:150px;">Demo</td> -->
                         
                               
       
@@ -397,22 +397,26 @@
                   <table id="Mismatch">
                       <thead>
                           <tr>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
+                              <th style="width:150px;">Status</th>
+                              <th style="width:150px;">Reference No</th>
+                              <th style="width:150px;">Name As Mandate</th>
+                              <th style="width:150px;">Name as Per Bank</th>
+                              <th style="width:150px;">Account Number</th>
+                              <th style="width:150px;">Status Of Mandate</th>
+                              <th style="width:150px;">Description</th>
                               
                               
                           </tr>
                       </thead>
                       <tbody>
-                          <tr>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
+                          <tr *ngFor="let MisMtch of MisMatchTableData">
+                              <td style="width:150px;">checkbox</td>
+                              <td style="width:150px;">{{MisMtch.Refrence1}}</td>
+                              <td style="width:150px;">{{MisMtch.Customer1}}</td>
+                              <td style="width:150px;">{{MisMtch.BeniName}}</td>
+                              <td style="width:150px;">{{MisMtch.AcNo}}</td>
+                              <td style="width:150px;">{{MisMtch.statusofmandate}}</td>
+                              <td style="width:150px;">{{MisMtch.Description}}</td>
                         
                               
       
@@ -469,22 +473,25 @@
                   <table id="validatedata">
                       <thead>
                           <tr>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
-                              <th style="width:150px;">Demo</th>
+                              <th style="width:150px;">Status</th>
+                              <th style="width:150px;">Reference No</th>
+                              <th style="width:150px;">Customer Name</th>
+                              <th style="width:150px;">Account Number</th>
+                              <th style="width:150px;">Status Of Mandate</th>
+                              <th style="width:150px;">Description</th>
                               
                               
                           </tr>
                       </thead>
                       <tbody>
-                          <tr>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
-                              <td style="width:150px;">Demo</td>
+                          <tr *ngFor="let AcValDt of AccountValiTableData">
+                              <td style="width:150px;">checkbox</td>
+                              <td style="width:150px;">{{AcValDt.Refrence1}}</td>
+                              <td style="width:150px;">{{AcValDt.Customer1}}</td>
+                              <td style="width:150px;">{{AcValDt.AcNo}}</td>
+                              <td style="width:150px;">{{AcValDt.statusofmandate}}</td>
+                              <td style="width:150px;">{{AcValDt.Description}}</td>
+                              <!-- <td style="width:150px;">{{AcValDt.}}</td> -->
                         
                               
       
