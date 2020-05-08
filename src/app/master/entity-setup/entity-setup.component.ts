@@ -270,6 +270,7 @@ export class EntitySetupComponent implements OnInit {
             });           
     }
     NewFun() {
+        this.EntitySetupForm.reset();
         this.EntityId = "N";
         this.MainGideDiv = false;
         this.EntityFormDiv = true;
@@ -378,19 +379,32 @@ export class EntitySetupComponent implements OnInit {
         const data = this.EntitySetupForm.value;
         this.ESService.SaveData(data,this.EntityId).subscribe(
             (data) => {
-                this.SaveResultData = data.Table1;
-                if(this.SaveResultData[0].Result==-1){
+               
+                if(data.Table.length == 0){
+                    this.SaveResultData = data.Table1;
+                    if(this.SaveResultData[0].Result== 1){
+                        this.showModalsave = true;
+                        this.BingGrid();
+                        this.MainGideDiv = true;
+                        this.EntityFormDiv = false;
+                        this.liBack = true;
+                        this.liSave = true;
+                        this.liEdit = true;
+                        this.liNew = false;
+                        this.liDelete = true;
+                    }
+                    else {
+                    if(this.SaveResultData[0].Result == '' || this.SaveResultData[0].Result==null){                
+                        alert("error");                
+                    }
+                }
+            }
+                   else {
+                    if(data.Table[0].Result== -1){
                        alert("User already Exist");
-                }
-                else if(this.SaveResultData[0].Result == '' || this.SaveResultData[0].Result==null){                
-                    alert("error");                
-                }
-                else {
-                    this.showModalsave = true;
-                    this.BingGrid();
-                    this.MainGideDiv = true;
-                    this.EntityFormDiv = false;
-                }            
+                    }
+                       
+                   } 
             });
         }
         else{
@@ -542,8 +556,6 @@ export class EntitySetupComponent implements OnInit {
     SponCodBankAddFun() {
         alert("Add");
         this.DivSponsorCode=true;
-        //this.i += 1;
-        //this.SponsorBankCodeArray.push(this.i);
         this.SponsorBankCodeArrayData.push( this.AllFields.SponsoredBankCode.value);
         //this.SponsoredBankcode = this.AllFields.SponsoredBankCode.value;
         this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankName.value,this.AllFields.SponsoredBankCode.value
@@ -609,6 +621,7 @@ export class EntitySetupComponent implements OnInit {
         this.AmountArray.push(this.AllFields.AmountOfBank.value); 
         console.log(this.AmountArray);
     }
+   
     doubleClick(data: any) {        
        // alert(data.EntityId);
        this.EntityId = "";
@@ -635,21 +648,88 @@ export class EntitySetupComponent implements OnInit {
                 console.log(this.EditDataAny);
                 console.log(this.EditData5);
                 console.log(this.AllEditData);
-              
+
+                this.EntitySetupForm.reset();
                 this.EntitySetupForm.controls['Address'].setValue(this.EditData3[0].Address);
                 this.EntitySetupForm.controls['Email'].setValue(this.EditData3[0].Email);
                 this.EntitySetupForm.controls['MobileNo'].setValue(this.EditData3[0].Mobile);
                 this.EntitySetupForm.controls['PinCode'].setValue(this.EditData3[0].PinCode);
-                this.EntitySetupForm.controls['City'].setValue(this.EditData3[0].CityId);
+
+                this.isSelectedCountry = false;
+                this.isSelectedState = false;
+                this.isSelectedCity = false; 
+                this.CountryFunction(this.EditData3[0].CountryId); 
+                this.StateFun(this.EditData3[0].StateId);             
                 this.EntitySetupForm.controls['Country'].setValue(this.EditData3[0].CountryId);
                 this.EntitySetupForm.controls['State'].setValue(this.EditData3[0].StateId);
-                this.EntitySetupForm.controls['UserName'].setValue(this.EditData4[0].UserName);
+                this.EntitySetupForm.controls['City'].setValue(this.EditData3[0].CityId);
 
+                this.EntitySetupForm.controls['UserName'].setValue(this.EditData4[0].UserName);
                 this.EntitySetupForm.controls['Code'].setValue(this.EditData1[0].Code);
                 this.EntitySetupForm.controls['AppID'].setValue(this.EditData1[0].AppId);
                 this.EntitySetupForm.controls['MerchantKey'].setValue(this.EditData1[0].EnitityMarchantKey);
                 this.EntitySetupForm.controls['EntityName'].setValue(this.EditData1[0].Name);
                 this.EntitySetupForm.controls['Name'].setValue(this.EditData1[0].ContactPerson);
+                this.EntitySetupForm.controls['FixedAmount_Ch'].setValue(this.EditData7[0].isenable);
+                this.EntitySetupForm.controls['MaximumAmount_Ch'].setValue(this.EditData7[1].isenable);
+                if(this.EditData7[0].isenable == true){ this.FixedAmount_Radio = false}
+                if(this.EditData7[1].isenable == true){ this.MaximumAmount_Radio = false}
+                this.EntitySetupForm.controls['Monthly_Ch'].setValue(this.EditData8[0].isenable);
+                this.EntitySetupForm.controls['Quarterly_Ch'].setValue(this.EditData8[1].isenable);
+                this.EntitySetupForm.controls['Half_Yearly_Ch'].setValue(this.EditData8[2].isenable);
+                this.EntitySetupForm.controls['Yearly_Ch'].setValue(this.EditData8[3].isenable);
+                this.EntitySetupForm.controls['Presented_Ch'].setValue(this.EditData8[4].isenable);
+                if(this.EditData8[0].isenable == true){ this.Monthly_Radio = false}
+                if(this.EditData8[1].isenable == true){ this.Quarterly_Radio = false}
+                if(this.EditData8[2].isenable == true){ this.Half_Yearly_Radio = false}
+                if(this.EditData8[3].isenable == true){ this.Yearly_Radio = false}
+                if(this.EditData8[4].isenable == true){ this.Presented_Radio = false}
+                this.EntitySetupForm.controls['To_Ch'].setValue(this.EditData9[0].isenable);
+                this.EntitySetupForm.controls['UntillCancelled_Ch'].setValue(this.EditData9[1].isenable);
+                if(this.EditData9[0].isenable == true){ this.To_Radio = false}
+                if(this.EditData9[1].isenable == true){ this.UntillCancelled_Radio = false}
+                this.EntitySetupForm.controls['SB_Ch'].setValue(this.EditData10[0].isenable);
+                this.EntitySetupForm.controls['CA_Ch'].setValue(this.EditData10[1].isenable);
+                this.EntitySetupForm.controls['CC_Ch'].setValue(this.EditData10[2].isenable);
+                this.EntitySetupForm.controls['SB_NRE_Ch'].setValue(this.EditData10[3].isenable);
+                this.EntitySetupForm.controls['SB_NRO_Ch'].setValue(this.EditData10[4].isenable);
+                this.EntitySetupForm.controls['Other_Ch'].setValue(this.EditData10[5].isenable);
+                if(this.EditData10[0].isenable == true){ this.SB_Radio = false}
+                if(this.EditData10[1].isenable == true){ this.CA_Radio = false}
+                if(this.EditData10[2].isenable == true){ this.CC_Radio = false}
+                if(this.EditData10[3].isenable == true){ this.SB_NRE_Radio = false}
+                if(this.EditData10[4].isenable == true){ this.SB_NRO_Radio = false}
+                if(this.EditData10[5].isenable == true){ this.Other_Radio = false}
+                this.EntitySetupForm.controls['IsEMandate'].setValue(this.EditData13[0].Emandate);
+                if(this.EditData13[0].Emandate == true){ this.EMandateMode = true}
+                this.EntitySetupForm.controls['NetBankingCh'].setValue(this.EditData13[0].NetBanking);
+                if(this.EditData13[0].NetBanking == true){ this.NetBankingTab = true}
+                this.EntitySetupForm.controls['ValidateThroughEmail_Ch'].setValue(this.EditData13[0].NetValidateMail);
+                this.EntitySetupForm.controls['Manual_Ch'].setValue(this.EditData13[0].NetManual);
+                this.EntitySetupForm.controls['SMS_Ch'].setValue(this.EditData13[0].NetSMS);
+                this.EntitySetupForm.controls['DebitCardCh'].setValue(this.EditData13[0].Debit);
+                if(this.EditData13[0].Debit == true){ this.DebitCardTab = true}
+                this.EntitySetupForm.controls['DebitValidateThroughEmail'].setValue(this.EditData13[0].DebitValidateMail);
+                this.EntitySetupForm.controls['DebitManual'].setValue(this.EditData13[0].DebitManual);
+                this.EntitySetupForm.controls['DebitSMS'].setValue(this.EditData13[0].DebitSMS);
+                this.EntitySetupForm.controls['AadhaarCardCh'].setValue(this.EditData13[0].Aadhar);
+                if(this.EditData13[0].Aadhar == true){ this.AadhaarCardTab = true}
+                this.EntitySetupForm.controls['AadhaarValidateThroughEmail'].setValue(this.EditData13[0].AadharValidateMail);
+                this.EntitySetupForm.controls['AadhaarManual'].setValue(this.EditData13[0].AadharManual);
+                this.EntitySetupForm.controls['AadhaarSMS'].setValue(this.EditData13[0].AadharSMS);
+                this.EntitySetupForm.controls['IsPhysicalMandateCh'].setValue(this.EditData13[0].Physical);
+                if(this.EditData13[0].Physical == true){ this.PhysicalTab = true}
+                this.EntitySetupForm.controls['ValidationByCustomer_Ch'].setValue(this.EditData13[0].ValidateByCustomer);
+                this.EntitySetupForm.controls['ValidationByCorporate_Ch'].setValue(this.EditData13[0].ValidateByCooperate);
+                this.EntitySetupForm.controls['OCRCode_Ch'].setValue(this.EditData13[0].OCR);
+                this.EntitySetupForm.controls['Presentment_Ch'].setValue(this.EditData13[0].IsPresentment);
+                this.EntitySetupForm.controls['Logo_Ch'].setValue(this.EditData13[0].PrintLogo);
+                this.EntitySetupForm.controls['QRCode_Ch'].setValue(this.EditData13[0].PrintQR);
+                this.EntitySetupForm.controls['E_mailID_Ch'].setValue(this.EditData13[0].Customeremailid);
+                this.EntitySetupForm.controls['PhoneNumber_ch'].setValue(this.EditData13[0].Customerphnumber);
+                this.EntitySetupForm.controls['ISEnableCancelUser'].setValue(this.EditData13[0].EnableCancelUserWise);
+                this.EntitySetupForm.controls['EnableUserWise_Ch'].setValue(this.EditData13[0].EnableUserWise);
+                this.EntitySetupForm.controls['Accountvalidation_Ch'].setValue(this.EditData13[0].IsAccountValidation);
 
                 this.MainGideDiv = false;
                 this.EntityFormDiv = true;
