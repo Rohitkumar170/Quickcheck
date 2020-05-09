@@ -59,6 +59,44 @@ export class BankFormService {
            
        
     }
+    UpdateToDate(mandateId,Userid,ToDate): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/UpdateToDate/' + mandateId + '/' + Userid + '/' + ToDate);
+    }
+    UpdateIsFinalReject(mandateId,Userid): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/UpdateIsFinalReject/' + mandateId + '/' + Userid);
+    }
+    UpdatePhysical(mandateId,Userid,lblISSendEmailCustomer): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/UpdatePhysical/' + mandateId + '/' + Userid + '/' + lblISSendEmailCustomer);
+    }
+    UpdateAutoRejectReasonAcValidation(mandateId,Userid): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/UpdateAutoRejectReasonAcValidation/' + mandateId + '/' + Userid);
+    }
+    UpdateSecond(mandateId,Userid): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/UpdateSecond/' + mandateId + '/' + Userid);
+    }
+    UpdatePrintCount(mandateId,Userid): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/UpdatePrintCount/' + mandateId + '/' + Userid);
+    }
+    ChecKmandate(mandateId): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/ChecKmandate/' + mandateId);
+    }
+    RemoveImage(mandateId): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/RemoveImage/' + mandateId);
+    }
+    CheckUserCreatable(Userid,mandateId): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/CheckUserCreatable/' + Userid + '/' + mandateId);
+    }
 
-    
+    CheckQrLogo(EntityId): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/CheckQrLogo/' + EntityId);
+    }
+    CheckNetBanking(EntityId,mandateId): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/CheckNetBanking/' + EntityId + '/' + mandateId);
+    }
+    UpdateAutoRejectReasonBankValidation(mandateId,Userid): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/UpdateAutoRejectReasonBankValidation/' + mandateId + '/' + Userid);
+    }
+    UpdateFirst(mandateId,Userid): Observable<any> {       
+        return this._http.get<any>(this.baseUrl + 'api/BankForm/UpdateFirst/' + mandateId + '/' + Userid);
+    }
 }
