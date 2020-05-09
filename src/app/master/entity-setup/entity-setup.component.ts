@@ -22,7 +22,7 @@ import { EditData12 } from '../../../models/entity_setup/edit-data12';
 import { EditData13 } from '../../../models/entity_setup/edit-data13';
 import { EditData14 } from '../../../models/entity_setup/edit-data14';
 import { SaveResult } from '../../../models/entity_setup/save-result';
-import { AllEditData } from '../../../models/entity_setup/all-edit-data';
+import { AllSaveData } from '../../../Models/Entity_Setup/all-Save-data';
 import { EntityBusinessCode } from '../../../models/entity_setup/entity-business-code';
 import { MainGrid } from '../../../models/entity_setup/main-grid';
 import { count } from 'rxjs/operators';
@@ -33,7 +33,7 @@ import { count } from 'rxjs/operators';
     styleUrls: ['./entity-setup.component.css']
 })
 export class EntitySetupComponent implements OnInit {
-    AllEditData : AllEditData;
+    AllSaveData : AllSaveData;
     EditDataAny: EditDataAny;
     EditData1 : EditData1;
     EditData2 : EditData2;
@@ -106,6 +106,7 @@ export class EntitySetupComponent implements OnInit {
     liNew : boolean=false;
     CheckedDataArray = [];
     EntityId = "";
+    dtBankCode: any = [];
 
     constructor(private ESService: EntitySetupServiceService, private formBuilder: FormBuilder) { }
     hide() {
@@ -128,7 +129,7 @@ export class EntitySetupComponent implements OnInit {
             PinCode: [''],
             UserName: ['', Validators.required],
             EntityBCode: ['', Validators.required],
-            IsEMandate: [''],
+            IsEMandate: [false, Validators.required],
             IsOverPrintMandate: [''],
             NetBankingCh: [''],
             DebitCardCh: [''],
@@ -281,6 +282,7 @@ export class EntitySetupComponent implements OnInit {
         this.liDelete = true;
     }
     BackFun() {
+        this.EntitySetupForm.reset();
         this.MainGideDiv = true;
         this.EntityFormDiv = false;
         this.liBack = true;
@@ -375,9 +377,18 @@ export class EntitySetupComponent implements OnInit {
         }
     }
     SaveFun() {
-     if (this.EntitySetupForm.valid) { 
-        const data = this.EntitySetupForm.value;
-        this.ESService.SaveData(data,this.EntityId).subscribe(
+     if (this.EntitySetupForm.valid) {        
+         let AllData=new AllSaveData();
+         AllData = this.EntitySetupForm.value;
+        let item = JSON.parse(sessionStorage.getItem('User'));           
+        AllData.UserId = item.UserId;
+        console.log(AllData.UserId);  
+        AllData.dtBankCode = this.dtBankCode;
+       // for(var i=0; i<this.dtBankCode.length; i++){
+           // AllData.dtBankCode.push(this.dtBankCode[i]);
+           // }
+        console.log(AllData.dtBankCode);       
+        this.ESService.SaveData(JSON.stringify(AllData),this.EntityId).subscribe(
             (data) => {
                
                 if(data.Table.length == 0){
@@ -560,6 +571,19 @@ export class EntitySetupComponent implements OnInit {
         //this.SponsoredBankcode = this.AllFields.SponsoredBankCode.value;
         this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankName.value,this.AllFields.SponsoredBankCode.value
            ,this.AllFields.UtilityCode.value,this.AllFields.IFSC.value,this.AllFields.AccountNumber.value ); 
+
+           var Data = "";
+        Data += this.AllFields.SponsoredBankName.value;
+        Data += ",";
+        Data += this.AllFields.SponsoredBankCode.value;
+        Data += ",";
+        Data += this.AllFields.UtilityCode.value;
+        Data += ",";
+        Data += this.AllFields.IFSC.value;
+        Data += ",";
+        Data += this.AllFields.AccountNumber.value;
+        this.dtBankCode.push(Data);
+
         //this.SponsorBankCodeArray.push(this.AllFields.SponsoredBankCode.value);  
         //this.SponsorBankCodeArray.push(this.AllFields.UtilityCode.value); 
         //this.SponsorBankCodeArray.push(this.AllFields.IFSC.value);
@@ -647,7 +671,6 @@ export class EntitySetupComponent implements OnInit {
                 console.log(this.EditData14);
                 console.log(this.EditDataAny);
                 console.log(this.EditData5);
-                console.log(this.AllEditData);
 
                 this.EntitySetupForm.reset();
                 this.EntitySetupForm.controls['Address'].setValue(this.EditData3[0].Address);
@@ -700,7 +723,7 @@ export class EntitySetupComponent implements OnInit {
                 if(this.EditData10[3].isenable == true){ this.SB_NRE_Radio = false}
                 if(this.EditData10[4].isenable == true){ this.SB_NRO_Radio = false}
                 if(this.EditData10[5].isenable == true){ this.Other_Radio = false}
-                this.EntitySetupForm.controls['IsEMandate'].setValue(this.EditData13[0].Emandate);
+                this.EntitySetupForm.controls['IsEMandate'].setValue(this.EditData1[0].IsEmandate);
                 if(this.EditData13[0].Emandate == true){ this.EMandateMode = true}
                 this.EntitySetupForm.controls['NetBankingCh'].setValue(this.EditData13[0].NetBanking);
                 if(this.EditData13[0].NetBanking == true){ this.NetBankingTab = true}
@@ -730,6 +753,14 @@ export class EntitySetupComponent implements OnInit {
                 this.EntitySetupForm.controls['ISEnableCancelUser'].setValue(this.EditData13[0].EnableCancelUserWise);
                 this.EntitySetupForm.controls['EnableUserWise_Ch'].setValue(this.EditData13[0].EnableUserWise);
                 this.EntitySetupForm.controls['Accountvalidation_Ch'].setValue(this.EditData13[0].IsAccountValidation);
+                this.EntitySetupForm.controls['AcValidationAdminCount'].setValue(this.EditData1[0].AcValidationAdminCount);
+                this.EntitySetupForm.controls['AcValidationUserCount'].setValue(this.EditData1[0].AcValidationUserCount);
+                this.EntitySetupForm.controls['BankValidationUserCount'].setValue(this.EditData1[0].BankValidationUserCount);
+                this.EntitySetupForm.controls['BankValidationAdminCount'].setValue(this.EditData1[0].BankValidationAdminCount);
+                this.EntitySetupForm.controls['DebitType'].setValue(this.EditData1[0].DebitType);
+                this.EntitySetupForm.controls['FrequencyType'].setValue(this.EditData1[0].FrequencyType);
+                this.EntitySetupForm.controls['Type'].setValue(this.EditData1[0].PeriodType);
+
 
                 this.MainGideDiv = false;
                 this.EntityFormDiv = true;
