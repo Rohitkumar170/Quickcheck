@@ -20,14 +20,14 @@
                                             New
                                         </label>
                                     </li>
-                                    <li id="btnEdit" *ngIf="btnedit">
+                                    <li id="btnEdit" *ngIf="btnedit" [attr.disabled]="btneditisDisabled ? '' : null">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"
                                            title="Edit"></i>
                                         <label>
                                             Edit
                                         </label>
                                     </li>
-                                    <li id="btnScanPrint" *ngIf="btnscanprint">
+                                    <li id="btnScanPrint" *ngIf="btnscanprint" [attr.disabled]="btnScanPrintisDisabled ? '' : null">
                                         <i class="fa fa-search"
                                            aria-hidden="true" title="Mandate Scanned"></i>
                                         <label>
@@ -35,14 +35,14 @@
                                         </label>
                                     </li>
 
-                                    <li *ngIf="btnmandateprint">
+                                    <li *ngIf="btnmandateprint" [attr.disabled]="btnmandateprintisDisabled ? '' : null" (click)="btnmandateprint_Click();">
                                         <i class="fa fa-print" aria-hidden="true"
                                            title="Mandate Printed"></i>
                                         <label>
                                             Mandate Printed
                                         </label>
                                     </li>
-                                    <li *ngIf="btnblackmandateprint" id="btnBlankMandateprint">
+                                    <li *ngIf="btnblackmandateprint" id="btnBlankMandateprint" [attr.disabled]="btnBlankMandateprintisDisabled ? '' : null">
                                         <a href="" target="_blank">
                                             <i class="fa fa-print" aria-hidden="true" title="Print on printed mandate"></i>
                                             <label>
@@ -50,7 +50,7 @@
                                             </label>
                                         </a>
                                     </li>
-                                    <li *ngIf="btnoldoverprintmandate" id="btnOldOverPrintMandate">
+                                    <li *ngIf="btnoldoverprintmandate" id="btnOldOverPrintMandate" [attr.disabled]="btnOldOverPrintMandateisDisabled ? '' : null">
                                         <a href="" target="_blank">
                                             <i class="fa fa-print" aria-hidden="true" title="Old Print on printed mandate"></i>
                                             <label>
@@ -65,14 +65,14 @@
                                             Print
                                         </label>
                                     </li>
-                                    <li *ngIf="btnscanhalf" id="btnScanHalf">
+                                    <li *ngIf="btnscanhalf" id="btnScanHalf" [attr.disabled]="btnscanhalfisDisabled ? '' : null">
                                         <i class="fa fa-search" aria-hidden="true"
                                            title="Scan Signed Mandate"></i>
                                         <label>
                                             Scan and Upload Mandate
                                         </label>
                                     </li>
-                                    <li *ngIf="btnscan" id="btnScan">
+                                    <li *ngIf="btnscan" id="btnScan" [attr.disabled]="btnscanisDisabled ? '' : null">
                                         <i class="fa fa-upload" aria-hidden="true"
                                            title="Scan Signed Mandate"></i>
                                         <label>
@@ -220,7 +220,7 @@
                 </div>
                 <span id="IsRefrence2Mandatory" style="display: none"></span>
                 <span id="lblmailmsg1" style="display: none"></span>
-                <span id="lblISSendEmailCustomer" style="display: none"> {{lblTodateMandataoryforEsign}}</span>
+                <span id="lblISSendEmailCustomer" style="display: none"> {{lblISSendEmailCustomer}}</span>
 
                 <span id="lblTodateMandataoryforEsign" style="display: none">
                     {{lblTodateMandataoryforEsign}}
@@ -239,10 +239,10 @@
                 <span id="lblFinalBankValidationUserCount" style="display: none">{{lblFinalBankValidationUserCount}}</span>
                 <span id="lblFinalAcValidationAdminCount" style="display: none">{{lblFinalAcValidationAdminCount}}</span>
                 <span id="lblFinalAcValidationUserCount" style="display: none">{{lblFinalAcValidationUserCount}}</span>
-                <span id="lblBankValidationAdminCount" style="display: none">1</span>
-                <span id="lblBankValidationUserCount" style="display: none">1</span>
-                <span id="lblAcValidationAdminCount" style="display: none">1</span>
-                <span id="lblAcValidationUserCount" style="display: none">1</span>
+                <span id="lblBankValidationAdminCount" style="display: none">{{lblBankValidationAdminCount}}</span>
+                <span id="lblBankValidationUserCount" style="display: none">{{lblBankValidationUserCount}}</span>
+                <span id="lblAcValidationAdminCount" style="display: none">{{lblAcValidationAdminCount}}</span>
+                <span id="lblAcValidationUserCount" style="display: none">{{lblAcValidationUserCount}}</span>
 
                 <span id="lblIsRefrenceCheck" style="display: none">{{lblIsRefrenceCheck}}</span>
                 <span id="lblIsEMandate" style="display: none">{{lblIsEMandate}}</span>
@@ -553,7 +553,7 @@
                                                                 Bank a/c Number
                                                             </label>
                                                         </div>
-                                                        <input name="ctl00$ContentPlaceHolder1$lblSmandateId" type="text" id="ContentPlaceHolder1_lblSmandateId" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$lblSmandateId" type="text" id="ContentPlaceHolder1_lblSmandateId" formControlName="ContentPlaceHolder1_lblSmandateId" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$lblmandatecheckdata" type="text" id="ContentPlaceHolder1_lblmandatecheckdata" formControlName="ContentPlaceHolder1_lblmandatecheckdata" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtmandatetype" type="text" id="ContentPlaceHolder1_txtmandatetype" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtaccountcheck" type="text" id="ContentPlaceHolder1_txtaccountcheck" class="status-lbl" style="display: none;">
@@ -580,13 +580,13 @@
                                                         <input name="ctl00$ContentPlaceHolder1$txtentitymandatephysical" type="text" id="ContentPlaceHolder1_txtentitymandatephysical" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtentitymandateemandate" type="text" id="ContentPlaceHolder1_txtentitymandateemandate" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtentityaccountvalidationflag" type="text" id="ContentPlaceHolder1_txtentityaccountvalidationflag" class="status-lbl" style="display: none;">
-                                                        <input name="ctl00$ContentPlaceHolder1$txtEmandatestatus" type="text" id="ContentPlaceHolder1_txtEmandatestatus" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtEmandatestatus" type="text" id="ContentPlaceHolder1_txtEmandatestatus" formControlName="ContentPlaceHolder1_txtEmandatestatus" class="status-lbl" style="display: none;">
                                                         <label id="lblActivityId" class="status-lbl" style="display: none;">
                                                         </label>
                                                         <label id="lbltruebankvalidationcheck" class="status-lbl" style="display: none;">
                                                         </label>
                                                         <div class="col-sm-9 col-md-9 col-xs-8 ">
-                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtAcNo" formControlName="Bankaccountno" (keypress)="numberOnly($event)" [ngClass]="displayFieldCss('Bankaccountno')" maxlength="26" placeholder="Enter Bank a/c Number" [attr.disabled]="Bankaccountnodisabled ? '' : null">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtAcNo" formControlName="Bankaccountno" (keypress)="numberOnly($event)" (focusout)="CheckAcNolength();" [ngClass]="displayFieldCss('Bankaccountno')" maxlength="26" placeholder="Enter Bank a/c Number" [attr.disabled]="Bankaccountnodisabled ? '' : null">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -619,7 +619,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-9 col-xs-9 ">
-                                                                    <input type="text" maxlength="11" style="text-transform: uppercase" formControlName="IFSC" class="col-sm-12 col-md-12 col-xs-12" id="txtIFSC" placeholder="Enter IFSC" [ngClass]="displayFieldCss('IFSC')" [attr.disabled]="IFSCdisabled ? '' : null">
+                                                                    <input type="text" maxlength="11" style="text-transform: uppercase" (change)="IFSC_Change();" formControlName="IFSC" class="col-sm-12 col-md-12 col-xs-12" id="txtIFSC" placeholder="Enter IFSC" [ngClass]="displayFieldCss('IFSC')" [attr.disabled]="IFSCdisabled ? '' : null">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -633,7 +633,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-8 col-xs-9 ">
-                                                                    <input type="text" maxlength="9" formControlName="MICR" class="col-sm-12 col-md-12 col-xs-12" id="txtMICR" placeholder="Enter MICR" [ngClass]="displayFieldCss('IFSC')" [attr.disabled]="MICRdisabled ? '' : null">
+                                                                    <input type="text" maxlength="9" formControlName="MICR" (change)="MICR_Change();" class="col-sm-12 col-md-12 col-xs-12" (keypress)="numberOnly($event)" id="txtMICR" placeholder="Enter MICR" [ngClass]="displayFieldCss('IFSC')" [attr.disabled]="MICRdisabled ? '' : null">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -653,7 +653,7 @@
                                                         </div>
 
                                                         <div class="col-sm-2 col-md-2 col-xs-12 ">
-                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amountrupees" id="txtAmountRupees" [ngClass]="displayFieldCss('Amountrupees')" (keypress)="Decimal($event);numtoword($event)" placeholder="Enter Amount" maxlength="9" [attr.disabled]="Amountrupeesdisabled ? '' : null">
+                                                            <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Amountrupees" id="txtAmountRupees" [ngClass]="displayFieldCss('Amountrupees')" (keypress)="Decimal($event);" (keyup)="Amountrupees_keyup();" placeholder="Enter Amount" maxlength="9" [attr.disabled]="Amountrupeesdisabled ? '' : null">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -732,7 +732,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-10 col-md-10 col-xs-9 ">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtRefrence1" formControlName="Refrence1" [ngClass]="displayFieldCss('Refrence1')" maxlength="20" placeholder="Enter Reference" [attr.disabled]="Refrence1disabled ? '' : null">
+                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" id="txtRefrence1" (keyup)="txtRefrence1_keyup();" appBlockCopyPaste formControlName="Refrence1" [ngClass]="displayFieldCss('Refrence1')" maxlength="20" placeholder="Enter Reference" [attr.disabled]="Refrence1disabled ? '' : null">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -766,7 +766,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-10 col-md-10 col-xs-9 no-padding-left">
-                                                                    <input type="text" class="col-sm-12 col-md-12 col-xs-12" formControlName="Refrence2" id="txtRefrence2" [attr.disabled]="Reference2codedisabled ? '' : null" onkeyup="RemoveClass();" />
+                                                                    <input type="text" appBlockCopyPaste class="col-sm-12 col-md-12 col-xs-12" formControlName="Refrence2" id="txtRefrence2" [attr.disabled]="Reference2codedisabled ? '' : null" onkeyup="RemoveClass();" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -841,7 +841,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-9 col-md-9 col-xs-9 chkbox" style="padding-top: 3px">
-                                                                        <input id="chkUntil" type="checkbox" formControlName="Untillcancelled" class="pull-left"  checked="checked" [attr.disabled]="Untillcancelledcodedisabled ? '' : null" />
+                                                                        <input id="chkUntil" type="checkbox" formControlName="Untillcancelled" (change)="chkUntil_Change();" class="pull-left"  checked="checked" [attr.disabled]="Untillcancelledcodedisabled ? '' : null" />
                                                                         <label class="col-sm-10 col-md-10 col-xs-10 control-label ">
                                                                             Until Cancelled
                                                                         </label>
@@ -875,7 +875,7 @@
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
                                                                         <div class="row">
-                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer1" [ngClass]="displayFieldCss('Customer1')" onkeyup="RemoveClass();" id="txtCust1" placeholder="Enter Name" maxlength="40" [attr.disabled]="Customer1disabled ? '' : null"/>
+                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" style="text-transform: uppercase" formControlName="Customer1" [ngClass]="displayFieldCss('Customer1')" onkeyup="Customer1_keyup(); RemoveClass();" id="txtCust1" placeholder="Enter Name" maxlength="40" [attr.disabled]="Customer1disabled ? '' : null"/>
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 1. Name as in Bank Records
                                                                             </label>
@@ -885,7 +885,7 @@
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
                                                                         <div class="">
-                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" formControlName="Customer2" id="txtCust2" [attr.disabled]="Customer2disabled ? '' : null" maxlength="40" />
+                                                                            <input type="text" class="col-sm-10 col-md-10 col-xs-12" style="text-transform: uppercase" formControlName="Customer2" id="txtCust2" onkeyup="Customer2_keyup();" [attr.disabled]="Customer2disabled ? '' : null" maxlength="40" />
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 2. Name as in Bank Records
                                                                             </label>
@@ -895,7 +895,7 @@
                                                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                                                     <div class="form-group">
                                                                         <div class="">
-                                                                            <input type="text" class="col-sm-12 col-md-10 col-xs-12" formControlName="Customer3" id="txtCust3" [attr.disabled]="Customer3disabled ? '' : null" maxlength="40" />
+                                                                            <input type="text" class="col-sm-12 col-md-10 col-xs-12" style="text-transform: uppercase" formControlName="Customer3" id="txtCust3" [attr.disabled]="Customer3disabled ? '' : null" maxlength="40" />
                                                                             <label class="col-md-12 col-sm-12 col-xs-12 no-padding" style="background: none;">
                                                                                 3. Name as in Bank Records
                                                                             </label>
@@ -918,12 +918,12 @@
                                                 </label>
                                             </div>
                                             <div class="col-md-12 col-sm-12 col-xs-12 btnDiv">
-                                                <input type="button" class="btn btn-success pull-right" id="btnCancel" value="Cancel" *ngIf="btnCancel" [attr.disabled]="Cancelleddisabled ? '' : null" />
-                                                <input type="button" class="btn btn-success pull-right" id="btnSecVal" value="Account Validation" *ngIf="btnSecVal" [attr.disabled]="btnSecValdisabled ? '' : null" />
-                                                <input type="button" class="btn btn-success pull-right" id="btnFirstVal" value="Bank Validation" *ngIf="btnFirstVal" [attr.disabled]="btnFirstValdisabled ? '' : null" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnCancel" (click)="btnCancel_Click();" value="Cancel" *ngIf="btnCancel" [attr.disabled]="Cancelleddisabled ? '' : null" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnSecVal" (click)="btnSecVal_Click();" value="Account Validation" *ngIf="btnSecVal" [attr.disabled]="btnSecValdisabled ? '' : null" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnFirstVal" (click)="btnFirstVal_Click();" value="Bank Validation" *ngIf="btnFirstVal" [attr.disabled]="btnFirstValdisabled ? '' : null" />
                                                 <input type="button" class="btn btn-success pull-right" id="btnSave" *ngIf="btnSave" value="Save" (click)="btnsave_click()" [attr.disabled]="btnSavedisabled ? '' : null">
                                                 <input type="button" class="btn btn-success pull-right" id="btnEditDisable" (click)="btnEditDisable_click()" value="Edit" *ngIf="btnEditDisable" [attr.disabled]="btnEditDisabledisabled ? '' : null" />
-                                                <input type="button" class="btn btn-success pull-right" id="btnPhysicalMandate" value="Physical Mandate" *ngIf="btnPhysicalMandate" />
+                                                <input type="button" class="btn btn-success pull-right" id="btnPhysicalMandate" value="Physical Mandate" *ngIf="btnPhysicalMandate" [attr.disabled]="btnPhysicalMandateisdisabled ? '' : null"/>
                                                 <input type="submit" name="ctl00$ContentPlaceHolder1$btnEemandate" value="E-Mandate" id="ContentPlaceHolder1_btnEemandate" class="btn btn-success pull-right TestEmandate" *ngIf="btnEemandate" [attr.disabled]="btnEemandatedisabled ? '' : null" />
                                                 <input type="button" class="btn btn-success pull-right" style="margin-right: 4px;" id="btnenach" *ngIf="btnenach" value="Validate ENACH">
                                             </div>
@@ -1080,7 +1080,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="margin-top: 2%; margin-bottom: 2%;">
-                                                                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;" id="ElectronicPaymentMode">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none;" id="ElectronicPaymentMode" (change)="ElectronicPaymentMode_Change();">
                                                                         <label class="col-md-4 col-sm-5 col-xs-4 no-padding-left">
                                                                             <input name="rdoGender" value="Dr" type="radio">
                                                                             <span>Debit</span>
@@ -1094,7 +1094,7 @@
                                                                             <span>Net Banking</span>
                                                                         </label>
                                                                     </div>
-                                                                    <div class=" col-md-12 col-sm-12 col-xs-12 no-padding" style="display: none;" id="divrefrenceNo">
+                                                                    <div class=" col-md-12 col-sm-12 col-xs-12 no-padding" style="display: none;" id="divrefrenceNo" [style.display]="divrefrenceNo ? 'block' : 'none'">
                                                                         <div class="col-md-6 col-sm-6 col-xs-3 no-padding">
                                                                             <div class="form-group">
                                                                                 <label class="col-sm-4 col-xs-4 col-md-12 no-padding control-label" for="form-field-2">
@@ -1533,7 +1533,7 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" name="ctl00$ContentPlaceHolder1$btnPhysicall" value="Physical Mandate" id="ContentPlaceHolder1_btnPhysicall" class="col-md-12 col-sm-12 col-xs-12 btn btn-success " style="margin-top: 2%; margin-left: 2%; width: 96%; display: none">
+            <input type="submit" name="btnPhysicall" value="Physical Mandate" id="btnPhysicall" class="col-md-12 col-sm-12 col-xs-12 btn btn-success " (click)="btnPhysicall_Click();" style="margin-top: 2%; margin-left: 2%; width: 96%;" *ngIf="btnPhysicall">
             <input type="submit" name="ctl00$ContentPlaceHolder1$Button5" value="OK" id="ContentPlaceHolder1_Button5" class="col-md-12 col-sm-12 col-xs-12 btn btn-success closeder" style="margin-top: 2%; margin-left: 2%; width: 96%; margin-bottom: 1%;">
             <label class="col-md-12 col-sm-12 col-xs-12  no-padding-right" style="color: #f52020;
                 text-align: left; font-size: 13px!important; margin: 2% 0 2% 0!important; display: none" id="Label15">
@@ -1545,7 +1545,7 @@
                 </label>
             </div>
         </div>
-        <div id="UnSuccess" style="display: none" class="popupmandate">
+        <!-- <div id="UnSuccess" style="display: none" class="popupmandate">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor">
                 <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
                     <img id="img2" src="../images/saveTickUpdated.png" class="SavedTick" style="width: 12%; display:none" alt="">
@@ -1629,7 +1629,7 @@
                         </label>
                         <label class="col-sm-8 col-xs-7 col-md-9 no-padding control-label" for="form-field-2" style="font-weight:normal" id="lblmobile">
                         </label>
-                        <input type="text" id="txtmobileemandate" maxlength="10" class="col-sm-5 col-xs-5 col-md-5" style="display:none">
+                        <input type="text" id="txtmobileemandate" (keypress)="numberOnly($event)" maxlength="10" class="col-sm-5 col-xs-5 col-md-5" style="display:none">
                         <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
 
                             <img id="imgtkmobile" src="../images/tick-icon.png" style="display:none">
@@ -1681,27 +1681,27 @@
                         </label>
                         <div id="Divemandate" class="col-sm-7 col-xs-7 col-md-5 no-padding radio ">
                             <label id="physicalcheck" style="display: none" class="lblradiobtnss col-md-6 col-sm-2 col-xs-2 no-padding">
-                                <input id="notacvalrdphysical" style="display: none" name="notacvalrbnetbanking" value="P" type="radio">
+                                <input id="notacvalrdphysical" (click)="notacvalrdphysical_Click();" style="display: none" name="notacvalrbnetbanking" value="P" type="radio">
                                 <span>Physical</span>
                             </label>
                             <label id="emandatecheck" style="display: none" class="lblradiobtnss col-md-6 col-sm-5 col-xs-4 no-padding">
-                                <input id="notacvalrdemandate" style="display: none" name="notacvalrbnetbanking" value="E" type="radio">
+                                <input id="notacvalrdemandate" (click)="notacvalrdemandate_Click();" style="display: none" name="notacvalrbnetbanking" value="E" type="radio">
                                 <span>E-Mandate</span>
                             </label>
                         </div>
                     </div>
 
 
-                    <div id="debitnetbank" class="form-group" style="display: none;">
+                    <div id="debitnetbank" class="form-group"  *ngIf="debitnetbank">
                         <label class="col-sm-12 col-xs-12 col-md-4 no-padding-right amarlabel">
                             Select E-Mandate Type:
                         </label>
-                        <div id="netbanking" class="col-sm-12 col-xs-7 col-md-7  radio ">
-                            <label class="lblradiobtnss col-md-6 col-sm-6 col-xs-12 no-padding" id="netbankingshow" style="display: none;">
+                        <div id="netbanking" class="col-sm-12 col-xs-7 col-md-7  radio " *ngIf="netbanking">
+                            <label class="lblradiobtnss col-md-6 col-sm-6 col-xs-12 no-padding" id="netbankingshow"  *ngIf="netbankingshow">
                                 <input id="rbnetbanking" name="rbnetbanking" value="N" type="radio">
                                 <span>Net Banking</span>
                             </label>
-                            <label class="lblradiobtnss col-md-4 col-sm-5 col-xs-12 no-padding" id="debitbankingshow" style="display: none;">
+                            <label class="lblradiobtnss col-md-4 col-sm-5 col-xs-12 no-padding" id="debitbankingshow"  *ngIf="debitbankingshow">
                                 <input id="rbdebitcard" name="rbnetbanking" value="D" type="radio">
                                 <span>Debit Card</span>
                             </label>
@@ -1730,7 +1730,7 @@
                     x
                 </label>
             </div>
-        </div>
+        </div> -->
         <div id="Success" style="display: none" class="popupmandate">
             <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -1757,7 +1757,7 @@
 
             </div>
         </div>
-        <div id="admin" style="display: none" class="popupmandate">
+        <div id="admin" [style.display]="admin ? 'block' : 'none'" class="popupmandate">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <img id="img1" src="../images/caution2.png" class="SavedTick" style="width: 15%;" alt="">
@@ -1771,7 +1771,7 @@
                 </label>
             </div>
         </div>
-        <div id="DateMandatoryESign" style="display: none" class="popupmandate">
+        <div id="DateMandatoryESign" [style.display]="DateMandatoryESign ? 'block' : 'none'" class="popupmandate">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <img id="img3" src="../images/caution2.png" class="SavedTick" style="width: 15%;" alt="">
@@ -1784,7 +1784,7 @@
                         To
                     </label>
                     <div class="col-sm-5 col-md-5 col-xs-5 no-padding">
-                        <input type="text" id="txtTo2" onchange="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" style="border: 1px solid #cdcdcd">
+                        <input type="text" id="txtTo2"  onchange="RemoveClass();" class="col-sm-12 col-md-12 col-xs-12 form-control date-picker" name="date-picker" data-date-format="dd-mm-yyyy" style="border: 1px solid #cdcdcd">
                     </div>
                     <label class="col-md-6 col-sm-6 col-xs-6  no-padding" style="color: #1f3c61;" id="lblData1">
                         'To Date' is mandatory for e-sign
@@ -1792,7 +1792,7 @@
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <input type="button" class="col-md-12 col-sm-12 col-xs-12  btn btn-success pull-right" id="btndatesave" value="Save" style="margin: 2% 0 2% 0">
+                <input type="button" class="col-md-12 col-sm-12 col-xs-12  btn btn-success pull-right" id="btndatesave" (click)="btndatesave_Click();" value="Save" style="margin: 2% 0 2% 0">
             </div>
             <div class="close popclose" id="Div15">
                 <label class="">
@@ -1855,7 +1855,7 @@
                 </label>
             </div>
         </div>
-        <div id="divreference" style="display: none" class="popupmandate1">
+        <div id="divreference" style="display: none" class="popupmandate1" [style.display]="divreference ? 'block' : 'none'">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding" id="reference">
                 <div class="col-md-12 col-sm-12 col-xs-12 no-padding-left" style="text-align: center;">
                     <img src="../images/caution2.png" class="SavedTick" alt="">
@@ -1869,8 +1869,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12" id="DivRefrenceDetail">
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <input type="button" class="col-md-12 col-sm-12 col-xs-12 btn btn-success" id="btnNewMandate" value="Create New" style="margin-left: 0;">
-                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnUpdateMandate" value="Update For" style="display: none">
+                <input type="button" class="col-md-12 col-sm-12 col-xs-12 btn btn-success" id="btnNewMandate" (click)="btnNewMandate_Click();" value="Create New" style="margin-left: 0;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnUpdateMandate" (click)="btnUpdateMandate_Click();" value="Update For" style="display: none">
             </div>
             <div class="close popclose" id="Div11">
                 <label class="">
@@ -1878,7 +1878,7 @@
                 </label>
             </div>
         </div>
-        <div id="reject" style="display: none" class="popupmandate">
+        <div id="reject" [style.display]="reject ? 'block' : 'none'" class="popupmandate">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12 text-center">
                     <img src="../images/caution2.png" class="SavedTick" style="width: 15%;">
@@ -1896,7 +1896,7 @@
                 </label>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnYesreject" value="Yes" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%; margin-left: 2%;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnYesreject" (click)="btnYesreject_Click();" value="Yes" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%; margin-left: 2%;">
                 <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success rejectclose" id="Button3" value="No" style="margin-top: 2%; margin-bottom: 2%">
             </div>
             <div class="popclose close" id="Div12" style="right: 2px;">
@@ -1905,7 +1905,7 @@
                 </label>
             </div>
         </div>
-        <div id="DivCancel" style="display: none" class="popupmandate">
+        <div id="DivCancel" style="display: none" class="popupmandate" [style.display]="DivCancel ? 'block' : 'none'">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
@@ -1924,7 +1924,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="Button2" value="Yes" style="margin-right: 12%; margin-top: 2%;
                     margin-bottom: 2%; margin-left: 2%;">
-                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success " id="btncancenNo" value="No" style="margin-top: 2%; margin-bottom: 2%">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success " id="btncancenNo" (click)="btncancenNo_Click();" value="No" style="margin-top: 2%; margin-bottom: 2%">
             </div>
             <div class="popclose close" id="Div14" style="right: 2px;">
                 <label class="">
@@ -1959,7 +1959,7 @@
                 </label>
             </div>
         </div>
-        <div id="editpopmandate" style="display: none" class="popupmandate no-padding">
+        <div id="editpopmandate" [style.display]="editpopmandate ? 'block' : 'none'" class="popupmandate no-padding">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="col-md-12 col-sm-12 col-xs-12 no-padding text-center">
@@ -1976,8 +1976,8 @@
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnedityesyNO" value="Yes" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%; margin-left: 2%;">
-                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success closeallll" id="btneditNO" value="No" style="margin-top: 2%; margin-bottom: 2%">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="btnedityesyNO" (click)="btnedityesyNO_Click();" value="Yes" style="margin-right: 12%; margin-top: 2%; margin-bottom: 2%; margin-left: 2%;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success closeallll" id="btneditNO" (click)="btneditNO_Click();" value="No" style="margin-top: 2%; margin-bottom: 2%">
             </div>
             <div class="popclose close" id="Div202" style="right: 2px;">
                 <label class="">
@@ -2012,7 +2012,7 @@
                 </label>
             </div>
         </div>
-        <div id="refund" style="display: none" class="popupmandate">
+        <div id="refund" [style.display]="refund ? 'block' : 'none'" class="popupmandate">
             <div id="ContentPlaceHolder1_overlay1" class="col-xs-12 col-md-12 col-sm-12">
             </div>
             <div id="preloader_4" style="display: none; z-index: 9999; position: absolute;">
@@ -2069,7 +2069,7 @@
             </div>
             <iframe id="ContentPlaceHolder1_IframeCallFinalTransfer" src="" width="100%" height="300px" style="overflow: hidden"></iframe>
         </div>
-        <div id="DivSecondTimeESP" style="display: none" class="popupmandate">
+        <div id="DivSecondTimeESP" style="display: none" class="popupmandate" [style.display]="DivSecondTimeESP ? 'block' : 'none'">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <img id="img8" src="../images/caution2.png" class="SavedTick" style="width: 15%;" alt="">
@@ -2084,11 +2084,11 @@
                 </label>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <a id="ContentPlaceHolder1_lnkYes" class="btnESP btn btn-success" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$lnkYes','')">Yes</a>
-                    <input type="button" class="btnESP btn btn-success" id="ESPNo" value="No">
+                    <input type="button" class="btnESP btn btn-success" id="ESPNo" value="No" (click)="ESPNo_Click();">
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <input type="button" class="col-md-12 btn btn-success" id="btnDivSecondOk" value="OK" style="margin-bottom: 2%;">
+                <input type="button" class="col-md-12 btn btn-success" id="btnDivSecondOk" (click)="btnDivSecondOk_Click();" value="OK" style="margin-bottom: 2%;">
             </div>
             <div class="close popclose" id="Div22">
                 <label class="">
@@ -2096,7 +2096,7 @@
                 </label>
             </div>
         </div>
-        <div id="netbankingdebit" style="display: none" class="popupmandate">
+        <div id="netbankingdebit" [style.display]="netbankingdebit ? 'block' : 'none'" class="popupmandate">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding bgcolor" style="text-align: center">
                 <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
                     <img id="img11" src="../images/caution2.png" class="SavedTick" style="width: 12%;" alt="">
@@ -2107,11 +2107,11 @@
                 Bank is not live on E-Mandate. Do you want to edit?
             </label>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="netbankingdebitYes" value="Yes" style="margin-right: 10%; margin-top: 2%; margin-bottom: 2%; margin-left: 3%;">
-                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="netbankingdebitNo" value="No" style="margin-top: 2%; margin-bottom: 2%">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="netbankingdebitYes" (click)="netbankingdebitYes_Click()" value="Yes" style="margin-right: 10%; margin-top: 2%; margin-bottom: 2%; margin-left: 3%;">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" id="netbankingdebitNo" (click)="netbankingdebitNo_Click()" value="No" style="margin-top: 2%; margin-bottom: 2%">
             </div>
         </div>
-        <div id="confirmbankformpopup" style="display: none;" class="popupmandate no-padding">
+        <div id="confirmbankformpopup"  class="popupmandate no-padding" [style.display]="confirmbankformpopup ? 'block' : 'none'">
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="text-align: center">
                 <div id="overlay_consent" class="col-xs-12 col-md-12 col-sm-12 overlay_consent">
                 </div>
@@ -2159,7 +2159,7 @@
                 </div>
             </div>
         </div>
-        <div id="Emandatereg" style="display: none" class="popupmandate no-padding">
+        <div id="Emandatereg"  class="popupmandate no-padding" [style.display]="Emandatereg ? 'block' : 'none'">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div id="mail-overlay" class="col-xs-12 col-md-12 col-sm-12 overlay">
                 </div>
@@ -2183,7 +2183,7 @@
 
                 <a id="ContentPlaceHolder1_LinkButton1" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$LinkButton1','')" style="margin-right: 10%;
                     margin-top: 2%; margin-bottom: 2%; margin-left: 3%;">Yes</a>
-                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" value="No" id="EnetbankingNo" style="margin-top: 2%; margin-bottom: 2%">
+                <input type="button" class="col-md-5 col-sm-5 col-xs-5 btn btn-success" value="No" id="EnetbankingNo" (click)="EnetbankingNo_Click();" style="margin-top: 2%; margin-bottom: 2%">
             </div>
         </div>
     </div>
@@ -2451,7 +2451,7 @@
                     </div>
         
         
-                         <div id="debitnetbank" class="form-group" style="display: block;">
+                         <!-- <div id="debitnetbank" class="form-group" style="display: block;">
                             <div class="row">
                             <label class="col-sm-12 col-xs-12 col-md-3  amarlabel" style="padding-left:17px">
                                 Select E-Mandate Type:</label>
@@ -2475,7 +2475,7 @@
                             </div>
                             </div>
                         </div>
-                         </div>
+                         </div> -->
         
 
                         <div class=" col-sm-12 col-xs-12 col-md-12 boxhead" id="divemailmobile" style="display: block">

@@ -53,7 +53,8 @@ export interface SaveData2{
 }
 export interface SaveData3{
 
-    Bank:string;     
+    Bank:string; 
+    Bankname:string;    
 }
 export interface SaveData4{
 
@@ -70,7 +71,15 @@ export interface SaveData5{
 export interface SaveData6{
     IsLiveIMPS:Boolean
     IsNachLive:Boolean;
-    is_enach_live:Boolean;      
+    is_enach_live:Boolean; 
+    FullBank:string;     
+}
+export interface SaveData16{
+    Emailid:string;
+    PhoneNumber:string;
+    IsPhysical:Boolean;
+    Enach:Boolean;    
+    EMandatetype:string;     
 }
 export interface SaveData7{
 
