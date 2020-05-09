@@ -762,13 +762,13 @@ export class EntitySetupComponent implements OnInit {
                 this.EntitySetupForm.controls['Type'].setValue(this.EditData1[0].PeriodType);
 
 
-                this.MainGideDiv = false;
-                this.EntityFormDiv = true;
-                this.liBack = false;
-                this.liSave = false;
-                this.liEdit = true;
-                this.liNew = true;
-                this.liDelete = true;
+               // this.MainGideDiv = false;
+                //this.EntityFormDiv = true;
+                //this.liBack = false;
+                //this.liSave = false;
+                //this.liEdit = true;
+                //this.liNew = true;
+                //this.liDelete = true;
 
             });
            
