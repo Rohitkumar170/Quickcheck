@@ -770,6 +770,7 @@ export class EntitySetupComponent implements OnInit {
                 //this.liNew = true;
                 //this.liDelete = true;
 
+                
             });
            
              
