@@ -24,6 +24,7 @@ export class EntitySetupServiceService {
         return this._http.get<any>(this.baseUrl + 'api/BindGrid');
     }
     SaveData(em: any, EntityId): Observable<any> {
+        EntityId="";
         const body = em;
         const headers = new HttpHeaders().set('content-type', 'application/json');
         return this._http.post<any>(this.baseUrl + 'api/SaveData/' + EntityId , body, {
@@ -40,6 +41,7 @@ export class EntitySetupServiceService {
         return this._http.get<any>(this.baseUrl + 'api/EditData/'+ EntityId);
     }
     DeleteFun(EntityId,em:any): Observable<any> {
+        EntityId="";
        const body=em;
        alert(body);
        console.log(body);
