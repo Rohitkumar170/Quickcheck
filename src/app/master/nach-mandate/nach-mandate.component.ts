@@ -80,6 +80,11 @@ debitnetbank: boolean = false;netbanking: boolean = false;netbankingshow: boolea
 debitbankingshow: boolean = false;confirmbankformpopup: boolean = false;Emandatereg: boolean = false;netbankingdebit: boolean = false;
 DivCancel: boolean = false;DateMandatoryESign:boolean;reject:boolean;editpopmandate:boolean;divreference:boolean;
 DivSecondTimeESP:boolean;refund:boolean;divrefrenceNo:boolean;admin:boolean;
+IFSCImgCross: boolean = false;  IFSCImgTick: boolean = false;  NACHTick: boolean = false;
+NACHCross: boolean = false;imgtkmobile: boolean = false;imgcrossmobile: boolean = false;
+imgtickemail: boolean = false;imgcrossemail: boolean = false;notacvalrdphysical: boolean = false;
+notacvalrdemandate: boolean = false; physicalcheck: boolean = false;
+emandatecheck: boolean = false;
 @HostListener('paste', ['$event']) blockPaste(e: KeyboardEvent) {
     e.preventDefault();
 }
@@ -106,7 +111,8 @@ DivSecondTimeESP:boolean;refund:boolean;divrefrenceNo:boolean;admin:boolean;
             Customer1: ['', Validators.required], Customer2: [''], Customer3:[''],
             ContentPlaceHolder1_txtphysical:[''],ContentPlaceHolder1_txtemandate:[''],
             ContentPlaceHolder1_lblmandatecheckdata:[''], ContentPlaceHolder1_txtEmandatestatus:[''],
-            ContentPlaceHolder1_lblSmandateId:['']
+            ContentPlaceHolder1_lblSmandateId:[''], ContentPlaceHolder1_txtentityaccountvalidationflag:[''], ContentPlaceHolder1_txtcheckifscvalid:[''],ContentPlaceHolder1_txtentitymandatephysical:[''],
+            ContentPlaceHolder1_txtentitymandateemandate:['']
         });
             let Sessionvalue = JSON.parse(sessionStorage.getItem('User')); 
             this.lblIsRefrenceCheck = Sessionvalue.IsRefrenceCheck; this.lblIsMandateEdit = Sessionvalue.IsMandateEdit; this.lblIsRefrenceEdit = Sessionvalue.IsRefrenceEdit; this.lblOverMandate = Sessionvalue.IsOverPrintMandate; this.lblIsEMandate = Sessionvalue.IsEmandate; this.lblIsPhysicalMandate = Sessionvalue.IsPhysical; this.lblEntityId = Sessionvalue.ReferenceId; this.lblUserid = Sessionvalue.UserId; this.lblBranchId = Sessionvalue.BranchId; this.lblUserType = Sessionvalue.UserType; this.lblRefId = Sessionvalue.ReferenceId;
@@ -154,8 +160,15 @@ onClick(event) {
 hide() {       
     this.showModalsave = false;
 }
+hideUnsucess() {
+    alert('k')
+    // this.showModalunsucess = false;
+    // this.btnSecVal=true;
+    // this.btnSecValdisabled=false;
+    }
 
-showModalunsucess: boolean;
+showModalunsucess: boolean;Divmandatemode: boolean;mandatedebit: boolean;mandatenetbank:boolean;
+mandateaadhar:boolean;Div24:boolean;Div23:boolean;
 onClicksucess(event) {
     this.showModalunsucess = true;
     }
@@ -163,6 +176,7 @@ onClicksucess(event) {
     hidesucess() {
     this.showModalunsucess = false;
     }
+   
     get AllFields() { return this.NachMandate.controls; }
     BinddataonPageLoad() {
         this._bankformService.GetCategory().subscribe(
@@ -279,6 +293,7 @@ onClicksucess(event) {
         window.location.reload();
         
     }
+   
     btnBack_Click()
     {  
                 this.Refrence1disabled=false;
@@ -645,6 +660,10 @@ this.divrefrenceNo=true;
         this.editpopmandate=false;
     }
     btnFirstVal_Click(){
+        this.btnFirstValdisabled=true;
+         this.btnSecValdisabled=false; 
+        this.divform=false;
+        this.Preloader=true;
         if (this.Validation()) 
         {            
             var IsFirstValidate = false;
@@ -661,7 +680,8 @@ this.divrefrenceNo=true;
 
                             this._bankformService.UpdateAutoRejectReasonBankValidation( id,this.lblUserid).subscribe(
                             (data) => {
-                              
+                              this.Preloader=false;
+                              this.divform=true;
                                     this.btnscanhalfisDisabled=true;
                                     this.btnscanisDisabled=true;
                                     this.btnmandateprintisDisabled=true;
@@ -691,7 +711,8 @@ this.divrefrenceNo=true;
                             var id=this.mandateId;
                             this._bankformService.UpdateAutoRejectReasonBankValidation( id,this.lblUserid).subscribe(
                                 (data) => {
-                                  
+                                    this.Preloader=false;
+                                    this.divform=true;
                                     this.btnscanhalfisDisabled=true;
                                     this.btnscanisDisabled=true;
                                     this.btnmandateprintisDisabled=true;
@@ -731,53 +752,263 @@ this.divrefrenceNo=true;
                         this._bankformService.UpdateFirst( id,this.lblUserid).subscribe(
                             (data) => 
                             {
+                                this.Preloader=false;
+                                this.divform=true;
                                 console.log(data);
                                 this.savedata6=data.Table6;
                                 this.savedata16=data.Table7;
                                 if(this.savedata6[0].IsNachLive==1)
                                     {
-                                        var IFSCImgCross = <HTMLFormElement>document.getElementById('IFSCImgCross');
-                                        IFSCImgCross.style.display = 'block';
-                                        var IFSCImgTick = <HTMLFormElement>document.getElementById('IFSCImgTick');
-                                        IFSCImgTick.style.display = 'none';
-                                        var NACHTick = <HTMLFormElement>document.getElementById('NACHTick');
-                                        NACHTick.style.display = 'block';
-                                        var NACHCross = <HTMLFormElement>document.getElementById('NACHCross');
-                                        NACHCross.style.display = 'none';
+                                       
+                                        this.IFSCImgCross=true;
+                                        this.IFSCImgTick=false;
+                                        this.NACHTick=true;
+                                        this.NACHCross=false;
                                         document.getElementById('lblbankFullName').innerText=this.savedata6[0].FullBank;
                                         if (this.NachMandate.controls['IFSC'].value != '') 
                                         {
-                                            document.getElementById('lblIFSC').innerText=this.NachMandate.controls['IFSC'].value;
+                                            document.getElementById('lblIFSC').innerText=this.NachMandate.controls['IFSC'].value.toUpperCase();
                                         } 
                                         else 
                                         {
-                                            document.getElementById('lblIFSC').innerText=this.NachMandate.controls['MICR'].value;
+                                            document.getElementById('lblIFSC').innerText=this.NachMandate.controls['MICR'].value.toUpperCase();
                                         }
+                                        var IsENAchLive = '';
+                                        if (1 == 1) 
+                                        {
+            
+                                            IsENAchLive = this.savedata6[0].is_enach_live;
 
                                             var Phone_Number=this.savedata16[0].PhoneNumber;
                                             var emailid= this.savedata16[0].Emailid.trim();           
-                                                                                                 
+                                           
+                                                                                       
                                             
 
                                             if (emailid!="")
                                             { 
-                                                // var imgtickemail=<HTMLFormElement>document.getElementById('imgtickemail');
-                                                // imgtickemail.style.display = 'block';
-                                                // var imgcrossemail=<HTMLFormElement>document.getElementById('imgcrossemail');
-                                                // imgcrossemail.style.display = 'none';
-                                                //document.getElementById("lblemail").innerHTML=emailid;
+                                                this.imgtickemail=true;
+                                                this.imgcrossemail=false;
+                                               // document.getElementById('lblemail').innerText=emailid;
                                             }
                                             if (Phone_Number!="")
                                             {
-                                      
-                                                // var imgtkmobile=<HTMLFormElement>document.getElementById('imgtkmobile');
-                                                // imgtkmobile.style.display = 'block';
-                                                // var imgcrossmobile=<HTMLFormElement>document.getElementById('imgcrossmobile');
-                                                // imgcrossmobile.style.display = 'none';
-                                                //document.getElementById("lblmobile").innerHTML=Phone_Number; 
+                                                this.imgtkmobile=true;
+                                                this.imgcrossmobile=false;
+                                                // document.getElementById('lblmobile').innerText=Phone_Number;
+                                                
                                             }
+                                            this.savedata0=data.Table;
+                                            this.savedata1=data.Table1;
+                                            console.log(this.savedata0=data.Table)
+                                            console.log(this.savedata1=data.Table1)
+                                            if (this.savedata0[0].IFSCResult == 'IFSC' || this.savedata1[0].MICRResult == 'MICR') 
+                                            {
+                                                this.NachMandate.controls['ContentPlaceHolder1_txtcheckifscvalid'].setValue(1) ;                                          
+                                                var isentityaccountvalidation = this.NachMandate.controls['ContentPlaceHolder1_txtentityaccountvalidationflag'].value;
+                                                if (isentityaccountvalidation == "0") 
+                                                {
+                                                    if (this.NachMandate.controls['ContentPlaceHolder1_txtEmandatestatus'].value() == "0") 
+                                                    {
+                                                        this.Divmandatemode=false;
+                                                        this.notacvalrdphysical=false;
+                                                        this.notacvalrdemandate=false;
+                                                        this.debitnetbank=false;
+                                                        this.netbankingshow=false;
+                                                        this.debitbankingshow=false;                                                      
+                                                        this.mandatedebit=false;
+                                                        this.mandatenetbank=false;
+                                                        this.mandateaadhar=false;
+                                                        this.Div23=false;                                                      
+                                                        this.Div24=false;
+                                                        
+                                                        var isphysical = this.NachMandate.controls['ContentPlaceHolder1_txtentitymandatephysical'].value();
+                                                        var isemandate = this.NachMandate.controls['ContentPlaceHolder1_txtentitymandateemandate'].value();
+                                           
+                                            if (isphysical != "0" && isemandate != "0") 
+                                            {
+                                                this.Divmandatemode=true;;
+                                                this.notacvalrdphysical=true;
+                                                this.notacvalrdemandate=true;
+                                                this.physicalcheck=true;
+                                                this.emandatecheck=true;
+                                                this.Div23=true;                                                      
+                                                this.Div24=true;
+                                            }
+                                            if (isphysical == "0" && isemandate != "0") 
+                                            {
+                                                this.Divmandatemode=true;;
+                                                this.notacvalrdphysical=false;;
+                                                this.notacvalrdemandate=true;
+                                                this.physicalcheck=false;;
+                                                this.emandatecheck=true;
+                                                this.Div23=true;                                                      
+                                                this.Div24=true;
+                                                document.getElementById("notacvalrdemandate").setAttribute('checked','true');                                             
+                                            
+                                            }
+                                            if (isphysical != "0" && isemandate == "0") 
+                                            {
+                                                this.Divmandatemode=true;
+                                                this.notacvalrdphysical=true;
+                                                this.notacvalrdemandate=false;                                              
+                                               
+                                                document.getElementById("notacvalrdphysical").setAttribute('checked','true');
+                                                this.physicalcheck=true;
+                                                this.emandatecheck=false;                                                
+                                                  this.btnscanhalf=false;
+                                                  this.btnscan=true;                                               
+                                            }
+                                                      
+                                            //this.checkMandateType(this.savedata16[0].IsPhysical,this.savedata16[0].Enach);      
+                                            }
+                                            else {
+
+                                            this.Divmandatemode=false;
+                                            this.notacvalrdphysical=false;
+                                            this.notacvalrdemandate=false;    
+                                            }
+                                    }
+                                    else if (isentityaccountvalidation == "1") 
+                                    {
+                                        if (this.NachMandate.controls['ContentPlaceHolder1_txtEmandatestatus'].value() == "0") 
+                                        {
+                                           
+                                            this.debitnetbank=false;
+                                            this.netbankingshow=false;
+                                            this.debitbankingshow=false;                                    
+                                            this.mandatedebit=false;
+                                            this.mandatenetbank=false;
+                                            this.mandateaadhar=false;
+                                            this.Divmandatemode=false;
+                                            this.notacvalrdphysical=false;
+                                            this.notacvalrdemandate=false;    
+                                            this.Div23=false;                                                      
+                                            this.Div24=false;
+                                        }
+
+                                    }
+                                   
+                                  
+                                    this.IFSCImgCross=false;
+                                    this.IFSCImgTick=true;
+                                    this.showModalunsucess=true;
+
+                                }
+                                else
+                                {
+                                    this.NachMandate.controls['ContentPlaceHolder1_txtcheckifscvalid'].setValue(0);
+                                    this.btnSavedisabled=true;
+                                    this.btnFirstValdisabled=true;
+                                    this.btnEditDisable=true;
+                                    this.btnEditDisabledisabled=false;
+                                    this.Bankaccountnodisabled=true
+                                    this.Customer2disabled=true;
+                                    this.Customer1disabled=true;                                   
+                                    if(this.NachMandate.controls['Customer2'].value=='')
+                                    {
+                                        this.Customer3disabled=false;
+                                    }
+                                    else{
+                                        this.Customer3disabled=true;
+                                    }
+                                    this.Customer3disabled=true;
+                                    this.IFSCdisabled=true;
+                                    this.MICRdisabled=true;
+                                    this.Reference2codedisabled=true;
+                                    this.Refrence1disabled=true;
+                                    this.Amountrupeesdisabled=true;
+                                    this.Amountcodedisabled=true;
+                                    this.Withbankdisabled=true;
+                                    this.Sponsorcodedisabled=true; 
+                                    this.Emaildisabled=true;
+                                    this.Phonenodisabled=true;
+                                    this.PeriodFromdisabled=true;
+                                    this.UMRNDATEdisabled=true;
+                                    this.Periodtocodedisabled=true;
+                                     
+                                    
+                                    
+                                    if (this.NachMandate.controls['PeriodTo'].value == '') 
+                                    {
+                                        this.NachMandate.controls['Untillcancelled'].setValue(false);
+                                        document.getElementById("chkUntil").classList.add('divDisable');
+                                        document.getElementById("txtTo").classList.remove('divDisable');
+
+                                    } else {
+                                        this.NachMandate.controls['Untillcancelled'].setValue(true);
+                                        document.getElementById("txtTo").classList.add('divDisable');
+                                    }
+                                    document.getElementById("debitto").classList.add('divDisable');
+                                    document.getElementById("frequency").classList.add('divDisable');
+                                    document.getElementById("debittype").classList.add('divDisable');
+
+
+                                    if (this.NachMandate.controls['IFSC'].value != '') {
+
+
+                                        if (this.savedata0[0].IFSCResult == 'No') {
+                                            document.getElementById('txtIFSC').classList.add('validate');
+                                           
+                                            this.NachMandate.controls['IFSC'].value.trim() == "";
+                                            this.IFSCdisabled=true;
+                                            this.MICRdisabled=true;
+                                            
+                                            document.getElementById('txtIFSC').setAttribute("placeholder", "Invalid IFSC!!");
+                                           
+                                            this.showModalunsucess=true;
+                                            
+                                        }
+                                    }
+                                    if (this.NachMandate.controls['MICR'].value != '') {
+                                      
+                                        if (this.savedata1[0].MICRResult == 'No') {
+                                          
+                                            document.getElementById('txtMICR').classList.add('validate');
+                                            this.NachMandate.controls['MICR'].setValue('');
+                                            this.IFSCdisabled=true;
+                                            this.MICRdisabled=true                                         
+                                            document.getElementById('txtMICR').setAttribute("placeholder", "Invalid MICR!!");                                         
                                             this.showModalunsucess=true;
                                         }
+                                    }
+           
+                                }
+                                if(data.Table3.length > 0)
+                                {
+                                    this.savedata3=data.Table3;
+                                    this.NachMandate.controls['Withbank'].setValue(this.savedata3[0].Bank);
+                                    this.Withbankdisabled=true;
+                                }
+                                this.isDisabledback=false;
+                                this.btneditisDisabled=true;
+                                this.isDisabled=false;
+                                
+                                            
+                             }
+                             else {
+
+                                this.NachMandate.controls['IFSC'].setValue('');
+                                this.NachMandate.controls['Withbank'].setValue(0);
+                       
+                              alert('Account can not be validated in real time, try different Bank');
+
+                                this.admin=true;
+                            }
+                        }
+                        else {
+
+
+                           
+                            alert('Bank is not live on NACH');
+                            this.NACHTick=false;
+                            this.NACHCross=true;
+                          
+                           
+
+                            this.admin=true;
+
+                        }
 
                             })
                    
@@ -1005,6 +1236,7 @@ this.divrefrenceNo=true;
              this.NachMandate.controls['ContentPlaceHolder1_txtemandate'].setValue(this.savedata7[0].Enach);
              //this.CheckLogoOrQR(); 
                 }
+                this.savedata2=res.Table2;
                 if(this.savedata2[0].result = -1) {
                     this.message = 'Error';
                     alert(this.message);
