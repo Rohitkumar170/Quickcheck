@@ -572,14 +572,16 @@
                                                         <input name="ctl00$ContentPlaceHolder1$txtphysical" type="text" id="ContentPlaceHolder1_txtphysical" formControlName="ContentPlaceHolder1_txtphysical" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtemandate" type="text" id="ContentPlaceHolder1_txtemandate" formControlName="ContentPlaceHolder1_txtemandate" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtevalidaion" type="text" id="ContentPlaceHolder1_txtevalidaion" class="status-lbl" style="display: none;">
-                                                        <input name="ctl00$ContentPlaceHolder1$txtcheckifscvalid" type="text" id="ContentPlaceHolder1_txtcheckifscvalid" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtcheckifscvalid" type="text" id="ContentPlaceHolder1_txtcheckifscvalid" formControlName="ContentPlaceHolder1_txtcheckifscvalid" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtnetbankinglive" type="text" id="ContentPlaceHolder1_txtnetbankinglive" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtdebitlive" type="text" id="ContentPlaceHolder1_txtdebitlive" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtaadharlive" type="text" id="ContentPlaceHolder1_txtaadharlive" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtcheckflag" type="text" id="ContentPlaceHolder1_txtcheckflag" class="status-lbl" style="display: none;">
-                                                        <input name="ctl00$ContentPlaceHolder1$txtentitymandatephysical" type="text" id="ContentPlaceHolder1_txtentitymandatephysical" class="status-lbl" style="display: none;">
-                                                        <input name="ctl00$ContentPlaceHolder1$txtentitymandateemandate" type="text" id="ContentPlaceHolder1_txtentitymandateemandate" class="status-lbl" style="display: none;">
-                                                        <input name="ctl00$ContentPlaceHolder1$txtentityaccountvalidationflag" type="text" id="ContentPlaceHolder1_txtentityaccountvalidationflag" class="status-lbl" style="display: none;">
+
+                                                        <input name="ctl00$ContentPlaceHolder1$txtentitymandatephysical" type="text" id="ContentPlaceHolder1_txtentitymandatephysical" formControlName="ContentPlaceHolder1_txtentitymandatephysical" class="status-lbl" style="display: none;">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtentitymandateemandate" type="text" id="ContentPlaceHolder1_txtentitymandateemandate" formControlName="ContentPlaceHolder1_txtentitymandateemandate" class="status-lbl" style="display: none;">
+
+                                                        <input name="ctl00$ContentPlaceHolder1$txtentityaccountvalidationflag" type="text" id="ContentPlaceHolder1_txtentityaccountvalidationflag" formControlName="ContentPlaceHolder1_txtentityaccountvalidationflag" class="status-lbl" style="display: none;">
                                                         <input name="ctl00$ContentPlaceHolder1$txtEmandatestatus" type="text" id="ContentPlaceHolder1_txtEmandatestatus" formControlName="ContentPlaceHolder1_txtEmandatestatus" class="status-lbl" style="display: none;">
                                                         <label id="lblActivityId" class="status-lbl" style="display: none;">
                                                         </label>
@@ -602,7 +604,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-sm-9 col-md-10 col-xs-9 ">
-                                                                    <select class=" col-sm-12 col-md-12 col-xs-12 " formControlName="Withbank" [ngClass]="displayFieldCss('Withbank')" [attr.disabled]="Withbankdisabled ? '' : null">
+                                                                    <select class=" col-sm-12 col-md-12 col-xs-12 "  formControlName="Withbank" [ngClass]="displayFieldCss('Withbank')" [attr.disabled]="Withbankdisabled ? '' : null">
                                                                         <option value="" selected>Select</option>
                                                                         <option *ngFor="let WithBank of Table2" value={{WithBank.name}}>{{WithBank.name}}</option>
                                                                     </select>
@@ -2336,8 +2338,8 @@
                                 id="lblIFSC">
                             </label>
                             <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
-                                <img id="IFSCImgTick" src="../../assets/images/tick-icon.png" />
-                                <img id="IFSCImgCross" src="../../assets/images/Cross-icon.png" />
+                                <img id="IFSCImgTick" src="../../assets/images/tick-icon.png" *ngIf="IFSCImgTick" />
+                                <img id="IFSCImgCross" src="../../assets/images/Cross-icon.png" *ngIf="IFSCImgCross" />
                             </div>
                         </div>
                     </div>
@@ -2349,12 +2351,12 @@
                             <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2">
                             </label>
                             <div class="col-sm-1 col-xs-1 col-md-1 no-padding">
-                                <img id="NACHTick" src="../../assets/images/tick-icon.png" />
-                                <img id="NACHCross" src="../../assets/images/Cross-icon.png" />
+                                <img id="NACHTick" src="../../assets/images/tick-icon.png"  *ngIf="NACHTick"/>
+                                <img id="NACHCross" src="../../assets/images/Cross-icon.png" *ngIf="NACHCross"/>
                             </div>
                         </div>
                     </div>
-                        <div class="form-group ifscbg" id="mandatedebit" style="display: block;">
+                        <div class="form-group ifscbg" id="mandatedebit" [style.display]="mandatedebit ? 'block' : 'none'">
                                 <div class="row">
                             <label class="col-sm-3 col-xs-4 col-md-3  amarlabel" style="padding-left:17px">
                                 Debit Card:
@@ -2367,7 +2369,7 @@
                             </div>
                         </div>
                     </div>
-                        <div class="form-group ifscbg" id="mandatenetbank" style="display: block;">
+                        <div class="form-group ifscbg" id="mandatenetbank" [style.display]="mandatenetbank ? 'block' : 'none'">
                                 <div class="row">
                             <label class="col-sm-3 col-xs-4 col-md-3  amarlabel" style="padding-left:17px">
                                 Net Banking:
@@ -2380,7 +2382,7 @@
                             </div>
                         </div>
                     </div>
-                        <div class="form-group ifscbg" id="mandateaadhar" style="display: block;">
+                        <div class="form-group ifscbg" id="mandateaadhar" [style.display]="mandateaadhar ? 'block' : 'none'">
                                 <div class="row">
                             <label class="col-sm-3 col-xs-4 col-md-3  amarlabel" style="padding-left: 17px">
                                 Aadhar Card:</label>
@@ -2392,24 +2394,24 @@
                             </div>
                         </div>
                     </div>
-                          <div class="form-group bankbg" id="Div23" style="display:block;">
+                          <div class="form-group bankbg" id="Div23" [style.display]="Div23 ? 'block' : 'none'">
                                 <div class="row">
                         <label class="col-sm-4 col-xs-4 col-md-3  amarlabel"  style="padding-left: 17px" >
                             Mobile No.:</label>
-                        <!-- <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2" style="font-weight:normal"  id="lblmobile">
-                        </label> -->
+                        <label class="col-sm-8 col-xs-7 col-md-8 no-padding control-label" for="form-field-2" style="font-weight:normal"  id="lblmobile">
+                        </label>
                         <input type="text" id="txtmobileemandate" maxlength="10" class="col-sm-5 col-xs-5 col-md-8" style="display:block" />
                         <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
-                            <i class="fa fa-check-square"></i>
-                                    <i class="fa fa-check-square"></i>
-                            <!-- <img id="imgtkmobile" src="../../assets/images/tick-icon.png" style="display:block"/>
-                            <img id="imgcrossmobile" src="../../assets/images/Cross-icon.png" style="width: 40%;" />
+                            <!-- <i class="fa fa-check-square"></i>
+                                    <i class="fa fa-check-square"></i> -->
+                             <img id="imgtkmobile" src="../../assets/images/tick-icon.png" *ngIf="imgtkmobile"/>
+                            <img id="imgcrossmobile" src="../../assets/images/Cross-icon.png" style="width: 40%;" *ngIf="imgcrossmobile"/>
                             <i class="fa fa-pencil-square-o" id="imobileedit" aria-hidden="true" style=" vertical-align: bottom; font-size: 17px; margin:0px 0 6px 2px; color: #1f497d;" onclick="editmobile()"></i>
-                            <i class="fa fa-refresh" aria-hidden="true"></i> -->
+                            <!--<i class="fa fa-refresh" aria-hidden="true"></i> -->
                         </div>
                                 </div>
                     </div>
-                      <div class="form-group bankbg" id="Div24" style="display:block">
+                      <div class="form-group bankbg" id="Div24" [style.display]="Div24 ? 'block' : 'none'">
                             <div class="row">
                         <label class="col-sm-4 col-xs-4 col-md-3  amarlabel" style="padding-left: 17px">
                             Email ID:</label>
@@ -2417,31 +2419,31 @@
                         </label> -->
                         <input type="text" id="txtemailemandate" class="col-sm-5 col-xs-5 col-md-8" style="display:block" />
                         <div class="col-sm-1 col-xs-1 col-md-1 no-padding pull-right">
-                            <i class="fa fa-check-square"></i>
-                                    <i class="fa fa-check-square"></i>
-                            <!-- <img id="imgtickemail" style="display:block" src="../../assets/images/tick-icon.png" />
-                            <img id="imgcrossemail" src="../../assets/images/Cross-icon.png" style="width: 40%;" />
+                            <!-- <i class="fa fa-check-square"></i>
+                                    <i class="fa fa-check-square"></i> -->
+                            <img id="imgtickemail"  src="../../assets/images/tick-icon.png" *ngIf="imgtickemail"/>
+                            <img id="imgcrossemail" src="../../assets/images/Cross-icon.png" style="width: 40%;" *ngIf="imgcrossemail"/>
                             <i class="fa fa-pencil-square-o" id="iemailedit"  aria-hidden="true" style="vertical-align: bottom; font-size: 17px; margin:0px 0 6px 2px; color: #1f497d; " onclick="editemail()"></i>
-                           <i class="fa fa-refresh" aria-hidden="true"></i> -->
+                           <!-- <i class="fa fa-refresh" aria-hidden="true"></i> -->
                         </div>
                     </div>
                 </div>
         
                        <label class="col-md-12 message-text no-padding" style="display: block;" id="lblemailwarn" style="margin-top:5px;">Please provide either Mobile No. or Email ID</label>
                         
-                        <div id="Divmandatemode" style="display: block" class="form-group">
+                        <div id="Divmandatemode" [style.display]="Divmandatemode ? 'block' : 'none'" class="form-group">
                             <div class="row">
                             <label class="col-sm-5 col-xs-5 col-md-3 amarlabel" style="padding-left:17px;">
                                 Mandate Mode:</label>
                             <div id="Divemandate" class="col-sm-7 col-xs-7 col-md-8  radio ">
                                 <div class="row">
-                                <label id="physicalcheck" style="display: block" class="lblradiobtnss col-md-4 col-sm-2 col-xs-2 no-padding">
-                                    <input id="notacvalrdphysical" style="display: block" name="notacvalrbnetbanking"
+                                <label id="physicalcheck" *ngIf="physicalcheck" class="lblradiobtnss col-md-4 col-sm-2 col-xs-2 no-padding">
+                                    <input id="notacvalrdphysical" *ngIf="notacvalrdphysical" name="notacvalrbnetbanking"
                                         value="P" type="radio" />
                                     <span>Physical</span>
                                 </label>
-                                <label id="emandatecheck" style="display: block" class="lblradiobtnss col-md-4 col-sm-5 col-xs-4 no-padding">
-                                    <input id="notacvalrdemandate" style="display: block" name="notacvalrbnetbanking"
+                                <label id="emandatecheck" *ngIf="emandatecheck" class="lblradiobtnss col-md-4 col-sm-5 col-xs-4 no-padding">
+                                    <input id="notacvalrdemandate" *ngIf="notacvalrdemandate" name="notacvalrbnetbanking"
                                         value="E" type="radio"  />
                                     <span>E-Mandate</span>
                                 </label>
@@ -2515,7 +2517,7 @@
                 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" >OK</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
                 </div>
                 
                 </div>
