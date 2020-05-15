@@ -1,0 +1,20 @@
+<form  [formGroup]="LoginForm" autocomplete="off"   class="form" >
+<div id="login-box" >        
+  <h1> Login </h1>
+  <div class="inset">
+      <p >
+           <label for="email"> </label>
+          <input  name="UserName" type="text" class="form-control inputbox" formControlName="UserName"  placeholder="" />
+      </p>
+      <p >      
+          <label for="password"> Password </label>
+          <input [ngClass]="displayFieldCss('Password')" name="Password" type="password" class="form-control inputbox" formControlName="Password"  placeholder="" />
+       </p>
+       <p >      
+        <label for="User"> User </label>
+        <input name="User" type="text" class="form-control inputbox" formControlName="User"  placeholder="" />
+     </p>
+     <input type="submit" value="Secure Login" [disabled]="btnloginDisabled"  class="loginbtn">
+  </div>  
+</div>
+</form>

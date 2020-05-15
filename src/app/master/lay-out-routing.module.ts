@@ -14,6 +14,7 @@ const routes: Routes = [
         path: '',
         component: MainLayoutComponent,
         children: [
+            { path: 'Test', loadChildren:'./test/test.module#TestModule',canActivate: [AuthGuardService] },
             { path: 'user', loadChildren: './user/user.module#UserModule',canActivate: [AuthGuardService] },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuardService] },
             { path: 'NachMandate', loadChildren: './nach-mandate/nachmandate.module#NachmandateModule', canActivate: [AuthGuardService] },
